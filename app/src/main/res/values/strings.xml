@@ -1,3 +1,22 @@
 <resources>
+
+    <!--Application Specific-->
     <string name="app_name">Music App</string>
+    <string name="no_internet_message">No internet connection!</string>
+    <string name="something_went_wrong_message">Oops! something went wrong. Please try again later.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">OK</string>
+
+    <!--Welcome Activity-->
+    <string name="select_user_type">Select User Type</string>
+    <string name="select_user">Select User</string>
+    <string name="enter_area_pin_code">Enter area Pin Code</string>
+    <array name="usersArray">
+        <item>@string/trainer</item>
+        <item>@string/student</item>
+    </array>
+    <string name="trainer">Trainer</string>
+    <string name="student">Student</string>
+
 </resources>

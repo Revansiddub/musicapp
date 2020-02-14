@@ -77,4 +77,10 @@ dependencies {
 
     /*Circular Image View Library*/
     implementation 'de.hdodenhof:circleimageview:3.0.2'
+
+    /*Material Spinner Library*/
+    implementation 'com.github.ganfra:material-spinner:2.0.0'
+
+    /*Pin View OTP Library*/
+    implementation 'com.github.aabhasr1:OtpView:1.0.0'
 }

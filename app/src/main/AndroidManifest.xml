@@ -40,6 +40,11 @@
             </intent-filter>
         </activity>
 
+        <!--Welcome Screen-->
+        <activity
+            android:name=".modules.welcome.WelcomeActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

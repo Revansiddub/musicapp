@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.splash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -7,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.modules.welcome.WelcomeActivity;
 
 import static com.gsatechworld.musicapp.utilities.Constants.SPLASH_SCREEN_TIME;
 
@@ -34,5 +36,7 @@ public class SplashActivity extends BaseActivity {
      * This method is invoked to check whether user is logged in or not and open screen accordingly.
      */
     private void openScreens() {
+        startActivity(new Intent(this, WelcomeActivity.class));
+        finish();
     }
 }
