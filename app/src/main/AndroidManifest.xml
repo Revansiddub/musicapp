@@ -45,6 +45,11 @@
             android:name=".modules.welcome.WelcomeActivity"
             android:screenOrientation="portrait" />
 
+        <!--Select Category Screen-->
+        <activity
+            android:name=".modules.select_category.SelectCategoryActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

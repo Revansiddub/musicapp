@@ -6,6 +6,9 @@ public final class Constants {
      * Intent Keys
      * ------------------------------------------------------------- */
 
+    public static final String USER_TYPE = "userType";
+    public static final String PIN_CODE = "pinCode";
+
     /* ------------------------------------------------------------- *
      * Fragment Tags
      * ------------------------------------------------------------- */
@@ -17,6 +20,8 @@ public final class Constants {
     public static final int SPLASH_SCREEN_TIME = 3 * 1000;
     public static final int MOBILE_NUMBER_LENGTH = 10;
     public static final int OTP_MAX_LENGTH = 4;
+    public static final String TRAINER = "Trainer";
+    public static final String STUDENT = "Student";
 
     /* ------------------------------------------------------------- *
      * Network Call Keys

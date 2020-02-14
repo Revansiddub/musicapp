@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.welcome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,11 +12,15 @@ import androidx.databinding.DataBindingUtil;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityWelcomeBinding;
+import com.gsatechworld.musicapp.modules.select_category.SelectCategoryActivity;
 
 import in.aabhasjindal.otptextview.OTPListener;
 
 import static android.R.layout.simple_spinner_dropdown_item;
 import static android.R.layout.simple_spinner_item;
+import static android.view.View.VISIBLE;
+import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
+import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
 
 public class WelcomeActivity extends BaseActivity implements OnItemSelectedListener,
         OTPListener {
@@ -46,8 +51,8 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
 
         /*Setting listeners to the views*/
         binding.spinnerUserType.setOnItemSelectedListener(this);
-        binding.otpTextView.requestFocusOTP();
-        binding.otpTextView.setOtpListener(this);
+        binding.viewPinCode.requestFocusOTP();
+        binding.viewPinCode.setOtpListener(this);
     }
 
     /* ------------------------------------------------------------- *
@@ -58,6 +63,9 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position != -1) {
             userType = usersArray[position];
+
+            /*Displaying a view where user can enter his/her area pin code*/
+            binding.layoutPinCode.setVisibility(VISIBLE);
         }
     }
 
@@ -73,6 +81,8 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
     @Override
     public void onOTPComplete(String pinCode) {
         this.pinCode = pinCode;
+
+        checkAvailability();
     }
 
     /* ------------------------------------------------------------- *
@@ -85,10 +95,21 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
     private void initialiseSpinner() {
         usersArray = getResources().getStringArray(R.array.usersArray);
 
-        ArrayAdapter<String> daysAdapter = new ArrayAdapter<>(this, simple_spinner_item,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, simple_spinner_item,
                 usersArray);
-        daysAdapter.setDropDownViewResource(simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(simple_spinner_dropdown_item);
 
-        binding.spinnerUserType.setAdapter(daysAdapter);
+        binding.spinnerUserType.setAdapter(adapter);
+    }
+
+    /**
+     * This method is invoked to check availability of service in entered area
+     * based on selected user type.
+     */
+    private void checkAvailability() {
+        Intent intent = new Intent(this, SelectCategoryActivity.class);
+        intent.putExtra(USER_TYPE, userType);
+        intent.putExtra(PIN_CODE, pinCode);
+        startActivity(intent);
     }
 }

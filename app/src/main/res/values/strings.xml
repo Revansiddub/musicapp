@@ -19,4 +19,9 @@
     <string name="trainer">Trainer</string>
     <string name="student">Student</string>
 
+    <!--Select Category Activity-->
+    <string name="select_category">Select Category</string>
+    <string name="select_trainer">Select Trainer</string>
+    <string name="search_here">Search here</string>
+
 </resources>
