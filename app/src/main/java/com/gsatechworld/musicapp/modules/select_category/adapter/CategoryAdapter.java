@@ -1,6 +1,7 @@
 package com.gsatechworld.musicapp.modules.select_category.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutCategoryBinding;
+import com.gsatechworld.musicapp.modules.details.DetailsActivity;
 import com.gsatechworld.musicapp.modules.select_category.pojo.Category;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
 
     private Context mCtx;
     private List<Category> categoryList;
-    private List<Category> searchaleCategoryList;
+    private List<Category> searchableCategoryList;
 
     /* ------------------------------------------------------------- *
      * Constructor
@@ -37,7 +39,7 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
     public CategoryAdapter(Context mCtx, List<Category> categoryList) {
         this.mCtx = mCtx;
         this.categoryList = categoryList;
-        searchaleCategoryList = new ArrayList<>(categoryList);
+        searchableCategoryList = new ArrayList<>(categoryList);
     }
 
     /* ------------------------------------------------------------- *
@@ -77,9 +79,9 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
         categoryList.clear();
 
         if (charText.length() == 0)
-            categoryList.addAll(searchaleCategoryList);
+            categoryList.addAll(searchableCategoryList);
         else
-            for (Category category : searchaleCategoryList)
+            for (Category category : searchableCategoryList)
                 if (category.getCategoryName().toLowerCase().contains(charText.toLowerCase()))
                     categoryList.add(category);
 
@@ -118,7 +120,8 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.layoutCategory) {
-
+                Intent intent = new Intent(mCtx, DetailsActivity.class);
+                mCtx.startActivity(intent);
             }
         }
     }

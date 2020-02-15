@@ -66,6 +66,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
 
             /*Displaying a view where user can enter his/her area pin code*/
             binding.layoutPinCode.setVisibility(VISIBLE);
+            showKeyboard();
         }
     }
 
@@ -82,6 +83,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
     public void onOTPComplete(String pinCode) {
         this.pinCode = pinCode;
 
+        hideKeyboard(this);
         checkAvailability();
     }
 

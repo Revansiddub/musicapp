@@ -31,7 +31,6 @@
             android:layout_marginStart="@dimen/size_30dp"
             android:layout_marginTop="@dimen/size_5dp"
             android:layout_marginEnd="@dimen/size_20dp"
-            android:text=""
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_15sp"
             android:textStyle="italic"

@@ -24,4 +24,17 @@
     <string name="select_trainer">Select Trainer</string>
     <string name="search_here">Search here</string>
 
+    <!--Enter Details Activity-->
+    <string name="coaching_type">Coaching Type</string>
+    <string name="home">Home</string>
+    <string name="institute">Institute</string>
+    <string name="address">Address</string>
+    <string name="charges">Charges</string>
+    <string name="recurrence_type">Recurrence Type</string>
+    <string name="daily">Daily</string>
+    <string name="biweekly">Biweekly</string>
+    <string name="weekly">Weekly</string>
+    <string name="upload_documents">Upload Documents</string>
+    <string name="submit">Submit</string>
+
 </resources>
