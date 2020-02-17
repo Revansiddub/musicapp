@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".modules.details.personal_details.PersonalDetailsFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutPersonalDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/editFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_30dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:layout_marginEnd="@dimen/size_30dp"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:hint="@string/full_name"
+                android:inputType="textCapWords"
+                android:textSize="@dimen/size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:met_errorColor="@android:color/holo_red_light"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelTextColor="@color/black"
+                app:met_primaryColor="@color/colorPrimary"
+                app:met_textColor="@color/colorAccent"
+                app:met_textColorHint="@color/md_grey_500"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:text="@string/gender"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editFullName" />
+
+            <TextView
+                android:id="@+id/textMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:background="@drawable/button_rectangle_unselected"
+                android:drawableStart="@drawable/icon_male"
+                android:drawablePadding="@dimen/size_10dp"
+                android:drawableTint="@color/md_grey_500"
+                android:padding="@dimen/size_10dp"
+                android:text="@string/male"
+                android:textColor="@color/md_grey_500"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/textFemale"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textGender"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:background="@drawable/button_rectangle_unselected"
+                android:drawableStart="@drawable/icon_female"
+                android:drawablePadding="@dimen/size_10dp"
+                android:drawableTint="@color/md_grey_500"
+                android:padding="@dimen/size_10dp"
+                android:text="@string/female"
+                android:textColor="@color/md_grey_500"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textMale"
+                app:layout_constraintTop_toBottomOf="@id/textGender"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textUploadDocuments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:text="@string/upload_documents"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textMale" />
+
+            <TextView
+                android:id="@+id/textHighestDegree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_40dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:drawableStart="@drawable/icon_dot"
+                android:drawablePadding="@dimen/size_5dp"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:text="@string/highest_degree"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textUploadDocuments"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageView
+                android:id="@+id/imageHighestDegree"
+                android:layout_width="@dimen/size_100dp"
+                android:layout_height="@dimen/size_120dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_frame"
+                app:layout_constraintStart_toStartOf="@id/textHighestDegree"
+                app:layout_constraintTop_toBottomOf="@+id/textHighestDegree"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textGovtID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_40dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:drawableStart="@drawable/icon_dot"
+                android:drawablePadding="@dimen/size_5dp"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:text="@string/government_issued_id"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageHighestDegree"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageView
+                android:id="@+id/imageGovtIDFront"
+                android:layout_width="@dimen/size_100dp"
+                android:layout_height="@dimen/size_120dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_frame"
+                app:layout_constraintStart_toStartOf="@id/textGovtID"
+                app:layout_constraintTop_toBottomOf="@+id/textGovtID"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textGovtIDFront"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:text="@string/front"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintStart_toStartOf="@id/imageGovtIDFront"
+                app:layout_constraintTop_toBottomOf="@+id/imageGovtIDFront"
+                app:layout_constraintEnd_toEndOf="@+id/imageGovtIDFront"
+                android:textStyle="bold"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageView
+                android:id="@+id/imageGovtIDBack"
+                android:layout_width="@dimen/size_100dp"
+                android:layout_height="@dimen/size_120dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_frame"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageGovtIDFront"
+                app:layout_constraintTop_toBottomOf="@+id/textGovtID"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textGovtIDBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:text="@string/back"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintStart_toStartOf="@id/imageGovtIDBack"
+                app:layout_constraintTop_toBottomOf="@+id/imageGovtIDBack"
+                app:layout_constraintEnd_toEndOf="@+id/imageGovtIDBack"
+                android:textStyle="bold"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textAddressProof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_40dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:drawableStart="@drawable/icon_dot"
+                android:drawablePadding="@dimen/size_5dp"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:text="@string/address_proof"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textGovtIDFront"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageView
+                android:id="@+id/imageAddressProofFront"
+                android:layout_width="@dimen/size_100dp"
+                android:layout_height="@dimen/size_120dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_frame"
+                app:layout_constraintStart_toStartOf="@id/textAddressProof"
+                app:layout_constraintTop_toBottomOf="@+id/textAddressProof"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textAddressProofFront"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:text="@string/front"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintStart_toStartOf="@id/imageAddressProofFront"
+                app:layout_constraintTop_toBottomOf="@+id/imageAddressProofFront"
+                app:layout_constraintEnd_toEndOf="@+id/imageAddressProofFront"
+                android:textStyle="bold"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageView
+                android:id="@+id/imageAddressProofBack"
+                android:layout_width="@dimen/size_100dp"
+                android:layout_height="@dimen/size_120dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_frame"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageAddressProofFront"
+                app:layout_constraintTop_toBottomOf="@+id/textAddressProof"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textAddressProofBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:text="@string/back"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintStart_toStartOf="@id/imageAddressProofBack"
+                app:layout_constraintTop_toBottomOf="@+id/imageAddressProofBack"
+                app:layout_constraintEnd_toEndOf="@+id/imageAddressProofBack"
+                android:textStyle="bold"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textExpertiseDocument"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_40dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:drawableStart="@drawable/icon_dot"
+                android:drawablePadding="@dimen/size_5dp"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:text="@string/relevant_category_expertise_document"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textAddressProofFront"
+                tools:ignore="UnusedAttribute" />
+
+            <ImageView
+                android:id="@+id/imageExpertiseDocument"
+                android:layout_width="@dimen/size_100dp"
+                android:layout_height="@dimen/size_120dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_frame"
+                app:layout_constraintStart_toStartOf="@id/textExpertiseDocument"
+                app:layout_constraintTop_toBottomOf="@+id/textExpertiseDocument"
+                tools:ignore="ContentDescription" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageExpertiseDocument" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

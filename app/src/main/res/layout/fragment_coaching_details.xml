@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".modules.details.coaching_details.CoachingDetailsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutCoachingDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textCoachingType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:text="@string/coaching_type"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/size_20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:background="@drawable/button_rectangle_unselected"
+            android:drawableStart="@drawable/icon_home"
+            android:drawablePadding="@dimen/size_10dp"
+            android:drawableTint="@color/md_grey_500"
+            android:padding="@dimen/size_10dp"
+            android:text="@string/home"
+            android:textColor="@color/md_grey_500"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/textInstitute"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textCoachingType"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/textInstitute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:background="@drawable/button_rectangle_unselected"
+            android:drawableStart="@drawable/icon_institute"
+            android:drawablePadding="@dimen/size_10dp"
+            android:drawableTint="@color/md_grey_500"
+            android:padding="@dimen/size_10dp"
+            android:text="@string/institute"
+            android:textColor="@color/md_grey_500"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textHome"
+            app:layout_constraintTop_toBottomOf="@id/textCoachingType"
+            tools:ignore="UnusedAttribute" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_30dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:hint="@string/address"
+            android:inputType="textCapWords"
+            android:textSize="@dimen/size_15sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textHome"
+            app:met_errorColor="@android:color/holo_red_light"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelTextColor="@color/black"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_textColor="@color/colorAccent"
+            app:met_textColorHint="@color/md_grey_500"
+            tools:ignore="UnusedAttribute" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editCharges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:layout_marginEnd="@dimen/size_30dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:hint="@string/charges"
+            android:inputType="number"
+            android:maxLength="5"
+            android:textSize="@dimen/size_15sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editAddress"
+            app:met_errorColor="@android:color/holo_red_light"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelTextColor="@color/black"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_textColor="@color/colorAccent"
+            app:met_textColorHint="@color/md_grey_500"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/textRecurrenceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:text="@string/recurrence_type"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/size_20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editCharges" />
+
+        <TextView
+            android:id="@+id/textDaily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:background="@drawable/button_rectangle_unselected"
+            android:padding="@dimen/size_10dp"
+            android:text="@string/daily"
+            android:textColor="@color/md_grey_500"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/textBiweekly"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textRecurrenceType"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/textBiweekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:background="@drawable/button_rectangle_unselected"
+            android:padding="@dimen/size_10dp"
+            android:text="@string/biweekly"
+            android:textColor="@color/md_grey_500"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textWeekly"
+            app:layout_constraintStart_toEndOf="@id/textDaily"
+            app:layout_constraintTop_toBottomOf="@id/textRecurrenceType"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/textWeekly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:background="@drawable/button_rectangle_unselected"
+            android:padding="@dimen/size_10dp"
+            android:text="@string/weekly"
+            android:textColor="@color/md_grey_500"
+            android:textSize="@dimen/size_17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textBiweekly"
+            app:layout_constraintTop_toBottomOf="@id/textRecurrenceType"
+            tools:ignore="UnusedAttribute" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

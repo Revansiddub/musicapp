@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".modules.login.LoginActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/appLogo"
+            android:layout_width="@dimen/size_90dp"
+            android:layout_height="@dimen/size_90dp"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:layout_marginTop="@dimen/size_50dp"
+            android:elevation="@dimen/size_10dp"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintBottom_toTopOf="@id/editUserName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:elevation="@dimen/size_10dp"
+            android:text="Music\n   App"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/appLogo"
+            app:layout_constraintStart_toEndOf="@id/appLogo"
+            app:layout_constraintTop_toTopOf="@id/appLogo" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_30dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:hint="@string/username"
+            android:inputType="textCapWords"
+            android:textSize="@dimen/size_15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:met_errorColor="@android:color/holo_red_light"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelTextColor="@color/white"
+            app:met_primaryColor="@color/white"
+            app:met_textColor="@color/white"
+            app:met_textColorHint="@color/white"
+            tools:ignore="UnusedAttribute" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:layout_marginEnd="@dimen/size_30dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textSize="@dimen/size_15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editUserName"
+            app:met_errorColor="@android:color/holo_red_light"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelTextColor="@color/white"
+            app:met_primaryColor="@color/white"
+            app:met_textColor="@color/white"
+            app:met_textColorHint="@color/white"
+            tools:ignore="UnusedAttribute" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="@dimen/size_250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded"
+            android:backgroundTint="@color/white"
+            android:elevation="@dimen/size_10dp"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editPassword"
+            app:layout_constraintVertical_bias="0.4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
