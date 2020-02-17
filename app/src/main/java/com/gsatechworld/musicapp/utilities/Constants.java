@@ -24,6 +24,12 @@ public final class Constants {
     public static final String STUDENT = "Student";
     public static final String MALE = "male";
     public static final String FEMALE = "female";
+    public static final String HIGHEST_DEGREE = "highestDegree";
+    public static final String GOVT_ID_FRONT = "govtIdFront";
+    public static final String GOVT_ID_BACK = "govtIdBack";
+    public static final String ADDRESS_PROOF_FRONT = "addressProofFront";
+    public static final String ADDRESS_PROOF_BACK = "addressProofBack";
+    public static final String EXPERTISE_DOCUMENT = "expertiseDocument";
 
     /* ------------------------------------------------------------- *
      * Network Call Keys

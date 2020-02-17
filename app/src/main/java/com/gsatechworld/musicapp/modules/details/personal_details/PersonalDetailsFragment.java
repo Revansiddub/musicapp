@@ -14,7 +14,13 @@ import com.gsatechworld.musicapp.databinding.FragmentPersonalDetailsBinding;
 
 import static android.os.Build.VERSION_CODES.M;
 import static androidx.databinding.DataBindingUtil.inflate;
+import static com.gsatechworld.musicapp.utilities.Constants.ADDRESS_PROOF_BACK;
+import static com.gsatechworld.musicapp.utilities.Constants.ADDRESS_PROOF_FRONT;
+import static com.gsatechworld.musicapp.utilities.Constants.EXPERTISE_DOCUMENT;
 import static com.gsatechworld.musicapp.utilities.Constants.FEMALE;
+import static com.gsatechworld.musicapp.utilities.Constants.GOVT_ID_BACK;
+import static com.gsatechworld.musicapp.utilities.Constants.GOVT_ID_FRONT;
+import static com.gsatechworld.musicapp.utilities.Constants.HIGHEST_DEGREE;
 import static com.gsatechworld.musicapp.utilities.Constants.MALE;
 import static java.util.Objects.requireNonNull;
 
@@ -25,7 +31,7 @@ public class PersonalDetailsFragment extends Fragment implements View.OnClickLis
      * ------------------------------------------------------------- */
 
     private FragmentPersonalDetailsBinding binding;
-    private String gender;
+    private String gender, uploadType;
 
     /* ------------------------------------------------------------- *
      * Overriding Fragment Methods
@@ -40,6 +46,12 @@ public class PersonalDetailsFragment extends Fragment implements View.OnClickLis
         /*Setting listeners to the views*/
         binding.textMale.setOnClickListener(this);
         binding.textFemale.setOnClickListener(this);
+        binding.imageHighestDegree.setOnClickListener(this);
+        binding.imageGovtIDFront.setOnClickListener(this);
+        binding.imageGovtIDBack.setOnClickListener(this);
+        binding.imageAddressProofFront.setOnClickListener(this);
+        binding.imageAddressProofBack.setOnClickListener(this);
+        binding.imageExpertiseDocument.setOnClickListener(this);
 
         return binding.getRoot();
     }
@@ -81,6 +93,24 @@ public class PersonalDetailsFragment extends Fragment implements View.OnClickLis
                         .getDrawable(R.drawable.button_rectangle_unselected));
 
                 gender = FEMALE;
+                break;
+            case R.id.imageHighestDegree:
+                uploadType = HIGHEST_DEGREE;
+                break;
+            case R.id.imageGovtIDFront:
+                uploadType = GOVT_ID_FRONT;
+                break;
+            case R.id.imageGovtIDBack:
+                uploadType = GOVT_ID_BACK;
+                break;
+            case R.id.imageAddressProofFront:
+                uploadType = ADDRESS_PROOF_FRONT;
+                break;
+            case R.id.imageAddressProofBack:
+                uploadType = ADDRESS_PROOF_BACK;
+                break;
+            case R.id.imageExpertiseDocument:
+                uploadType = EXPERTISE_DOCUMENT;
                 break;
         }
     }
