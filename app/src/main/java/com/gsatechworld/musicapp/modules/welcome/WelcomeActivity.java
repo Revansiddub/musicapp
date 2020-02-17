@@ -3,6 +3,7 @@ package com.gsatechworld.musicapp.modules.welcome;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityWelcomeBinding;
+import com.gsatechworld.musicapp.modules.login.LoginActivity;
 import com.gsatechworld.musicapp.modules.select_category.SelectCategoryActivity;
 
 import in.aabhasjindal.otptextview.OTPListener;
@@ -23,7 +25,7 @@ import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
 
 public class WelcomeActivity extends BaseActivity implements OnItemSelectedListener,
-        OTPListener {
+        OTPListener, OnClickListener {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -53,6 +55,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
         binding.spinnerUserType.setOnItemSelectedListener(this);
         binding.viewPinCode.requestFocusOTP();
         binding.viewPinCode.setOtpListener(this);
+        binding.textLogin.setOnClickListener(this);
     }
 
     /* ------------------------------------------------------------- *
@@ -85,6 +88,17 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
 
         hideKeyboard(this);
         checkAvailability();
+    }
+
+    /* ------------------------------------------------------------- *
+     * Overriding OnClickListener Method
+     * ------------------------------------------------------------- */
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.textLogin) {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
     }
 
     /* ------------------------------------------------------------- *

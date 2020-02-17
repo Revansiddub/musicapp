@@ -50,8 +50,14 @@
             android:name=".modules.select_category.SelectCategoryActivity"
             android:screenOrientation="portrait" />
 
+        <!--Details Screen-->
         <activity
             android:name=".modules.details.DetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <!--Login Screen-->
+        <activity
+            android:name=".modules.login.LoginActivity"
             android:screenOrientation="portrait" />
 
     </application>

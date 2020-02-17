@@ -101,17 +101,29 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/imageAnimationTwo"
+            android:id="@+id/imageAnimation"
             android:layout_width="@dimen/size_300dp"
             android:layout_height="@dimen/size_200dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textLogin"
             app:layout_constraintStart_toStartOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/lady_guitar_player" />
+
+        <TextView
+            android:id="@+id/textLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_15dp"
+            android:text="@string/login_message"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/size_18sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
