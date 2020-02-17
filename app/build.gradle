@@ -83,4 +83,7 @@ dependencies {
 
     /*Pin View OTP Library*/
     implementation 'com.github.aabhasr1:OtpView:1.0.0'
+
+    /*Calendar View Library*/
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
 }
