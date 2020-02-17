@@ -15,9 +15,12 @@ import androidx.databinding.DataBindingUtil;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityDetailsBinding;
+import com.gsatechworld.musicapp.modules.details.adapter.ViewPagerAdapter;
+import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
+import com.gsatechworld.musicapp.modules.details.personal_details.PersonalDetailsFragment;
 
 import static android.graphics.Color.TRANSPARENT;
-import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static android.view.Window.FEATURE_NO_TITLE;
 import static java.util.Objects.requireNonNull;
@@ -29,13 +32,12 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
      * ------------------------------------------------------------- */
 
     private ActivityDetailsBinding binding;
-    private boolean isHomeSelected, isInstituteSelected, isDailySelected, isBiweeklySelected,
-            isWeeklySelected;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
      * ------------------------------------------------------------- */
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +50,16 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        /*Setting Adapter to view pager*/
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new CoachingDetailsFragment(), getString(R.string.coaching_details));
+        adapter.addFrag(new PersonalDetailsFragment(), getString(R.string.personal_details));
+        binding.viewPager.setAdapter(adapter);
+
         /*Setting listeners to the views*/
-        binding.textHome.setOnClickListener(this);
-        binding.textInstitute.setOnClickListener(this);
-        binding.textDaily.setOnClickListener(this);
-        binding.textBiweekly.setOnClickListener(this);
-        binding.textWeekly.setOnClickListener(this);
         binding.buttonSubmit.setOnClickListener(this);
+        binding.imageBack.setOnClickListener(this);
+        binding.viewPager.setOnTouchListener((v, event) -> true);
     }
 
     /* ------------------------------------------------------------- *
@@ -74,109 +79,29 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
      * Overriding OnClickListener Method
      * ------------------------------------------------------------- */
 
-    @SuppressLint("NewApi")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.textHome:
-                if (isHomeSelected) {
-                    isHomeSelected = false;
-
-                    binding.textHome.setTextColor(getResources().getColor(R.color.md_grey_500));
-                    binding.textHome.setCompoundDrawableTintList
-                            (getResources().getColorStateList(R.color.md_grey_500));
-                    binding.textHome.setBackground
-                            (getDrawable(R.drawable.button_rectangle_unselected));
-                } else {
-                    isHomeSelected = true;
-
-                    binding.textHome.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    binding.textHome.setCompoundDrawableTintList
-                            (getResources().getColorStateList(R.color.colorPrimary));
-                    binding.textHome.setBackground
-                            (getDrawable(R.drawable.button_rectangle_selected));
-                }
-                break;
-            case R.id.textInstitute:
-                if (isInstituteSelected) {
-                    isInstituteSelected = false;
-
-                    binding.textInstitute.setTextColor
-                            (getResources().getColor(R.color.md_grey_500));
-                    binding.textInstitute.setCompoundDrawableTintList
-                            (getResources().getColorStateList(R.color.md_grey_500));
-                    binding.textInstitute.setBackground
-                            (getDrawable(R.drawable.button_rectangle_unselected));
-
-                    binding.editAddress.setVisibility(GONE);
-                    binding.editCharges.setVisibility(GONE);
-                } else {
-                    isInstituteSelected = true;
-
-                    binding.textInstitute.setTextColor
-                            (getResources().getColor(R.color.colorPrimary));
-                    binding.textInstitute.setCompoundDrawableTintList
-                            (getResources().getColorStateList(R.color.colorPrimary));
-                    binding.textInstitute.setBackground
-                            (getDrawable(R.drawable.button_rectangle_selected));
-
-                    binding.editAddress.setVisibility(VISIBLE);
-                    binding.editCharges.setVisibility(VISIBLE);
-                }
-                break;
-            case R.id.textDaily:
-                if (isDailySelected) {
-                    isDailySelected = false;
-
-                    binding.textDaily.setTextColor
-                            (getResources().getColor(R.color.md_grey_500));
-                    binding.textDaily.setBackground
-                            (getDrawable(R.drawable.button_rectangle_unselected));
-                } else {
-                    isDailySelected = true;
-
-                    binding.textDaily.setTextColor
-                            (getResources().getColor(R.color.colorPrimary));
-                    binding.textDaily.setBackground
-                            (getDrawable(R.drawable.button_rectangle_selected));
-                }
-                break;
-            case R.id.textBiweekly:
-                if (isBiweeklySelected) {
-                    isBiweeklySelected = false;
-
-                    binding.textBiweekly.setTextColor
-                            (getResources().getColor(R.color.md_grey_500));
-                    binding.textBiweekly.setBackground
-                            (getDrawable(R.drawable.button_rectangle_unselected));
-                } else {
-                    isBiweeklySelected = true;
-
-                    binding.textBiweekly.setTextColor
-                            (getResources().getColor(R.color.colorPrimary));
-                    binding.textBiweekly.setBackground
-                            (getDrawable(R.drawable.button_rectangle_selected));
-                }
-                break;
-            case R.id.textWeekly:
-                if (isWeeklySelected) {
-                    isWeeklySelected = false;
-
-                    binding.textWeekly.setTextColor
-                            (getResources().getColor(R.color.md_grey_500));
-                    binding.textWeekly.setBackground
-                            (getDrawable(R.drawable.button_rectangle_unselected));
-                } else {
-                    isWeeklySelected = true;
-
-                    binding.textWeekly.setTextColor
-                            (getResources().getColor(R.color.colorPrimary));
-                    binding.textWeekly.setBackground
-                            (getDrawable(R.drawable.button_rectangle_selected));
-                }
-                break;
             case R.id.buttonSubmit:
-                openDetailsSubmittedDialog();
+                if (binding.viewPager.getCurrentItem() == 0) {
+                    binding.imageBack.setVisibility(VISIBLE);
+                    binding.viewPersonalSelected
+                            .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
+                    binding.textTitle.setText(R.string.personal_details);
+                    binding.buttonSubmit.setText(R.string.submit);
+                    binding.viewPager.setCurrentItem(1);
+                } else
+                    openDetailsSubmittedDialog();
+                break;
+            case R.id.imageBack:
+                binding.imageBack.setVisibility(INVISIBLE);
+                binding.viewCoachingSelected
+                        .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
+                binding.viewPersonalSelected
+                        .setBackground(getDrawable(R.drawable.rectangle_titled_unselected));
+                binding.textTitle.setText(R.string.coaching_details);
+                binding.buttonSubmit.setText(R.string.next);
+                binding.viewPager.setCurrentItem(0);
                 break;
         }
     }

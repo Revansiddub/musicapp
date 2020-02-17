@@ -26,6 +26,17 @@
     <string name="search_here">Search here</string>
 
     <!--Enter Details Activity-->
+    <string name="coaching_details">Coaching Details</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+
+    <!--Login Activity-->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+
+    <!--Coaching Details Fragment-->
     <string name="coaching_type">Coaching Type</string>
     <string name="home">Home</string>
     <string name="institute">Institute</string>
@@ -36,11 +47,11 @@
     <string name="biweekly">Biweekly</string>
     <string name="weekly">Weekly</string>
     <string name="upload_documents">Upload Documents</string>
-    <string name="submit">Submit</string>
 
-    <!--Logon Activity-->
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
+    <!--Personal Details Fragment-->
+    <string name="full_name">Full Name</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
 </resources>

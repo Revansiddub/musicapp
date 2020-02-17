@@ -22,6 +22,8 @@ public final class Constants {
     public static final int OTP_MAX_LENGTH = 4;
     public static final String TRAINER = "Trainer";
     public static final String STUDENT = "Student";
+    public static final String MALE = "male";
+    public static final String FEMALE = "female";
 
     /* ------------------------------------------------------------- *
      * Network Call Keys
