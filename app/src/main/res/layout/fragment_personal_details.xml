@@ -167,10 +167,10 @@
                 android:text="@string/front"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/imageGovtIDFront"
                 app:layout_constraintStart_toStartOf="@id/imageGovtIDFront"
                 app:layout_constraintTop_toBottomOf="@+id/imageGovtIDFront"
-                app:layout_constraintEnd_toEndOf="@+id/imageGovtIDFront"
-                android:textStyle="bold"
                 tools:ignore="UnusedAttribute" />
 
             <ImageView
@@ -193,10 +193,10 @@
                 android:text="@string/back"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/imageGovtIDBack"
                 app:layout_constraintStart_toStartOf="@id/imageGovtIDBack"
                 app:layout_constraintTop_toBottomOf="@+id/imageGovtIDBack"
-                app:layout_constraintEnd_toEndOf="@+id/imageGovtIDBack"
-                android:textStyle="bold"
                 tools:ignore="UnusedAttribute" />
 
             <TextView
@@ -236,10 +236,10 @@
                 android:text="@string/front"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/imageAddressProofFront"
                 app:layout_constraintStart_toStartOf="@id/imageAddressProofFront"
                 app:layout_constraintTop_toBottomOf="@+id/imageAddressProofFront"
-                app:layout_constraintEnd_toEndOf="@+id/imageAddressProofFront"
-                android:textStyle="bold"
                 tools:ignore="UnusedAttribute" />
 
             <ImageView
@@ -262,10 +262,10 @@
                 android:text="@string/back"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/imageAddressProofBack"
                 app:layout_constraintStart_toStartOf="@id/imageAddressProofBack"
                 app:layout_constraintTop_toBottomOf="@+id/imageAddressProofBack"
-                app:layout_constraintEnd_toEndOf="@+id/imageAddressProofBack"
-                android:textStyle="bold"
                 tools:ignore="UnusedAttribute" />
 
             <TextView
