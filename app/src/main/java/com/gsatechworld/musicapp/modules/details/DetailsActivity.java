@@ -1,14 +1,10 @@
 package com.gsatechworld.musicapp.modules.details;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -19,10 +15,8 @@ import com.gsatechworld.musicapp.modules.details.adapter.ViewPagerAdapter;
 import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
 import com.gsatechworld.musicapp.modules.details.personal_details.PersonalDetailsFragment;
 
-import static android.graphics.Color.TRANSPARENT;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static android.view.Window.FEATURE_NO_TITLE;
 import static java.util.Objects.requireNonNull;
 
 public class DetailsActivity extends BaseActivity implements OnClickListener {
@@ -91,7 +85,7 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
                     binding.buttonSubmit.setText(R.string.submit);
                     binding.viewPager.setCurrentItem(1);
                 } else
-                    openDetailsSubmittedDialog();
+                    openSuccessDialog("Your documents have been submitted successfully.");
                 break;
             case R.id.imageBack:
                 binding.imageBack.setVisibility(INVISIBLE);
@@ -104,30 +98,5 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
                 binding.viewPager.setCurrentItem(0);
                 break;
         }
-    }
-
-    /* ------------------------------------------------------------- *
-     * Private Methods
-     * ------------------------------------------------------------- */
-
-    /**
-     * This method is invoked when user details is successfully submitted to server.
-     */
-    private void openDetailsSubmittedDialog() {
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(FEATURE_NO_TITLE);
-        requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
-        dialog.setContentView(R.layout.layout_success_dialog);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-
-        TextView textMessage = dialog.findViewById(R.id.textMessage);
-        Button buttonOk = dialog.findViewById(R.id.buttonOk);
-
-        textMessage.setText("Your documents have been submitted successfully.");
-
-        buttonOk.setOnClickListener(v -> dialog.dismiss());
-
-        dialog.show();
     }
 }

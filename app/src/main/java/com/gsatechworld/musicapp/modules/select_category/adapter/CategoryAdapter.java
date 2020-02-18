@@ -31,15 +31,17 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
     private Context mCtx;
     private List<Category> categoryList;
     private List<Category> searchableCategoryList;
+    private String userType;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public CategoryAdapter(Context mCtx, List<Category> categoryList) {
+    public CategoryAdapter(Context mCtx, List<Category> categoryList, String userType) {
         this.mCtx = mCtx;
         this.categoryList = categoryList;
         searchableCategoryList = new ArrayList<>(categoryList);
+        this.userType = userType;
     }
 
     /* ------------------------------------------------------------- *

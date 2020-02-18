@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".modules.select_category.add_category.AddCategoryFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutAddCategory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/size_20dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="@dimen/size_500dp"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+        <RelativeLayout
+            android:id="@+id/layoutTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:padding="@dimen/size_10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_10dp"
+                android:layout_marginEnd="@dimen/size_10dp"
+                android:text="@string/add_category"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_20sp"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/imageClose"
+                android:layout_width="@dimen/size_25dp"
+                android:layout_height="@dimen/size_25dp"
+                android:layout_alignParentEnd="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_close"
+                android:tint="@color/white"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/imageAnimation"
+            android:layout_width="@dimen/size_150dp"
+            android:layout_height="@dimen/size_200dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTitle"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/woman_violinist" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_10dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:hint="@string/category"
+            android:inputType="textCapWords"
+            android:textSize="@dimen/size_15sp"
+            app:layout_constraintBottom_toBottomOf="@id/imageAnimation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageAnimation"
+            app:layout_constraintTop_toTopOf="@id/imageAnimation"
+            app:layout_constraintVertical_bias="0.7"
+            app:met_errorColor="@android:color/holo_red_light"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelTextColor="@color/black"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_textColor="@color/colorAccent"
+            app:met_textColorHint="@color/md_grey_500"
+            tools:ignore="UnusedAttribute" />
+
+        <Button
+            android:id="@+id/buttonAdd"
+            android:layout_width="@dimen/size_250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:layout_marginEnd="@dimen/size_30dp"
+            android:layout_marginBottom="@dimen/size_10dp"
+            android:background="@drawable/button_rounded"
+            android:text="@string/add"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageAnimation" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

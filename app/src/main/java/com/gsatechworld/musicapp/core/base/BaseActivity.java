@@ -5,7 +5,9 @@ import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -99,5 +101,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         view.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
 
         snackbar.show();
+    }
+
+    /**
+     * This method is invoked to open a success dialog.
+     */
+    public void openSuccessDialog(String message) {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(FEATURE_NO_TITLE);
+        requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+        dialog.setContentView(R.layout.layout_success_dialog);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        TextView textMessage = dialog.findViewById(R.id.textMessage);
+        Button buttonOk = dialog.findViewById(R.id.buttonOk);
+
+        textMessage.setText(message);
+
+        buttonOk.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 }

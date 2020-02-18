@@ -13,6 +13,8 @@ public final class Constants {
      * Fragment Tags
      * ------------------------------------------------------------- */
 
+    public static final String ADD_CATEGORY_FRAGMENT_TAG = "addCategoryTag";
+
     /* ------------------------------------------------------------- *
      * Application Specific
      * ------------------------------------------------------------- */
