@@ -9,12 +9,14 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityWelcomeBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
 import com.gsatechworld.musicapp.modules.select_category.SelectCategoryActivity;
+import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
 
 import in.aabhasjindal.otptextview.OTPListener;
 
@@ -22,7 +24,9 @@ import static android.R.layout.simple_spinner_dropdown_item;
 import static android.R.layout.simple_spinner_item;
 import static android.view.View.VISIBLE;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
+import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 
 public class WelcomeActivity extends BaseActivity implements OnItemSelectedListener,
         OTPListener, OnClickListener {
@@ -32,6 +36,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
      * ------------------------------------------------------------- */
 
     private ActivityWelcomeBinding binding;
+    private WelcomeViewModel viewModel;
     private String[] usersArray;
     private String pinCode, userType;
 
@@ -45,6 +50,9 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
+
+        /*Initialising View model*/
+        viewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
 
         /*Setting Screen title*/
         binding.layoutBase.toolbar.setTitle(getString(R.string.app_name));
@@ -123,9 +131,22 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
      * based on selected user type.
      */
     private void checkAvailability() {
-        Intent intent = new Intent(this, SelectCategoryActivity.class);
-        intent.putExtra(USER_TYPE, userType);
-        intent.putExtra(PIN_CODE, pinCode);
-        startActivity(intent);
+        if (getNetworkInstance(this).isConnectedToInternet()) {
+            showLoadingIndicator();
+
+            viewModel.checkPinCodeAvailability(new PinCodeInfo(userType, pinCode))
+                    .observe(this, commonResponse -> {
+                        hideLoadingIndicator();
+
+                        if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                            Intent intent = new Intent(this, SelectCategoryActivity.class);
+                            intent.putExtra(USER_TYPE, userType);
+                            intent.putExtra(PIN_CODE, pinCode);
+                            startActivity(intent);
+                        } else
+                            showSnackBar(this, commonResponse.getMessage());
+                    });
+        } else
+            showSnackBar(this, getString(R.string.no_internet_message));
     }
 }

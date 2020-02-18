@@ -24,6 +24,12 @@
     <string name="select_category">Select Category</string>
     <string name="select_trainer">Select Trainer</string>
     <string name="search_here">Search here</string>
+    <string name="category_not_found_message">Not in the list? Add here</string>
+
+    <!--Add Category Fragment-->
+    <string name="add_category">Add Category</string>
+    <string name="category">Category</string>
+    <string name="add">Add</string>
 
     <!--Enter Details Activity-->
     <string name="coaching_details">Coaching Details</string>
@@ -59,5 +65,8 @@
     <string name="relevant_category_expertise_document">Relevant Category Expertise Document</string>
     <string name="front">Front</string>
     <string name="back">Back</string>
+
+    <!--Validation Strings-->
+    <string name="category_validation">Please write Category name</string>
 
 </resources>
