@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.FragmentCoachingDetailsBinding;
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
 
@@ -27,22 +28,10 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
      * ------------------------------------------------------------- */
 
     private FragmentCoachingDetailsBinding binding;
+    private BaseActivity baseActivity;
     private boolean isHomeSelected, isInstituteSelected, isDailySelected, isBiweeklySelected,
             isWeeklySelected;
     private String address, charges;
-
-    /* ------------------------------------------------------------- *
-     * Public Static Method
-     * ------------------------------------------------------------- */
-
-    /**
-     * This method is invoked to give instance of CoachingDetailsFragment class.
-     *
-     * @return instance of current class.
-     */
-    public static CoachingDetailsFragment getCoachingDetailsInstance() {
-        return new CoachingDetailsFragment();
-    }
 
     /* ------------------------------------------------------------- *
      * Overriding Fragment Methods
@@ -54,12 +43,15 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_coaching_details, container, false);
 
+        baseActivity = (BaseActivity) getActivity();
+
         /*Setting listeners to the views*/
         binding.textHome.setOnClickListener(this);
         binding.textInstitute.setOnClickListener(this);
         binding.textDaily.setOnClickListener(this);
         binding.textBiweekly.setOnClickListener(this);
         binding.textWeekly.setOnClickListener(this);
+        binding.buttonNext.setOnClickListener(this);
 
         return binding.getRoot();
     }
@@ -159,26 +151,38 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                             .getDrawable(R.drawable.button_rectangle_selected));
                 }
                 break;
+            case R.id.buttonNext:
+                if (validateFields())
+                    returnCoachingDetails();
+                break;
         }
-    }
-
-    /* ------------------------------------------------------------- *
-     * Public Method
-     * ------------------------------------------------------------- */
-
-    public CoachingDetails getCoachingDetails() {
-        return (validateFields() ? new CoachingDetails(isHomeSelected, isInstituteSelected, address,
-                charges, isDailySelected, isBiweeklySelected, isWeeklySelected) : null);
     }
 
     /* ------------------------------------------------------------- *
      * Private Method
      * ------------------------------------------------------------- */
 
+    /**
+     * This method is invoked to return user's coaching details to the details activity.
+     */
+    private void returnCoachingDetails() {
+        CoachingDetailsListener coachingDetailsListener = (CoachingDetailsListener) getActivity();
+        requireNonNull(coachingDetailsListener).coachingDetails(new CoachingDetails(isHomeSelected,
+                isInstituteSelected, address, charges, isDailySelected, isBiweeklySelected,
+                isWeeklySelected));
+    }
+
+    /**
+     * This method is invoked to validate all fields present in this screen.
+     *
+     * @return validation status of all edit fields.
+     */
     private boolean validateFields() {
         charges = requireNonNull(binding.editCharges.getText()).toString().trim();
+        address = requireNonNull(binding.editAddress.getText()).toString().trim();
 
-        if (isHomeSelected && isInstituteSelected) {
+        if (!isHomeSelected && !isInstituteSelected) {
+            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please select Coaching Type");
             return false;
         }
 
@@ -187,21 +191,24 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
             return false;
         }
 
-        if (isInstituteSelected) {
-            address = requireNonNull(binding.editAddress.getText()).toString().trim();
-
-            if (isEmpty(address)) {
-                binding.editAddress.setError("Please enter institute address");
-                return false;
-            }
-        } else
-            address = "";
-
+        if (isEmpty(address) && isInstituteSelected) {
+            binding.editAddress.setError("Please enter institute address");
+            return false;
+        }
 
         if (!isDailySelected && !isBiweeklySelected && !isWeeklySelected) {
+            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please select Recurrence Type");
             return false;
         }
 
         return true;
+    }
+
+    /* ------------------------------------------------------------- *
+     * Public Interface
+     * ------------------------------------------------------------- */
+
+    public interface CoachingDetailsListener {
+        void coachingDetails(CoachingDetails coachingDetails);
     }
 }

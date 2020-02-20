@@ -130,6 +130,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textHighestDegree"
                 tools:ignore="ContentDescription" />
 
+            <ImageView
+                android:id="@+id/imageHighestDegreeClose"
+                android:layout_width="@dimen/size_25dp"
+                android:layout_height="@dimen/size_25dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_close"
+                android:tint="@color/red"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/imageHighestDegree"
+                app:layout_constraintTop_toTopOf="@+id/imageHighestDegree"
+                tools:ignore="ContentDescription" />
+
             <TextView
                 android:id="@+id/textGovtID"
                 android:layout_width="wrap_content"
@@ -159,6 +172,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textGovtID"
                 tools:ignore="ContentDescription" />
 
+            <ImageView
+                android:id="@+id/imageGovtIDFrontClose"
+                android:layout_width="@dimen/size_25dp"
+                android:layout_height="@dimen/size_25dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_close"
+                android:tint="@color/red"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/imageGovtIDFront"
+                app:layout_constraintTop_toTopOf="@+id/imageGovtIDFront"
+                tools:ignore="ContentDescription" />
+
             <TextView
                 android:id="@+id/textGovtIDFront"
                 android:layout_width="wrap_content"
@@ -183,6 +209,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageGovtIDFront"
                 app:layout_constraintTop_toBottomOf="@+id/textGovtID"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imageGovtIDBackClose"
+                android:layout_width="@dimen/size_25dp"
+                android:layout_height="@dimen/size_25dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_close"
+                android:tint="@color/red"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/imageGovtIDBack"
+                app:layout_constraintTop_toTopOf="@+id/imageGovtIDBack"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -228,6 +267,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textAddressProof"
                 tools:ignore="ContentDescription" />
 
+            <ImageView
+                android:id="@+id/imageAddressProofFrontClose"
+                android:layout_width="@dimen/size_25dp"
+                android:layout_height="@dimen/size_25dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_close"
+                android:tint="@color/red"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/imageAddressProofFront"
+                app:layout_constraintTop_toTopOf="@+id/imageAddressProofFront"
+                tools:ignore="ContentDescription" />
+
             <TextView
                 android:id="@+id/textAddressProofFront"
                 android:layout_width="wrap_content"
@@ -252,6 +304,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageAddressProofFront"
                 app:layout_constraintTop_toBottomOf="@+id/textAddressProof"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imageAddressProofBackClose"
+                android:layout_width="@dimen/size_25dp"
+                android:layout_height="@dimen/size_25dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_close"
+                android:tint="@color/red"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/imageAddressProofBack"
+                app:layout_constraintTop_toTopOf="@+id/imageAddressProofBack"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -297,9 +362,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/textExpertiseDocument"
                 tools:ignore="ContentDescription" />
 
-            <Space
+            <ImageView
+                android:id="@+id/imageExpertiseDocumentClose"
+                android:layout_width="@dimen/size_25dp"
+                android:layout_height="@dimen/size_25dp"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_close"
+                android:tint="@color/red"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/imageExpertiseDocument"
+                app:layout_constraintTop_toTopOf="@+id/imageExpertiseDocument"
+                tools:ignore="ContentDescription" />
+
+            <Button
+                android:id="@+id/buttonSubmit"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageExpertiseDocument" />

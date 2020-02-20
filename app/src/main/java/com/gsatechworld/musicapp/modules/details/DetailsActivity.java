@@ -13,16 +13,18 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityDetailsBinding;
 import com.gsatechworld.musicapp.modules.details.adapter.ViewPagerAdapter;
 import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
+import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment.CoachingDetailsListener;
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
 import com.gsatechworld.musicapp.modules.details.personal_details.PersonalDetailsFragment;
+import com.gsatechworld.musicapp.modules.details.personal_details.PersonalDetailsFragment.PersonalDetailsListener;
 import com.gsatechworld.musicapp.modules.details.personal_details.pojo.PersonalDetails;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment.getCoachingDetailsInstance;
 import static java.util.Objects.requireNonNull;
 
-public class DetailsActivity extends BaseActivity implements OnClickListener {
+public class DetailsActivity extends BaseActivity implements OnClickListener,
+        CoachingDetailsListener, PersonalDetailsListener {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -30,7 +32,6 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
 
     private ActivityDetailsBinding binding;
     private CoachingDetails coachingDetails;
-    private PersonalDetails personalDetails;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -56,7 +57,6 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
         binding.viewPager.setAdapter(adapter);
 
         /*Setting listeners to the views*/
-        binding.buttonSubmit.setOnClickListener(this);
         binding.imageBack.setOnClickListener(this);
         binding.viewPager.setOnTouchListener((v, event) -> true);
     }
@@ -80,35 +80,41 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.buttonSubmit:
-                switch (binding.viewPager.getCurrentItem()) {
-                    case 0:
-                        coachingDetails = new CoachingDetailsFragment().getCoachingDetails();
-                        if (coachingDetails != null) {
-                            binding.imageBack.setVisibility(VISIBLE);
-                            binding.viewPersonalSelected
-                                    .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
-                            binding.textTitle.setText(R.string.personal_details);
-                            binding.buttonSubmit.setText(R.string.submit);
-                            binding.viewPager.setCurrentItem(1);
-                        }
-                        break;
-                    case 1:
-                        openSuccessDialog("Your documents have been submitted successfully.");
-                        break;
-                }
-                break;
-            case R.id.imageBack:
-                binding.imageBack.setVisibility(INVISIBLE);
-                binding.viewCoachingSelected
-                        .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
-                binding.viewPersonalSelected
-                        .setBackground(getDrawable(R.drawable.rectangle_titled_unselected));
-                binding.textTitle.setText(R.string.coaching_details);
-                binding.buttonSubmit.setText(R.string.next);
-                binding.viewPager.setCurrentItem(0);
-                break;
+        if (view.getId() == R.id.imageBack) {
+            binding.imageBack.setVisibility(INVISIBLE);
+            binding.viewCoachingSelected
+                    .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
+            binding.viewPersonalSelected
+                    .setBackground(getDrawable(R.drawable.rectangle_titled_unselected));
+            binding.textTitle.setText(R.string.coaching_details);
+            binding.viewPager.setCurrentItem(0);
+        }
+    }
+
+    /* ------------------------------------------------------------- *
+     * Overriding OnCoachingDetailsListener Method
+     * ------------------------------------------------------------- */
+
+    @Override
+    public void coachingDetails(CoachingDetails coachingDetails) {
+        this.coachingDetails = coachingDetails;
+        if (coachingDetails != null) {
+            binding.imageBack.setVisibility(VISIBLE);
+            binding.viewPersonalSelected
+                    .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
+            binding.textTitle.setText(R.string.personal_details);
+            binding.viewPager.setCurrentItem(1);
+        }
+    }
+
+    /* ------------------------------------------------------------- *
+     * Overriding PersonalDetailsListener Method
+     * ------------------------------------------------------------- */
+
+    @Override
+    public void personalDetails(PersonalDetails personalDetails) {
+        if (personalDetails != null) {
+            openSuccessDialog("Your documents have been submitted successfully.");
         }
     }
 }
