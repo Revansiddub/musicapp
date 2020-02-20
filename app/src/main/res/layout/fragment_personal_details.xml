@@ -33,7 +33,7 @@
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelTextColor="@color/black"
                 app:met_primaryColor="@color/colorPrimary"
-                app:met_textColor="@color/colorAccent"
+                app:met_textColor="@color/colorPrimary"
                 app:met_textColorHint="@color/md_grey_500"
                 tools:ignore="UnusedAttribute" />
 

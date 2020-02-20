@@ -65,9 +65,9 @@ public class PersonalDetailsFragment extends Fragment implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.textMale:
-                binding.textMale.setTextColor(getResources().getColor(R.color.colorPrimary));
+                binding.textMale.setTextColor(getResources().getColor(R.color.colorAccent));
                 binding.textMale.setCompoundDrawableTintList
-                        (getResources().getColorStateList(R.color.colorPrimary));
+                        (getResources().getColorStateList(R.color.colorAccent));
                 binding.textMale.setBackground(requireNonNull(getActivity())
                         .getDrawable(R.drawable.button_rectangle_selected));
 
@@ -80,9 +80,9 @@ public class PersonalDetailsFragment extends Fragment implements View.OnClickLis
                 gender = MALE;
                 break;
             case R.id.textFemale:
-                binding.textFemale.setTextColor(getResources().getColor(R.color.colorPrimary));
+                binding.textFemale.setTextColor(getResources().getColor(R.color.colorAccent));
                 binding.textFemale.setCompoundDrawableTintList
-                        (getResources().getColorStateList(R.color.colorPrimary));
+                        (getResources().getColorStateList(R.color.colorAccent));
                 binding.textFemale.setBackground(requireNonNull(getActivity())
                         .getDrawable(R.drawable.button_rectangle_selected));
 

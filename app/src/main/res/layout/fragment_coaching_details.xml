@@ -61,11 +61,34 @@
             tools:ignore="UnusedAttribute" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/editAddress"
+            android:id="@+id/editCharges"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_30dp"
             android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_30dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:hint="@string/charges"
+            android:inputType="number"
+            android:maxLength="5"
+            android:textSize="@dimen/size_15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textHome"
+            app:met_errorColor="@android:color/holo_red_light"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelTextColor="@color/black"
+            app:met_primaryColor="@color/colorPrimary"
+            app:met_textColor="@color/colorPrimary"
+            app:met_textColorHint="@color/md_grey_500"
+            tools:ignore="UnusedAttribute" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
             android:layout_marginEnd="@dimen/size_30dp"
             android:cursorVisible="true"
             android:focusable="true"
@@ -75,36 +98,12 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textHome"
+            app:layout_constraintTop_toBottomOf="@id/editCharges"
             app:met_errorColor="@android:color/holo_red_light"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelTextColor="@color/black"
             app:met_primaryColor="@color/colorPrimary"
-            app:met_textColor="@color/colorAccent"
-            app:met_textColorHint="@color/md_grey_500"
-            tools:ignore="UnusedAttribute" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/editCharges"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_30dp"
-            android:layout_marginEnd="@dimen/size_30dp"
-            android:cursorVisible="true"
-            android:focusable="true"
-            android:hint="@string/charges"
-            android:inputType="number"
-            android:maxLength="5"
-            android:textSize="@dimen/size_15sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editAddress"
-            app:met_errorColor="@android:color/holo_red_light"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelTextColor="@color/black"
-            app:met_primaryColor="@color/colorPrimary"
-            app:met_textColor="@color/colorAccent"
+            app:met_textColor="@color/colorPrimary"
             app:met_textColorHint="@color/md_grey_500"
             tools:ignore="UnusedAttribute" />
 
@@ -119,7 +118,7 @@
             android:textSize="@dimen/size_20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editCharges" />
+            app:layout_constraintTop_toBottomOf="@id/editAddress" />
 
         <TextView
             android:id="@+id/textDaily"

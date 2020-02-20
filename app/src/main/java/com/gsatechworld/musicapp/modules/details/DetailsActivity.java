@@ -13,10 +13,13 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityDetailsBinding;
 import com.gsatechworld.musicapp.modules.details.adapter.ViewPagerAdapter;
 import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
+import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
 import com.gsatechworld.musicapp.modules.details.personal_details.PersonalDetailsFragment;
+import com.gsatechworld.musicapp.modules.details.personal_details.pojo.PersonalDetails;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment.getCoachingDetailsInstance;
 import static java.util.Objects.requireNonNull;
 
 public class DetailsActivity extends BaseActivity implements OnClickListener {
@@ -26,6 +29,8 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
      * ------------------------------------------------------------- */
 
     private ActivityDetailsBinding binding;
+    private CoachingDetails coachingDetails;
+    private PersonalDetails personalDetails;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -77,15 +82,22 @@ public class DetailsActivity extends BaseActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonSubmit:
-                if (binding.viewPager.getCurrentItem() == 0) {
-                    binding.imageBack.setVisibility(VISIBLE);
-                    binding.viewPersonalSelected
-                            .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
-                    binding.textTitle.setText(R.string.personal_details);
-                    binding.buttonSubmit.setText(R.string.submit);
-                    binding.viewPager.setCurrentItem(1);
-                } else
-                    openSuccessDialog("Your documents have been submitted successfully.");
+                switch (binding.viewPager.getCurrentItem()) {
+                    case 0:
+                        coachingDetails = new CoachingDetailsFragment().getCoachingDetails();
+                        if (coachingDetails != null) {
+                            binding.imageBack.setVisibility(VISIBLE);
+                            binding.viewPersonalSelected
+                                    .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
+                            binding.textTitle.setText(R.string.personal_details);
+                            binding.buttonSubmit.setText(R.string.submit);
+                            binding.viewPager.setCurrentItem(1);
+                        }
+                        break;
+                    case 1:
+                        openSuccessDialog("Your documents have been submitted successfully.");
+                        break;
+                }
                 break;
             case R.id.imageBack:
                 binding.imageBack.setVisibility(INVISIBLE);
