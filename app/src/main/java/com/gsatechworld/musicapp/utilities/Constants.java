@@ -16,6 +16,12 @@ public final class Constants {
     public static final String ADD_CATEGORY_FRAGMENT_TAG = "addCategoryTag";
 
     /* ------------------------------------------------------------- *
+     * Request Code
+     * ------------------------------------------------------------- */
+
+    public static final int OPEN_GALLERY_REQUEST_CODE = 1;
+
+    /* ------------------------------------------------------------- *
      * Application Specific
      * ------------------------------------------------------------- */
 
@@ -34,6 +40,8 @@ public final class Constants {
     public static final String ADDRESS_PROOF_FRONT = "addressProofFront";
     public static final String ADDRESS_PROOF_BACK = "addressProofBack";
     public static final String EXPERTISE_DOCUMENT = "expertiseDocument";
+    public static final int STEP_ONE_COMPLETE = 1;
+    public static final int STEP_TWO_COMPLETE = 2;
 
     /* ------------------------------------------------------------- *
      * Network Call Keys

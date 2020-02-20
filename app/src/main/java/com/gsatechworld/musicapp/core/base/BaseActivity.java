@@ -2,6 +2,7 @@ package com.gsatechworld.musicapp.core.base;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,7 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
 
+import java.io.ByteArrayOutputStream;
+
+import static android.graphics.Bitmap.CompressFormat.PNG;
 import static android.graphics.Color.TRANSPARENT;
+import static android.util.Base64.DEFAULT;
+import static android.util.Base64.encodeToString;
 import static android.view.Window.FEATURE_NO_TITLE;
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.google.android.material.snackbar.Snackbar.make;
@@ -122,5 +128,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         buttonOk.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
+    }
+
+    /**
+     * This method is invoked to convert a Bitmap Image into Base64 format.
+     *
+     * @param image image in bitmap format.
+     * @return image in base64 format.
+     */
+    public String encodeToBase64(Bitmap image) {
+        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+        image.compress(PNG, 80, byteArray);
+        byte[] b = byteArray.toByteArray();
+        return encodeToString(b, DEFAULT);
     }
 }

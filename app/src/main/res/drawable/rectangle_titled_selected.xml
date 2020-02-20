@@ -7,7 +7,7 @@
             <corners android:bottomRightRadius="@dimen/size_40dp"
                 android:topLeftRadius="@dimen/size_40dp" />
 
-            <solid android:color="@color/colorPrimaryDark" />
+            <solid android:color="@color/colorAccent" />
 
         </shape>
 
