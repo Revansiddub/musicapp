@@ -24,7 +24,6 @@
             android:text="@{category.categoryName}"
             android:textColor="@color/md_grey_700"
             android:textSize="@dimen/size_18sp"
-            android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
