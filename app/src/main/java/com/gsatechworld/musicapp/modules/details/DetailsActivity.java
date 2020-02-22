@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
@@ -18,9 +19,12 @@ import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingD
 import com.gsatechworld.musicapp.modules.details.personal_details.PersonalDetailsFragment;
 import com.gsatechworld.musicapp.modules.details.personal_details.PersonalDetailsFragment.PersonalDetailsListener;
 import com.gsatechworld.musicapp.modules.details.personal_details.pojo.PersonalDetails;
+import com.gsatechworld.musicapp.modules.details.pojo.TrainerDetails;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
 public class DetailsActivity extends BaseActivity implements OnClickListener,
@@ -31,6 +35,7 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
      * ------------------------------------------------------------- */
 
     private ActivityDetailsBinding binding;
+    private DetailsViewModel viewModel;
     private CoachingDetails coachingDetails;
 
     /* ------------------------------------------------------------- *
@@ -44,6 +49,9 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
+
+        /*Initialising View model*/
+        viewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
 
         /*Setting Screen title*/
         binding.layoutBase.toolbar.setTitle("Enter Details");
@@ -114,7 +122,20 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
     @Override
     public void personalDetails(PersonalDetails personalDetails) {
         if (personalDetails != null) {
-            openSuccessDialog("Your documents have been submitted successfully.");
+            if (getNetworkInstance(this).isConnectedToInternet()) {
+                showLoadingIndicator();
+
+                viewModel.submitTrainerDetails(new TrainerDetails(coachingDetails, personalDetails))
+                        .observe(this, commonResponse -> {
+                            hideLoadingIndicator();
+
+                            if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS))
+                                openSuccessDialog("Your documents have been submitted successfully.");
+                            else
+                                showSnackBar(this, commonResponse.getMessage());
+                        });
+            } else
+                showSnackBar(this, getString(R.string.no_internet_message));
         }
     }
 }
