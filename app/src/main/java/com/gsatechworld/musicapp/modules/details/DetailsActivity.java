@@ -23,6 +23,8 @@ import com.gsatechworld.musicapp.modules.details.pojo.TrainerDetails;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
@@ -36,6 +38,7 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
 
     private ActivityDetailsBinding binding;
     private DetailsViewModel viewModel;
+    private String categoryID, pinCode;
     private CoachingDetails coachingDetails;
 
     /* ------------------------------------------------------------- *
@@ -57,6 +60,11 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
         binding.layoutBase.toolbar.setTitle("Enter Details");
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        if (getIntent().getStringExtra(PIN_CODE) != null) {
+            pinCode = getIntent().getStringExtra(PIN_CODE);
+            categoryID = getIntent().getStringExtra(CATEGORY_ID);
+        }
 
         /*Setting Adapter to view pager*/
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

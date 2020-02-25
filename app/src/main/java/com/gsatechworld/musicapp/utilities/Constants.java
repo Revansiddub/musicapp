@@ -8,6 +8,7 @@ public final class Constants {
 
     public static final String USER_TYPE = "userType";
     public static final String PIN_CODE = "pinCode";
+    public static final String CATEGORY_ID = "categoryID";
 
     /* ------------------------------------------------------------- *
      * Fragment Tags
@@ -42,6 +43,10 @@ public final class Constants {
     public static final String EXPERTISE_DOCUMENT = "expertiseDocument";
     public static final int STEP_ONE_COMPLETE = 1;
     public static final int STEP_TWO_COMPLETE = 2;
+    public static final String BIWEEKLY = "biweekly";
+    public static final String WEEKLY = "weekly";
+    public static final int BIWEEKLY_DAYS_LIMIT = 2;
+    public static final int WEEKLY_DAYS_LIMIT = 1;
 
     /* ------------------------------------------------------------- *
      * Network Call Keys

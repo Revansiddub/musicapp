@@ -52,10 +52,13 @@
     <string name="daily">Daily</string>
     <string name="biweekly">Biweekly</string>
     <string name="weekly">Weekly</string>
+    <string name="select_days">Select Days</string>
     <string name="upload_documents">Upload Documents</string>
 
     <!--Personal Details Fragment-->
     <string name="full_name">Full Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="email_address">Email Address</string>
     <string name="gender">Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>

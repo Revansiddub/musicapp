@@ -7,6 +7,8 @@ public class PersonalDetails {
      * ------------------------------------------------------------- */
 
     private String fullName;
+    private String emailAddress;
+    private String mobileNumber;
     private String gender;
     private String highestDegreeBase;
     private String govtIDFrontBase;
@@ -19,11 +21,13 @@ public class PersonalDetails {
      * Constructor
      * ------------------------------------------------------------- */
 
-    public PersonalDetails(String fullName, String gender, String highestDegreeBase,
-                           String govtIDFrontBase, String govtIDBackBase,
+    public PersonalDetails(String fullName, String emailAddress, String mobileNumber, String gender,
+                           String highestDegreeBase, String govtIDFrontBase, String govtIDBackBase,
                            String addressProofFrontBase, String addressProofBackBase,
                            String expertiseDocumentBase) {
         this.fullName = fullName;
+        this.emailAddress = emailAddress;
+        this.mobileNumber = mobileNumber;
         this.gender = gender;
         this.highestDegreeBase = highestDegreeBase;
         this.govtIDFrontBase = govtIDFrontBase;
@@ -39,6 +43,14 @@ public class PersonalDetails {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
     public String getGender() {

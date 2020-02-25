@@ -37,6 +37,51 @@
                 app:met_textColorHint="@color/md_grey_500"
                 tools:ignore="UnusedAttribute" />
 
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/editEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_30dp"
+                android:layout_marginEnd="@dimen/size_30dp"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:hint="@string/email_address"
+                android:inputType="textEmailAddress"
+                android:textSize="@dimen/size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editFullName"
+                app:met_errorColor="@android:color/holo_red_light"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelTextColor="@color/black"
+                app:met_primaryColor="@color/colorPrimary"
+                app:met_textColor="@color/colorPrimary"
+                app:met_textColorHint="@color/md_grey_500"
+                tools:ignore="UnusedAttribute" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/editMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_30dp"
+                android:layout_marginEnd="@dimen/size_30dp"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:hint="@string/mobile_number"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textSize="@dimen/size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editEmailAddress"
+                app:met_errorColor="@android:color/holo_red_light"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelTextColor="@color/black"
+                app:met_primaryColor="@color/colorPrimary"
+                app:met_textColor="@color/colorPrimary"
+                app:met_textColorHint="@color/md_grey_500"
+                tools:ignore="UnusedAttribute" />
+
             <TextView
                 android:id="@+id/textGender"
                 android:layout_width="wrap_content"
@@ -48,7 +93,7 @@
                 android:textSize="@dimen/size_20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editFullName" />
+                app:layout_constraintTop_toBottomOf="@+id/editMobileNumber" />
 
             <TextView
                 android:id="@+id/textMale"

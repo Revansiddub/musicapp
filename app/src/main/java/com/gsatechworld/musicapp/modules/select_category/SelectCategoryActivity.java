@@ -16,10 +16,12 @@ import com.gsatechworld.musicapp.databinding.ActivitySelectCategoryBinding;
 import com.gsatechworld.musicapp.modules.select_category.adapter.CategoryAdapter;
 import com.gsatechworld.musicapp.modules.select_category.add_category.AddCategoryFragment;
 
+import static android.view.View.GONE;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.ADD_CATEGORY_FRAGMENT_TAG;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.lang.String.format;
@@ -54,6 +56,9 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
         if (getIntent().getStringExtra(USER_TYPE) != null) {
             userType = getIntent().getStringExtra(USER_TYPE);
             pinCode = getIntent().getStringExtra(PIN_CODE);
+
+            if (userType.equals(STUDENT))
+                binding.textCategoryNotFound.setVisibility(GONE);
         }
 
         /*Setting Screen title*/
@@ -126,7 +131,7 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
                 if (categoryResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
 
                     categoryAdapter = new CategoryAdapter(this,
-                            categoryResponse.getCategoryList(), userType);
+                            categoryResponse.getCategoryList(), userType, pinCode);
                     binding.recyclerCategories.setLayoutManager
                             (new LinearLayoutManager(this, VERTICAL, false));
                     binding.recyclerCategories.setAdapter(categoryAdapter);
