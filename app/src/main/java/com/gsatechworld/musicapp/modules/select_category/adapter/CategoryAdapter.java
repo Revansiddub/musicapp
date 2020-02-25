@@ -20,6 +20,9 @@ import java.util.List;
 
 import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
+import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
+import static com.gsatechworld.musicapp.utilities.Constants.TRAINER;
 import static java.util.Locale.getDefault;
 
 public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
@@ -31,17 +34,18 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
     private Context mCtx;
     private List<Category> categoryList;
     private List<Category> searchableCategoryList;
-    private String userType;
+    private String userType, pinCode;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public CategoryAdapter(Context mCtx, List<Category> categoryList, String userType) {
+    public CategoryAdapter(Context mCtx, List<Category> categoryList, String userType, String pinCode) {
         this.mCtx = mCtx;
         this.categoryList = categoryList;
         searchableCategoryList = new ArrayList<>(categoryList);
         this.userType = userType;
+        this.pinCode = pinCode;
     }
 
     /* ------------------------------------------------------------- *
@@ -122,8 +126,14 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.layoutCategory) {
-                Intent intent = new Intent(mCtx, DetailsActivity.class);
-                mCtx.startActivity(intent);
+                Category category = categoryList.get(getAdapterPosition());
+
+                if (userType.equals(TRAINER)) {
+                    Intent intent = new Intent(mCtx, DetailsActivity.class);
+                    intent.putExtra(CATEGORY_ID, category.getCategoryID());
+                    intent.putExtra(PIN_CODE, pinCode);
+                    mCtx.startActivity(intent);
+                }
             }
         }
     }

@@ -38,6 +38,7 @@ import static android.content.Intent.createChooser;
 import static android.os.Build.VERSION_CODES.M;
 import static android.provider.MediaStore.Images.Media.getBitmap;
 import static android.text.TextUtils.isEmpty;
+import static android.util.Patterns.EMAIL_ADDRESS;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static androidx.databinding.DataBindingUtil.inflate;
@@ -50,6 +51,7 @@ import static com.gsatechworld.musicapp.utilities.Constants.GOVT_ID_BACK;
 import static com.gsatechworld.musicapp.utilities.Constants.GOVT_ID_FRONT;
 import static com.gsatechworld.musicapp.utilities.Constants.HIGHEST_DEGREE;
 import static com.gsatechworld.musicapp.utilities.Constants.MALE;
+import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER_LENGTH;
 import static com.gsatechworld.musicapp.utilities.Constants.OPEN_GALLERY_REQUEST_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.STEP_ONE_COMPLETE;
 import static com.gsatechworld.musicapp.utilities.Constants.STEP_TWO_COMPLETE;
@@ -64,7 +66,7 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
 
     private FragmentPersonalDetailsBinding binding;
     private BaseActivity baseActivity;
-    private String fullName, gender, uploadType;
+    private String fullName, emailAddress, mobileNumber, gender, uploadType;
     private Bitmap highestDegreeBitmap, govtIDFrontBitmap, govtIDBackBitmap, addressProofFrontBitmap,
             addressProofBackBitmap, expertiseDocumentBitmap;
     private String highestDegreeBase, govtIDFrontBase, govtIDBackBase, addressProofFrontBase,
@@ -424,8 +426,8 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
         PersonalDetailsListener personalDetailsListener = (PersonalDetailsListener) getActivity();
 
         requireNonNull(personalDetailsListener).personalDetails(new PersonalDetails(fullName,
-                gender, highestDegreeBase, govtIDFrontBase, govtIDBackBase, addressProofFrontBase,
-                addressProofBackBase, expertiseDocumentBase));
+                emailAddress, mobileNumber, gender, highestDegreeBase, govtIDFrontBase,
+                govtIDBackBase, addressProofFrontBase, addressProofBackBase, expertiseDocumentBase));
     }
 
     /**
@@ -435,10 +437,24 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
      */
     private boolean validateFields() {
         fullName = requireNonNull(binding.editFullName.getText()).toString();
+        emailAddress = requireNonNull(binding.editEmailAddress.getText()).toString();
+        mobileNumber = requireNonNull(binding.editMobileNumber.getText()).toString();
 
         if (isEmpty(fullName)) {
             binding.editFullName.requestFocus();
             binding.editFullName.setError("Please enter your full name");
+            return false;
+        }
+
+        if (isEmpty(emailAddress) || !EMAIL_ADDRESS.matcher(emailAddress).matches()) {
+            binding.editEmailAddress.requestFocus();
+            binding.editEmailAddress.setError("Please enter a valid email address");
+            return false;
+        }
+
+        if (isEmpty(mobileNumber) || mobileNumber.length() != MOBILE_NUMBER_LENGTH) {
+            binding.editMobileNumber.requestFocus();
+            binding.editMobileNumber.setError("Please enter a valid 10 digit mobile number");
             return false;
         }
 
