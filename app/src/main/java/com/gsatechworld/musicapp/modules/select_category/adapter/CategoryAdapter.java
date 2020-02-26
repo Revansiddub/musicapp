@@ -14,6 +14,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutCategoryBinding;
 import com.gsatechworld.musicapp.modules.details.DetailsActivity;
 import com.gsatechworld.musicapp.modules.select_category.pojo.Category;
+import com.gsatechworld.musicapp.modules.select_trainer.SelectTrainerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,12 +129,11 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
             if (view.getId() == R.id.layoutCategory) {
                 Category category = categoryList.get(getAdapterPosition());
 
-                if (userType.equals(TRAINER)) {
-                    Intent intent = new Intent(mCtx, DetailsActivity.class);
-                    intent.putExtra(CATEGORY_ID, category.getCategoryID());
-                    intent.putExtra(PIN_CODE, pinCode);
-                    mCtx.startActivity(intent);
-                }
+                Intent intent = new Intent(mCtx, (userType.equals(TRAINER) ? DetailsActivity.class :
+                        SelectTrainerActivity.class));
+                intent.putExtra(CATEGORY_ID, category.getCategoryID());
+                intent.putExtra(PIN_CODE, pinCode);
+                mCtx.startActivity(intent);
             }
         }
     }

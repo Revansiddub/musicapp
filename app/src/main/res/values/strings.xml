@@ -69,6 +69,9 @@
     <string name="front">Front</string>
     <string name="back">Back</string>
 
+    <!--Select Trainer Activity-->
+    <string name="search_trainer">Search Trainer</string>
+
     <!--Validation Strings-->
     <string name="category_validation">Please write Category name</string>
 
