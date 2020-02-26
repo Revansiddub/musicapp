@@ -1,4 +1,4 @@
-package com.gsatechworld.musicapp.modules.select_category.adapter;
+package com.gsatechworld.musicapp.modules.select_trainer.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,42 +11,35 @@ import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.gsatechworld.musicapp.R;
-import com.gsatechworld.musicapp.databinding.LayoutCategoryBinding;
-import com.gsatechworld.musicapp.modules.details.DetailsActivity;
-import com.gsatechworld.musicapp.modules.select_category.pojo.Category;
-import com.gsatechworld.musicapp.modules.select_trainer.SelectTrainerActivity;
+import com.gsatechworld.musicapp.databinding.LayoutTrainerBinding;
+import com.gsatechworld.musicapp.modules.select_trainer.pojo.Trainer;
+import com.gsatechworld.musicapp.modules.student_details.StudentDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
-import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
-import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
-import static com.gsatechworld.musicapp.utilities.Constants.TRAINER;
 import static java.util.Locale.getDefault;
 
-public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
+public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
 
     /* ------------------------------------------------------------- *
      * Private Members
      * ------------------------------------------------------------- */
 
     private Context mCtx;
-    private List<Category> categoryList;
-    private List<Category> searchableCategoryList;
-    private String userType, pinCode;
+    private List<Trainer> trainerList;
+    private List<Trainer> searchableTrainerList;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public CategoryAdapter(Context mCtx, List<Category> categoryList, String userType, String pinCode) {
+    public TrainerAdapter(Context mCtx, List<Trainer> trainerList) {
         this.mCtx = mCtx;
-        this.categoryList = categoryList;
-        searchableCategoryList = new ArrayList<>(categoryList);
-        this.userType = userType;
-        this.pinCode = pinCode;
+        this.trainerList = trainerList;
+        searchableTrainerList = new ArrayList<>(trainerList);
     }
 
     /* ------------------------------------------------------------- *
@@ -55,20 +48,20 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
 
     @NonNull
     @Override
-    public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutCategoryBinding binding = inflate(from(mCtx), R.layout.layout_category, parent,
+    public TrainerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutTrainerBinding binding = inflate(from(mCtx), R.layout.layout_trainer, parent,
                 false);
-        return new CategoryHolder(binding);
+        return new TrainerHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
-        holder.binding.setCategory(categoryList.get(position));
+    public void onBindViewHolder(@NonNull TrainerHolder holder, int position) {
+        holder.binding.setTrainer(trainerList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return categoryList.size();
+        return trainerList.size();
     }
 
     /* ------------------------------------------------------------- *
@@ -83,41 +76,41 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
     public void filter(String charText) {
         charText = charText.toLowerCase(getDefault());
 
-        categoryList.clear();
+        trainerList.clear();
 
         if (charText.length() == 0)
-            categoryList.addAll(searchableCategoryList);
+            trainerList.addAll(searchableTrainerList);
         else
-            for (Category category : searchableCategoryList)
-                if (category.getCategoryName().toLowerCase().contains(charText.toLowerCase()))
-                    categoryList.add(category);
+            for (Trainer trainer : searchableTrainerList)
+                if (trainer.getTrainerName().toLowerCase().contains(charText.toLowerCase()))
+                    trainerList.add(trainer);
 
         notifyDataSetChanged();
     }
 
     /* ------------------------------------------------------------- *
-     * Category Holder Class
+     * Trainer Holder Class
      * ------------------------------------------------------------- */
 
-    class CategoryHolder extends ViewHolder implements OnClickListener {
+    class TrainerHolder extends ViewHolder implements OnClickListener {
 
         /* ------------------------------------------------------------- *
          * Private Members
          * ------------------------------------------------------------- */
 
-        private final LayoutCategoryBinding binding;
+        private final LayoutTrainerBinding binding;
 
         /* ------------------------------------------------------------- *
          * Constructor
          * ------------------------------------------------------------- */
 
-        CategoryHolder(final LayoutCategoryBinding binding) {
+        TrainerHolder(final LayoutTrainerBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
 
-            /*Setting Listeners to the view*/
-            binding.layoutCategory.setOnClickListener(this);
+            /*Setting listeners to the views*/
+            binding.layoutTrainer.setOnClickListener(this);
         }
 
         /* ------------------------------------------------------------- *
@@ -126,13 +119,8 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
 
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.layoutCategory) {
-                Category category = categoryList.get(getAdapterPosition());
-
-                Intent intent = new Intent(mCtx, (userType.equals(TRAINER) ? DetailsActivity.class :
-                        SelectTrainerActivity.class));
-                intent.putExtra(CATEGORY_ID, category.getCategoryID());
-                intent.putExtra(PIN_CODE, pinCode);
+            if (view.getId() == R.id.layoutTrainer) {
+                Intent intent = new Intent(mCtx, StudentDetailsActivity.class);
                 mCtx.startActivity(intent);
             }
         }

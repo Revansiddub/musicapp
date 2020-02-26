@@ -69,7 +69,16 @@
     <string name="front">Front</string>
     <string name="back">Back</string>
 
+    <!--Select Trainer Activity-->
+    <string name="search_trainer">Search Trainer</string>
+
+    <!--Student Details Activity-->
+    <string name="age">Age</string>
+    <string name="standard">Standard</string>
+    <string name="school_name">School Name</string>
+
     <!--Validation Strings-->
     <string name="category_validation">Please write Category name</string>
+    <string name="enter_details">Enter Details</string>>
 
 </resources>
