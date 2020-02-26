@@ -65,6 +65,11 @@
             android:name=".modules.select_trainer.SelectTrainerActivity"
             android:screenOrientation="portrait" />
 
+        <!--Student Details Screen-->
+        <activity
+            android:name=".modules.student_details.StudentDetailsActivity"
+            android:screenOrientation="portrait" />
+
         <!--Login Screen-->
         <activity
             android:name=".modules.login.LoginActivity"

@@ -1,6 +1,9 @@
 package com.gsatechworld.musicapp.modules.select_trainer.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutTrainerBinding;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.Trainer;
+import com.gsatechworld.musicapp.modules.student_details.StudentDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +92,7 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
      * Trainer Holder Class
      * ------------------------------------------------------------- */
 
-    class TrainerHolder extends ViewHolder {
+    class TrainerHolder extends ViewHolder implements OnClickListener {
 
         /* ------------------------------------------------------------- *
          * Private Members
@@ -104,6 +108,21 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
             super(binding.getRoot());
 
             this.binding = binding;
+
+            /*Setting listeners to the views*/
+            binding.layoutTrainer.setOnClickListener(this);
+        }
+
+        /* ------------------------------------------------------------- *
+         * Overriding OnClickListener Method
+         * ------------------------------------------------------------- */
+
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.layoutTrainer) {
+                Intent intent = new Intent(mCtx, StudentDetailsActivity.class);
+                mCtx.startActivity(intent);
+            }
         }
     }
 }
