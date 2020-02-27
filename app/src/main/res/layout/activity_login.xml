@@ -21,7 +21,7 @@
             app:layout_constraintBottom_toTopOf="@id/editUserName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintVertical_bias="0.2"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -38,22 +38,73 @@
             app:layout_constraintStart_toEndOf="@id/appLogo"
             app:layout_constraintTop_toTopOf="@id/appLogo" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutUserType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:layout_marginTop="@dimen/size_50dp"
+            android:layout_marginEnd="@dimen/size_30dp"
+            android:background="@drawable/button_rounded"
+            android:backgroundTint="@color/white"
+            android:padding="@dimen/size_2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appLogo">
+
+            <TextView
+                android:id="@+id/textTrainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded"
+                android:backgroundTint="@color/colorAccent"
+                android:drawableStart="@drawable/icon_male"
+                android:drawablePadding="@dimen/size_10dp"
+                android:drawableTint="@color/white"
+                android:padding="@dimen/size_10dp"
+                android:text="@string/trainer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/textStudent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textStudent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/icon_female"
+                android:drawablePadding="@dimen/size_10dp"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:padding="@dimen/size_10dp"
+                android:text="@string/student"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textTrainer"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UnusedAttribute" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_30dp"
-            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_50dp"
             android:layout_marginEnd="@dimen/size_30dp"
             android:cursorVisible="true"
             android:focusable="true"
             android:hint="@string/username"
             android:inputType="textCapWords"
             android:textSize="@dimen/size_15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutUserType"
             app:met_errorColor="@android:color/holo_red_light"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelTextColor="@color/white"
@@ -84,6 +135,31 @@
             app:met_textColorHint="@color/white"
             tools:ignore="UnusedAttribute" />
 
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editMobileNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_30dp"
+            android:layout_marginEnd="@dimen/size_30dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:hint="@string/mobile_number"
+            android:inputType="number"
+            android:maxLength="10"
+            android:textSize="@dimen/size_15sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/buttonLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutUserType"
+            app:met_errorColor="@android:color/holo_red_light"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelTextColor="@color/white"
+            app:met_primaryColor="@color/white"
+            app:met_textColor="@color/white"
+            app:met_textColorHint="@color/white"
+            tools:ignore="UnusedAttribute" />
+
         <Button
             android:id="@+id/buttonLogin"
             android:layout_width="@dimen/size_250dp"
@@ -98,8 +174,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editPassword"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintTop_toBottomOf="@id/layoutUserType"
+            app:layout_constraintVertical_bias="0.7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

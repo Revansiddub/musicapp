@@ -1,4 +1,4 @@
-package com.gsatechworld.musicapp.modules.student_details;
+package com.gsatechworld.musicapp.modules.home.trainer_home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -10,7 +10,7 @@ import com.gsatechworld.musicapp.utilities.CommonResponse;
 import static com.gsatechworld.musicapp.core.network.NetworkService.getRetrofitInstance;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 
-class StudentDetailsRepository {
+class TrainerHomeRepository {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -22,7 +22,7 @@ class StudentDetailsRepository {
      * Constructor
      * ------------------------------------------------------------- */
 
-    StudentDetailsRepository() {
+    TrainerHomeRepository() {
         networkAPI = getRetrofitInstance().create(NetworkAPI.class);
     }
 
