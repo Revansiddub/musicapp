@@ -15,6 +15,10 @@ public final class Constants {
      * ------------------------------------------------------------- */
 
     public static final String ADD_CATEGORY_FRAGMENT_TAG = "addCategoryTag";
+    public static final String TRAINER_HOME_FRAGMENT_TAG = "trainerHomeTag";
+    public static final String APPROVAL_FRAGMENT_TAG = "approvalTag";
+    public static final String EARNINGS_FRAGMENT_TAG = "earningsTag";
+    public static final String SETTINGS_FRAGMENT_TAG = "settingsTag";
 
     /* ------------------------------------------------------------- *
      * Request Code
