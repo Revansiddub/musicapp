@@ -49,8 +49,8 @@ public final class Constants {
     public static final int STEP_TWO_COMPLETE = 2;
     public static final String BIWEEKLY = "biweekly";
     public static final String WEEKLY = "weekly";
-    public static final int BIWEEKLY_DAYS_LIMIT = 2;
-    public static final int WEEKLY_DAYS_LIMIT = 1;
+    public static final String ACCEPTED = "accepted";
+    public static final String IGNORED = "ignored";
 
     /* ------------------------------------------------------------- *
      * Network Call Keys

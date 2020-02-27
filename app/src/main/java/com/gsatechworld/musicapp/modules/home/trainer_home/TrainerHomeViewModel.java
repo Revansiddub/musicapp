@@ -12,14 +12,14 @@ public class TrainerHomeViewModel extends ViewModel {
      * Private Members
      * ------------------------------------------------------------- */
 
-    private TrainerHomeViewModel repository;
+    private TrainerHomeRepository repository;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
     public TrainerHomeViewModel() {
-        repository = new TrainerHomeViewModel();
+        repository = new TrainerHomeRepository();
     }
 
     /* ------------------------------------------------------------- *

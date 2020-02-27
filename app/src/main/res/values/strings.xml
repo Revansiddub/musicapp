@@ -83,6 +83,11 @@
     <string name="standard">Standard</string>
     <string name="school_name">School Name</string>
 
+    <!--Approval Fragment-->
+    <string name="search_student">Search Student</string>
+    <string name="accept">Accept</string>
+    <string name="ignore">Ignore</string>
+
     <!--Validation Strings-->
     <string name="category_validation">Please write Category name</string>
 
