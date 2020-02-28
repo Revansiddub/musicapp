@@ -91,6 +91,11 @@
     <!--Earning Fragment-->
     <string name="pending_payments">Pending Payments</string>
 
+    <!--Settings Fragment-->
+    <string name="logout">Logout</string>
+    <string name="logout_title">Logout Message</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+
     <!--Validation Strings-->
     <string name="category_validation">Please write Category name</string>
     <string name="paid">Paid</string>
