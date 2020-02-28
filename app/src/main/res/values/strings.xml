@@ -88,7 +88,12 @@
     <string name="accept">Accept</string>
     <string name="ignore">Ignore</string>
 
+    <!--Earning Fragment-->
+    <string name="pending_payments">Pending Payments</string>
+
     <!--Validation Strings-->
     <string name="category_validation">Please write Category name</string>
+    <string name="paid">Paid</string>
+    <string name="not_paid">Not Paid</string>
 
 </resources>

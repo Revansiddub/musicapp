@@ -51,6 +51,8 @@ public final class Constants {
     public static final String WEEKLY = "weekly";
     public static final String ACCEPTED = "accepted";
     public static final String IGNORED = "ignored";
+    public static final String PAID = "paid";
+    public static final String NOT_PAID = "not_paid";
 
     /* ------------------------------------------------------------- *
      * Network Call Keys

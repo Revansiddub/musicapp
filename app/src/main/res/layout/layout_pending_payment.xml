@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="payment"
+            type="com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Payment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_10dp">
+
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{payment.date}"
+            android:textColor="@color/md_grey_800"
+            android:textSize="@dimen/size_15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imagePayment"
+            android:layout_width="@dimen/size_55dp"
+            android:layout_height="@dimen/size_55dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_payment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textDate"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textStudentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:text="@{payment.studentName}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_18sp"
+            app:layout_constraintStart_toEndOf="@id/imagePayment"
+            app:layout_constraintTop_toBottomOf="@id/textDate" />
+
+        <TextView
+            android:id="@+id/textAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:text="@{`Rs. ` + payment.amount}"
+            android:textColor="@color/md_grey_700"
+            android:textSize="@dimen/size_15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/imagePayment"
+            app:layout_constraintTop_toBottomOf="@id/textStudentName" />
+
+        <TextView
+            android:id="@+id/textPaid"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:background="@drawable/button_rounded"
+            android:gravity="center"
+            android:paddingStart="@dimen/size_20dp"
+            android:paddingEnd="@dimen/size_20dp"
+            android:text="@string/paid"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textStudentName"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/textNotPaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/size_10dp"
+            android:text="@string/not_paid"
+            android:textColor="@color/md_grey_500"
+            android:textSize="@dimen/size_15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textPaid"
+            app:layout_constraintTop_toBottomOf="@id/textPaid"
+            tools:ignore="UnusedAttribute" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_10dp"
+            android:background="@color/md_grey_400"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textNotPaid" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

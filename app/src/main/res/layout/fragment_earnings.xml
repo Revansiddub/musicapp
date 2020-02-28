@@ -16,6 +16,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardPending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_10dp"
+            app:cardCornerRadius="@dimen/size_10dp"
+            app:cardMaxElevation="@dimen/size_100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutBase">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="@dimen/size_10dp">
+
+                <ImageView
+                    android:id="@+id/imagePending"
+                    android:layout_width="@dimen/size_50dp"
+                    android:layout_height="@dimen/size_50dp"
+                    android:layout_marginStart="@dimen/size_10dp"
+                    android:src="@drawable/icon_pending"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textStudentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:text="@string/pending_payments"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/imagePending"
+                    app:layout_constraintStart_toEndOf="@id/imagePending"
+                    app:layout_constraintTop_toTopOf="@id/imagePending" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerEarnings"
             android:layout_width="match_parent"
@@ -24,7 +68,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutBase" />
+            app:layout_constraintTop_toBottomOf="@+id/cardPending" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

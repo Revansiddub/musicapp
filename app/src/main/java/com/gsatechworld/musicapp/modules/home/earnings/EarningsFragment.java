@@ -1,8 +1,10 @@
 package com.gsatechworld.musicapp.modules.home.earnings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.FragmentEarningsBinding;
 import com.gsatechworld.musicapp.modules.home.earnings.adapter.EarningAdapter;
+import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.PendingPaymentActivity;
 
 import static androidx.databinding.DataBindingUtil.inflate;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
@@ -21,7 +24,7 @@ import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCC
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
-public class EarningsFragment extends Fragment {
+public class EarningsFragment extends Fragment implements OnClickListener {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -32,7 +35,7 @@ public class EarningsFragment extends Fragment {
     private BaseActivity baseActivity;
 
     /* ------------------------------------------------------------- *
-     * Overriding Fragment Method
+     * Overriding Fragment Methods
      * ------------------------------------------------------------- */
 
     @Override
@@ -41,17 +44,30 @@ public class EarningsFragment extends Fragment {
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_earnings, container, false);
 
-        /*Binding layout file with JAVA class*/
+        /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(EarningsViewModel.class);
 
         /*Setting Screen title*/
-        binding.layoutBase.toolbar.setTitle("Earning");
+        binding.layoutBase.toolbar.setTitle("Earnings");
 
         baseActivity = (BaseActivity) getActivity();
 
         fetchEarningDetails();
 
+        /*Setting listeners to the view*/
+        binding.cardPending.setOnClickListener(this);
+
         return binding.getRoot();
+    }
+
+    /* ------------------------------------------------------------- *
+     * Overriding OnClickListener Method
+     * ------------------------------------------------------------- */
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.cardPending)
+            startActivity(new Intent(getActivity(), PendingPaymentActivity.class));
     }
 
     /* ------------------------------------------------------------- *
