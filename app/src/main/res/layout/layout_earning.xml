@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="earning"
+            type="com.gsatechworld.musicapp.modules.home.earnings.pojo.Earning" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_10dp">
+
+        <ImageView
+            android:id="@+id/imageStatus"
+            android:layout_width="@dimen/size_50dp"
+            android:layout_height="@dimen/size_50dp"
+            android:src="@drawable/icon_credit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{earning.date}"
+            android:textColor="@color/md_grey_600"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textStudentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:text="@{earning.studentName}"
+            android:textColor="@color/md_grey_700"
+            android:textSize="@dimen/size_15sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@id/imageStatus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_2dp"
+            android:text="@{`Rs. ` + earning.amount}"
+            android:textColor="@color/md_grey_900"
+            android:textSize="@dimen/size_17sp"
+            app:layout_constraintStart_toEndOf="@id/imageStatus"
+            app:layout_constraintTop_toBottomOf="@id/textStudentName" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:background="@color/md_grey_400"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageStatus" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

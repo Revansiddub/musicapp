@@ -12,14 +12,14 @@ public class SettingsViewModel extends ViewModel {
      * Private Members
      * ------------------------------------------------------------- */
 
-    private SettingsViewModel repository;
+    private SettingsRepository repository;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
     public SettingsViewModel() {
-        repository = new SettingsViewModel();
+        repository = new SettingsRepository();
     }
 
     /* ------------------------------------------------------------- *
