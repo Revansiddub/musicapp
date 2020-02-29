@@ -56,7 +56,30 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TrainerHolder holder, int position) {
-        holder.binding.setTrainer(trainerList.get(position));
+        Trainer trainer = trainerList.get(position);
+        holder.binding.setTrainer(trainer);
+
+        StringBuilder coachingType = new StringBuilder();
+        StringBuilder recurrenceType = new StringBuilder();
+        StringBuilder days = new StringBuilder();
+        for (String type : trainer.getCoachingType()) {
+            coachingType.append(type);
+            coachingType.append(", ");
+        }
+
+        for (String type : trainer.getRecurrenceType()) {
+            recurrenceType.append(type);
+            recurrenceType.append(", ");
+        }
+
+        for (String day : trainer.getRecurrenceDays()) {
+            days.append(day);
+            days.append(", ");
+        }
+
+        holder.binding.textCoachingTypeValue.setText(coachingType);
+        holder.binding.textRecurrenceTypeValue.setText(recurrenceType);
+        holder.binding.textDaysTypeValue.setText(days);
     }
 
     @Override
