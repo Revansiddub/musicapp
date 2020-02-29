@@ -1,32 +1,34 @@
-package com.gsatechworld.musicapp.modules.home.settings.pojo;
+package com.gsatechworld.musicapp.modules.select_time_slot.pojo;
 
-public class SettingItem {
+import java.io.Serializable;
+
+public class TimeSlot implements Serializable {
 
     /* ------------------------------------------------------------- *
      * Private Members
      * ------------------------------------------------------------- */
 
-    private String settingName;
-    private int settingDrawableID;
+    private String startTime;
+    private String endTime;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public SettingItem(String settingName, int settingDrawableID) {
-        this.settingName = settingName;
-        this.settingDrawableID = settingDrawableID;
+    public TimeSlot(String startTime, String endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /* ------------------------------------------------------------- *
      * Getters
      * ------------------------------------------------------------- */
 
-    public String getSettingName() {
-        return settingName;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public int getSettingDrawableID() {
-        return settingDrawableID;
+    public String getEndTime() {
+        return endTime;
     }
 }

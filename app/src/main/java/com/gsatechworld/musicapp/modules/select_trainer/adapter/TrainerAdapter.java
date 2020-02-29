@@ -12,14 +12,15 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutTrainerBinding;
+import com.gsatechworld.musicapp.modules.select_time_slot.SelectTimeSlotActivity;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.Trainer;
-import com.gsatechworld.musicapp.modules.student_details.StudentDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
+import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 import static java.util.Locale.getDefault;
 
 public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
@@ -56,7 +57,30 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TrainerHolder holder, int position) {
-        holder.binding.setTrainer(trainerList.get(position));
+        Trainer trainer = trainerList.get(position);
+        holder.binding.setTrainer(trainer);
+
+        StringBuilder coachingType = new StringBuilder();
+        StringBuilder recurrenceType = new StringBuilder();
+        StringBuilder days = new StringBuilder();
+        for (String type : trainer.getCoachingType()) {
+            coachingType.append(type);
+            coachingType.append(", ");
+        }
+
+        for (String type : trainer.getRecurrenceType()) {
+            recurrenceType.append(type);
+            recurrenceType.append(", ");
+        }
+
+        for (String day : trainer.getRecurrenceDays()) {
+            days.append(day);
+            days.append(", ");
+        }
+
+        holder.binding.textCoachingTypeValue.setText(coachingType);
+        holder.binding.textRecurrenceTypeValue.setText(recurrenceType);
+        holder.binding.textDaysTypeValue.setText(days);
     }
 
     @Override
@@ -120,7 +144,10 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.layoutTrainer) {
-                Intent intent = new Intent(mCtx, StudentDetailsActivity.class);
+                Trainer trainer = trainerList.get(getAdapterPosition());
+
+                Intent intent = new Intent(mCtx, SelectTimeSlotActivity.class);
+                intent.putExtra(TRAINER_ID, trainer.getTrainerID());
                 mCtx.startActivity(intent);
             }
         }

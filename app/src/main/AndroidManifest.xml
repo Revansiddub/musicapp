@@ -2,12 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.gsatechworld.musicapp">
-    <!-- Android Permissions -->
+
+    <!--Android Permissions-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Hardware Permissions -->
-    <uses-feature android:name="android.hardware.camera" /> <!-- Removing Unwanted Permissions -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!--Hardware Permissions-->
+    <uses-feature android:name="android.hardware.camera" />
+
+    <!--Removing Unwanted Permissions-->
     <uses-permission
         android:name="android.permission.READ_CALL_LOG"
         tools:node="remove" />
@@ -30,36 +35,61 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".modules.home.earnings.pending_payments.PendingPaymentActivity"></activity>
-        <!-- Splash Screen -->
+
+        <!--Splash Screen-->
         <activity android:name=".modules.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Welcome Screen -->
+        </activity>
+
+        <!--Welcome Screen-->
         <activity
             android:name=".modules.welcome.WelcomeActivity"
-            android:screenOrientation="portrait" /> <!-- Select Category Screen -->
+            android:screenOrientation="portrait" />
+
+        <!--Select Category Screen-->
         <activity
             android:name=".modules.select_category.SelectCategoryActivity"
-            android:screenOrientation="portrait" /> <!-- Details Screen -->
+            android:screenOrientation="portrait" />
+
+        <!--Details Screen-->
         <activity
             android:name=".modules.details.DetailsActivity"
-            android:screenOrientation="portrait" /> <!-- Select Trainer Screen -->
+            android:screenOrientation="portrait" />
+
+        <!--Select Trainer Screen-->
         <activity
             android:name=".modules.select_trainer.SelectTrainerActivity"
-            android:screenOrientation="portrait" /> <!-- Student Details Screen -->
+            android:screenOrientation="portrait" />
+
+        <!--Select Time Slot Screen-->
+        <activity
+            android:name=".modules.select_time_slot.SelectTimeSlotActivity"
+            android:screenOrientation="portrait" />
+
+        <!--Student Details Screen-->
         <activity
             android:name=".modules.student_details.StudentDetailsActivity"
-            android:screenOrientation="portrait" /> <!-- Login Screen -->
+            android:screenOrientation="portrait" />
+
+        <!--Login Screen-->
         <activity
             android:name=".modules.login.LoginActivity"
-            android:screenOrientation="portrait" /> <!-- Home Screen -->
+            android:screenOrientation="portrait" />
+
+        <!--Home Screen-->
         <activity
             android:name=".modules.home.HomeActivity"
             android:screenOrientation="portrait" />
+
+        <!--Pending Payment Screen-->
+        <activity
+            android:name=".modules.home.earnings.pending_payments.PendingPaymentActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

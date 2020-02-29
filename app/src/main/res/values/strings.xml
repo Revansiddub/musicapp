@@ -100,5 +100,6 @@
     <string name="category_validation">Please write Category name</string>
     <string name="paid">Paid</string>
     <string name="not_paid">Not Paid</string>
+    <string name="days">Days</string>
 
 </resources>
