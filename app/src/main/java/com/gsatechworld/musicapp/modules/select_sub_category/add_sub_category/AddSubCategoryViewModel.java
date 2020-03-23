@@ -1,32 +1,31 @@
-package com.gsatechworld.musicapp.modules.details;
+package com.gsatechworld.musicapp.modules.select_sub_category.add_sub_category;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.gsatechworld.musicapp.modules.details.pojo.TrainerDetails;
 import com.gsatechworld.musicapp.utilities.CommonResponse;
 
-public class DetailsViewModel extends ViewModel {
+public class AddSubCategoryViewModel extends ViewModel {
 
     /* ------------------------------------------------------------- *
      * Private Members
      * ------------------------------------------------------------- */
 
-    private DetailsRepository repository;
+    private AddSubCategoryRepository repository;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public DetailsViewModel() {
-        repository = new DetailsRepository();
+    public AddSubCategoryViewModel() {
+        repository = new AddSubCategoryRepository();
     }
 
     /* ------------------------------------------------------------- *
      * Default Methods
      * ------------------------------------------------------------- */
 
-    LiveData<CommonResponse> submitTrainerDetails(TrainerDetails details) {
-        return repository.submitTrainerDetails(details);
+    LiveData<CommonResponse> addCategory(String category) {
+        return repository.addCategory(category);
     }
 }

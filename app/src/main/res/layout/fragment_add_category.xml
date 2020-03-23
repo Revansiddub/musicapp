@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".modules.select_category.add_category.AddCategoryFragment">
+    tools:context=".modules.select_sub_category.add_sub_category.AddSubCategoryFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutAddCategory"
@@ -65,7 +65,7 @@
             android:layout_marginEnd="@dimen/size_10dp"
             android:cursorVisible="true"
             android:focusable="true"
-            android:hint="@string/category"
+            android:hint="@string/subCategory"
             android:inputType="textCapWords"
             android:textSize="@dimen/size_15sp"
             app:layout_constraintBottom_toBottomOf="@id/imageAnimation"

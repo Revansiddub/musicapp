@@ -1,8 +1,8 @@
-package com.gsatechworld.musicapp.modules.select_category.pojo;
+package com.gsatechworld.musicapp.modules.select_sub_category.pojo;
 
 import java.util.List;
 
-public class CategoryResponse {
+public class SubCategoryResponse {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -10,16 +10,16 @@ public class CategoryResponse {
 
     private String response;
     private String message;
-    private List<Category> categoryList;
+    private List<SubCategory> subCategoryList;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public CategoryResponse(String response, String message, List<Category> categoryList) {
+    public SubCategoryResponse(String response, String message, List<SubCategory> subCategoryList) {
         this.response = response;
         this.message = message;
-        this.categoryList = categoryList;
+        this.subCategoryList = subCategoryList;
     }
 
     /* ------------------------------------------------------------- *
@@ -34,7 +34,7 @@ public class CategoryResponse {
         return message;
     }
 
-    public List<Category> getCategoryList() {
-        return categoryList;
+    public List<SubCategory> getSubCategoryList() {
+        return subCategoryList;
     }
 }

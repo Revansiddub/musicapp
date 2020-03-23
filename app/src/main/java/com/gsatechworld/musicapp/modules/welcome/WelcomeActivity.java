@@ -1,6 +1,7 @@
 package com.gsatechworld.musicapp.modules.welcome;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,7 +16,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityWelcomeBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
-import com.gsatechworld.musicapp.modules.select_category.SelectCategoryActivity;
+import com.gsatechworld.musicapp.modules.select_sub_category.SelectCategoryActivity;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
 
 import in.aabhasjindal.otptextview.OTPListener;
@@ -55,9 +56,11 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
         viewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
 
         /*Setting Screen title*/
-        binding.layoutBase.toolbar.setTitle(getString(R.string.app_name));
+//        binding.layoutBase.toolbar.setTitle(getString(R.string.app_name));
 
         initialiseSpinner();
+
+        binding.textLogin.setPaintFlags(binding.textLogin.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         /*Setting listeners to the views*/
         binding.spinnerUserType.setOnItemSelectedListener(this);

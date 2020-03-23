@@ -1,4 +1,4 @@
-package com.gsatechworld.musicapp.modules.select_category.add_category;
+package com.gsatechworld.musicapp.modules.select_sub_category.add_sub_category;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,14 +20,14 @@ import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCC
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
-public class AddCategoryFragment extends BottomSheetDialogFragment implements OnClickListener {
+public class AddSubCategoryFragment extends BottomSheetDialogFragment implements OnClickListener {
 
     /* ------------------------------------------------------------- *
      * Private Members
      * ------------------------------------------------------------- */
 
     private FragmentAddCategoryBinding binding;
-    private AddCategoryViewModel viewModel;
+    private AddSubCategoryViewModel viewModel;
     private BaseActivity baseActivity;
 
     /* ------------------------------------------------------------- *
@@ -40,7 +40,7 @@ public class AddCategoryFragment extends BottomSheetDialogFragment implements On
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_add_category, container, false);
 
-        viewModel = new ViewModelProvider(this).get(AddCategoryViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AddSubCategoryViewModel.class);
 
         baseActivity = (BaseActivity) getActivity();
 
@@ -89,7 +89,7 @@ public class AddCategoryFragment extends BottomSheetDialogFragment implements On
                 baseActivity.hideLoadingIndicator();
 
                 if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
-                    baseActivity.openSuccessDialog("Category has been sent successfully." +
+                    baseActivity.openSuccessDialog("SubCategory has been sent successfully." +
                             " It will be added soon");
                     dismiss();
                 } else

@@ -1,4 +1,4 @@
-package com.gsatechworld.musicapp.modules.select_category;
+package com.gsatechworld.musicapp.modules.select_sub_category;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
-import com.gsatechworld.musicapp.databinding.ActivitySelectCategoryBinding;
-import com.gsatechworld.musicapp.modules.select_category.adapter.CategoryAdapter;
-import com.gsatechworld.musicapp.modules.select_category.add_category.AddCategoryFragment;
+import com.gsatechworld.musicapp.databinding.ActivitySelectSubCategoryBinding;
+import com.gsatechworld.musicapp.modules.select_sub_category.adapter.SubCategoryAdapter;
+import com.gsatechworld.musicapp.modules.select_sub_category.add_sub_category.AddSubCategoryFragment;
 
 import static android.view.View.GONE;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
@@ -34,9 +34,9 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
      * Private Members
      * ------------------------------------------------------------- */
 
-    private ActivitySelectCategoryBinding binding;
+    private ActivitySelectSubCategoryBinding binding;
     private SelectCategoryViewModel viewModel;
-    private CategoryAdapter categoryAdapter;
+    private SubCategoryAdapter subCategoryAdapter;
     private String userType, pinCode;
 
     /* ------------------------------------------------------------- *
@@ -48,7 +48,7 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
         super.onCreate(savedInstanceState);
 
         /*Binding layout file with JAVA class*/
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_select_category);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_select_sub_category);
 
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(SelectCategoryViewModel.class);
@@ -92,15 +92,15 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if (categoryAdapter != null)
-            categoryAdapter.filter(query);
+        if (subCategoryAdapter != null)
+            subCategoryAdapter.filter(query);
         return true;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (categoryAdapter != null)
-            categoryAdapter.filter(newText);
+        if (subCategoryAdapter != null)
+            subCategoryAdapter.filter(newText);
         return true;
     }
 
@@ -130,16 +130,16 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
 
                 if (categoryResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
 
-                    categoryAdapter = new CategoryAdapter(this,
-                            categoryResponse.getCategoryList(), userType, pinCode);
+                    subCategoryAdapter = new SubCategoryAdapter(this,
+                            categoryResponse.getSubCategoryList(), userType, pinCode);
                     binding.recyclerCategories.setLayoutManager
                             (new LinearLayoutManager(this, VERTICAL, false));
-                    binding.recyclerCategories.setAdapter(categoryAdapter);
+                    binding.recyclerCategories.setAdapter(subCategoryAdapter);
                 } else
                     showSnackBar(this, categoryResponse.getMessage());
 
                 binding.textResult.setText(format("%s categories found in '%s' area",
-                        categoryResponse.getCategoryList().size(), pinCode));
+                        categoryResponse.getSubCategoryList().size(), pinCode));
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));
@@ -149,7 +149,7 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
      * This method is invoked to open a view where user can request admin to add category.
      */
     private void openAddCategoryDialog() {
-        AddCategoryFragment addCategoryFragment = new AddCategoryFragment();
-        addCategoryFragment.show(getSupportFragmentManager(), ADD_CATEGORY_FRAGMENT_TAG);
+        AddSubCategoryFragment addSubCategoryFragment = new AddSubCategoryFragment();
+        addSubCategoryFragment.show(getSupportFragmentManager(), ADD_CATEGORY_FRAGMENT_TAG);
     }
 }
