@@ -17,6 +17,7 @@ import com.gsatechworld.musicapp.databinding.ActivityWelcomeBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
 import com.gsatechworld.musicapp.modules.select_category.SelectCategoryActivity;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
+import com.gsatechworld.musicapp.select_sub_category.SelectSubCategoryActivity;
 
 import in.aabhasjindal.otptextview.OTPListener;
 
@@ -55,7 +56,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
         viewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
 
         /*Setting Screen title*/
-        binding.layoutBase.toolbar.setTitle(getString(R.string.app_name));
+
 
         initialiseSpinner();
 
@@ -139,7 +140,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
                         hideLoadingIndicator();
 
                         if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
-                            Intent intent = new Intent(this, SelectCategoryActivity.class);
+                            Intent intent = new Intent(this, SelectSubCategoryActivity.class);
                             intent.putExtra(USER_TYPE, userType);
                             intent.putExtra(PIN_CODE, pinCode);
                             startActivity(intent);

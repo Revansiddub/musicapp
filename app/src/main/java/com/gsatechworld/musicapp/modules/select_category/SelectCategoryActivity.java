@@ -62,7 +62,7 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
         }
 
         /*Setting Screen title*/
-        binding.layoutBase.toolbar.setTitle(getString(R.string.select_category));
+        binding.layoutBase.toolbar.setTitle(getString(R.string.select_sub_category));
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 

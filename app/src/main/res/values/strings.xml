@@ -27,9 +27,11 @@
 
     <!--Select Category Activity-->
     <string name="select_category">Select Category</string>
+    <string name="select_sub_category">Select SubCategory</string>
     <string name="select_trainer">Select Trainer</string>
     <string name="search_here">Search here</string>
     <string name="category_not_found_message">Not in the list? Add here</string>
+
 
     <!--Add Category Fragment-->
     <string name="add_category">Add Category</string>
@@ -101,5 +103,9 @@
     <string name="paid">Paid</string>
     <string name="not_paid">Not Paid</string>
     <string name="days">Days</string>
+
+    <string name="attented">Attented</string>
+    <string name="not_attented">Not Attented</string>
+    <string name="add_attendance">Add Attendance</string>
 
 </resources>

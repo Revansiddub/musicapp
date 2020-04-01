@@ -9,27 +9,39 @@
             type="com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/layoutTimeSlot"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/size_10dp"
-        android:background="@drawable/time_slot_unselected"
-        android:paddingTop="@dimen/size_15dp"
-        android:paddingBottom="@dimen/size_15dp">
+        android:padding="@dimen/size_10dp"
+        android:background="@drawable/edit_text_rounded_corner"
+        android:paddingTop="@dimen/size_10dp"
+        android:paddingBottom="@dimen/size_10dp">
 
         <TextView
             android:id="@+id/textTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{timeSlot.startTime + ` Hrs - ` + timeSlot.endTime + ` Hrs`}"
+            android:text="@{timeSlot.startTime + ` - ` + timeSlot.endTime + ` Hrs`}"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_15sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_centerVertical="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/image_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black_24dp"
+            android:layout_alignParentEnd="true"
+            />
+
+
+    </RelativeLayout>
 
 </layout>

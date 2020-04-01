@@ -13,7 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityLoginBinding;
+import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
+import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
 import com.gsatechworld.musicapp.modules.home.HomeActivity;
+import com.gsatechworld.musicapp.modules.home.trainer_home.TrainerHomeFragment;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
 
 import static android.text.TextUtils.isEmpty;
@@ -26,7 +29,7 @@ import static com.gsatechworld.musicapp.utilities.Constants.TRAINER;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
-public class LoginActivity extends BaseActivity implements OnClickListener {
+public class LoginActivity extends BaseActivity implements OnClickListener, CoachingDetailsFragment.CoachingDetailsListener {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -35,6 +38,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private ActivityLoginBinding binding;
     private LoginViewModel viewModel;
     private String loginType, userName, password, mobileNumber;
+    public String userType;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -106,12 +110,17 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.buttonLogin:
                 if (validateFields())
-                    if (loginType.equals(TRAINER))
+                    if (loginType.equals(TRAINER)){
                         authenticateTrainer();
+
+                    }
+
+
                     else
                         authenticateStudent();
                 break;
         }
+
     }
 
     /* ------------------------------------------------------------- *
@@ -130,7 +139,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                         hideLoadingIndicator();
 
                         if (trainerResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
-                            startActivity(new Intent(this, HomeActivity.class));
+                            userType="Daily";
+                            Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+                             intent.putExtra("type",userType);
+                            startActivity(intent);
                         } else
                             showSnackBar(this, trainerResponse.getMessage());
                     });
@@ -149,6 +161,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 hideLoadingIndicator();
 
                 if (studentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+
                     startActivity(new Intent(this, HomeActivity.class));
                 } else
                     showSnackBar(this, studentResponse.getMessage());
@@ -186,5 +199,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         }
 
         return true;
+    }
+
+    @Override
+    public void coachingDetails(CoachingDetails coachingDetails) {
+        if (coachingDetails.isDaily() == true){
+
+        }
     }
 }

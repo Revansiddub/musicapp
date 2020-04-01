@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,7 @@ public class TimeSlotAdapter extends Adapter<TimeSlotAdapter.TimeSlotHolder> {
 
     private Context mCtx;
     private List<TimeSlot> timeSlotList;
-    private ConstraintLayout seletedTimeSlot;
+    private RelativeLayout seletedTimeSlot;
     private TextView selectedTime;
 
     /* ------------------------------------------------------------- *

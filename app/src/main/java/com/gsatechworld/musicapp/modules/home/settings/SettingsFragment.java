@@ -57,9 +57,9 @@ public class SettingsFragment extends Fragment {
      */
     private void setAdapter() {
         List<SettingItem> settingList = new ArrayList<>();
+        settingList.add(new SettingItem("Change Password", R.drawable.ic_lock_black_24dp));
         settingList.add(new SettingItem("", R.drawable.icon_home));
-        settingList.add(new SettingItem("", R.drawable.icon_home));
-        settingList.add(new SettingItem("", R.drawable.icon_home));
+        settingList.add(new SettingItem("About Us", R.drawable.ic_info_black_24dp));
         settingList.add(new SettingItem(getString(R.string.logout), R.drawable.icon_logout));
 
         SettingsAdapter adapter = new SettingsAdapter(getActivity(), settingList);

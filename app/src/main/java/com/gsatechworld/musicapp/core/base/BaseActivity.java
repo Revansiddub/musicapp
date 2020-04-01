@@ -2,6 +2,7 @@ package com.gsatechworld.musicapp.core.base;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.modules.otp.TrainerOtpVerification;
 
 import java.io.ByteArrayOutputStream;
 
@@ -125,8 +127,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         textMessage.setText(message);
 
-        buttonOk.setOnClickListener(v -> dialog.dismiss());
-
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                startActivity(new Intent(getApplicationContext(), TrainerOtpVerification.class));
+            }
+        });
         dialog.show();
     }
 

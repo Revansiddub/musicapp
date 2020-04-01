@@ -92,10 +92,8 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
             viewModel.storeAction(new ActionInfo(requestID, action)).observe(getViewLifecycleOwner(),
                     commonResponse -> {
                         baseActivity.hideLoadingIndicator();
-
                         if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS))
                             fetchApprovalList();
-
                         baseActivity.showSnackBar(requireNonNull(getActivity()),
                                 commonResponse.getMessage());
                     });

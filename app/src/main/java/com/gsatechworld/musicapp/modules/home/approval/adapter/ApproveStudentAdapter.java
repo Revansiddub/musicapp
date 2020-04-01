@@ -1,16 +1,21 @@
 package com.gsatechworld.musicapp.modules.home.approval.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.LayoutApproveStudentBinding;
 import com.gsatechworld.musicapp.modules.home.approval.pojo.Approval;
 
@@ -20,10 +25,13 @@ import java.util.List;
 import static android.os.Build.VERSION_CODES.M;
 import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
+import static com.google.android.material.snackbar.Snackbar.make;
 import static com.gsatechworld.musicapp.utilities.Constants.ACCEPTED;
 import static com.gsatechworld.musicapp.utilities.Constants.IGNORED;
 import static com.gsatechworld.musicapp.utilities.Constants.MALE;
 import static java.util.Locale.getDefault;
+import static java.util.Objects.requireNonNull;
 
 public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.ApproveStudentHolder> {
 
@@ -35,6 +43,10 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
     private List<Approval> approvalList;
     private List<Approval> searchableApprovalList;
     private OnActionPerformedListener actionListener;
+    private BaseActivity baseActivity;
+   public  ConstraintLayout constraintLayout;
+   ApproveListener listener;
+
 
     /* ------------------------------------------------------------- *
      * Constructor
@@ -71,13 +83,25 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
             holder.binding.imageStudent
                     .setImageDrawable(mCtx.getDrawable(R.drawable.icon_male_student));
             holder.binding.imageStudent
-                    .setImageTintList(mCtx.getColorStateList(R.color.colorPrimaryDark));
+                    .setImageTintList(mCtx.getColorStateList(R.color.colorPrimary));
         } else {
             holder.binding.imageStudent
                     .setImageDrawable(mCtx.getDrawable(R.drawable.icon_female_student));
             holder.binding.imageStudent
                     .setImageTintList(mCtx.getColorStateList(R.color.colorAccent));
         }
+        holder.binding.textAccept.setOnClickListener(v -> {
+            approvalList.remove(position);
+            notifyDataSetChanged();
+            //actionListener.onActionPerformed(approval.getRequestID(), ACCEPTED);
+            showSnackBar((Activity) mCtx,"Request Accepted");
+
+        });
+        holder.binding.textIgnore.setOnClickListener(v -> {
+            approvalList.remove(position);
+            notifyDataSetChanged();
+            showSnackBar((Activity) mCtx,"Request Ignored");
+        });
     }
 
     @Override
@@ -115,6 +139,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
     public interface OnActionPerformedListener {
         void onActionPerformed(String requestID, String action);
+
     }
 
     /* ------------------------------------------------------------- *
@@ -135,6 +160,8 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
         ApproveStudentHolder(final LayoutApproveStudentBinding binding) {
             super(binding.getRoot());
+
+            constraintLayout=binding.layoutApprove;
 
             this.binding = binding;
 
@@ -160,5 +187,19 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
                     break;
             }
         }
+    }
+
+    public void showSnackBar(Activity context, String message) {
+        Snackbar snackbar = make(context.findViewById(android.R.id.content), message, LENGTH_LONG);
+        View view = snackbar.getView();
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) view.getLayoutParams();
+        view.setLayoutParams(layoutParams);
+        view.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+
+        snackbar.show();
+    }
+
+    public interface ApproveListener{
+        void approveStudents();
     }
 }

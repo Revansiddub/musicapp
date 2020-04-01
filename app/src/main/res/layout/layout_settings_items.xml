@@ -23,7 +23,7 @@
             android:layout_width="@dimen/size_30dp"
             android:layout_height="@dimen/size_30dp"
             android:layout_centerVertical="true"
-            android:tint="@color/md_grey_600"
+            android:tint="@color/white"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_marginStart="@dimen/size_15dp"
             android:layout_toEndOf="@id/imageItem"
             android:text="@{settings.settingName}"
-            android:textColor="@color/md_grey_600"
+            android:textColor="@color/white"
             android:textSize="@dimen/size_17sp" />
 
         <View

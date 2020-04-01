@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="attendance"
+            type="com.gsatechworld.musicapp.modules.home.trainer_home.pojo.StudentAttendance" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/layoutApprove"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:elevation="@dimen/size_15dp"
+    android:padding="@dimen/size_10dp">
+
+<ImageView
+    android:id="@+id/imageStudent"
+    android:layout_width="@dimen/size_55dp"
+    android:layout_height="@dimen/size_55dp"
+    android:layout_marginTop="@dimen/size_10dp"
+    android:scaleType="fitXY"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="ContentDescription" />
+
+<TextView
+    android:id="@+id/textStudentName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/size_5dp"
+    android:layout_marginTop="@dimen/size_2dp"
+    android:text="@{attendance.name + `, ` + attendance.age}"
+    android:textColor="@color/colorPrimary"
+    android:textSize="@dimen/size_17sp"
+    app:layout_constraintEnd_toStartOf="@id/textSlotDetails"
+    app:layout_constraintHorizontal_bias="0"
+    app:layout_constraintStart_toEndOf="@id/imageStudent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+<TextView
+    android:id="@+id/textSlotDetails"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/size_5dp"
+    android:layout_marginTop="@dimen/size_5dp"
+    android:text="@{attendance.timing}"
+    android:textColor="@color/colorPrimary"
+    android:textSize="@dimen/size_13sp"
+    android:textStyle="bold"
+    app:layout_constraintStart_toEndOf="@id/imageStudent"
+    app:layout_constraintTop_toBottomOf="@id/textStudentName" />
+
+    <TextView
+        android:id="@+id/textphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_5dp"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:text="@{attendance.phone}"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/size_13sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/imageStudent"
+        app:layout_constraintTop_toBottomOf="@id/textSlotDetails" />
+
+
+
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_1dp"
+    android:layout_marginStart="@dimen/size_10dp"
+    android:layout_marginTop="@dimen/size_10dp"
+    android:layout_marginEnd="@dimen/size_10dp"
+    android:background="@color/md_grey_400"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/textphone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

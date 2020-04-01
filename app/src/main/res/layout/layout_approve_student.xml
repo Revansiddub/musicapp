@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -33,7 +34,7 @@
             android:layout_marginStart="@dimen/size_5dp"
             android:layout_marginTop="@dimen/size_10dp"
             android:text="@{approval.studentName + `, ` + approval.age}"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_17sp"
             app:layout_constraintEnd_toStartOf="@id/textAccept"
             app:layout_constraintHorizontal_bias="0"
@@ -47,7 +48,7 @@
             android:layout_marginStart="@dimen/size_5dp"
             android:layout_marginTop="@dimen/size_5dp"
             android:text="@{approval.startTime + ` - ` + approval.endTime}"
-            android:textColor="@color/md_grey_700"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_13sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/imageStudent"
@@ -76,7 +77,7 @@
             android:gravity="center"
             android:padding="@dimen/size_10dp"
             android:text="@string/ignore"
-            android:textColor="@color/md_grey_500"
+            android:textColor="@color/grey"
             android:textSize="@dimen/size_15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
