@@ -14,139 +14,164 @@
         android:id="@+id/layoutTrainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/size_10dp">
+        >
 
-        <ImageView
-            android:id="@+id/imageTrainer"
-            android:layout_width="@dimen/size_50dp"
-            android:layout_height="@dimen/size_50dp"
-            android:src="@drawable/icon_trainer"
-            android:tint="@color/colorPrimaryDark"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/textCharges"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_5dp"
-            android:layout_marginEnd="@dimen/size_10dp"
-            android:text="@{`Rs. ` + trainer.charges}"
-            android:textColor="@color/md_grey_800"
-            android:textSize="@dimen/size_18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textTrainerName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_10dp"
-            android:layout_marginEnd="@dimen/size_10dp"
-            android:text="@{trainer.trainerName}"
-            android:textColor="@color/md_grey_600"
-            android:textSize="@dimen/size_20sp"
-            app:layout_constraintEnd_toStartOf="@id/textCharges"
-            app:layout_constraintStart_toEndOf="@id/imageTrainer"
-            app:layout_constraintTop_toTopOf="@+id/textCharges" />
-
-        <TextView
-            android:id="@+id/textCoachingType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_15dp"
-            android:layout_marginTop="@dimen/size_5dp"
-            android:text="@string/coaching_type"
-            android:textColor="@color/md_grey_900"
-            android:textSize="@dimen/size_15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/imageTrainer"
-            app:layout_constraintTop_toBottomOf="@id/textTrainerName" />
-
-        <TextView
-            android:id="@+id/textCoachingTypeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_10dp"
-            android:layout_marginTop="@dimen/size_3dp"
-            android:textColor="@color/md_grey_600"
-            android:textSize="@dimen/size_17sp"
-            app:layout_constraintStart_toEndOf="@id/imageTrainer"
-            app:layout_constraintTop_toBottomOf="@id/textCoachingType" />
-
-        <TextView
-            android:id="@+id/textRecurrenceType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_15dp"
-            android:layout_marginTop="@dimen/size_3dp"
-            android:text="@string/recurrence_type"
-            android:textColor="@color/md_grey_900"
-            android:textSize="@dimen/size_15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/imageTrainer"
-            app:layout_constraintTop_toBottomOf="@id/textCoachingTypeValue" />
-
-        <TextView
-            android:id="@+id/textRecurrenceTypeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_10dp"
-            android:layout_marginTop="@dimen/size_3dp"
-            android:textColor="@color/md_grey_600"
-            android:textSize="@dimen/size_17sp"
-            app:layout_constraintStart_toEndOf="@id/imageTrainer"
-            app:layout_constraintTop_toBottomOf="@id/textRecurrenceType" />
-
-        <TextView
-            android:id="@+id/textDaysType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_15dp"
-            android:layout_marginTop="@dimen/size_3dp"
-            android:text="@string/days"
-            android:textColor="@color/md_grey_900"
-            android:textSize="@dimen/size_15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/imageTrainer"
-            app:layout_constraintTop_toBottomOf="@id/textRecurrenceTypeValue" />
-
-        <TextView
-            android:id="@+id/textDaysTypeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_10dp"
-            android:layout_marginTop="@dimen/size_3dp"
-            android:textColor="@color/md_grey_600"
-            android:textSize="@dimen/size_17sp"
-            app:layout_constraintStart_toEndOf="@id/imageTrainer"
-            app:layout_constraintTop_toBottomOf="@id/textDaysType" />
-
-        <TextView
-            android:id="@+id/textAddress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_10dp"
-            android:layout_marginTop="@dimen/size_5dp"
-            android:text="@{trainer.address}"
-            android:textColor="@color/md_grey_800"
-            android:textSize="@dimen/size_17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/imageTrainer"
-            app:layout_constraintTop_toBottomOf="@id/textDaysTypeValue" />
-
-        <View
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_1dp"
-            android:layout_marginStart="@dimen/size_10dp"
-            android:layout_marginTop="@dimen/size_15dp"
-            android:layout_marginEnd="@dimen/size_10dp"
-            android:background="@color/md_grey_400"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textAddress" />
+            android:layout_height="match_parent"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/size_5dp"
+            app:cardBackgroundColor="@color/white"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageTrainer"
+                    android:layout_width="@dimen/size_50dp"
+                    android:layout_height="@dimen/size_50dp"
+                    android:src="@drawable/icon_trainer"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:tint="@color/colorPrimaryDark"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textCharges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:layout_marginEnd="@dimen/size_10dp"
+                    android:text="@{`Rs. ` + trainer.charges}"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/md_grey_800"
+                    android:fontFamily="georgia"
+                    android:textSize="@dimen/size_18sp"
+                    android:textStyle="bold"
+                     />
+
+                <TextView
+                    android:id="@+id/textTrainerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginEnd="@dimen/size_10dp"
+                    android:text="@{trainer.trainerName}"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="@dimen/size_20sp"
+                    android:layout_toRightOf="@id/imageTrainer"
+                    android:fontFamily="georgia"
+                    />
+
+                <TextView
+                    android:id="@+id/textCoachingType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="@string/coaching_type"
+                    android:textColor="@color/md_grey_900"
+                    android:textSize="@dimen/size_15sp"
+                    android:layout_below="@id/textTrainerName"
+                    android:layout_toRightOf="@id/imageTrainer"
+                    android:fontFamily="georgia"
+                    android:textStyle="bold"
+                  />
+
+                <TextView
+                    android:id="@+id/textCoachingTypeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_3dp"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="@dimen/size_17sp"
+                    android:layout_toRightOf="@id/imageTrainer"
+                    android:layout_below="@id/textCoachingType"
+                     />
+
+                <TextView
+                    android:id="@+id/textRecurrenceType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_3dp"
+                    android:text="@string/recurrence_type"
+                    android:textColor="@color/md_grey_900"
+                    android:textSize="@dimen/size_15sp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/imageTrainer"
+                    android:layout_below="@id/textCoachingTypeValue"
+                     />
+
+                <TextView
+                    android:id="@+id/textRecurrenceTypeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_3dp"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="@dimen/size_17sp"
+                    android:layout_below="@id/textRecurrenceType"
+                    android:layout_toRightOf="@id/imageTrainer"
+                     />
+
+
+                <TextView
+                    android:id="@+id/textDaysType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_3dp"
+                    android:text="@string/days"
+                    android:textColor="@color/md_grey_900"
+                    android:textSize="@dimen/size_15sp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/imageTrainer"
+                    android:layout_below="@id/textRecurrenceTypeValue"
+                     />
+
+                <TextView
+                    android:id="@+id/textDaysTypeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_3dp"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="@dimen/size_17sp"
+                    android:layout_toRightOf="@id/imageTrainer"
+                    android:layout_below="@id/textDaysType"
+                     />
+
+                <TextView
+                    android:id="@+id/textAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_10dp"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:text="@{trainer.address}"
+                    android:textColor="@color/md_grey_800"
+                    android:textSize="@dimen/size_17sp"
+                    android:layout_below="@id/textDaysTypeValue"
+                    />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

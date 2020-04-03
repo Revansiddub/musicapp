@@ -30,7 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".modules.otp.TrainerOtpVerification"></activity>
+        <activity android:name=".modules.home.approval.StudentsDetails"></activity>
+        <activity android:name=".modules.home.settings.ChangePasswordActivity" />
+        <activity android:name=".modules.otp.TrainerOtpVerification" />
         <activity android:name=".select_sub_category.SelectSubCategoryActivity" />
         <activity android:name=".modules.home.trainer_home.AddAttendanceActivity" />
         <activity android:name=".modules.home.trainer_home.AttendanceActivity" /> <!-- Splash Screen -->

@@ -9,6 +9,16 @@
         android:layout_height="match_parent"
         tools:context=".modules.otp.TrainerOtpVerification">
 
+        <ImageView
+            android:id="@+id/image_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sms"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/size_50dp"
+
+            />
+
         <TextView
             android:id="@+id/textview"
             android:layout_width="wrap_content"
@@ -18,6 +28,23 @@
             android:text="Enter OTP Here"
             android:textSize="@dimen/size_20dp"
             android:textStyle="bold"
+            android:layout_below="@id/image_sms"
+            android:fontFamily="georgia"/>
+
+        <TextView
+            android:id="@+id/textview_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_30dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_centerHorizontal="true"
+            android:lines="2"
+            android:text="@string/otp_text"
+            android:textSize="@dimen/size_15dp"
+            android:textColor="@color/md_grey_400"
+            android:textStyle="normal"
+            android:layout_below="@id/textview"
             android:fontFamily="georgia"/>
 
 
@@ -27,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_30dp"
-            android:layout_below="@id/textview"
+            android:layout_below="@id/textview_otp"
             app:pinWidth="@dimen/size_50dp"
             app:pinHeight="@dimen/size_50dp"
             app:pinLength="4"
@@ -40,15 +67,36 @@
 
         <Button
             android:id="@+id/button_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/size_60dp"
+            android:layout_height="@dimen/size_60dp"
             android:layout_below="@id/pinView"
-            android:layout_marginLeft="@dimen/size_30dp"
             android:layout_marginTop="35dp"
-            android:layout_marginRight="@dimen/size_30dp"
-            android:background="@drawable/button_rounded_corner"
-            android:text="@string/submit"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_arrow"
+            android:textSize="@dimen/size_50dp"
             android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_submit"
+            android:textSize="@dimen/size_15dp"
+            android:text="Don't Recieve the OTP?"
+            android:textColor="@color/md_grey_400"
+            android:fontFamily="georgia"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/size_20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resent OTP"
+            android:layout_below="@id/text"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="georgia"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
 
     </RelativeLayout>
 

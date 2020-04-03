@@ -2,6 +2,7 @@ package com.gsatechworld.musicapp.modules.home.approval.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -17,7 +18,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.LayoutApproveStudentBinding;
+import com.gsatechworld.musicapp.modules.home.approval.StudentsDetails;
 import com.gsatechworld.musicapp.modules.home.approval.pojo.Approval;
+import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +104,16 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
             approvalList.remove(position);
             notifyDataSetChanged();
             showSnackBar((Activity) mCtx,"Request Ignored");
+        });
+
+        holder.binding.layoutApprove.setOnClickListener(v -> {
+            Intent intent=new Intent(mCtx.getApplicationContext(), StudentsDetails.class);
+            intent.putExtra("name",approval.getStudentName());
+            intent.putExtra("age",approval.getAge());
+            intent.putExtra("gender",approval.getGender());
+            intent.putExtra("timing",approval.getStartTime());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mCtx.getApplicationContext().startActivity(intent);
         });
     }
 

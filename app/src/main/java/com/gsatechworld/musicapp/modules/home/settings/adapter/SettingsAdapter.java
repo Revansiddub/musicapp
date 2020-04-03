@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutSettingsItemsBinding;
+import com.gsatechworld.musicapp.modules.home.settings.ChangePasswordActivity;
 import com.gsatechworld.musicapp.modules.home.settings.pojo.SettingItem;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
 
@@ -102,6 +103,8 @@ public class SettingsAdapter extends Adapter<SettingsAdapter.SettingsHolder> {
             if (v.getId() == R.id.layoutItem) {
                 switch (getAdapterPosition()) {
                     case 0:
+                        Intent intent=new Intent(mCtx.getApplicationContext(), ChangePasswordActivity.class);
+                        mCtx.startActivity(intent);
                         break;
                     case 1:
                         break;

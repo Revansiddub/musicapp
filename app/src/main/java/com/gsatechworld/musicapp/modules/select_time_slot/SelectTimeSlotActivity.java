@@ -8,7 +8,9 @@ import android.view.View.OnClickListener;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
@@ -35,6 +37,7 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
     private SelectTimeSlotViewModel viewModel;
     private String trainerID;
     private TimeSlot selectedTimeSlot;
+    RecyclerView recyclerView;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -46,6 +49,11 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_time_slot);
+        recyclerView=binding.recyclerTimeSlots;
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setHasFixedSize(true);
 
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(SelectTimeSlotViewModel.class);
@@ -61,7 +69,14 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
         fetchTimeSlots();
 
         /*Setting listeners to the view*/
-        binding.buttonNext.setOnClickListener(this);
+        binding.buttonNext.setOnClickListener(v -> {
+            Intent intent = new Intent(this, StudentDetailsActivity.class);
+            intent.putExtra(TRAINER_ID, trainerID);
+            intent.putExtra(TIME_SLOT, selectedTimeSlot);
+            startActivity(intent);
+        });
+
+
     }
 
     /* ------------------------------------------------------------- *

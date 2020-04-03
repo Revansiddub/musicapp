@@ -13,74 +13,81 @@
     android:id="@+id/layoutApprove"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:elevation="@dimen/size_15dp"
-    android:padding="@dimen/size_10dp">
+    >
 
-<ImageView
-    android:id="@+id/imageStudent"
-    android:layout_width="@dimen/size_55dp"
-    android:layout_height="@dimen/size_55dp"
-    android:layout_marginTop="@dimen/size_10dp"
-    android:scaleType="fitXY"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:ignore="ContentDescription" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_students"
+        android:layout_width="match_parent"
+        android:padding="@dimen/size_10dp"
+        app:cardCornerRadius="@dimen/size_5dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/size_5dp"
+        android:layout_marginRight="@dimen/size_5dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/white">
 
-<TextView
-    android:id="@+id/textStudentName"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/size_5dp"
-    android:layout_marginTop="@dimen/size_2dp"
-    android:text="@{attendance.name + `, ` + attendance.age}"
-    android:textColor="@color/colorPrimary"
-    android:textSize="@dimen/size_17sp"
-    app:layout_constraintEnd_toStartOf="@id/textSlotDetails"
-    app:layout_constraintHorizontal_bias="0"
-    app:layout_constraintStart_toEndOf="@id/imageStudent"
-    app:layout_constraintTop_toTopOf="parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/size_5dp">
 
 
-<TextView
-    android:id="@+id/textSlotDetails"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/size_5dp"
-    android:layout_marginTop="@dimen/size_5dp"
-    android:text="@{attendance.timing}"
-    android:textColor="@color/colorPrimary"
-    android:textSize="@dimen/size_13sp"
-    android:textStyle="bold"
-    app:layout_constraintStart_toEndOf="@id/imageStudent"
-    app:layout_constraintTop_toBottomOf="@id/textStudentName" />
+            <ImageView
+                android:id="@+id/imageStudent"
+                android:layout_width="@dimen/size_55dp"
+                android:layout_height="@dimen/size_55dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:scaleType="fitXY"
+                android:layout_margin="@dimen/size_15dp"
+                android:layout_centerVertical="true"
+                 />
 
-    <TextView
-        android:id="@+id/textphone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/size_5dp"
-        android:layout_marginTop="@dimen/size_5dp"
-        android:text="@{attendance.phone}"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/size_13sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/imageStudent"
-        app:layout_constraintTop_toBottomOf="@id/textSlotDetails" />
+            <TextView
+                android:id="@+id/textStudentName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_5dp"
+                android:layout_marginTop="@dimen/size_2dp"
+                android:text="@{attendance.name + `, ` + attendance.age}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_17sp"
+                android:layout_toRightOf="@id/imageStudent"
+                 />
 
 
+            <TextView
+                android:id="@+id/textSlotDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_5dp"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:text="@{attendance.timing}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_13sp"
+                android:textStyle="bold"
+                android:layout_below="@id/textStudentName"
+                android:layout_toRightOf="@id/imageStudent"
+                 />
+
+            <TextView
+                android:id="@+id/textphone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_5dp"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:text="@{attendance.phone}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_13sp"
+                android:textStyle="bold"
+                android:layout_below="@id/textSlotDetails"
+                android:layout_toRightOf="@id/imageStudent"
+                 />
 
 
-<View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/size_1dp"
-    android:layout_marginStart="@dimen/size_10dp"
-    android:layout_marginTop="@dimen/size_10dp"
-    android:layout_marginEnd="@dimen/size_10dp"
-    android:background="@color/md_grey_400"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/textphone" />
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,6 +1,8 @@
 package com.gsatechworld.musicapp.modules.home.trainer_home.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -17,14 +19,14 @@ import java.util.List;
 import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
 
-public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeslotViewHolder> {
+public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotViewHolder> {
 
     private Context mCtx;
     private List<TimeSlot> timeSlotList;
     private ConstraintLayout seletedTimeSlot;
     private TextView selectedTime;
 
-    public TimeSlotAdapter(Context mCtx, List<TimeSlot> timeSlotList) {
+    public TimesAdapter(Context mCtx, List<TimeSlot> timeSlotList) {
         this.mCtx = mCtx;
         this.timeSlotList = timeSlotList;
     }
@@ -39,8 +41,11 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.Timesl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TimeSlotAdapter.TimeslotViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TimesAdapter.TimeslotViewHolder holder, int position) {
         holder.binding.setTimeSlot(timeSlotList.get(position));
+        holder.binding.imageClose.setOnClickListener(v -> {
+
+        });
     }
 
     @Override

@@ -6,7 +6,9 @@ import android.view.MenuItem;
 import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
@@ -30,6 +32,7 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
     private SelectTrainerViewModel viewModel;
     private TrainerAdapter adapter;
     private String pinCode, categoryID;
+    RecyclerView recyclerView;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity
@@ -41,7 +44,11 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_trainer);
-
+        recyclerView=binding.recyclerTrainer;
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setHasFixedSize(true);
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(SelectTrainerViewModel.class);
 

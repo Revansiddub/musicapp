@@ -43,6 +43,7 @@
     <string name="personal_details">Personal Details</string>
     <string name="next">Next</string>
     <string name="submit">Submit</string>
+    <string name="go"> -> </string>
 
     <!--Login Activity-->
     <string name="username">Username</string>
@@ -107,5 +108,6 @@
     <string name="attented">Attented</string>
     <string name="not_attented">Not Attented</string>
     <string name="add_attendance">Add Attendance</string>
+    <string name="otp_text">We have sent you access code Via SMS for mobile number verification</string>
 
 </resources>

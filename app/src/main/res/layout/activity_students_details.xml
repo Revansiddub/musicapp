@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".modules.home.approval.StudentsDetails">
+
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_15dp"
+            android:layout_marginRight="@dimen/size_15dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="@dimen/size_15dp"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="@dimen/size_5dp"
+            tools:ignore="MissingConstraints">
+
+
+            <RelativeLayout
+                android:id="@+id/relative_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_profile"
+                    android:layout_width="@dimen/size_96dp"
+                    android:layout_height="@dimen/size_90dp"
+                    android:layout_marginTop="@dimen/size_15dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_music"
+                    />
+
+
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:layout_below="@id/image_profile"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/textview_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:layout_below="@id/image_profile"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/age"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/textview_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/age"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/gender"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/textview_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/age"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:id="@+id/timing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/gender"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text="Timing"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/textview_timing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/gender"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
+
+                <Button
+                    android:id="@+id/button_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/timing"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginTop="@dimen/size_30dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:background="@drawable/button_rounded_corner"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/submit"
+                    android:textColor="@color/white" />
+
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </RelativeLayout>
+
+
+
+</layout>

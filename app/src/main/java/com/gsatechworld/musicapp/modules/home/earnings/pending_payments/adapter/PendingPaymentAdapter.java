@@ -1,14 +1,17 @@
 package com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutPendingPaymentBinding;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Payment;
@@ -18,6 +21,8 @@ import java.util.List;
 
 import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
+import static com.google.android.material.snackbar.Snackbar.make;
 import static com.gsatechworld.musicapp.utilities.Constants.NOT_PAID;
 import static com.gsatechworld.musicapp.utilities.Constants.PAID;
 import static java.util.Locale.getDefault;
@@ -57,6 +62,11 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
     @Override
     public void onBindViewHolder(@NonNull PendingPaymentHolder holder, int position) {
         holder.binding.setPayment(pendingPaymentList.get(position));
+        holder.binding.textPaid.setOnClickListener(v -> {
+            pendingPaymentList.remove(position);
+            notifyDataSetChanged();
+            showSnackBar((Activity) mCtx,"Request Accepted");
+        });
     }
 
     @Override
@@ -139,5 +149,14 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
                     break;
             }
         }
+    }
+    public void showSnackBar(Activity context, String message) {
+        Snackbar snackbar = make(context.findViewById(android.R.id.content), message, LENGTH_LONG);
+        View view = snackbar.getView();
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) view.getLayoutParams();
+        view.setLayoutParams(layoutParams);
+        view.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+
+        snackbar.show();
     }
 }

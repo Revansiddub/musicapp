@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,9 +42,14 @@ public class AttendanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_attendance);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_attendance);
         recyclerView_slot=binding.recyclerTimeSlots;
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView_slot.getContext(),
+                DividerItemDecoration.VERTICAL);
+        recyclerView_slot.addItemDecoration(dividerItemDecoration);
         recyclerView_slot.setHasFixedSize(true);
         recyclerView_studnts=binding.recyclerStudents;
-
+        DividerItemDecoration dividerItemDecoration1 = new DividerItemDecoration(recyclerView_studnts.getContext(),
+                DividerItemDecoration.VERTICAL);
+        recyclerView_studnts.addItemDecoration(dividerItemDecoration1);
         recyclerView_studnts.setHasFixedSize(true);
 
         viewModel=new ViewModelProvider(this).get(TimeSlotViewModel.class);

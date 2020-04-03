@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutTrainersHome"
         android:layout_width="match_parent"
-        android:background="#3F51B5"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <com.applandeo.materialcalendarview.CalendarView
@@ -16,15 +16,15 @@
             android:layout_height="match_parent"
             app:abbreviationsBarColor="#303F9F"
             app:abbreviationsLabelsColor="@android:color/white"
-            app:anotherMonthsDaysLabelsColor="#3F51B5"
-            app:daysLabelsColor="@android:color/white"
+            app:anotherMonthsDaysLabelsColor="#FAF9F9"
+            app:daysLabelsColor="#303F9F"
             app:eventsEnabled="false"
             app:headerColor="#1A237E"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:pagesColor="#3F51B5"
-            app:selectionColor="@android:color/white"
+            app:pagesColor="#FAF9F9"
+            app:selectionColor="#DCDCDC"
             app:selectionLabelColor="#3F51B5"
             app:todayLabelColor="#AEEA00"
             app:type="many_days_picker" />

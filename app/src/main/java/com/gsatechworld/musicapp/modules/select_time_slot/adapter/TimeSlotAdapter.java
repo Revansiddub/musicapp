@@ -1,6 +1,8 @@
 package com.gsatechworld.musicapp.modules.select_time_slot.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -96,6 +98,25 @@ public class TimeSlotAdapter extends Adapter<TimeSlotAdapter.TimeSlotHolder> {
 
             /*Setting Listeners to the view*/
             binding.layoutTimeSlot.setOnClickListener(this);
+            binding.imageClose.setOnClickListener(v -> {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
+                alertDialog.setTitle("Cancel Class in This Time");
+                alertDialog.setMessage("Are you sure to Cancel?");
+                alertDialog.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                alertDialog.setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                alertDialog.show();
+
+            });
         }
 
         /* ------------------------------------------------------------- *
@@ -119,8 +140,8 @@ public class TimeSlotAdapter extends Adapter<TimeSlotAdapter.TimeSlotHolder> {
                 seletedTimeSlot = binding.layoutTimeSlot;
                 selectedTime = binding.textTime;
 
-                OnTimeSlotSelectedListener timeSlotListener = (OnTimeSlotSelectedListener) mCtx;
-                timeSlotListener.onTimeSlotSelected(timeSlot);
+//                OnTimeSlotSelectedListener timeSlotListener = (OnTimeSlotSelectedListener) mCtx;
+//                timeSlotListener.onTimeSlotSelected(timeSlot);
             }
         }
     }
