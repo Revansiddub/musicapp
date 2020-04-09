@@ -137,7 +137,7 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
                         .observe(this, commonResponse -> {
                             hideLoadingIndicator();
 
-                            if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS))
+                            if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
                                 openSuccessDialog("Your documents have been submitted successfully.");
                             else
                                 showSnackBar(this, commonResponse.getMessage());

@@ -55,12 +55,11 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
      * Constructor
      * ------------------------------------------------------------- */
 
-    public ApproveStudentAdapter(Context mCtx, List<Approval> approvalList,
-                                 OnActionPerformedListener actionListener) {
+    public ApproveStudentAdapter(Context mCtx, List<Approval> approvalList) {
         this.mCtx = mCtx;
         this.approvalList = approvalList;
         searchableApprovalList = new ArrayList<>(approvalList);
-        this.actionListener = actionListener;
+
     }
 
     /* ------------------------------------------------------------- *
@@ -82,17 +81,17 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
         holder.binding.setApproval(approval);
 
-        if (approval.getGender().equals(MALE)) {
-            holder.binding.imageStudent
-                    .setImageDrawable(mCtx.getDrawable(R.drawable.icon_male_student));
-            holder.binding.imageStudent
-                    .setImageTintList(mCtx.getColorStateList(R.color.colorPrimary));
-        } else {
-            holder.binding.imageStudent
-                    .setImageDrawable(mCtx.getDrawable(R.drawable.icon_female_student));
-            holder.binding.imageStudent
-                    .setImageTintList(mCtx.getColorStateList(R.color.colorAccent));
-        }
+//        if (approval.getGender().equals(MALE)) {
+//            holder.binding.imageStudent
+//                    .setImageDrawable(mCtx.getDrawable(R.drawable.icon_male_student));
+//            holder.binding.imageStudent
+//                    .setImageTintList(mCtx.getColorStateList(R.color.colorPrimary));
+//        } else {
+//            holder.binding.imageStudent
+//                    .setImageDrawable(mCtx.getDrawable(R.drawable.icon_female_student));
+//            holder.binding.imageStudent
+//                    .setImageTintList(mCtx.getColorStateList(R.color.colorAccent));
+//        }
         holder.binding.textAccept.setOnClickListener(v -> {
             approvalList.remove(position);
             notifyDataSetChanged();
@@ -111,7 +110,6 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
             intent.putExtra("name",approval.getStudentName());
             intent.putExtra("age",approval.getAge());
             intent.putExtra("gender",approval.getGender());
-            intent.putExtra("timing",approval.getStartTime());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mCtx.getApplicationContext().startActivity(intent);
         });

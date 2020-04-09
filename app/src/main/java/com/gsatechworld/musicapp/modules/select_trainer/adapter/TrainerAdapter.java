@@ -68,15 +68,15 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
             coachingType.append(", ");
         }
 
-        for (String type : trainer.getRecurrenceType()) {
-            recurrenceType.append(type);
-            recurrenceType.append(", ");
-        }
-
-        for (String day : trainer.getRecurrenceDays()) {
-            days.append(day);
-            days.append(", ");
-        }
+//        for (String type : trainer.getRecurrenceType()) {
+//            recurrenceType.append(type);
+//            recurrenceType.append(", ");
+//        }
+//
+//        for (String day : trainer.getRecurrenceDays()) {
+//            days.append(day);
+//            days.append(", ");
+//        }
 
         holder.binding.textCoachingTypeValue.setText(coachingType);
         holder.binding.textRecurrenceTypeValue.setText(recurrenceType);

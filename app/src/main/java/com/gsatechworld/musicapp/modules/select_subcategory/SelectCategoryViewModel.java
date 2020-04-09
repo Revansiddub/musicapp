@@ -1,9 +1,11 @@
-package com.gsatechworld.musicapp.modules.select_category;
+package com.gsatechworld.musicapp.modules.select_subcategory;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.gsatechworld.musicapp.modules.select_category.pojo.CategoryResponse;
+import com.gsatechworld.musicapp.modules.select_subcategory.pojo.CategoryResponse;
+import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
+import com.gsatechworld.musicapp.select_category.pojo.CategoriesResponse;
 
 public class SelectCategoryViewModel extends ViewModel {
 
@@ -18,6 +20,7 @@ public class SelectCategoryViewModel extends ViewModel {
      * ------------------------------------------------------------- */
 
     public SelectCategoryViewModel() {
+
         repository = new SelectCategoryRepository();
     }
 
@@ -25,7 +28,7 @@ public class SelectCategoryViewModel extends ViewModel {
      * Default Methods
      * ------------------------------------------------------------- */
 
-    LiveData<CategoryResponse> fetchCategories(String pinCode) {
+    LiveData<CategoryResponse> fetchCategories(PinCodeInfo pinCode) {
         return repository.fetchCategories(pinCode);
     }
 }

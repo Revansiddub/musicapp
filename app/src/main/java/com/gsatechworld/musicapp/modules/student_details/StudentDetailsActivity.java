@@ -127,7 +127,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
                     schoolName, mobileNumber, address)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
 
-                if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS))
+                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
                     openSuccessDialog("Your details have been submitted successfully.");
             });
         } else

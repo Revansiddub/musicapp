@@ -18,6 +18,7 @@ import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingD
 import com.gsatechworld.musicapp.modules.home.HomeActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.TrainerHomeFragment;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
+import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
 
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
@@ -39,6 +40,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
     private LoginViewModel viewModel;
     private String loginType, userName, password, mobileNumber;
     public String userType;
+    public int  trainerId;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -138,10 +140,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                     .observe(this, trainerResponse -> {
                         hideLoadingIndicator();
 
-                        if (trainerResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                        if (trainerResponse.getResponse().equals("success")) {
+                            trainerId= trainerResponse.getTrainerID();
                             userType="Daily";
                             Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
-                             intent.putExtra("type",userType);
+                            intent.putExtra("type",userType);
+                            intent.putExtra("trainerId",trainerId);
                             startActivity(intent);
                         } else
                             showSnackBar(this, trainerResponse.getMessage());
@@ -162,7 +166,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
 
                 if (studentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
 
-                    startActivity(new Intent(this, HomeActivity.class));
+                    startActivity(new Intent(this, StudentHomeActivity.class));
                 } else
                     showSnackBar(this, studentResponse.getMessage());
             });

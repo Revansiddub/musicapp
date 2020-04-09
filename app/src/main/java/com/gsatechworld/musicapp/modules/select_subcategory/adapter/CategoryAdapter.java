@@ -1,4 +1,4 @@
-package com.gsatechworld.musicapp.modules.select_category.adapter;
+package com.gsatechworld.musicapp.modules.select_subcategory.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutCategoryBinding;
 import com.gsatechworld.musicapp.modules.details.DetailsActivity;
-import com.gsatechworld.musicapp.modules.select_category.pojo.Category;
+import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
+import com.gsatechworld.musicapp.modules.select_subcategory.SelectCategoryActivity;
+import com.gsatechworld.musicapp.modules.select_subcategory.pojo.SubCategory;
 import com.gsatechworld.musicapp.modules.select_trainer.SelectTrainerActivity;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
+import static com.gsatechworld.musicapp.utilities.Constants.SUBCATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER;
 import static java.util.Locale.getDefault;
 
@@ -33,20 +36,21 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
      * ------------------------------------------------------------- */
 
     private Context mCtx;
-    private List<Category> categoryList;
-    private List<Category> searchableCategoryList;
-    private String userType, pinCode;
+    private ArrayList<SubCategory> subCategoryList;
+    private List<SubCategory> searchableSubCategoryList;
+    private String userType, pinCode,categoryID;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public CategoryAdapter(Context mCtx, List<Category> categoryList, String userType, String pinCode) {
+    public CategoryAdapter(Context mCtx, ArrayList<SubCategory> subCategoryList, String userType, String pinCode,String categoryID) {
         this.mCtx = mCtx;
-        this.categoryList = categoryList;
-        searchableCategoryList = new ArrayList<>(categoryList);
+        this.subCategoryList = subCategoryList;
+        searchableSubCategoryList = new ArrayList<>(subCategoryList);
         this.userType = userType;
         this.pinCode = pinCode;
+        this.categoryID=categoryID;
     }
 
     /* ------------------------------------------------------------- *
@@ -63,12 +67,13 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
-        holder.binding.setCategory(categoryList.get(position));
+        holder.binding.setSubCategory(subCategoryList.get(position));
+
     }
 
     @Override
     public int getItemCount() {
-        return categoryList.size();
+        return subCategoryList.size();
     }
 
     /* ------------------------------------------------------------- *
@@ -83,20 +88,20 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
     public void filter(String charText) {
         charText = charText.toLowerCase(getDefault());
 
-        categoryList.clear();
+        subCategoryList.clear();
 
         if (charText.length() == 0)
-            categoryList.addAll(searchableCategoryList);
+            subCategoryList.addAll(searchableSubCategoryList);
         else
-            for (Category category : searchableCategoryList)
-                if (category.getCategoryName().toLowerCase().contains(charText.toLowerCase()))
-                    categoryList.add(category);
+            for (SubCategory subCategory : searchableSubCategoryList)
+                if (subCategory.getCategoryName().toLowerCase().contains(charText.toLowerCase()))
+                    subCategoryList.add(subCategory);
 
         notifyDataSetChanged();
     }
 
     /* ------------------------------------------------------------- *
-     * Category Holder Class
+     * SubCategory Holder Class
      * ------------------------------------------------------------- */
 
     class CategoryHolder extends ViewHolder implements OnClickListener {
@@ -127,13 +132,16 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.layoutCategory) {
-                Category category = categoryList.get(getAdapterPosition());
+                SubCategory category = subCategoryList.get(getAdapterPosition());
 
                 Intent intent = new Intent(mCtx, (userType.equals(TRAINER) ? DetailsActivity.class :
                         SelectTrainerActivity.class));
-                intent.putExtra(CATEGORY_ID, category.getCategoryID());
+                intent.putExtra(CATEGORY_ID,categoryID);
+                intent.putExtra(SUBCATEGORY_ID, category.getSubcategoryID());
                 intent.putExtra(PIN_CODE, pinCode);
                 mCtx.startActivity(intent);
+
+
             }
         }
     }

@@ -1,5 +1,8 @@
 package com.gsatechworld.musicapp.modules.home.approval.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ApprovalResponse {
@@ -7,16 +10,19 @@ public class ApprovalResponse {
     /* ------------------------------------------------------------- *
      * Private Members
      * ------------------------------------------------------------- */
-
+    @SerializedName("status")
     private String response;
+
+    @SerializedName("message")
     private String message;
-    private List<Approval> approvalList;
+    @SerializedName("approval_list")
+    private ArrayList<Approval> approvalList;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public ApprovalResponse(String response, String message, List<Approval> approvalList) {
+    public ApprovalResponse(String response, String message, ArrayList<Approval> approvalList) {
         this.response = response;
         this.message = message;
         this.approvalList = approvalList;

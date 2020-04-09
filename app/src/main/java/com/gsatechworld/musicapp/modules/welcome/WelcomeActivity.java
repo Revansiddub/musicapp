@@ -15,9 +15,8 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityWelcomeBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
-import com.gsatechworld.musicapp.modules.select_category.SelectCategoryActivity;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
-import com.gsatechworld.musicapp.select_sub_category.SelectSubCategoryActivity;
+import com.gsatechworld.musicapp.select_category.SelectSubCategoryActivity;
 
 import in.aabhasjindal.otptextview.OTPListener;
 
@@ -135,11 +134,13 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.checkPinCodeAvailability(new PinCodeInfo(userType, pinCode))
+
+
+            viewModel.checkPinCodeAvailability(new PinCodeInfo(pinCode))
                     .observe(this, commonResponse -> {
                         hideLoadingIndicator();
 
-                        if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                        if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                             Intent intent = new Intent(this, SelectSubCategoryActivity.class);
                             intent.putExtra(USER_TYPE, userType);
                             intent.putExtra(PIN_CODE, pinCode);

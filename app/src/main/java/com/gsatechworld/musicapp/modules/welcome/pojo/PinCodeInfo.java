@@ -1,20 +1,26 @@
 package com.gsatechworld.musicapp.modules.welcome.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PinCodeInfo {
 
     /* ------------------------------------------------------------- *
      * Private Members
      * ------------------------------------------------------------- */
 
+
+
     private String userType;
-    private String pinCode;
+    @SerializedName("pincode")
+    private String pincode;
+
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public PinCodeInfo(String userType, String pinCode) {
-        this.userType = userType;
-        this.pinCode = pinCode;
+    public PinCodeInfo(String pincode) {
+        this.pincode = pincode;
     }
+
 }

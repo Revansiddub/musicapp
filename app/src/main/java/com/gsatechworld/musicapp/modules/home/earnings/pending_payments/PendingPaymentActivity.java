@@ -100,7 +100,7 @@ public class PendingPaymentActivity extends BaseActivity implements OnQueryTextL
                     commonResponse -> {
                         hideLoadingIndicator();
 
-                        if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS))
+                        if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
                             fetchPendingPaymentList();
 
                         showSnackBar(this, commonResponse.getMessage());

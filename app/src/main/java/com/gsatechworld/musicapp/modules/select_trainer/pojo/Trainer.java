@@ -1,5 +1,7 @@
 package com.gsatechworld.musicapp.modules.select_trainer.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Trainer {
@@ -7,28 +9,30 @@ public class Trainer {
     /* ------------------------------------------------------------- *
      * Private Members
      * ------------------------------------------------------------- */
-
+    @SerializedName("trainer_id")
     private String trainerID;
+    @SerializedName("trainer_name")
     private String trainerName;
+    @SerializedName("coaching_types")
     private List<String> coachingType;
+    @SerializedName("charge_amount")
     private String charges;
+    @SerializedName("address")
     private String address;
-    private List<String> recurrenceType;
-    private List<String> recurrenceDays;
+
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
     public Trainer(String trainerID, String trainerName, List<String> coachingType, String charges,
-                   String address, List<String> recurrenceType, List<String> recurrenceDays) {
+                   String address) {
         this.trainerID = trainerID;
         this.trainerName = trainerName;
         this.coachingType = coachingType;
         this.charges = charges;
         this.address = address;
-        this.recurrenceType = recurrenceType;
-        this.recurrenceDays = recurrenceDays;
+
     }
 
     /* ------------------------------------------------------------- *
@@ -55,11 +59,5 @@ public class Trainer {
         return address;
     }
 
-    public List<String> getRecurrenceType() {
-        return recurrenceType;
-    }
 
-    public List<String> getRecurrenceDays() {
-        return recurrenceDays;
-    }
 }

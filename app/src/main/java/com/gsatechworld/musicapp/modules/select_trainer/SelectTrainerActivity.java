@@ -19,6 +19,7 @@ import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainerInfo;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
+import static com.gsatechworld.musicapp.utilities.Constants.SUBCATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
@@ -31,7 +32,7 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
     private ActivitySelectTrainerBinding binding;
     private SelectTrainerViewModel viewModel;
     private TrainerAdapter adapter;
-    private String pinCode, categoryID;
+    private String pinCode, subcategoryID,categoryID;
     RecyclerView recyclerView;
 
     /* ------------------------------------------------------------- *
@@ -59,7 +60,9 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
 
         if (getIntent().getStringExtra(PIN_CODE) != null) {
             pinCode = getIntent().getStringExtra(PIN_CODE);
-            categoryID = getIntent().getStringExtra(CATEGORY_ID);
+            subcategoryID = getIntent().getStringExtra(SUBCATEGORY_ID);
+            categoryID=getIntent().getStringExtra(CATEGORY_ID);
+
         }
 
         fetchTrainerList();
@@ -106,14 +109,27 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.fetchTrainers(new TrainerInfo(pinCode, categoryID)).observe(this,
+
+
+            viewModel.fetchTrainers(new TrainerInfo(pinCode, subcategoryID,categoryID)).observe(this,
                     trainerResponse -> {
                         hideLoadingIndicator();
 
-                        binding.recyclerTrainer.setLayoutManager(new
-                                LinearLayoutManager(this, VERTICAL, false));
-                        adapter = new TrainerAdapter(this, trainerResponse.getTrainerList());
-                        binding.recyclerTrainer.setAdapter(adapter);
+                        if (trainerResponse.getResponse().equals("success")){
+                            binding.recyclerTrainer.setLayoutManager(new
+                                    LinearLayoutManager(this, VERTICAL, false));
+                            adapter = new TrainerAdapter(this, trainerResponse.getTrainerList());
+                            binding.recyclerTrainer.setAdapter(adapter);
+                        }
+
+                        if (adapter.getItemCount() == 0){
+                            showSnackBar(this,"No Trainer Available in your Area");
+                        }
+
+
+
+
+
                     });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

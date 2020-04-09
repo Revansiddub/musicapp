@@ -17,6 +17,8 @@ import com.gsatechworld.musicapp.databinding.FragmentApprovalBinding;
 import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAdapter;
 import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAdapter.OnActionPerformedListener;
 import com.gsatechworld.musicapp.modules.home.approval.pojo.ActionInfo;
+import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
+import com.gsatechworld.musicapp.modules.login.pojo.TrainerResponse;
 
 import static androidx.databinding.DataBindingUtil.inflate;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
@@ -34,6 +36,7 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
     private FragmentApprovalBinding binding;
     private ApprovalViewModel viewModel;
     private BaseActivity baseActivity;
+    public int trainerId;
     private ApproveStudentAdapter adapter;
 
     /* ------------------------------------------------------------- *
@@ -45,6 +48,8 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
 
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_approval, container, false);
+
+        trainerId=getArguments().getInt("trainerID");
 
         /*Binding layout file with JAVA class*/
         viewModel = new ViewModelProvider(this).get(ApprovalViewModel.class);
@@ -92,7 +97,7 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
             viewModel.storeAction(new ActionInfo(requestID, action)).observe(getViewLifecycleOwner(),
                     commonResponse -> {
                         baseActivity.hideLoadingIndicator();
-                        if (commonResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS))
+                        if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
                             fetchApprovalList();
                         baseActivity.showSnackBar(requireNonNull(getActivity()),
                                 commonResponse.getMessage());
@@ -114,17 +119,18 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
             baseActivity.showLoadingIndicator();
 
-            String trainerID = "1";
-            viewModel.fetchApprovalList(trainerID).observe(getViewLifecycleOwner(),
+
+            viewModel.fetchApprovalList(trainerId).observe(getViewLifecycleOwner(),
                     approvalResponse -> {
                         baseActivity.hideLoadingIndicator();
 
-                        if (approvalResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                        if (approvalResponse.getResponse().equals("success")) {
+                            adapter = new ApproveStudentAdapter(getActivity(), approvalResponse.getApprovalList());
+
                             binding.recyclerRequest.setLayoutManager(new
                                     LinearLayoutManager(getActivity(), VERTICAL, false));
 
-                            adapter = new ApproveStudentAdapter(getActivity(), approvalResponse
-                                    .getApprovalList(), this);
+
                             binding.recyclerRequest.setAdapter(adapter);
                         } else
                             baseActivity.showSnackBar(requireNonNull(getActivity()),

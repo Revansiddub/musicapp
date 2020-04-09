@@ -25,7 +25,7 @@
     <string name="student">Student</string>
     <string name="login_message">Already have account? Login</string>
 
-    <!--Select Category Activity-->
+    <!--Select SubCategory Activity-->
     <string name="select_category">Select Category</string>
     <string name="select_sub_category">Select SubCategory</string>
     <string name="select_trainer">Select Trainer</string>
@@ -33,9 +33,9 @@
     <string name="category_not_found_message">Not in the list? Add here</string>
 
 
-    <!--Add Category Fragment-->
-    <string name="add_category">Add Category</string>
-    <string name="category">Category</string>
+    <!--Add SubCategory Fragment-->
+    <string name="add_category">Add SubCategory</string>
+    <string name="subCategory">SubCategory</string>
     <string name="add">Add</string>
 
     <!--Enter Details Activity-->
@@ -73,7 +73,7 @@
     <string name="highest_degree">Highest Degree</string>
     <string name="government_issued_id">Government Issued ID</string>
     <string name="address_proof">Address Proof</string>
-    <string name="relevant_category_expertise_document">Relevant Category Expertise Document</string>
+    <string name="relevant_category_expertise_document">Relevant SubCategory Expertise Document</string>
     <string name="front">Front</string>
     <string name="back">Back</string>
 
@@ -100,7 +100,7 @@
     <string name="logout_message">Are you sure you want to logout?</string>
 
     <!--Validation Strings-->
-    <string name="category_validation">Please write Category name</string>
+    <string name="category_validation">Please write SubCategory name</string>
     <string name="paid">Paid</string>
     <string name="not_paid">Not Paid</string>
     <string name="days">Days</string>

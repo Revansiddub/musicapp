@@ -41,18 +41,6 @@
             app:layout_constraintStart_toEndOf="@id/imageStudent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textSlotDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_5dp"
-            android:layout_marginTop="@dimen/size_5dp"
-            android:text="@{approval.startTime + ` - ` + approval.endTime}"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_13sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/imageStudent"
-            app:layout_constraintTop_toBottomOf="@id/textStudentName" />
 
         <TextView
             android:id="@+id/textAccept"

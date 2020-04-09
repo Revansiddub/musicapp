@@ -7,7 +7,7 @@
 
         <variable
             name="subcategory"
-            type="com.gsatechworld.musicapp.select_sub_category.pojo.SubCategory" />
+            type="com.gsatechworld.musicapp.select_category.pojo.Categories" />
 
     </data>
 

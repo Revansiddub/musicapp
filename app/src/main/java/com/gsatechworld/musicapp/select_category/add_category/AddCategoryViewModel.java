@@ -1,4 +1,4 @@
-package com.gsatechworld.musicapp.modules.select_category.add_category;
+package com.gsatechworld.musicapp.select_category.add_category;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -25,7 +25,7 @@ public class AddCategoryViewModel extends ViewModel {
      * Default Methods
      * ------------------------------------------------------------- */
 
-    LiveData<CommonResponse> addCategory(String category) {
+    LiveData<CommonResponse> addCategory(AddCategory category) {
         return repository.addCategory(category);
     }
 }

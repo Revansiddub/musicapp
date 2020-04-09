@@ -1,14 +1,12 @@
-package com.gsatechworld.musicapp.select_sub_category;
+package com.gsatechworld.musicapp.select_category;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,17 +15,14 @@ import android.widget.LinearLayout;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivitySelectSubCategoryBinding;
-import com.gsatechworld.musicapp.modules.select_category.SelectCategoryActivity;
-import com.gsatechworld.musicapp.modules.select_category.adapter.CategoryAdapter;
-import com.gsatechworld.musicapp.modules.select_category.add_category.AddCategoryFragment;
-import com.gsatechworld.musicapp.select_sub_category.adapter.SubCategoryAdapter;
-import com.gsatechworld.musicapp.utilities.RecyclerTouchListener;
+import com.gsatechworld.musicapp.select_category.add_category.AddCategoryFragment;
+import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
+import com.gsatechworld.musicapp.select_category.adapter.SubCategoryAdapter;
 
 import static android.view.View.GONE;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.ADD_CATEGORY_FRAGMENT_TAG;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
-import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
@@ -36,7 +31,7 @@ import static java.util.Objects.requireNonNull;
 
 public class SelectSubCategoryActivity extends BaseActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
 private ActivitySelectSubCategoryBinding binding;
-private SelectSubCategoryViewModel viewModel;
+private SelectCategoriesViewModel viewModel;
     private String userType, pinCode;
     SubCategoryAdapter adapter;
 
@@ -47,11 +42,14 @@ private SelectSubCategoryViewModel viewModel;
         setContentView(R.layout.activity_select_sub_category);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_select_sub_category);
 
-        viewModel=new ViewModelProvider(this).get(SelectSubCategoryViewModel.class);
+        viewModel=new ViewModelProvider(this).get(SelectCategoriesViewModel.class);
+
+
 
         if (getIntent().getStringExtra(USER_TYPE) != null) {
             userType = getIntent().getStringExtra(USER_TYPE);
             pinCode = getIntent().getStringExtra(PIN_CODE);
+
 
             if (userType.equals(STUDENT))
                 binding.textCategoryNotFound.setVisibility(GONE);
@@ -70,40 +68,51 @@ private SelectSubCategoryViewModel viewModel;
     }
 
     private void fetchCategories() {
+
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.fecthCategory(pinCode).observe(this, categoryResponse -> {
+            viewModel.fecthCategory(new PinCodeInfo(pinCode)).observe(this, categoryResponse -> {
                 hideLoadingIndicator();
 
-                if (categoryResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (categoryResponse.getStatus().equals("success")) {
 
-                    adapter = new SubCategoryAdapter(this,categoryResponse.getSubCategoryList(),userType,pinCode);
+                    adapter = new SubCategoryAdapter(this,  categoryResponse.getCategoriesList(),userType,pinCode);
                     binding.recyclerCategories.setLayoutManager
                             (new LinearLayoutManager(this, VERTICAL, false));
                     binding.recyclerCategories.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
 
-                    binding.recyclerCategories.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), binding.recyclerCategories, new RecyclerTouchListener.ClickListener() {
-                        @Override
-                        public void onClick(View view, int position) {
-                            Intent intent = new Intent(SelectSubCategoryActivity.this, SelectCategoryActivity.class);
-                            intent.putExtra(USER_TYPE, userType);
-                            intent.putExtra(PIN_CODE, pinCode);
-                            startActivity(intent);
-                        }
-                    }));
+//                    binding.recyclerCategories.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), binding.recyclerCategories, new RecyclerTouchListener.ClickListener() {
+//                        @Override
+//                        public void onClick(View view, int position) {
+//                            Intent intent = new Intent(SelectSubCategoryActivity.this, SelectCategoryActivity.class);
+//                            intent.putExtra(USER_TYPE, userType);
+//                            intent.putExtra(PIN_CODE, pinCode);
+//
+//
+//                            startActivity(intent);
+//                        }
+//                    }));
                     binding.recyclerCategories.setAdapter(adapter);
+
+
+
                 } else
-                    showSnackBar(this, categoryResponse.getMessage());
+                    showSnackBar(this, categoryResponse.getStatus());
 
                 binding.textResult.setText(format("%s categories found in '%s' area",
-                        categoryResponse.getSubCategoryList().size(), pinCode));
+                        categoryResponse.getCategoriesList().size(), pinCode));
+
+
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));
     }
     private void openAddCategoryDialog() {
+        Bundle bundle=new Bundle();
+        bundle.putString(PIN_CODE,pinCode);
         AddCategoryFragment addSubCategoryFragment = new AddCategoryFragment();
+        addSubCategoryFragment.setArguments(bundle);
         addSubCategoryFragment.show(getSupportFragmentManager(), ADD_CATEGORY_FRAGMENT_TAG);
     }
 
@@ -115,15 +124,15 @@ private SelectSubCategoryViewModel viewModel;
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if (adapter != null)
-            adapter.filter(query);
+       // if (adapter != null)
+            //adapter.filter(query);
         return true;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (adapter != null)
-            adapter.filter(newText);
+       // if (adapter != null)
+            //adapter.filter(newText);
         return true;
     }
 

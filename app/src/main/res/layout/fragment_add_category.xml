@@ -2,9 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".modules.select_category.add_category.AddCategoryFragment">
+    tools:context=".select_category.add_category.AddCategoryFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/layoutAddCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,39 +46,27 @@
 
         </RelativeLayout>
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/imageAnimation"
-            android:layout_width="@dimen/size_150dp"
-            android:layout_height="@dimen/size_200dp"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutTitle"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/woman_violinist" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editCategory"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:ems="13"
             android:cursorVisible="true"
             android:focusable="true"
-            android:hint="@string/category"
+            android:hint="@string/subCategory"
             android:inputType="textCapWords"
             android:textSize="@dimen/size_15sp"
-            app:layout_constraintBottom_toBottomOf="@id/imageAnimation"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageAnimation"
-            app:layout_constraintTop_toTopOf="@id/imageAnimation"
-            app:layout_constraintVertical_bias="0.7"
             app:met_errorColor="@android:color/holo_red_light"
+            android:layout_centerHorizontal="true"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelTextColor="@color/black"
             app:met_primaryColor="@color/colorPrimary"
             app:met_textColor="@color/colorAccent"
             app:met_textColorHint="@color/md_grey_500"
+            android:layout_below="@id/layoutTitle"
             tools:ignore="UnusedAttribute" />
 
         <Button
@@ -89,15 +77,17 @@
             android:layout_marginTop="@dimen/size_20dp"
             android:layout_marginEnd="@dimen/size_30dp"
             android:layout_marginBottom="@dimen/size_10dp"
-            android:background="@drawable/button_rounded"
+            android:background="@drawable/edit_text_rounded_corner"
+            android:layout_below="@id/editCategory"
+            android:layout_centerHorizontal="true"
             android:text="@string/add"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageAnimation" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </layout>

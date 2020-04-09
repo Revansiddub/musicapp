@@ -484,7 +484,7 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
         }
 
         if (expertiseDocumentBitmap == null) {
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Upload Your Relevant Category Expertise Document Image");
+            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Upload Your Relevant SubCategory Expertise Document Image");
             return false;
         }
 

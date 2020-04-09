@@ -30,10 +30,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".modules.home.approval.StudentsDetails"></activity>
+        <activity android:name=".modules.student_home.StudentHomeActivity"></activity>
+        <activity android:name=".modules.home.approval.StudentsDetails" />
         <activity android:name=".modules.home.settings.ChangePasswordActivity" />
         <activity android:name=".modules.otp.TrainerOtpVerification" />
-        <activity android:name=".select_sub_category.SelectSubCategoryActivity" />
+        <activity android:name=".select_category.SelectSubCategoryActivity" />
         <activity android:name=".modules.home.trainer_home.AddAttendanceActivity" />
         <activity android:name=".modules.home.trainer_home.AttendanceActivity" /> <!-- Splash Screen -->
         <activity android:name=".modules.splash.SplashActivity">
@@ -45,9 +46,9 @@
         </activity> <!-- Welcome Screen -->
         <activity
             android:name=".modules.welcome.WelcomeActivity"
-            android:screenOrientation="portrait" /> <!-- Select Category Screen -->
+            android:screenOrientation="portrait" /> <!-- Select SubCategory Screen -->
         <activity
-            android:name=".modules.select_category.SelectCategoryActivity"
+            android:name=".modules.select_subcategory.SelectCategoryActivity"
             android:screenOrientation="portrait" /> <!-- Details Screen -->
         <activity
             android:name=".modules.details.DetailsActivity"

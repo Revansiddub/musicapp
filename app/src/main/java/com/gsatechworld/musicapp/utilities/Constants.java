@@ -9,6 +9,8 @@ public final class Constants {
     public static final String USER_TYPE = "userType";
     public static final String PIN_CODE = "pinCode";
     public static final String CATEGORY_ID = "categoryID";
+    public static final String SUBCATEGORY_ID = "subcategoryID";
+    public static final String CATEGORY_NAME = "categoryName";
     public static final String TRAINER_ID = "trainerID";
     public static final String TIME_SLOT = "timeSlot";
 

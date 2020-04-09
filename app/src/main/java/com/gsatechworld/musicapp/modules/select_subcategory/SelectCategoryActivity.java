@@ -1,4 +1,4 @@
-package com.gsatechworld.musicapp.modules.select_category;
+package com.gsatechworld.musicapp.modules.select_subcategory;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,14 +13,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivitySelectCategoryBinding;
-import com.gsatechworld.musicapp.modules.select_category.adapter.CategoryAdapter;
-import com.gsatechworld.musicapp.modules.select_category.add_category.AddCategoryFragment;
+import com.gsatechworld.musicapp.modules.select_subcategory.adapter.CategoryAdapter;
+import com.gsatechworld.musicapp.select_category.add_category.AddCategoryFragment;
+import com.gsatechworld.musicapp.modules.select_subcategory.pojo.SubCategory;
+import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
+
+import java.util.ArrayList;
 
 import static android.view.View.GONE;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.ADD_CATEGORY_FRAGMENT_TAG;
+import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_NAME;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
-import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
@@ -37,7 +42,8 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
     private ActivitySelectCategoryBinding binding;
     private SelectCategoryViewModel viewModel;
     private CategoryAdapter categoryAdapter;
-    private String userType, pinCode;
+    private String userType, pinCode,catgegory_name,categoryID;
+    int position;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -53,9 +59,18 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(SelectCategoryViewModel.class);
 
+        categoryID=getIntent().getStringExtra(CATEGORY_ID);
+        userType = getIntent().getStringExtra(USER_TYPE);
+        pinCode = getIntent().getStringExtra(PIN_CODE);
+        catgegory_name=getIntent().getStringExtra(CATEGORY_NAME);
+        position=Integer.parseInt(getIntent().getStringExtra("position"));
+
+
         if (getIntent().getStringExtra(USER_TYPE) != null) {
             userType = getIntent().getStringExtra(USER_TYPE);
             pinCode = getIntent().getStringExtra(PIN_CODE);
+            catgegory_name=getIntent().getStringExtra(CATEGORY_NAME);
+
 
             if (userType.equals(STUDENT))
                 binding.textCategoryNotFound.setVisibility(GONE);
@@ -125,21 +140,20 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.fetchCategories(pinCode).observe(this, categoryResponse -> {
+            viewModel.fetchCategories(new PinCodeInfo(pinCode)).observe(this, categoryResponse -> {
                 hideLoadingIndicator();
 
-                if (categoryResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (categoryResponse.getStatus().equals("success")) {
 
-                    categoryAdapter = new CategoryAdapter(this,
-                            categoryResponse.getCategoryList(), userType, pinCode);
+                    categoryAdapter = new CategoryAdapter(this, (ArrayList<SubCategory>) categoryResponse.getCategoriesList().get(position).getSubcategories_list(), userType, pinCode,categoryID);
                     binding.recyclerCategories.setLayoutManager
                             (new LinearLayoutManager(this, VERTICAL, false));
                     binding.recyclerCategories.setAdapter(categoryAdapter);
                 } else
-                    showSnackBar(this, categoryResponse.getMessage());
+                    showSnackBar(this, categoryResponse.getStatus());
 
                 binding.textResult.setText(format("%s categories found in '%s' area",
-                        categoryResponse.getCategoryList().size(), pinCode));
+                        categoryResponse.getCategoriesList().size(), pinCode));
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

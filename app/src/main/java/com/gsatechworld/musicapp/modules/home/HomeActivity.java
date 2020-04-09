@@ -35,6 +35,7 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
     private ActivityHomeBinding binding;
     CoachingDetails coachingDetails;
     String userType;
+    int trainerID;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -48,6 +49,7 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         Bundle bundle=getIntent().getExtras();
         userType=bundle.getString("type");
+        trainerID=bundle.getInt("trainerId");
 
         /*Opening trainer's home fragment by default*/
 
@@ -93,6 +95,7 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
     private void openFragment(Fragment fragment, String tag) {
         Bundle bundle1=new Bundle();
         bundle1.putString("coaching_type",userType);
+        bundle1.putInt("trainerID",trainerID);
         fragment.setArguments(bundle1);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

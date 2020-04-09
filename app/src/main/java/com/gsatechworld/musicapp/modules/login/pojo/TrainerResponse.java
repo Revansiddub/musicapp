@@ -1,20 +1,28 @@
 package com.gsatechworld.musicapp.modules.login.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TrainerResponse {
 
     /* ------------------------------------------------------------- *
      * Private Members
      * ------------------------------------------------------------- */
-
+    @SerializedName("status")
     private String response;
+
+    @SerializedName("message")
     private String message;
-    private String trainerID;
+
+
+
+    @SerializedName("trainer_id")
+    private int trainerID;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public TrainerResponse(String response, String message, String trainerID) {
+    public TrainerResponse(String response, String message, int trainerID) {
         this.response = response;
         this.message = message;
         this.trainerID = trainerID;
@@ -32,7 +40,7 @@ public class TrainerResponse {
         return message;
     }
 
-    public String getTrainerID() {
+    public int getTrainerID() {
         return trainerID;
     }
 }

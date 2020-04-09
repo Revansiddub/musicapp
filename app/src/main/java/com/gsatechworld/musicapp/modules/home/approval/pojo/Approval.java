@@ -1,5 +1,9 @@
 package com.gsatechworld.musicapp.modules.home.approval.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class Approval {
 
     /* ------------------------------------------------------------- *
@@ -7,24 +11,29 @@ public class Approval {
      * ------------------------------------------------------------- */
 
     private String requestID;
+    @SerializedName("student_name")
     private String studentName;
+
     private String gender;
+    @SerializedName("age")
     private String age;
-    private String startTime;
-    private String endTime;
+
+
+
+    @SerializedName("slot_details")
+    public List<Slot_Details> slot_detailsList;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
     public Approval(String requestID, String studentName, String gender, String age,
-                    String startTime, String endTime) {
+                    List<Slot_Details> slot_details) {
         this.requestID = requestID;
         this.studentName = studentName;
         this.gender = gender;
         this.age = age;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.slot_detailsList=slot_details;
     }
 
     /* ------------------------------------------------------------- *
@@ -47,11 +56,9 @@ public class Approval {
         return age;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public List<Slot_Details> getSlot_detailsList() {
+        return slot_detailsList;
     }
 
-    public String getEndTime() {
-        return endTime;
-    }
+
 }
