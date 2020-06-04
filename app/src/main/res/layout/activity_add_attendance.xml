@@ -33,7 +33,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/size_20dp"
                 android:layout_below="@id/text"
-                android:src="@drawable/icon_music"
+                android:src="@drawable/music_appicon"
                 />
 
 
@@ -202,7 +202,7 @@
                         android:layout_below="@id/timing"
                         android:layout_marginTop="@dimen/size_10dp"
                         android:layout_toRightOf="@id/attendance"
-                        android:padding="@dimen/size_10dp"
+                        android:padding="@dimen/size_5dp"
                         android:text="Attented"
                         android:textColor="@color/black" />
 
@@ -226,7 +226,7 @@
                         android:layout_marginLeft="@dimen/size_20dp"
                         android:layout_marginTop="@dimen/size_30dp"
                         android:layout_marginRight="@dimen/size_20dp"
-                        android:background="@drawable/button_rounded_corner"
+                        android:background="@drawable/button_bg"
                         android:gravity="center_horizontal"
                         android:padding="@dimen/size_10dp"
                         android:text="@string/submit"

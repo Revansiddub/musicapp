@@ -10,7 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.databinding.FragmentAddSubCategoryBinding;
+
+import static android.text.TextUtils.isEmpty;
+import static androidx.databinding.DataBindingUtil.inflate;
+import static java.util.Objects.requireNonNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,11 +26,14 @@ import com.gsatechworld.musicapp.R;
  * Use the {@link AddSubCategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddSubCategoryFragment extends Fragment {
+public class AddSubCategoryFragment extends BottomSheetDialogFragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public String category,pinCode;
+    public FragmentAddSubCategoryBinding binding;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -67,7 +76,8 @@ public class AddSubCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_sub_category, container, false);
+        binding=inflate(inflater, R.layout.fragment_add_sub_category, container, false);
+        return binding.getRoot();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -82,9 +92,6 @@ public class AddSubCategoryFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -92,6 +99,20 @@ public class AddSubCategoryFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.buttonAdd:
+                category = requireNonNull(binding.editCategory.getText()).toString().trim();
+
+                if (isEmpty(category))
+                    binding.editCategory.setError(getString(R.string.category_validation));
+                else
+                    //addCategory();
+                break;
+        }
     }
 
     /**

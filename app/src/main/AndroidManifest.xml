@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".modules.student_home.StudentHomeActivity"></activity>
+        <activity android:name=".modules.home.trainer_home.AttendanceAdd"></activity>
+        <activity android:name=".modules.student_home.StudentHomeActivity" />
         <activity android:name=".modules.home.approval.StudentsDetails" />
         <activity android:name=".modules.home.settings.ChangePasswordActivity" />
         <activity android:name=".modules.otp.TrainerOtpVerification" />

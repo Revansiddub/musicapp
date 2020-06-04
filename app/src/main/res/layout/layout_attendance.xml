@@ -1,6 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</LinearLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_150dp"
+            app:cardCornerRadius="@dimen/size_10dp"
+            android:layout_marginLeft="@dimen/size_15sp"
+            android:layout_marginRight="@dimen/size_15sp"
+            app:cardBackgroundColor="@color/white"
+            app:cardUseCompatPadding="true"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_student"
+                    android:layout_width="@dimen/size_50dp"
+                    android:layout_height="@dimen/size_50dp"
+                    android:layout_margin="@dimen/size_20dp"
+                    android:src="@drawable/music_appicon"/>
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/image_student"
+                    android:text="Name"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/size_20dp"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/text_MarkAttendance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_name"
+                    android:layout_toRightOf="@id/image_student"
+                    android:text="Category Name"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mark Attendnace"
+                    android:textSize="@dimen/size_15sp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/size_5dp"/>
+
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_MarkAttendance"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="-16dp"
+                    android:layout_marginRight="48dp"
+                    android:button="@drawable/checkbox_check_background" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_40dp"
+                    android:background="@color/md_grey_200"
+                    android:layout_alignParentBottom="true">
+
+                    <TextView
+                        android:id="@+id/text_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_15sp"
+                        android:text="Phone"
+                        android:layout_marginTop="@dimen/size_2dp"/>
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="9526026636"
+                        android:layout_below="@id/text_phone"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="@dimen/size_15sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/text_age"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/size_2dp"
+                        android:layout_toRightOf="@id/text_phone"
+                        android:layout_marginLeft="@dimen/size_100dp"
+                        android:text="Date"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/age"
+                        android:text="04-06-2020"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_below="@id/text_age"
+                        android:gravity="center_horizontal"
+                        android:layout_toRightOf="@id/text_phone"
+                        android:layout_marginLeft="@dimen/size_100dp"/>
+                    <TextView
+                        android:id="@+id/text_timing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Timing"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/size_2dp"
+                        android:layout_marginRight="@dimen/size_15sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/timing"
+                        android:layout_alignParentRight="true"
+                        android:text="10-12"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_below="@id/text_timing"
+                        android:layout_marginRight="@dimen/size_15sp"/>
+
+
+
+
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+</layout>

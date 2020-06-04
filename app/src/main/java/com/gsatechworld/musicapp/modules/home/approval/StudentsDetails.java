@@ -21,10 +21,10 @@ public class StudentsDetails extends AppCompatActivity {
         gender=getIntent().getStringExtra("gender");
         timing=getIntent().getStringExtra("timing");
 
-        binding.textviewName.setText(name);
-        binding.textviewAge.setText(age);
-        binding.textviewGender.setText(gender);
-        binding.textviewTiming.setText(timing);
+//        binding.textviewName.setText(name);
+//        binding.textviewAge.setText(age);
+//        binding.textviewGender.setText(gender);
+//        binding.textviewTiming.setText(timing);
 
 
 

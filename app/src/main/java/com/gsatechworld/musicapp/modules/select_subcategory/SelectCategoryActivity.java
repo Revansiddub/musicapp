@@ -14,6 +14,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivitySelectCategoryBinding;
 import com.gsatechworld.musicapp.modules.select_subcategory.adapter.CategoryAdapter;
+import com.gsatechworld.musicapp.modules.select_subcategory.add_subcategory.AddSubCategoryFragment;
 import com.gsatechworld.musicapp.select_category.add_category.AddCategoryFragment;
 import com.gsatechworld.musicapp.modules.select_subcategory.pojo.SubCategory;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
@@ -32,8 +33,7 @@ import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkIns
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
-public class SelectCategoryActivity extends BaseActivity implements OnQueryTextListener,
-        OnClickListener {
+public class SelectCategoryActivity extends BaseActivity implements OnQueryTextListener, OnClickListener {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -64,6 +64,7 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
         pinCode = getIntent().getStringExtra(PIN_CODE);
         catgegory_name=getIntent().getStringExtra(CATEGORY_NAME);
         position=Integer.parseInt(getIntent().getStringExtra("position"));
+
 
 
         if (getIntent().getStringExtra(USER_TYPE) != null) {
@@ -163,7 +164,7 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
      * This method is invoked to open a view where user can request admin to add category.
      */
     private void openAddCategoryDialog() {
-        AddCategoryFragment addCategoryFragment = new AddCategoryFragment();
-        addCategoryFragment.show(getSupportFragmentManager(), ADD_CATEGORY_FRAGMENT_TAG);
+        AddSubCategoryFragment addSubCategoryFragment = new AddSubCategoryFragment();
+        addSubCategoryFragment.show(getSupportFragmentManager(), ADD_CATEGORY_FRAGMENT_TAG);
     }
 }
