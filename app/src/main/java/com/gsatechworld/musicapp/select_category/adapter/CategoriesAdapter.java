@@ -25,6 +25,7 @@ import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_NAME;
+import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
@@ -35,14 +36,16 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     private List<CategoriesResponse> categoryList;
     private List<Categories> categoriesList;
     private String userType, pinCode;
+    private int pincode_Id;
     public int postion=0;
 
 
-    public SubCategoryAdapter(Context mCtx, List<Categories> categoryList, String userType, String pinCode) {
+    public SubCategoryAdapter(Context mCtx, List<Categories> categoryList, String userType, String pinCode,int pincode_Id) {
         this.mCtx = mCtx;
         this.categoriesList = categoryList;
         this.userType = userType;
         this.pinCode = pinCode;
+        this.pincode_Id=pincode_Id;
     }
 
     @NonNull
@@ -66,6 +69,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                  intent.putExtra(CATEGORY_ID, category.getCategoryID());
                  intent.putExtra(CATEGORY_NAME, category.getCategoryName());
                  intent.putExtra(PIN_CODE, pinCode);
+                 intent.putExtra(PINCODE_ID,pincode_Id);
                  intent.putExtra("position",String.valueOf(postion));
                  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                  mCtx.getApplicationContext().startActivity(intent);

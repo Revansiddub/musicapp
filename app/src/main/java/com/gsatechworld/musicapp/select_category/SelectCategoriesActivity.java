@@ -22,6 +22,7 @@ import com.gsatechworld.musicapp.select_category.adapter.SubCategoryAdapter;
 import static android.view.View.GONE;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.ADD_CATEGORY_FRAGMENT_TAG;
+import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
@@ -33,6 +34,7 @@ public class SelectSubCategoryActivity extends BaseActivity implements SearchVie
 private ActivitySelectSubCategoryBinding binding;
 private SelectCategoriesViewModel viewModel;
     private String userType, pinCode;
+    private int pinCodeId;
     SubCategoryAdapter adapter;
 
 
@@ -49,6 +51,7 @@ private SelectCategoriesViewModel viewModel;
         if (getIntent().getStringExtra(USER_TYPE) != null) {
             userType = getIntent().getStringExtra(USER_TYPE);
             pinCode = getIntent().getStringExtra(PIN_CODE);
+            pinCodeId=getIntent().getIntExtra(PINCODE_ID,0);
 
 
             if (userType.equals(STUDENT))
