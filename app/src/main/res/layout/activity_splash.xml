@@ -4,24 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".modules.splash.SplashActivity">
 
-    <RelativeLayout
-        android:id="@+id/layoutSplash"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/splash">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/amarante"
-            android:text="Music App"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_50dp"
-            android:textStyle="bold" />
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:scaleType="center"
+          android:background="@drawable/musicapp_icon"
+          />
 
 
+   </RelativeLayout>
 
-    </RelativeLayout>
+
+
+
 
 </layout>

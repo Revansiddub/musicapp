@@ -57,15 +57,15 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
                  .setImageTintList(context.getColorStateList(R.color.colorAccent));
      }
 
-//     holder.binding.layoutApprove.setOnClickListener(v -> {
-//         Intent intent=new Intent(context.getApplicationContext(), AddAttendanceActivity.class);
-//         intent.putExtra("name",attendance.getName());
-//         //intent.putExtra("age",attendance.getAge());
-//         intent.putExtra("mobile",attendance.getPhone());
-//         intent.putExtra("timing",attendance.getTiming());
-//         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//         context.getApplicationContext().startActivity(intent);
-//     });
+     holder.binding.layoutApprove.setOnClickListener(v -> {
+         Intent intent=new Intent(context.getApplicationContext(), AddAttendanceActivity.class);
+         intent.putExtra("name",attendance.getName());
+         //intent.putExtra("age",attendance.getAge());
+         intent.putExtra("mobile",attendance.getPhone());
+         intent.putExtra("timing",attendance.getTiming());
+         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+         context.getApplicationContext().startActivity(intent);
+     });
 
 
     }
