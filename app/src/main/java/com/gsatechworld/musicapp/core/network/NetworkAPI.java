@@ -7,6 +7,7 @@ import com.gsatechworld.musicapp.modules.home.approval.pojo.ApprovalResponse;
 import com.gsatechworld.musicapp.modules.home.approval.pojo.ApproveStatus;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PaymentResponse;
 import com.gsatechworld.musicapp.modules.home.earnings.pojo.EarningResponse;
+import com.gsatechworld.musicapp.modules.home.payment.adapter.AcceptPayment;
 import com.gsatechworld.musicapp.modules.home.payment.pojo.PaymentRequestResponse;
 import com.gsatechworld.musicapp.modules.home.settings.pojo.ChangePasswordRequest;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
@@ -91,6 +92,10 @@ public interface NetworkAPI {
 
     @GET("allPaymentsRequest")
     Call<PaymentRequestResponse> getPaymenrRequest(@Query("trainer_id") String trainer_Id);
+
+    @POST("acceptPaymentsRequest")
+    Call<CommonResponse> acceptPamentRequest(@Body AcceptPayment acceptPayment);
+
 
 
 

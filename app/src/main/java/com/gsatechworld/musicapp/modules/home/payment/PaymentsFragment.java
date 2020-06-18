@@ -16,6 +16,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.FragmentPaymentsBinding;
 import com.gsatechworld.musicapp.modules.home.earnings.EarningsViewModel;
+import com.gsatechworld.musicapp.modules.home.payment.adapter.AcceptPayment;
 import com.gsatechworld.musicapp.modules.home.payment.adapter.PaymentRequestAdapter;
 
 import static androidx.databinding.DataBindingUtil.inflate;
@@ -32,13 +33,14 @@ import static java.util.Objects.requireNonNull;
  * Use the {@link PaymentsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PaymentsFragment extends Fragment {
+public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.OnActionPaymentPerformedListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public FragmentPaymentsBinding paymentsBinding;
     public PaymentRequestViewModel viewModel;
+    public AcceptPaymentViewModel paymentViewModel;
 
     public String trainerId;
     public  int position;
@@ -90,6 +92,10 @@ public class PaymentsFragment extends Fragment {
 
         viewModel=new ViewModelProvider(this).get(PaymentRequestViewModel.class);
 
+        paymentViewModel=new ViewModelProvider(this).get(AcceptPaymentViewModel.class);
+
+
+
         baseActivity = (BaseActivity) getActivity();
 
         trainerId=getArguments().getString(TRAINER_ID);
@@ -120,6 +126,22 @@ public class PaymentsFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onActionPerformed(String trainerID, String payment_request_id) {
+        if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
+            baseActivity.showLoadingIndicator();
+
+            paymentViewModel.acceptPayments(new AcceptPayment(trainerID,payment_request_id)).observe(getViewLifecycleOwner(),commonResponse -> {
+                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+
+                }
+            });
+
+
+
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -138,13 +160,17 @@ public class PaymentsFragment extends Fragment {
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
             baseActivity.showLoadingIndicator();
 
+
+
+            trainerId="1";
+
             viewModel.getPaymentRequests(trainerId).observe(getViewLifecycleOwner(),paymentRequestResponse -> {
                 baseActivity.hideLoadingIndicator();
 
                 if (paymentRequestResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     paymentsBinding.recyclerPaymentRequest.setLayoutManager(new LinearLayoutManager(getActivity()));
                     paymentsBinding.recyclerPaymentRequest.setHasFixedSize(true);
-                    paymentsBinding.recyclerPaymentRequest.setAdapter(new PaymentRequestAdapter(getActivity(),paymentRequestResponse.getPayment_requests()));
+                    paymentsBinding.recyclerPaymentRequest.setAdapter(new PaymentRequestAdapter(getActivity(),paymentRequestResponse.getPayment_requests(),trainerId));
 
                 }else {
                     baseActivity.showSnackBar(requireNonNull(getActivity()),
@@ -158,5 +184,9 @@ public class PaymentsFragment extends Fragment {
             baseActivity.showSnackBar(requireNonNull(getActivity()),
                     getString(R.string.no_internet_message));
 
+    }
+
+    public interface OnActionPerformedListener {
+        void onActionPerformed(String studentID, String action);
     }
 }

@@ -142,7 +142,7 @@ public class AttendanceActivity extends BaseActivity {
 
          timeSlotViewModel.fetchTimeSlots(trainerID).observe(this, avilableResponse ->{
              if (avilableResponse.getStatus().equals("success")){
-                 timesAdapter=new TimesAdapter(this,avilableResponse.getAvailable_slots().get(position).getSlot_details());
+               //  timesAdapter=new TimesAdapter(this,avilableResponse.getAvailable_slots().get(position));
                  binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this,2));
                  binding.recyclerTimeSlots.setAdapter(timesAdapter);
              }

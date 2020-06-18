@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityPendingPaymentBinding;
+import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAdapter;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter.OnActionPerformedListener;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PaymentActionInfo;
@@ -21,7 +22,7 @@ import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
-public class PendingPaymentActivity extends BaseActivity
+public class PendingPaymentActivity extends BaseActivity implements ApproveStudentAdapter.OnActionPerformedListener
          {
 
     /* ------------------------------------------------------------- *
@@ -145,4 +146,11 @@ public class PendingPaymentActivity extends BaseActivity
         } else
             showSnackBar(this, getString(R.string.no_internet_message));
     }
-}
+
+             @Override
+             public void onActionPerformed(String entrollmentID, String studentID, String action) {
+                 if (action.equals(action.equals("PAID"))){
+
+                 }
+             }
+         }

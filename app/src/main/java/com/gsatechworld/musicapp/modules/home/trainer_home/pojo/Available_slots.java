@@ -1,28 +1,25 @@
 package com.gsatechworld.musicapp.modules.home.trainer_home.pojo;
 
+import com.google.gson.annotations.SerializedName;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot;
 
 import java.util.ArrayList;
 
 public class Available_slots {
 
+    @SerializedName("start_time")
+    private String start_time;
 
-    private ArrayList<TimeSlot> slot_details;
+    @SerializedName("end_time")
+    private String end_time;
 
-    private String recurrence_type;
-
-
-    public String getRecurrence_type() {
-        return recurrence_type;
+    public String getStart_time() {
+        return start_time;
     }
 
-    public String[] getCoaching_days() {
-        return coaching_days;
+    public String getEnd_time() {
+        return end_time;
     }
 
-    public ArrayList<TimeSlot> getSlot_details() {
-        return slot_details;
-    }
 
-    private String[] coaching_days;
 }

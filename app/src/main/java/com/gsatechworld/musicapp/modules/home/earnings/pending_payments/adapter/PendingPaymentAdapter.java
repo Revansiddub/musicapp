@@ -106,7 +106,7 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
      * ------------------------------------------------------------- */
 
     public interface OnActionPerformedListener {
-        void onActionPerformed(String requestID, String action);
+        void onActionPerformed(String studentID, String action);
     }
 
     /* ------------------------------------------------------------- *

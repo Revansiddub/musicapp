@@ -11,6 +11,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutEarningBinding;
 import com.gsatechworld.musicapp.databinding.LayoutPaymentRequestsBinding;
 import com.gsatechworld.musicapp.modules.home.earnings.adapter.EarningAdapter;
+import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Payment;
 import com.gsatechworld.musicapp.modules.home.payment.pojo.Payment_requests;
 
@@ -23,11 +24,15 @@ public class PaymentRequestAdapter extends RecyclerView.Adapter<PaymentRequestAd
 
     public Context context;
     public List<Payment_requests> requestsList;
+    public String payment_request_id,trainedID;
 
-    public PaymentRequestAdapter(Context context, List<Payment_requests> requestsList) {
+    public PaymentRequestAdapter(Context context, List<Payment_requests> requestsList,String trainerID) {
         this.context = context;
         this.requestsList = requestsList;
+        this.trainedID=trainerID;
     }
+
+
 
 
     @NonNull
@@ -38,10 +43,18 @@ public class PaymentRequestAdapter extends RecyclerView.Adapter<PaymentRequestAd
         return new RequestViewHolder(binding);
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder holder, int position) {
      Payment_requests requests=requestsList.get(position);
      holder.binding.setRequestlists(requestsList.get(position));
+     payment_request_id=requestsList.get(position).getPayment_request_id();
+     holder.binding.textPaid.setOnClickListener(v -> {
+         OnActionPaymentPerformedListener onActionPerformed = (OnActionPaymentPerformedListener) context;
+         onActionPerformed.onActionPerformed(trainedID,payment_request_id);
+
+     });
     }
 
     @Override
@@ -59,4 +72,10 @@ public class PaymentRequestAdapter extends RecyclerView.Adapter<PaymentRequestAd
 
         }
     }
+
+    public interface OnActionPaymentPerformedListener {
+        void onActionPerformed(String trainerID, String payment_request_id);
+    }
+
+
 }
