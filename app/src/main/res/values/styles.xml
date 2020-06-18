@@ -83,4 +83,17 @@
 
     </style>
 
+
+    <style name="Normal_Primary_Text" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/size_15sp</item>
+        <item name="android:fontFamily">georgia</item>
+    </style>
+
+    <style name="my_time_picker_style">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>

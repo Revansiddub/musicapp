@@ -29,7 +29,7 @@ public class SessionManager {
      * ------------------------------------------------------------- */
 
     @SuppressLint("CommitPrefEdits")
-    private SessionManager(Context mCtx) {
+    public SessionManager(Context mCtx) {
         sharedPreference = mCtx.getSharedPreferences(mCtx.getPackageName(), MODE_PRIVATE);
         editor = sharedPreference.edit();
     }

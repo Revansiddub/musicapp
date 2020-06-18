@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,15 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.FragmentAddSubCategoryBinding;
 
 import static android.text.TextUtils.isEmpty;
 import static androidx.databinding.DataBindingUtil.inflate;
+import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -31,8 +37,10 @@ public class AddSubCategoryFragment extends BottomSheetDialogFragment implements
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public String category,pinCode;
+    public String category_id,pinCode,subcategory;
     public FragmentAddSubCategoryBinding binding;
+    AddSubCategoryViewModel subCategoryViewModel;
+    public BaseActivity baseActivity;
 
 
     // TODO: Rename and change types of parameters
@@ -77,6 +85,15 @@ public class AddSubCategoryFragment extends BottomSheetDialogFragment implements
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding=inflate(inflater, R.layout.fragment_add_sub_category, container, false);
+
+        baseActivity = (BaseActivity) getActivity();
+
+        pinCode=getArguments().getString(PIN_CODE);
+        category_id=getArguments().getString(CATEGORY_ID);
+
+
+        subCategoryViewModel=new ViewModelProvider(this).get(AddSubCategoryViewModel.class);
+        binding.buttonAdd.setOnClickListener(this);
         return binding.getRoot();
     }
 
@@ -105,12 +122,12 @@ public class AddSubCategoryFragment extends BottomSheetDialogFragment implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonAdd:
-                category = requireNonNull(binding.editCategory.getText()).toString().trim();
+                subcategory = requireNonNull(binding.editCategory.getText()).toString().trim();
 
-                if (isEmpty(category))
+                if (isEmpty(subcategory))
                     binding.editCategory.setError(getString(R.string.category_validation));
                 else
-                    //addCategory();
+                    addSubCategories();
                 break;
         }
     }
@@ -128,5 +145,31 @@ public class AddSubCategoryFragment extends BottomSheetDialogFragment implements
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void addSubCategories(){
+
+        if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
+
+            baseActivity.showLoadingIndicator();
+
+            subCategoryViewModel.addSubCategories(new AddSubCategory(pinCode,category_id,subcategory)).observe(this,commonResponse -> {
+                baseActivity.hideLoadingIndicator();
+                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+                    baseActivity.openSuccessDialog("Sub Category Added Successfully");
+                    dismiss();
+
+                }else {
+                    baseActivity.showSnackBar(requireNonNull(getActivity()),commonResponse.getMessage());
+                }
+
+
+
+
+            });
+        }
+        else {
+            baseActivity.showSnackBar(requireNonNull(getActivity()),"No Internet Connection");
+        }
+
     }
 }

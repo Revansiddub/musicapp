@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="payment"
-            type="com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Payment" />
+            name="studentlist"
+            type="com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Student_list" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,16 +15,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/size_10dp">
 
-        <TextView
-            android:id="@+id/textDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{payment.date}"
-            android:textColor="@color/md_grey_800"
-            android:textSize="@dimen/size_15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageView
             android:id="@+id/imagePayment"
@@ -34,8 +25,8 @@
             android:scaleType="fitXY"
             android:src="@drawable/icon_payment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textDate"
-            tools:ignore="ContentDescription" />
+            android:layout_margin="@dimen/size_10dp"
+            tools:ignore="ContentDescription,MissingConstraints" />
 
         <TextView
             android:id="@+id/textStudentName"
@@ -43,11 +34,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_10dp"
             android:layout_marginTop="@dimen/size_10dp"
-            android:text="@{payment.studentName}"
+            android:text="@{studentlist.name}"
             android:textColor="@color/black"
             android:textSize="@dimen/size_18sp"
             app:layout_constraintStart_toEndOf="@id/imagePayment"
-            app:layout_constraintTop_toBottomOf="@id/textDate" />
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/textAmount"
@@ -55,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_10dp"
             android:layout_marginTop="@dimen/size_5dp"
-            android:text="@{`Rs. ` + payment.amount}"
+            android:text="@{`Rs. ` + studentlist.amount}"
             android:textColor="@color/md_grey_700"
             android:textSize="@dimen/size_15sp"
             android:textStyle="bold"

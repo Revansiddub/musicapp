@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</LinearLayout>
+    <data>
+
+        <variable
+            name="availableSlot"
+            type="com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/layoutAvailableTimeSlot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_10dp"
+        android:padding="@dimen/size_10dp"
+        android:background="@drawable/edit_text_rounded_corner"
+        android:paddingTop="@dimen/size_5dp"
+        android:paddingBottom="@dimen/size_5dp">
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{availableSlot.startTime + ` - ` + availableSlot.endTime}"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/size_15sp"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+
+        />
+
+    </RelativeLayout>
+
+</layout>

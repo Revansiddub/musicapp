@@ -21,10 +21,11 @@ import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.PendingP
 import static androidx.databinding.DataBindingUtil.inflate;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
-public class EarningsFragment extends Fragment implements OnClickListener {
+public class EarningsFragment extends Fragment  {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -33,6 +34,8 @@ public class EarningsFragment extends Fragment implements OnClickListener {
     private FragmentEarningsBinding binding;
     private EarningsViewModel viewModel;
     private BaseActivity baseActivity;
+    public String trainerId;
+    public  int position;
 
     /* ------------------------------------------------------------- *
      * Overriding Fragment Methods
@@ -52,23 +55,41 @@ public class EarningsFragment extends Fragment implements OnClickListener {
 
         baseActivity = (BaseActivity) getActivity();
 
+        trainerId=getArguments().getString(TRAINER_ID);
+
         fetchEarningDetails();
 
         /*Setting listeners to the view*/
-        binding.cardPending.setOnClickListener(this);
+
+
+        binding.cardPending.setOnClickListener(v -> {
+            Intent intent=new Intent(getActivity(),PendingPaymentActivity.class);
+            intent.putExtra(TRAINER_ID,trainerId);
+            startActivity(intent);
+        });
+
+
+
+
 
         return binding.getRoot();
+
+
+
+
     }
 
     /* ------------------------------------------------------------- *
      * Overriding OnClickListener Method
      * ------------------------------------------------------------- */
 
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.cardPending)
-            startActivity(new Intent(getActivity(), PendingPaymentActivity.class));
-    }
+//    @Override
+//    public void onClick(View view) {
+//        if (view.getId() == R.id.cardPending)
+//
+//
+//            startActivity(new Intent(getActivity(), PendingPaymentActivity.class));
+//    }
 
     /* ------------------------------------------------------------- *
      * Private Methods
@@ -81,21 +102,20 @@ public class EarningsFragment extends Fragment implements OnClickListener {
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
             baseActivity.showLoadingIndicator();
 
-            String trainerID = "1";
-
-            viewModel.getEarningDetailsList(trainerID).observe(getViewLifecycleOwner(),
+            viewModel.getEarningDetailsList(trainerId).observe(getViewLifecycleOwner(),
                     earningResponse -> {
-                        baseActivity.hideLoadingIndicator();
+                       baseActivity.hideLoadingIndicator();
 
                         if (earningResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+
                             binding.recyclerEarnings.setLayoutManager(new
                                     LinearLayoutManager(getActivity(), VERTICAL, false));
 
                             binding.recyclerEarnings.setAdapter(new EarningAdapter(getActivity(),
-                                    earningResponse.getEarningList()));
+                                    earningResponse.getResult().getStudent_list()));
                         } else
                             baseActivity.showSnackBar(requireNonNull(getActivity()),
-                                    earningResponse.getMessage());
+                                    earningResponse.getResponse());
                     });
         } else
             baseActivity.showSnackBar(requireNonNull(getActivity()),

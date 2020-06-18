@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</LinearLayout>
+    <data>
+
+        <variable
+            name="entrollments"
+            type="com.gsatechworld.musicapp.modules.student_home.pojo.Entrollments" />
+    </data>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="@dimen/size_170dp"
+        android:layout_height="@dimen/size_170dp">
+
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_entrollment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="@dimen/size_5dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/image_entrollment"
+                    android:layout_width="@dimen/size_100dp"
+                    android:layout_height="@dimen/size_100dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/entrollment"/>
+
+
+                <TextView
+                    android:id="@+id/entrollement_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:fontFamily="georgia"
+                    android:textSize="@dimen/size_20dp"
+                    android:layout_below="@id/image_entrollment"
+                    android:text="@{entrollments.name}"
+                    android:singleLine="true"
+                    android:layout_centerInParent="true"/>
+
+
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+</layout>

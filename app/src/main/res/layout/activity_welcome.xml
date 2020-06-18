@@ -8,7 +8,7 @@
         android:id="@+id/layoutWelcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="#F0F8FF"
         android:gravity="center_vertical"
         >
 
@@ -19,14 +19,13 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_500dp"
+            android:layout_height="@dimen/size_450dp"
             android:layout_marginLeft="@dimen/size_15dp"
             android:layout_marginRight="@dimen/size_15dp"
-            app:cardCornerRadius="@dimen/size_5dp"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             app:cardBackgroundColor="#F8F8FF"
-            android:elevation="@dimen/size_3dp"
+            app:cardElevation="@dimen/size_5dp"
             app:cardUseCompatPadding="true"
             >
 
@@ -46,13 +45,13 @@
 
                     <ImageView
                         android:id="@+id/appLogo"
-                        android:layout_width="@dimen/size_50dp"
-                        android:layout_height="@dimen/size_50dp"
+                        android:layout_width="@dimen/size_75dp"
+                        android:layout_height="@dimen/size_75dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:padding="@dimen/size_10dp"
                         android:layout_marginTop="@dimen/size_20dp"
-                        android:src="@drawable/icon_music" />
+                        android:src="@drawable/ic_music_note" />
 
                     <TextView
                         android:layout_width="wrap_content"

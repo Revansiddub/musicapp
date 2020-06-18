@@ -18,13 +18,17 @@ import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetail
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
 import com.gsatechworld.musicapp.modules.home.approval.ApprovalFragment;
 import com.gsatechworld.musicapp.modules.home.earnings.EarningsFragment;
+import com.gsatechworld.musicapp.modules.home.payment.PaymentsFragment;
 import com.gsatechworld.musicapp.modules.home.settings.SettingsFragment;
 import com.gsatechworld.musicapp.modules.home.trainer_home.TrainerHomeFragment;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import static com.gsatechworld.musicapp.utilities.Constants.APPROVAL_FRAGMENT_TAG;
 import static com.gsatechworld.musicapp.utilities.Constants.EARNINGS_FRAGMENT_TAG;
+import static com.gsatechworld.musicapp.utilities.Constants.PAYMENT_FRAGMENT_TAG;
 import static com.gsatechworld.musicapp.utilities.Constants.SETTINGS_FRAGMENT_TAG;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_HOME_FRAGMENT_TAG;
+import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 
 public class HomeActivity extends BaseActivity implements OnNavigationItemSelectedListener, CoachingDetailsFragment.CoachingDetailsListener {
 
@@ -36,6 +40,7 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
     CoachingDetails coachingDetails;
     String userType;
     int trainerID;
+    public String trainerId;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -48,10 +53,13 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         Bundle bundle=getIntent().getExtras();
-        userType=bundle.getString("type");
-        trainerID=bundle.getInt("trainerId");
-
+        if (bundle != null){
+            userType=bundle.getString("type");
+            trainerID=bundle.getInt("trainerId");
+        }
+        trainerId= String.valueOf(trainerID);
         /*Opening trainer's home fragment by default*/
+
 
         openFragment(new TrainerHomeFragment(), TRAINER_HOME_FRAGMENT_TAG);
 
@@ -75,6 +83,9 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
             case R.id.navigationEarnings:
                 openFragment(new EarningsFragment(), EARNINGS_FRAGMENT_TAG);
                 break;
+            case R.id.navigationPayments:
+                openFragment(new PaymentsFragment(), PAYMENT_FRAGMENT_TAG);
+                break;
             case R.id.navigationSettings:
                 openFragment(new SettingsFragment(), SETTINGS_FRAGMENT_TAG);
                 break;
@@ -95,7 +106,7 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
     private void openFragment(Fragment fragment, String tag) {
         Bundle bundle1=new Bundle();
         bundle1.putString("coaching_type",userType);
-        bundle1.putInt("trainerID",trainerID);
+        bundle1.putString(TRAINER_ID,trainerId);
         fragment.setArguments(bundle1);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

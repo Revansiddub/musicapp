@@ -40,7 +40,7 @@ public class ApprovalResponse {
         return message;
     }
 
-    public List<Approval> getApprovalList() {
+    public ArrayList<Approval> getApprovalList() {
         return approvalList;
     }
 }

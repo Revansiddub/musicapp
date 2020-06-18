@@ -17,11 +17,12 @@ import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Pay
 
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
-public class PendingPaymentActivity extends BaseActivity implements OnQueryTextListener,
-        OnActionPerformedListener {
+public class PendingPaymentActivity extends BaseActivity
+         {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -30,6 +31,7 @@ public class PendingPaymentActivity extends BaseActivity implements OnQueryTextL
     private ActivityPendingPaymentBinding binding;
     private PendingPaymentViewModel viewModel;
     private PendingPaymentAdapter adapter;
+    public String trainerId;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -50,10 +52,12 @@ public class PendingPaymentActivity extends BaseActivity implements OnQueryTextL
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        trainerId=getIntent().getStringExtra(TRAINER_ID);
+
         fetchPendingPaymentList();
 
         /*Setting listeners to the views*/
-        binding.searchStudent.setOnQueryTextListener(this);
+       // binding.searchStudent.setOnQueryTextListener(this);
     }
 
     /* ------------------------------------------------------------- *
@@ -73,41 +77,41 @@ public class PendingPaymentActivity extends BaseActivity implements OnQueryTextL
      * Overriding OnQueryTextListener Methods
      * ------------------------------------------------------------- */
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        if (adapter != null)
-            adapter.filter(query);
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        if (adapter != null)
-            adapter.filter(newText);
-        return true;
-    }
+//    @Override
+//    public boolean onQueryTextSubmit(String query) {
+//        if (adapter != null)
+//        //    adapter.filter(query);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onQueryTextChange(String newText) {
+//        if (adapter != null)
+//            adapter.filter(newText);
+//        return true;
+//    }
 
     /* ------------------------------------------------------------- *
      * Overriding OnActionPerformedListener Method
      * ------------------------------------------------------------- */
 
-    @Override
-    public void onActionPerformed(String requestID, String action) {
-        if (getNetworkInstance(this).isConnectedToInternet()) {
-            showLoadingIndicator();
-
-            viewModel.storeAction(new PaymentActionInfo(requestID, action)).observe(this,
-                    commonResponse -> {
-                        hideLoadingIndicator();
-
-                        if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
-                            fetchPendingPaymentList();
-
-                        showSnackBar(this, commonResponse.getMessage());
-                    });
-        } else
-            showSnackBar(this, getString(R.string.no_internet_message));
-    }
+//    @Override
+//    public void onActionPerformed(String requestID, String action) {
+//        if (getNetworkInstance(this).isConnectedToInternet()) {
+//            showLoadingIndicator();
+//
+//            viewModel.storeAction(new PaymentActionInfo(requestID, action)).observe(this,
+//                    commonResponse -> {
+//                        hideLoadingIndicator();
+//
+//                        if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
+//                            fetchPendingPaymentList();
+//
+//                        showSnackBar(this, commonResponse.getMessage());
+//                    });
+//        } else
+//            showSnackBar(this, getString(R.string.no_internet_message));
+//    }
 
     /* ------------------------------------------------------------- *
      * Private Methods
@@ -123,14 +127,17 @@ public class PendingPaymentActivity extends BaseActivity implements OnQueryTextL
 
             String trainerID = "1";
 
-            viewModel.fetchPendingPaymentList(trainerID).observe(this, paymentResponse -> {
+            viewModel.fetchPendingPaymentList(trainerId).observe(this, paymentResponse -> {
                 hideLoadingIndicator();
 
                 if (paymentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+
+                    adapter = new PendingPaymentAdapter(this,
+                            paymentResponse.getStudentLists());
+
                     binding.recyclerPending.setLayoutManager(new LinearLayoutManager(this,
                             VERTICAL, false));
-                    adapter = new PendingPaymentAdapter(this,
-                            paymentResponse.getPendingPaymentList());
+
                     binding.recyclerPending.setAdapter(adapter);
                 } else
                     showSnackBar(this, paymentResponse.getMessage());

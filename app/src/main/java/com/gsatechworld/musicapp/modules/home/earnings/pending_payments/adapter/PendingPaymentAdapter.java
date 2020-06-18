@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutPendingPaymentBinding;
+import com.gsatechworld.musicapp.databinding.LayoutStudentPaymentsBinding;
+import com.gsatechworld.musicapp.databinding.ListStudentsBinding;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Payment;
+import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Student_list;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +37,17 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
      * ------------------------------------------------------------- */
 
     private Context mCtx;
-    private List<Payment> pendingPaymentList;
-    private List<Payment> searchablePaymentList;
+    private ArrayList<Student_list> pendingPaymentList;
+  //  private List<Payment> searchablePaymentList;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public PendingPaymentAdapter(Context mCtx, List<Payment> pendingPaymentList) {
+    public PendingPaymentAdapter(Context mCtx, ArrayList<Student_list> pendingPaymentList) {
         this.mCtx = mCtx;
         this.pendingPaymentList = pendingPaymentList;
-        searchablePaymentList = new ArrayList<>(pendingPaymentList);
+      //  searchablePaymentList = new ArrayList<>(pendingPaymentList);
     }
 
     /* ------------------------------------------------------------- *
@@ -61,7 +64,7 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
 
     @Override
     public void onBindViewHolder(@NonNull PendingPaymentHolder holder, int position) {
-        holder.binding.setPayment(pendingPaymentList.get(position));
+        holder.binding.setStudentlist(pendingPaymentList.get(position));
         holder.binding.textPaid.setOnClickListener(v -> {
             pendingPaymentList.remove(position);
             notifyDataSetChanged();
@@ -78,25 +81,25 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
      * Public Method
      * ------------------------------------------------------------- */
 
-    /**
-     * This method is invoked to search item in the list based on the character or string.
-     *
-     * @param charText char sequence that need to be searched in the list.
-     */
-    public void filter(String charText) {
-        charText = charText.toLowerCase(getDefault());
-
-        pendingPaymentList.clear();
-
-        if (charText.length() == 0)
-            pendingPaymentList.addAll(searchablePaymentList);
-        else
-            for (Payment payment : searchablePaymentList)
-                if (payment.getStudentName().toLowerCase().contains(charText.toLowerCase()))
-                    pendingPaymentList.add(payment);
-
-        notifyDataSetChanged();
-    }
+//    /**
+//     * This method is invoked to search item in the list based on the character or string.
+//     *
+//     * @param charText char sequence that need to be searched in the list.
+//     */
+//    public void filter(String charText) {
+//        charText = charText.toLowerCase(getDefault());
+//
+//        pendingPaymentList.clear();
+//
+//        if (charText.length() == 0)
+//            pendingPaymentList.addAll(searchablePaymentList);
+//        else
+//            for (Payment payment : searchablePaymentList)
+//                if (payment.getStudentName().toLowerCase().contains(charText.toLowerCase()))
+//                    pendingPaymentList.add(payment);
+//
+//        notifyDataSetChanged();
+//    }
 
     /* ------------------------------------------------------------- *
      * Public Interface
@@ -138,15 +141,15 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
 
         @Override
         public void onClick(View view) {
-            Payment payment = pendingPaymentList.get(getAdapterPosition());
+            Student_list payment = pendingPaymentList.get(getAdapterPosition());
             OnActionPerformedListener onActionPerformed = (OnActionPerformedListener) mCtx;
             switch (view.getId()) {
                 case R.id.textPaid:
-                    onActionPerformed.onActionPerformed(payment.getPaymentID(), PAID);
+                    onActionPerformed.onActionPerformed(payment.getId(), PAID);
                     break;
-                case R.id.textNotPaid:
-                    onActionPerformed.onActionPerformed(payment.getPaymentID(), NOT_PAID);
-                    break;
+//                case R.id.textNotPaid:
+//                    onActionPerformed.onActionPerformed(payment.getId()), NOT_PAID);
+//                    break;
             }
         }
     }

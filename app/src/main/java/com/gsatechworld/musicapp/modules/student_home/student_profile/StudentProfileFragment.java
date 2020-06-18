@@ -1,4 +1,4 @@
-package com.gsatechworld.musicapp.modules.student_home;
+package com.gsatechworld.musicapp.modules.student_home.student_profile;
 
 import android.content.Context;
 import android.net.Uri;

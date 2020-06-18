@@ -15,9 +15,15 @@
         android:icon="@drawable/ic_monetization_on_black_24dp"
         android:title="@string/earnings" />
 
+    <item android:id="@+id/navigationPayments"
+        android:icon="@drawable/ic_monetization_on_black_24dp"
+         android:title="@string/payment"/>
     <item
         android:id="@+id/navigationSettings"
         android:icon="@drawable/icon_settings"
         android:title="@string/settings" />
+
+
+
 
 </menu>

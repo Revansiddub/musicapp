@@ -1,16 +1,28 @@
 package com.gsatechworld.musicapp.modules.student_home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.databinding.FragmentStudentHomeBinding;
+import com.gsatechworld.musicapp.modules.student_home.adapter.EntrollmentAdapter;
+import com.gsatechworld.musicapp.select_category.SelectCategoriesActivity;
+import com.gsatechworld.musicapp.utilities.Constants;
+
+import static androidx.databinding.DataBindingUtil.inflate;
+import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
+import static java.util.Objects.requireNonNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +43,12 @@ public class StudentHomeFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    public EntrollmentsViewModel entrollmentsViewModel;
+
+    private BaseActivity baseActivity;
+
+    FragmentStudentHomeBinding studentHomeBinding;
 
     public StudentHomeFragment() {
         // Required empty public constructor
@@ -67,7 +85,46 @@ public class StudentHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_home, container, false);
+        studentHomeBinding=inflate(inflater, R.layout.fragment_student_home, container, false);
+
+        entrollmentsViewModel=new ViewModelProvider(getActivity()).get(EntrollmentsViewModel.class);
+
+        baseActivity = (BaseActivity) getActivity();
+
+        fetchEntrollemntDetals();
+
+        studentHomeBinding.textAddentrollment.setOnClickListener(v -> {
+            Intent intent=new Intent(getActivity(),SelectCategoriesActivity.class);
+            intent.putExtra(Constants.PIN_CODE,"560078");
+            intent.putExtra(Constants.USER_TYPE,"Student");
+            startActivity(intent);
+
+        });
+
+        return studentHomeBinding.getRoot();
+    }
+
+    private void fetchEntrollemntDetals() {
+
+        if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
+            baseActivity.showLoadingIndicator();
+
+
+            String student_Id="1";
+            entrollmentsViewModel.fetchStudentEntrollments(student_Id).observe(getViewLifecycleOwner(),entrollmentResponse -> {
+             baseActivity.hideLoadingIndicator();
+             if (entrollmentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
+                 studentHomeBinding.recyclerEntrollments.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                 studentHomeBinding.recyclerEntrollments.setAdapter(new EntrollmentAdapter(getActivity(),entrollmentResponse.getEntrollmentsList()));
+             }
+             else {
+                 baseActivity.showSnackBar(requireNonNull(getActivity()),
+                         getString(R.string.no_internet_message));
+             }
+            });
+
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -82,9 +139,6 @@ public class StudentHomeFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
         }
     }
 

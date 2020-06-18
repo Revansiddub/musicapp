@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
@@ -24,12 +26,13 @@ import java.util.List;
 import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.SUBCATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER;
 import static java.util.Locale.getDefault;
 
-public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
+public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder>  {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -39,18 +42,20 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
     private ArrayList<SubCategory> subCategoryList;
     private List<SubCategory> searchableSubCategoryList;
     private String userType, pinCode,categoryID;
+    private int pincode_Id;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public CategoryAdapter(Context mCtx, ArrayList<SubCategory> subCategoryList, String userType, String pinCode,String categoryID) {
+    public CategoryAdapter(Context mCtx, ArrayList<SubCategory> subCategoryList, String userType, String pinCode,String categoryID,int pincode_Id) {
         this.mCtx = mCtx;
         this.subCategoryList = subCategoryList;
         searchableSubCategoryList = new ArrayList<>(subCategoryList);
         this.userType = userType;
         this.pinCode = pinCode;
         this.categoryID=categoryID;
+        this.pincode_Id=pincode_Id;
     }
 
     /* ------------------------------------------------------------- *
@@ -100,6 +105,8 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
         notifyDataSetChanged();
     }
 
+
+
     /* ------------------------------------------------------------- *
      * SubCategory Holder Class
      * ------------------------------------------------------------- */
@@ -139,6 +146,7 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder> {
                 intent.putExtra(CATEGORY_ID,categoryID);
                 intent.putExtra(SUBCATEGORY_ID, category.getSubcategoryID());
                 intent.putExtra(PIN_CODE, pinCode);
+                intent.putExtra(PINCODE_ID,pincode_Id);
                 mCtx.startActivity(intent);
 
 

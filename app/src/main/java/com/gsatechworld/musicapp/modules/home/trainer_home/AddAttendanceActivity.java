@@ -11,6 +11,8 @@ import android.os.Bundle;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.ActivityAddAttendanceBinding;
 
+import static java.util.Objects.requireNonNull;
+
 public class AddAttendanceActivity extends AppCompatActivity {
     public String name,phone,timing,age;
     ActivityAddAttendanceBinding binding;
@@ -28,6 +30,8 @@ public class AddAttendanceActivity extends AppCompatActivity {
         binding.textviewAge.setText(age);
         binding.textviewMobile.setText(phone);
         binding.textviewTiming.setText(timing);
+
+
 
         binding.buttonSubmit.setOnClickListener(v -> {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());

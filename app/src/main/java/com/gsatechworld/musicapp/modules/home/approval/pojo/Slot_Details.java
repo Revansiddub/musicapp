@@ -6,6 +6,9 @@ public class Slot_Details {
     @SerializedName("start_time")
     private String start_time;
 
+    @SerializedName("end_time")
+    private String end_time;
+
     public String getStart_time() {
         return start_time;
     }
@@ -14,6 +17,5 @@ public class Slot_Details {
         return end_time;
     }
 
-    @SerializedName("end_time")
-    private String end_time;
+
 }

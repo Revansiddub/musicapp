@@ -1,6 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</LinearLayout>
+    <data>
+
+        <variable
+            name="studentpayment"
+            type="com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPayment" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardUseCompatPadding="true"
+            android:layout_height="@dimen/size_100dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <ImageView
+                    android:id="@+id/imageStatus"
+                    android:layout_width="@dimen/size_60dp"
+                    android:layout_height="@dimen/size_60dp"
+                    android:src="@drawable/icon_credit"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/size_10dp"/>
+
+                <TextView
+                    android:id="@+id/entrollment_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/imageStatus"
+                    android:textSize="@dimen/size_20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:text="@{studentpayment.entrollment_name}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size_20dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:layout_toRightOf="@id/imageStatus"
+                    android:textStyle="bold"
+                    android:text="@{`Rs. ` +studentpayment.amount}"
+                    android:layout_below="@id/entrollment_name"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/size_10dp"
+                    android:text="Pay"
+                    android:background="@drawable/button_bg"
+                    android:layout_marginRight="@dimen/size_10dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"/>
+
+
+
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+</layout>

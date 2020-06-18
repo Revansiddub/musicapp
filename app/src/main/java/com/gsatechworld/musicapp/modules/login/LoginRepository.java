@@ -1,5 +1,7 @@
 package com.gsatechworld.musicapp.modules.login;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -14,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.gsatechworld.musicapp.core.network.NetworkService.getRetrofitInstance;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 
@@ -46,14 +49,14 @@ class LoginRepository {
             public void onResponse(Call<TrainerResponse> call, Response<TrainerResponse> response) {
                 TrainerResponse trainerResponse=response.body();
                 if (trainerResponse != null){
-                    trainerMutableLiveData.setValue(trainerResponse);
+                    trainerMutableLiveData.postValue(trainerResponse);
 
                 }
             }
 
             @Override
             public void onFailure(Call<TrainerResponse> call, Throwable t) {
-             trainerMutableLiveData.setValue(null);
+                Log.d(TAG, t.getMessage().toString());
             }
         });
 

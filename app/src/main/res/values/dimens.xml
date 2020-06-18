@@ -75,6 +75,7 @@
     <dimen name="size_300dp">300dp</dimen>
     <dimen name="size_500dp">500dp</dimen>
     <dimen name="size_400dp">400dp</dimen>
+    <dimen name="size_450dp">450dp</dimen>
     <dimen name="size_22dp">22dp</dimen>
     <dimen name="size_170dp">170dp</dimen>
 

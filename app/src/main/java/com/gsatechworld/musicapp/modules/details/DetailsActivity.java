@@ -1,6 +1,7 @@
 package com.gsatechworld.musicapp.modules.details;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,13 +20,19 @@ import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingD
 import com.gsatechworld.musicapp.modules.details.personal_details.PersonalDetailsFragment;
 import com.gsatechworld.musicapp.modules.details.personal_details.PersonalDetailsFragment.PersonalDetailsListener;
 import com.gsatechworld.musicapp.modules.details.personal_details.pojo.PersonalDetails;
-import com.gsatechworld.musicapp.modules.details.pojo.TrainerDetails;
+import com.gsatechworld.musicapp.modules.details.pojo.OnBoadingTrainer;
+import com.gsatechworld.musicapp.modules.details.pojo.Recurrence_types;
+import com.gsatechworld.musicapp.modules.otp.TrainerOtpVerification;
+
+import java.util.ArrayList;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.Constants.SUBCATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
@@ -38,8 +45,13 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
 
     private ActivityDetailsBinding binding;
     private DetailsViewModel viewModel;
-    private String categoryID, pinCode;
+    private String categoryID, pinCode,subCategoryID;
     private CoachingDetails coachingDetails;
+    private Recurrence_types recurrence_types;
+    private ArrayList<String> coachingType;
+    public int position,pincode_Id;
+    public String pinCode_ID;
+
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -64,8 +76,12 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
         if (getIntent().getStringExtra(PIN_CODE) != null) {
             pinCode = getIntent().getStringExtra(PIN_CODE);
             categoryID = getIntent().getStringExtra(CATEGORY_ID);
-        }
+            subCategoryID=getIntent().getStringExtra(SUBCATEGORY_ID);
+            pincode_Id=getIntent().getIntExtra(PINCODE_ID,0);
 
+
+        }
+        pinCode_ID=String.valueOf(pincode_Id);
         /*Setting Adapter to view pager*/
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new CoachingDetailsFragment(), getString(R.string.coaching_details));
@@ -120,7 +136,28 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
                     .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
             binding.textTitle.setText(R.string.personal_details);
             binding.viewPager.setCurrentItem(1);
+
+
+
         }
+        if (coachingDetails.isHome()==true){
+            coachingType=new ArrayList<>();
+            coachingType.add("Home");
+        }
+
+        if (coachingDetails.isDaily() == true){
+           recurrence_types.setRecurrence_type("Daily");
+        }else if (coachingDetails.isWeekly() == true){
+
+        }
+        else {
+
+        }
+
+
+
+
+
     }
 
     /* ------------------------------------------------------------- *
@@ -133,12 +170,19 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
             if (getNetworkInstance(this).isConnectedToInternet()) {
                 showLoadingIndicator();
 
-                viewModel.submitTrainerDetails(new TrainerDetails(coachingDetails, personalDetails))
+
+
+                viewModel.submitTrainerDetails(new OnBoadingTrainer(personalDetails.getProfile_Image(),coachingDetails.getAddress(),personalDetails.getGender(),recurrence_types,personalDetails.getHighestDegreeBase(),personalDetails.getAddressProofBackBase(),personalDetails.getExpertiseDocumentBase(),pinCode_ID,personalDetails.getGovtIDFrontBase(),personalDetails.getAddressProofFrontBase(),categoryID,coachingType,subCategoryID,personalDetails.getFullName(),personalDetails.getGovtIDBackBase(),personalDetails.getMobileNumber(),personalDetails.getEmailAddress(),coachingDetails.getCharge()))
                         .observe(this, commonResponse -> {
                             hideLoadingIndicator();
 
-                            if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
+                            if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                                 openSuccessDialog("Your documents have been submitted successfully.");
+                                Intent intent = new Intent(this, TrainerOtpVerification.class);
+                                intent.putExtra("mobile_number", personalDetails.getMobileNumber());
+                                startActivity(intent);
+
+                            }
                             else
                                 showSnackBar(this, commonResponse.getMessage());
                         });

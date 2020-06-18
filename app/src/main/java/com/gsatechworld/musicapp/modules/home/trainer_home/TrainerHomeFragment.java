@@ -16,8 +16,10 @@ import com.gsatechworld.musicapp.databinding.FragmentTrainerHomeBinding;
 import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static androidx.databinding.DataBindingUtil.inflate;
@@ -32,6 +34,7 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
     private TrainerHomeViewModel viewModel;
     private  CoachingDetails coachingDetails;
     public String type;
+    public int trainerId;
 
 
     /* ------------------------------------------------------------- *
@@ -43,11 +46,22 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
 
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_trainer_home, container, false);
+
+
         Bundle bundle=this.getArguments();
         type = bundle.getString("coaching_type");
+        trainerId=bundle.getInt("trainerID");
         binding.calendarView.setSelectedDates(getSelectedDays());
         binding.calendarView.setOnDayClickListener(eventDay -> {
+            Calendar selectedDate=binding.calendarView.getSelectedDate();
+            Date date=selectedDate.getTime();
+            SimpleDateFormat simpleDateFormat =
+                    new SimpleDateFormat("dd-MM-yyyy");
+            String timestamp= simpleDateFormat.format(date);
+
             Intent intent = new Intent(getActivity(), AttendanceActivity.class);
+            intent.putExtra("trainerID",trainerId);
+            intent.putExtra("date",timestamp);
                 startActivity(intent);
         });
 

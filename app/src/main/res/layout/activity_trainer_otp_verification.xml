@@ -49,31 +49,91 @@
 
 
 
-        <com.goodiebag.pinview.Pinview
+        <LinearLayout
             android:id="@+id/pinView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_30dp"
+            android:layout_margin="@dimen/size_20dp"
             android:layout_below="@id/textview_otp"
-            app:pinWidth="@dimen/size_50dp"
-            app:pinHeight="@dimen/size_50dp"
-            app:pinLength="4"
-            app:cursorVisible="false"
-            app:forceKeyboard="true"
-            app:hint="0"
-            app:inputType="number"
-            app:password="false"
-            />
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/et_otp_1"
+                style="@style/Normal_Primary_Text"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_marginEnd="@dimen/size_20dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner_primary"
+                android:focusable="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="@dimen/size_20dp"
+                tools:text="1"/>
+
+            <EditText
+                android:id="@+id/et_otp_2"
+                style="@style/Normal_Primary_Text"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_marginEnd="@dimen/size_20dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner_primary"
+                android:focusable="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="@dimen/size_20dp"
+                tools:text="1"/>
+
+            <EditText
+                android:id="@+id/et_otp_3"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_marginEnd="@dimen/size_20dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner_primary"
+                android:focusable="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="@dimen/size_20dp"
+                tools:text="1"/>
+            <EditText
+                android:id="@+id/et_otp_4"
+                style="@style/Normal_Primary_Text"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner_primary"
+                android:focusable="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="@dimen/size_20dp"
+                tools:text="1"/>
+
+        </LinearLayout>
         <Button
             android:id="@+id/button_submit"
-            android:layout_width="@dimen/size_60dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/size_60dp"
+            android:padding="@dimen/size_10dp"
             android:layout_below="@id/pinView"
             android:layout_marginTop="35dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/button_arrow"
-            android:textSize="@dimen/size_50dp"
+            android:background="@drawable/button_bg"
+            android:textSize="@dimen/size_20dp"
+            android:text="Confirm OTP"
             android:textColor="@color/white" />
 
         <TextView
@@ -83,7 +143,7 @@
             android:layout_below="@id/button_submit"
             android:textSize="@dimen/size_15dp"
             android:text="Don't Recieve the OTP?"
-            android:textColor="@color/md_grey_400"
+            android:textColor="@color/md_grey_700"
             android:fontFamily="georgia"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/size_20dp"/>

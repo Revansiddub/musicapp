@@ -26,7 +26,7 @@ public class EarningsViewModel extends ViewModel {
      * Default Methods
      * ------------------------------------------------------------- */
 
-    LiveData<EarningResponse> getEarningDetailsList(String trainerID) {
+    public LiveData<EarningResponse> getEarningDetailsList(String trainerID) {
         return repository.getEarningDetailsList(trainerID);
     }
 }

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,6 +54,7 @@ import static com.gsatechworld.musicapp.utilities.Constants.HIGHEST_DEGREE;
 import static com.gsatechworld.musicapp.utilities.Constants.MALE;
 import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER_LENGTH;
 import static com.gsatechworld.musicapp.utilities.Constants.OPEN_GALLERY_REQUEST_CODE;
+import static com.gsatechworld.musicapp.utilities.Constants.PROFILE_IMAGE;
 import static com.gsatechworld.musicapp.utilities.Constants.STEP_ONE_COMPLETE;
 import static com.gsatechworld.musicapp.utilities.Constants.STEP_TWO_COMPLETE;
 import static com.karumi.dexter.Dexter.withActivity;
@@ -66,11 +68,13 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
 
     private FragmentPersonalDetailsBinding binding;
     private BaseActivity baseActivity;
-    private String fullName, emailAddress, mobileNumber, gender, uploadType;
-    private Bitmap highestDegreeBitmap, govtIDFrontBitmap, govtIDBackBitmap, addressProofFrontBitmap,
+    private String fullName, emailAddress, mobileNumber, gender, uploadType,amount;
+    private Bitmap profileImageBitmap,highestDegreeBitmap, govtIDFrontBitmap, govtIDBackBitmap, addressProofFrontBitmap,
             addressProofBackBitmap, expertiseDocumentBitmap;
-    private String highestDegreeBase, govtIDFrontBase, govtIDBackBase, addressProofFrontBase,
+    private String highestDegreeBase,profileImage, govtIDFrontBase, govtIDBackBase, addressProofFrontBase,
             addressProofBackBase, expertiseDocumentBase;
+
+    public Uri imageUri;
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
@@ -115,9 +119,14 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
         binding.imageAddressProofBackClose.setOnClickListener(this);
         binding.imageExpertiseDocumentClose.setOnClickListener(this);
         binding.buttonSubmit.setOnClickListener(this);
+        binding.imageProfile.setOnClickListener(this);
+
+
 
         return binding.getRoot();
     }
+
+
 
     /* ------------------------------------------------------------- *
      * Overriding onActivityResult Method
@@ -153,6 +162,8 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
                 }
             }
         }
+
+
     }
 
     /* ------------------------------------------------------------- *
@@ -163,6 +174,25 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
+            case R.id.image_profile:
+                withActivity(getActivity()).withPermissions(WRITE_EXTERNAL_STORAGE,CAMERA).withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()){
+                            uploadType=PROFILE_IMAGE;
+                            openGallery();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+
+                break;
+
             case R.id.textMale:
                 binding.textMale.setTextColor(getResources().getColor(R.color.colorAccent));
                 binding.textMale.setCompoundDrawableTintList
@@ -301,6 +331,7 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
                             }
                         }).check();
                 break;
+
             case R.id.imageHighestDegreeClose:
                 highestDegreeBitmap = null;
                 with(this).load(R.drawable.icon_frame).into(binding.imageHighestDegree);
@@ -331,9 +362,13 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
                 with(this).load(R.drawable.icon_frame).into(binding.imageExpertiseDocument);
                 binding.imageExpertiseDocumentClose.setVisibility(GONE);
                 break;
+
+
+
             case R.id.buttonSubmit:
                 if (validateFields())
                     encodeDocuments();
+
                 break;
         }
     }
@@ -359,6 +394,11 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
      */
     private void placeImage(Bitmap imageBitmap) {
         switch (uploadType) {
+            case PROFILE_IMAGE:
+                profileImageBitmap=imageBitmap;
+                with(this).load(imageBitmap).into(binding.imageProfile);
+                binding.imageProfile.setVisibility(VISIBLE);
+                break;
             case HIGHEST_DEGREE:
                 highestDegreeBitmap = imageBitmap;
                 with(this).load(imageBitmap).into(binding.imageHighestDegree);
@@ -389,6 +429,9 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
                 with(this).load(imageBitmap).into(binding.imageExpertiseDocument);
                 binding.imageExpertiseDocumentClose.setVisibility(VISIBLE);
                 break;
+
+
+
         }
     }
 
@@ -403,6 +446,8 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
                 msg.what = STEP_ONE_COMPLETE;
                 handler.sendMessage(msg);
 
+                profileImage
+                        =baseActivity.encodeToBase64(profileImageBitmap);
                 highestDegreeBase = baseActivity.encodeToBase64(highestDegreeBitmap);
                 govtIDFrontBase = baseActivity.encodeToBase64(govtIDFrontBitmap);
                 govtIDBackBase = baseActivity.encodeToBase64(govtIDBackBitmap);
@@ -414,6 +459,8 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
                 Message msg2 = Message.obtain();
                 msg2.what = STEP_TWO_COMPLETE;
                 handler.sendMessage(msg2);
+
+
             }
         };
         backgroundThread.start();
@@ -425,7 +472,7 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
     private void returnCoachingDetails() {
         PersonalDetailsListener personalDetailsListener = (PersonalDetailsListener) getActivity();
 
-        requireNonNull(personalDetailsListener).personalDetails(new PersonalDetails(fullName,
+        requireNonNull(personalDetailsListener).personalDetails(new PersonalDetails(profileImage,fullName,
                 emailAddress, mobileNumber, gender, highestDegreeBase, govtIDFrontBase,
                 govtIDBackBase, addressProofFrontBase, addressProofBackBase, expertiseDocumentBase));
     }
@@ -439,6 +486,7 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
         fullName = requireNonNull(binding.editFullName.getText()).toString();
         emailAddress = requireNonNull(binding.editEmailAddress.getText()).toString();
         mobileNumber = requireNonNull(binding.editMobileNumber.getText()).toString();
+
 
         if (isEmpty(fullName)) {
             binding.editFullName.requestFocus();
@@ -460,6 +508,11 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
 
         if (gender == null) {
             baseActivity.showSnackBar(requireNonNull(getActivity()), "Please select gender");
+            return false;
+        }
+
+        if (profileImageBitmap == null){
+            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Upload Highest Degree Image");
             return false;
         }
 

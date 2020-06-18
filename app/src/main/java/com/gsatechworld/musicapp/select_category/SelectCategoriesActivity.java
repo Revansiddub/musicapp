@@ -17,7 +17,7 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivitySelectSubCategoryBinding;
 import com.gsatechworld.musicapp.select_category.add_category.AddCategoryFragment;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
-import com.gsatechworld.musicapp.select_category.adapter.SubCategoryAdapter;
+import com.gsatechworld.musicapp.select_category.adapter.CategoriesAdapter;
 
 import static android.view.View.GONE;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
@@ -30,12 +30,12 @@ import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkIns
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
-public class SelectSubCategoryActivity extends BaseActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
+public class SelectCategoriesActivity extends BaseActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
 private ActivitySelectSubCategoryBinding binding;
 private SelectCategoriesViewModel viewModel;
     private String userType, pinCode;
     private int pinCodeId;
-    SubCategoryAdapter adapter;
+    CategoriesAdapter adapter;
 
 
     @Override
@@ -80,7 +80,7 @@ private SelectCategoriesViewModel viewModel;
 
                 if (categoryResponse.getStatus().equals("success")) {
 
-                    adapter = new SubCategoryAdapter(this,  categoryResponse.getCategoriesList(),userType,pinCode);
+                    adapter = new CategoriesAdapter(this,  categoryResponse.getCategoriesList(),userType,pinCode,pinCodeId);
                     binding.recyclerCategories.setLayoutManager
                             (new LinearLayoutManager(this, VERTICAL, false));
                     binding.recyclerCategories.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
@@ -88,7 +88,7 @@ private SelectCategoriesViewModel viewModel;
 //                    binding.recyclerCategories.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), binding.recyclerCategories, new RecyclerTouchListener.ClickListener() {
 //                        @Override
 //                        public void onClick(View view, int position) {
-//                            Intent intent = new Intent(SelectSubCategoryActivity.this, SelectCategoryActivity.class);
+//                            Intent intent = new Intent(SelectCategoriesActivity.this, SelectCategoryActivity.class);
 //                            intent.putExtra(USER_TYPE, userType);
 //                            intent.putExtra(PIN_CODE, pinCode);
 //
@@ -127,15 +127,15 @@ private SelectCategoriesViewModel viewModel;
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-       // if (adapter != null)
-            //adapter.filter(query);
+       if (adapter != null)
+            adapter.filter(query);
         return true;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-       // if (adapter != null)
-            //adapter.filter(newText);
+       if (adapter != null)
+            adapter.filter(newText);
         return true;
     }
 

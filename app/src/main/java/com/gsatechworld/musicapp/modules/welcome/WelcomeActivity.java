@@ -13,16 +13,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.core.manager.SessionManager;
 import com.gsatechworld.musicapp.databinding.ActivityWelcomeBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
-import com.gsatechworld.musicapp.select_category.SelectSubCategoryActivity;
+import com.gsatechworld.musicapp.select_category.SelectCategoriesActivity;
 
 import in.aabhasjindal.otptextview.OTPListener;
 
 import static android.R.layout.simple_spinner_dropdown_item;
 import static android.R.layout.simple_spinner_item;
 import static android.view.View.VISIBLE;
+import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
@@ -39,6 +41,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
     private WelcomeViewModel viewModel;
     private String[] usersArray;
     private String pinCode, userType;
+    private int pincode_id;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -64,6 +67,8 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
         binding.viewPinCode.requestFocusOTP();
         binding.viewPinCode.setOtpListener(this);
         binding.textLogin.setOnClickListener(this);
+
+
     }
 
     /* ------------------------------------------------------------- *
@@ -93,6 +98,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
     @Override
     public void onOTPComplete(String pinCode) {
         this.pinCode = pinCode;
+
 
         hideKeyboard(this);
         checkAvailability();
@@ -141,9 +147,11 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
                         hideLoadingIndicator();
 
                         if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
-                            Intent intent = new Intent(this, SelectSubCategoryActivity.class);
+                            pincode_id=commonResponse.getPincode_id();
+                            Intent intent = new Intent(this, SelectCategoriesActivity.class);
                             intent.putExtra(USER_TYPE, userType);
                             intent.putExtra(PIN_CODE, pinCode);
+                            intent.putExtra(PINCODE_ID,pincode_id);
                             startActivity(intent);
                         } else
                             showSnackBar(this, commonResponse.getMessage());

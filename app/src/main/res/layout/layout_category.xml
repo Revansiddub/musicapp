@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,27 +15,35 @@
         android:id="@+id/layoutCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/size_10dp">
+        >
 
-        <TextView
-            android:id="@+id/textCategoryName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_10dp"
-            android:text="@{subCategory.categoryName}"
-            android:textColor="@color/md_grey_700"
-            android:textSize="@dimen/size_18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_1dp"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:background="@color/md_grey_400"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textCategoryName" />
+            android:layout_height="match_parent"
+            app:cardElevation="@dimen/size_10dp"
+            tools:ignore="MissingConstraints">
+
+
+            <TextView
+                android:id="@+id/textCategoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_10dp"
+                android:padding="@dimen/size_10dp"
+                android:text="@{subCategory.categoryName}"
+                android:drawableLeft="@drawable/ic_note"
+                android:drawablePadding="@dimen/size_15sp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_18sp"
+                android:textStyle="bold"
+                android:fontFamily="georgia"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

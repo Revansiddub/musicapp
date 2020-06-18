@@ -103,8 +103,8 @@ public class SettingsAdapter extends Adapter<SettingsAdapter.SettingsHolder> {
             if (v.getId() == R.id.layoutItem) {
                 switch (getAdapterPosition()) {
                     case 0:
-                        Intent intent=new Intent(mCtx.getApplicationContext(), ChangePasswordActivity.class);
-                        mCtx.startActivity(intent);
+                        //Intent intent=new Intent(mCtx.getApplicationContext(), ChangePasswordActivity.class);
+                       // mCtx.startActivity(intent);
                         break;
                     case 1:
                         break;

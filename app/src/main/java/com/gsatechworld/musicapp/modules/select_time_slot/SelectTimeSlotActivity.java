@@ -38,6 +38,7 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
     private String trainerID;
     private TimeSlot selectedTimeSlot;
     RecyclerView recyclerView;
+    public int position;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -129,16 +130,16 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.fetchTimeSlots(trainerID).observe(this, timeSlotResponse -> {
+            viewModel.fetchTimeSlots(trainerID).observe(this, availableTimeSlotResponse -> {
                 hideLoadingIndicator();
 
-                if (timeSlotResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (availableTimeSlotResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                     binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this,
                             2));
-                    binding.recyclerTimeSlots.setAdapter(new TimeSlotAdapter(this,
-                            timeSlotResponse.getTimeSlotList()));
+//                    binding.recyclerTimeSlots.setAdapter(new TimeSlotAdapter(this,
+//                            availableTimeSlotResponse.getAvailable_slots().get(position).getSlot_details()));
                 } else
-                    showSnackBar(this, timeSlotResponse.getMessage());
+                    showSnackBar(this, availableTimeSlotResponse.getMessage());
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

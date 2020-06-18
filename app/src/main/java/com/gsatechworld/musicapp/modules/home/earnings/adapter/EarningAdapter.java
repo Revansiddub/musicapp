@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutEarningBinding;
+import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Student_list;
 import com.gsatechworld.musicapp.modules.home.earnings.pojo.Earning;
+import com.gsatechworld.musicapp.modules.home.earnings.pojo.Student_lists;
 
 import java.util.List;
 
@@ -23,13 +25,13 @@ public class EarningAdapter extends Adapter<EarningAdapter.EarningHolder> {
      * ------------------------------------------------------------- */
 
     private Context mCtx;
-    private List<Earning> earningList;
+    private List<Student_lists> earningList;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public EarningAdapter(Context mCtx, List<Earning> earningList) {
+    public EarningAdapter(Context mCtx, List<Student_lists> earningList) {
         this.mCtx = mCtx;
         this.earningList = earningList;
     }
@@ -48,8 +50,8 @@ public class EarningAdapter extends Adapter<EarningAdapter.EarningHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull EarningHolder holder, int position) {
-        Earning earning = earningList.get(position);
-        holder.binding.setEarning(earning);
+        Student_lists earning = earningList.get(position);
+        holder.binding.setStudentlist(earningList.get(position));
     }
 
     @Override

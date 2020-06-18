@@ -13,6 +13,13 @@ public class CommonResponse {
     @SerializedName("message")
     private String message;
 
+    public int getPincode_id() {
+        return pincode_id;
+    }
+
+    @SerializedName("pincode_id")
+    private int pincode_id;
+
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */

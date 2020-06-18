@@ -2,6 +2,7 @@ package com.gsatechworld.musicapp.modules.home.approval.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Approval {
@@ -10,9 +11,14 @@ public class Approval {
      * Private Members
      * ------------------------------------------------------------- */
 
-    private String requestID;
+    @SerializedName("student_id")
+    private String studentID;
+
+
     @SerializedName("student_name")
     private String studentName;
+
+
 
     private String gender;
     @SerializedName("age")
@@ -21,15 +27,21 @@ public class Approval {
 
 
     @SerializedName("slot_details")
-    public List<Slot_Details> slot_detailsList;
+    public ArrayList<Slot_Details> slot_detailsList;
+
+
+
+    @SerializedName("enrollment_id")
+    private String enrollment_id;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public Approval(String requestID, String studentName, String gender, String age,
-                    List<Slot_Details> slot_details) {
-        this.requestID = requestID;
+    public Approval(String enrollment_id,String studentID, String studentName, String gender, String age,
+                    ArrayList<Slot_Details> slot_details) {
+        this.enrollment_id=enrollment_id;
+        this.studentID = studentID;
         this.studentName = studentName;
         this.gender = gender;
         this.age = age;
@@ -40,8 +52,8 @@ public class Approval {
      * Getters
      * ------------------------------------------------------------- */
 
-    public String getRequestID() {
-        return requestID;
+    public String getStudentID() {
+        return studentID;
     }
 
     public String getStudentName() {
@@ -58,6 +70,10 @@ public class Approval {
 
     public List<Slot_Details> getSlot_detailsList() {
         return slot_detailsList;
+    }
+
+    public String getEnrollment_id() {
+        return enrollment_id;
     }
 
 

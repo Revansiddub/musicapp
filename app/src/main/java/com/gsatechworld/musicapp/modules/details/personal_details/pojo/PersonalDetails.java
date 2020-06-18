@@ -2,10 +2,14 @@ package com.gsatechworld.musicapp.modules.details.personal_details.pojo;
 
 public class PersonalDetails {
 
+    public String getProfile_Image() {
+        return profile_Image;
+    }
+
     /* ------------------------------------------------------------- *
      * Private Members
      * ------------------------------------------------------------- */
-
+    private String profile_Image;
     private String fullName;
     private String emailAddress;
     private String mobileNumber;
@@ -16,15 +20,17 @@ public class PersonalDetails {
     private String addressProofFrontBase;
     private String addressProofBackBase;
     private String expertiseDocumentBase;
+    private String amount;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public PersonalDetails(String fullName, String emailAddress, String mobileNumber, String gender,
+    public PersonalDetails(String profile_Image,String fullName, String emailAddress, String mobileNumber, String gender,
                            String highestDegreeBase, String govtIDFrontBase, String govtIDBackBase,
                            String addressProofFrontBase, String addressProofBackBase,
                            String expertiseDocumentBase) {
+        this.profile_Image=profile_Image;
         this.fullName = fullName;
         this.emailAddress = emailAddress;
         this.mobileNumber = mobileNumber;
@@ -35,6 +41,7 @@ public class PersonalDetails {
         this.addressProofFrontBase = addressProofFrontBase;
         this.addressProofBackBase = addressProofBackBase;
         this.expertiseDocumentBase = expertiseDocumentBase;
+
     }
 
     /* ------------------------------------------------------------- *

@@ -95,7 +95,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
         holder.binding.textAccept.setOnClickListener(v -> {
             approvalList.remove(position);
             notifyDataSetChanged();
-            //actionListener.onActionPerformed(approval.getRequestID(), ACCEPTED);
+            actionListener.onActionPerformed(approval.getEnrollment_id(),approval.getStudentID(), ACCEPTED);
             showSnackBar((Activity) mCtx,"Request Accepted");
 
         });
@@ -149,7 +149,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
      * ------------------------------------------------------------- */
 
     public interface OnActionPerformedListener {
-        void onActionPerformed(String requestID, String action);
+        void onActionPerformed(String entrollmentID, String studentID,String action);
 
     }
 
@@ -191,10 +191,10 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
             switch (view.getId()) {
                 case R.id.textAccept:
-                    actionListener.onActionPerformed(approval.getRequestID(), ACCEPTED);
+                    actionListener.onActionPerformed(approval.getEnrollment_id(),approval.getStudentID(), ACCEPTED);
                     break;
                 case R.id.textIgnore:
-                    actionListener.onActionPerformed(approval.getRequestID(), IGNORED);
+                    actionListener.onActionPerformed(approval.getEnrollment_id(),approval.getStudentID(), IGNORED);
                     break;
             }
         }

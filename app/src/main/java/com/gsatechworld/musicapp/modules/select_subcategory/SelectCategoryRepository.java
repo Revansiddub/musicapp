@@ -52,7 +52,6 @@ public class SelectCategoryRepository {
                 CategoryResponse categoriesResponse= response.body();
                 if (categoriesResponse != null){
                     subcategoryMutableLiveData.setValue(categoriesResponse);
-
                 }
             }
 

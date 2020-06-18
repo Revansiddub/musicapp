@@ -1,16 +1,30 @@
-package com.gsatechworld.musicapp.modules.student_home;
+package com.gsatechworld.musicapp.modules.student_home.student_payment;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.databinding.FragmentStudentPaymentBinding;
+import com.gsatechworld.musicapp.modules.student_home.student_payment.adapter.StudentPaymentAdapter;
+import com.gsatechworld.musicapp.utilities.Constants;
+
+import static android.widget.LinearLayout.VERTICAL;
+import static androidx.databinding.DataBindingUtil.inflate;
+import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
+import static java.util.Objects.requireNonNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,9 +40,14 @@ public class StudentPaymentFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    FragmentStudentPaymentBinding binding;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    public StudentPaymentViewModel paymentViewModel;
+
+    private BaseActivity baseActivity;
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,7 +86,15 @@ public class StudentPaymentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_payment, container, false);
+        binding=inflate(inflater, R.layout.fragment_student_payment, container, false);
+
+        paymentViewModel= new ViewModelProvider(this).get(StudentPaymentViewModel.class);
+
+        baseActivity = (BaseActivity) getActivity();
+
+        fetchingPaymentDetals();
+
+        return binding.getRoot();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -82,7 +109,7 @@ public class StudentPaymentFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } 
+        }
     }
 
     @Override
@@ -104,5 +131,24 @@ public class StudentPaymentFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void fetchingPaymentDetals() {
+        if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
+            baseActivity.showLoadingIndicator();
+            String studentId = "1";
+            paymentViewModel.fetchStudentPayment(studentId).observe(getViewLifecycleOwner(), studentPaymentResponse -> {
+                baseActivity.hideLoadingIndicator();
+                if (studentPaymentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)) {
+                    binding.recyclerPayments.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    binding.recyclerPayments.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+                    binding.recyclerPayments.setAdapter(new StudentPaymentAdapter(getActivity(), studentPaymentResponse.getPaymentList()));
+
+                } else {
+                    baseActivity.showSnackBar(requireNonNull(getActivity()),
+                            getString(R.string.no_internet_message));
+                }
+            });
+        }
     }
 }

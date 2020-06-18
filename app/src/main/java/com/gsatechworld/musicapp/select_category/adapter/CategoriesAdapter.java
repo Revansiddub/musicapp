@@ -2,7 +2,6 @@ package com.gsatechworld.musicapp.select_category.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutSubCategoryBinding;
-import com.gsatechworld.musicapp.modules.details.DetailsActivity;
-import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
 import com.gsatechworld.musicapp.modules.select_subcategory.SelectCategoryActivity;
-import com.gsatechworld.musicapp.modules.select_trainer.SelectTrainerActivity;
 import com.gsatechworld.musicapp.select_category.pojo.Categories;
 import com.gsatechworld.musicapp.select_category.pojo.CategoriesResponse;
 
@@ -27,22 +23,23 @@ import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_NAME;
 import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
-import static com.gsatechworld.musicapp.utilities.Constants.TRAINER;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
 import static java.util.Locale.getDefault;
 
-public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.SubCategoryViewHolder> {
+public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.SubCategoryViewHolder> {
     private Context mCtx;
     private List<CategoriesResponse> categoryList;
+    private List<Categories> searchableCategoryList;
     private List<Categories> categoriesList;
     private String userType, pinCode;
     private int pincode_Id;
     public int postion=0;
 
 
-    public SubCategoryAdapter(Context mCtx, List<Categories> categoryList, String userType, String pinCode,int pincode_Id) {
+    public CategoriesAdapter(Context mCtx, List<Categories> categoryList, String userType, String pinCode, int pincode_Id) {
         this.mCtx = mCtx;
         this.categoriesList = categoryList;
+        searchableCategoryList = new ArrayList<>(categoryList);
         this.userType = userType;
         this.pinCode = pinCode;
         this.pincode_Id=pincode_Id;
@@ -84,6 +81,22 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         return categoriesList.size();
     }
 
+    public  void filter(String charText) {
+        charText = charText.toLowerCase(getDefault());
+
+        categoriesList.clear();
+
+        if (charText.length() == 0)
+            categoriesList.addAll(searchableCategoryList);
+        else
+            for (Categories category : searchableCategoryList)
+                if (category.getCategoryName().toLowerCase().contains(charText.toLowerCase()))
+                    categoriesList.add(category);
+
+        notifyDataSetChanged();
+
+    }
+
     public class SubCategoryViewHolder extends RecyclerView.ViewHolder  {
         private final LayoutSubCategoryBinding binding;
 
@@ -98,20 +111,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
 
 
-//    public void filter(String charText) {
-//        charText = charText.toLowerCase(getDefault());
-//
-//        subCategoryList.clear();
-//
-//        if (charText.length() == 0)
-//            subCategoryList.addAll(searchableCategoryList);
-//        else
-//            for (Categories category : searchableCategoryList)
-//                if (category.getCategoryName().toLowerCase().contains(charText.toLowerCase()))
-//                    subCategoryList.add(category);
-//
-//        notifyDataSetChanged();
-//
-//    }
+
     }
+
+
 }

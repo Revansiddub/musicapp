@@ -6,10 +6,24 @@ public class AddSubCategory {
     @SerializedName("pincode")
     public String pincode;
 
-    public AddSubCategory(String pincode, String category_name) {
+    @SerializedName("category_id")
+    public String category_name;
+
+    public AddSubCategory(String pincode, String category_name, String subcategory_name) {
         this.pincode = pincode;
         this.category_name = category_name;
+        this.subcategory_name = subcategory_name;
     }
+
+    public String getSubcategory_name() {
+        return subcategory_name;
+    }
+
+    @SerializedName("subcategory_name")
+    public String subcategory_name;
+
+
+
 
     public String getPincode() {
         return pincode;
@@ -27,7 +41,6 @@ public class AddSubCategory {
         this.category_name = category_name;
     }
 
-    @SerializedName("category_name")
-    public String category_name;
+
 
 }

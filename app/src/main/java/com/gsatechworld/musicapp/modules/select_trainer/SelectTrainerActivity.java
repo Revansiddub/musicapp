@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.select_trainer;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -34,6 +35,8 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
     private TrainerAdapter adapter;
     private String pinCode, subcategoryID,categoryID;
     RecyclerView recyclerView;
+    private Bitmap profileImageBitmap;
+
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity
@@ -111,7 +114,7 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
 
 
 
-            viewModel.fetchTrainers(new TrainerInfo(pinCode, subcategoryID,categoryID)).observe(this,
+            viewModel.fetchTrainers(new TrainerInfo("1", subcategoryID,categoryID)).observe(this,
                     trainerResponse -> {
                         hideLoadingIndicator();
 

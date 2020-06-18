@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.gsatechworld.musicapp.R;
@@ -24,8 +26,10 @@ import java.util.ArrayList;
 import static android.view.View.GONE;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.ADD_CATEGORY_FRAGMENT_TAG;
+import static com.gsatechworld.musicapp.utilities.Constants.ADD_SUB_CATEGORY_FRAGMENT_TAG;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_NAME;
+import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT;
 import static com.gsatechworld.musicapp.utilities.Constants.USER_TYPE;
@@ -43,7 +47,8 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
     private SelectCategoryViewModel viewModel;
     private CategoryAdapter categoryAdapter;
     private String userType, pinCode,catgegory_name,categoryID;
-    int position;
+    private int position,pincode_Id;
+
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -63,6 +68,7 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
         userType = getIntent().getStringExtra(USER_TYPE);
         pinCode = getIntent().getStringExtra(PIN_CODE);
         catgegory_name=getIntent().getStringExtra(CATEGORY_NAME);
+        pincode_Id=getIntent().getIntExtra(PINCODE_ID,0);
         position=Integer.parseInt(getIntent().getStringExtra("position"));
 
 
@@ -70,6 +76,7 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
         if (getIntent().getStringExtra(USER_TYPE) != null) {
             userType = getIntent().getStringExtra(USER_TYPE);
             pinCode = getIntent().getStringExtra(PIN_CODE);
+            pincode_Id=getIntent().getIntExtra(PINCODE_ID,0);
             catgegory_name=getIntent().getStringExtra(CATEGORY_NAME);
 
 
@@ -146,9 +153,10 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
 
                 if (categoryResponse.getStatus().equals("success")) {
 
-                    categoryAdapter = new CategoryAdapter(this, (ArrayList<SubCategory>) categoryResponse.getCategoriesList().get(position).getSubcategories_list(), userType, pinCode,categoryID);
+                    categoryAdapter = new CategoryAdapter(this, (ArrayList<SubCategory>) categoryResponse.getCategoriesList().get(position).getSubcategories_list(), userType, pinCode,categoryID,pincode_Id);
                     binding.recyclerCategories.setLayoutManager
                             (new LinearLayoutManager(this, VERTICAL, false));
+                    binding.recyclerCategories.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
                     binding.recyclerCategories.setAdapter(categoryAdapter);
                 } else
                     showSnackBar(this, categoryResponse.getStatus());
@@ -165,6 +173,10 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
      */
     private void openAddCategoryDialog() {
         AddSubCategoryFragment addSubCategoryFragment = new AddSubCategoryFragment();
-        addSubCategoryFragment.show(getSupportFragmentManager(), ADD_CATEGORY_FRAGMENT_TAG);
+        Bundle bundle=new Bundle();
+        bundle.putString(PIN_CODE,pinCode);
+        bundle.putString(CATEGORY_ID,categoryID);
+        addSubCategoryFragment.setArguments(bundle);
+        addSubCategoryFragment.show(getSupportFragmentManager(), ADD_SUB_CATEGORY_FRAGMENT_TAG);
     }
 }

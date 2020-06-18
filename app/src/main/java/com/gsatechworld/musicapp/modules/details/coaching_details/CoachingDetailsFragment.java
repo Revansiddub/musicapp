@@ -2,25 +2,47 @@ package com.gsatechworld.musicapp.modules.details.coaching_details;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.FragmentCoachingDetailsBinding;
+import com.gsatechworld.musicapp.modules.details.TimePickerFragment;
 import com.gsatechworld.musicapp.modules.details.coaching_details.adapter.DaysAdapter;
 import com.gsatechworld.musicapp.modules.details.coaching_details.adapter.DaysAdapter.OnDaySelectedListener;
+import com.gsatechworld.musicapp.modules.details.coaching_details.adapter.RecyclerData;
+import com.gsatechworld.musicapp.modules.details.coaching_details.adapter.TimeSlotsAdapter;
+import com.gsatechworld.musicapp.modules.details.coaching_details.adapter.TimesListAdapter;
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
+import com.gsatechworld.musicapp.modules.details.pojo.Recurrence_types;
+import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.TimesAdapter;
+import com.gsatechworld.musicapp.modules.home.trainer_home.repository.TimeSlotRepository;
+import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.TimeSlotViewModel;
+import com.gsatechworld.musicapp.modules.select_time_slot.SelectTimeSlotViewModel;
+import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +53,12 @@ import static android.view.View.VISIBLE;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.BIWEEKLY;
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.WEEKLY;
 import static java.util.Objects.requireNonNull;
 
 public class CoachingDetailsFragment extends Fragment implements OnClickListener,
-        OnDaySelectedListener {
+        OnDaySelectedListener, TimePickerDialog.OnTimeSetListener {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -47,6 +70,19 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
             isWeeklySelected;
     private String address, charges;
     private Dialog dialog;
+    private SelectTimeSlotViewModel slotViewModel;
+    private TimeSlotsAdapter adapter;
+    public String trainerID;
+    public TimePicker simpleTimePicker;
+    public String starttime,endtime;
+    public ArrayList<String> timesList;
+    public ArrayList<Recurrence_types> recurrence_types;
+    private RecyclerView recyclerView;
+    public int position;
+    public String[] strings;
+    public ArrayList<RecyclerData> modelData;
+    public TimesListAdapter timesListAdapter;
+    public TimeSlotsAdapter slotsAdapter;
 
     /* ------------------------------------------------------------- *
      * Overriding Fragment Methods
@@ -58,7 +94,27 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_coaching_details, container, false);
 
+        modelData=new ArrayList<RecyclerData>();
+
+
+        slotViewModel=new ViewModelProvider(this).get(SelectTimeSlotViewModel.class);
+
+//        binding.timePickerStart.setIs24HourView(false);
+//        binding.timePickerEnd.setIs24HourView(false);
+
         baseActivity = (BaseActivity) getActivity();
+
+        // recyclerView=binding.recyclerTimeSlots;
+        binding.listSelectedTimes.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        binding.listSelectedTimes.setHasFixedSize(true);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.listSelectedTimes.getContext(),
+                DividerItemDecoration.VERTICAL);
+        //recyclerView.addItemDecoration(dividerItemDecoration);
+        binding.listSelectedTimes.addItemDecoration(dividerItemDecoration);
+
+
+        // fetchTimeSlot();
+
 
         /*Setting listeners to the views*/
         binding.textHome.setOnClickListener(this);
@@ -67,7 +123,44 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         binding.textBiweekly.setOnClickListener(this);
         binding.textWeekly.setOnClickListener(this);
         binding.buttonNext.setOnClickListener(this);
+        //binding.recyclerTimeSlots.setOnClickListener(this);
 
+
+
+//        binding.timePickerStart.setOnTimeChangedListener((view, hourOfDay, minute) -> {
+//            binding.textSelectedTime.setText(hourOfDay + ":" +minute);
+//            starttime=hourOfDay+":"+minute;
+//        });
+//        binding.timePickerEnd.setOnTimeChangedListener((view, hourOfDay, minute) -> {
+//            endtime=hourOfDay+ ":" +minute;
+//        });
+        binding.textStarttime.setOnClickListener(v -> {
+            DialogFragment dFragment = new TimePickerFragment();
+            dFragment.show(getFragmentManager(),"Time Picker");
+        });
+
+        binding.textEndtime.setOnClickListener(v -> {
+            DialogFragment dFragment = new EndTimepickerFragment();
+            dFragment.show(getFragmentManager(),"Time Picker");
+        });
+
+
+
+
+        timesList=new ArrayList<String>();
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),R.layout.list_times,timesList);
+
+
+
+        binding.buttonAdd.setOnClickListener(v -> {
+            starttime=binding.edtStartTime.getText().toString();
+            endtime=binding.edtEndtime.getText().toString();
+            String time=starttime + "-" +endtime;
+
+            insertMethod(time);
+
+
+        });
         return binding.getRoot();
     }
 
@@ -82,6 +175,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
             case R.id.textHome:
                 if (isHomeSelected) {
                     isHomeSelected = false;
+
 
                     binding.textHome.setTextColor(getResources().getColor(R.color.md_grey_500));
                     binding.textHome.setCompoundDrawableTintList
@@ -124,7 +218,6 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
             case R.id.textDaily:
                 if (isDailySelected) {
                     isDailySelected = false;
-
                     binding.textDaily.setTextColor(getResources().getColor(R.color.md_grey_500));
                     binding.textDaily.setBackground(requireNonNull(getActivity())
                             .getDrawable(R.drawable.button_rectangle_unselected));
@@ -132,6 +225,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                     isDailySelected = true;
                     isBiweeklySelected = false;
                     isWeeklySelected = false;
+
 
                     binding.textDaily.setTextColor(getResources().getColor(R.color.colorAccent));
                     binding.textDaily.setBackground(requireNonNull(getActivity())
@@ -170,6 +264,9 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                 if (validateFields())
                     returnCoachingDetails();
                 break;
+
+
+
         }
     }
 
@@ -295,11 +392,60 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         return true;
     }
 
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        String status = "AM";
+
+        if(hourOfDay > 11)
+        {
+            status = "PM";
+        }
+
+        int hour_of_12_hour_format;
+
+        if(hourOfDay > 11){
+
+            hour_of_12_hour_format = hourOfDay - 12;
+        }
+        else {
+            hour_of_12_hour_format = hourOfDay;
+        }
+    }
+
     /* ------------------------------------------------------------- *
      * Public Interface
      * ------------------------------------------------------------- */
 
     public interface CoachingDetailsListener {
         void coachingDetails(CoachingDetails coachingDetails);
+    }
+
+    public void fetchTimeSlot(){
+
+        slotViewModel.allTimeSlots(trainerID).observe(getActivity(),timeSlotResponse -> {
+            if (timeSlotResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)){
+//                adapter=new TimeSlotsAdapter(getActivity(), (ArrayList<TimeSlot>) timeSlotResponse.getTimeSlotList());
+//                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+//                recyclerView.setAdapter(adapter);
+
+
+            }
+        });
+
+
+    }
+    private void insertMethod(String name) {
+        Gson gson = new Gson();
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("name", name);
+            RecyclerData model = gson.fromJson(String.valueOf(jsonObject), RecyclerData.class);
+            modelData.add(new RecyclerData(name));
+            binding.listSelectedTimes.setAdapter(timesListAdapter);
+            timesListAdapter=new TimesListAdapter(getActivity(),modelData);
+            timesListAdapter.notifyDataSetChanged();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

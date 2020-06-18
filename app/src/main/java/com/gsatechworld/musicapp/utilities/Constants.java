@@ -8,6 +8,7 @@ public final class Constants {
 
     public static final String USER_TYPE = "userType";
     public static final String PIN_CODE = "pinCode";
+    public static final String PINCODE_ID="pinCodeID";
     public static final String CATEGORY_ID = "categoryID";
     public static final String SUBCATEGORY_ID = "subcategoryID";
     public static final String CATEGORY_NAME = "categoryName";
@@ -19,10 +20,17 @@ public final class Constants {
      * ------------------------------------------------------------- */
 
     public static final String ADD_CATEGORY_FRAGMENT_TAG = "addCategoryTag";
+    public static final String ADD_SUB_CATEGORY_FRAGMENT_TAG = "addSubCategoryTag";
     public static final String TRAINER_HOME_FRAGMENT_TAG = "trainerHomeTag";
     public static final String APPROVAL_FRAGMENT_TAG = "approvalTag";
     public static final String EARNINGS_FRAGMENT_TAG = "earningsTag";
+    public static final String PAYMENT_FRAGMENT_TAG = "paymentTag";
     public static final String SETTINGS_FRAGMENT_TAG = "settingsTag";
+    public static final String STUDENT_HOME_FRAGMENT_TAG = "studentHomeTag";
+    public static final String STUDENT_PAYMENT_FRAGMENT_TAG = "studentPaymentTag";
+    public static final String STUDENT_PROFILE_FRAGMENT_TAG = "studentProfileTag";
+
+
 
     /* ------------------------------------------------------------- *
      * Request Code
@@ -49,6 +57,7 @@ public final class Constants {
     public static final String ADDRESS_PROOF_FRONT = "addressProofFront";
     public static final String ADDRESS_PROOF_BACK = "addressProofBack";
     public static final String EXPERTISE_DOCUMENT = "expertiseDocument";
+    public static final String PROFILE_IMAGE = "profileimage";
     public static final int STEP_ONE_COMPLETE = 1;
     public static final int STEP_TWO_COMPLETE = 2;
     public static final String BIWEEKLY = "biweekly";

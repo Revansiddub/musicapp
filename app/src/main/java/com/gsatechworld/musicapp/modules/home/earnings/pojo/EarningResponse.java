@@ -1,6 +1,11 @@
 package com.gsatechworld.musicapp.modules.home.earnings.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.transform.Result;
 
 public class EarningResponse {
 
@@ -8,33 +13,36 @@ public class EarningResponse {
      * Private Members
      * ------------------------------------------------------------- */
 
+    @SerializedName("status")
     private String response;
-    private String message;
-    private List<Earning> earningList;
+
+    @SerializedName("result")
+    private EarningResult result;
+
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public EarningResponse(String response, String message, List<Earning> earningList) {
+    public EarningResponse(String response,EarningResult earningList) {
         this.response = response;
-        this.message = message;
-        this.earningList = earningList;
+        this.result = earningList;
     }
 
     /* ------------------------------------------------------------- *
      * Getters
      * ------------------------------------------------------------- */
 
+    public EarningResult getResult()
+    {
+        return result;
+    }
+
     public String getResponse() {
         return response;
     }
 
-    public String getMessage() {
-        return message;
-    }
 
-    public List<Earning> getEarningList() {
-        return earningList;
-    }
+
+
 }

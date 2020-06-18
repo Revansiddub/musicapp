@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.databinding.LayoutAttendanceBinding;
 import com.gsatechworld.musicapp.databinding.ListStudentsBinding;
 import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.StudentAttendance;
@@ -22,6 +24,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
  public List<StudentAttendance> attendanceList;
 
  public Context context;
+ BaseActivity baseActivity;
 
     public StudentsAttendanceAdapter(List<StudentAttendance> attendanceList, Context context) {
         this.attendanceList = attendanceList;
@@ -31,7 +34,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ListStudentsBinding binding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.list_students,parent,false);
+        LayoutAttendanceBinding binding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.layout_attendance,parent,false);
         return new StudentViewHolder(binding);
     }
 
@@ -54,15 +57,16 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
                  .setImageTintList(context.getColorStateList(R.color.colorAccent));
      }
 
-     holder.binding.layoutApprove.setOnClickListener(v -> {
-         Intent intent=new Intent(context.getApplicationContext(), AddAttendanceActivity.class);
-         intent.putExtra("name",attendance.getName());
-         intent.putExtra("age",attendance.getAge());
-         intent.putExtra("mobile",attendance.getPhone());
-         intent.putExtra("timing",attendance.getTiming());
-         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-         context.getApplicationContext().startActivity(intent);
-     });
+//     holder.binding.layoutApprove.setOnClickListener(v -> {
+//         Intent intent=new Intent(context.getApplicationContext(), AddAttendanceActivity.class);
+//         intent.putExtra("name",attendance.getName());
+//         //intent.putExtra("age",attendance.getAge());
+//         intent.putExtra("mobile",attendance.getPhone());
+//         intent.putExtra("timing",attendance.getTiming());
+//         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//         context.getApplicationContext().startActivity(intent);
+//     });
+
 
     }
 
@@ -72,8 +76,8 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     }
 
     public class StudentViewHolder extends RecyclerView.ViewHolder {
-        ListStudentsBinding binding;
-        public StudentViewHolder(ListStudentsBinding binding) {
+        LayoutAttendanceBinding binding;
+        public StudentViewHolder(LayoutAttendanceBinding binding) {
             super(binding.getRoot());
             this.binding=binding;
 

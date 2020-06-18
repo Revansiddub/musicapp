@@ -8,12 +8,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutTimeSlotsBinding;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Slot_details;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.LayoutInflater.from;
@@ -22,11 +26,11 @@ import static androidx.databinding.DataBindingUtil.inflate;
 public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotViewHolder> {
 
     private Context mCtx;
-    private List<TimeSlot> timeSlotList;
+    private ArrayList<TimeSlot> timeSlotList;
     private ConstraintLayout seletedTimeSlot;
     private TextView selectedTime;
 
-    public TimesAdapter(Context mCtx, List<TimeSlot> timeSlotList) {
+    public TimesAdapter(Context mCtx, ArrayList<TimeSlot> timeSlotList) {
         this.mCtx = mCtx;
         this.timeSlotList = timeSlotList;
     }
