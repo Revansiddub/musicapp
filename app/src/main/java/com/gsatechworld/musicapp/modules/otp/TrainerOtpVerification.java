@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 
+
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityTrainerOtpVerificationBinding;
@@ -134,12 +135,12 @@ public class TrainerOtpVerification extends BaseActivity {
     }
 
     public void verifyTrainerOTP(String otp){
-     otpViewModel.verifyTrainerOTP(new TrainerOTPVerification(phone,otp)).observe(this,commonResponse -> {
-         if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-             openSuccessDialog("OTP Verification successfully Completed.");
-             startActivity(new Intent(TrainerOtpVerification.this, LoginActivity.class));
-         }
+        otpViewModel.verifyTrainerOTP(new TrainerOTPVerification(phone,otp)).observe(this,commonResponse -> {
+            if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+                openSuccessDialog("OTP Verification successfully Completed.");
+                startActivity(new Intent(TrainerOtpVerification.this, LoginActivity.class));
+            }
 
-     });
+        });
     }
 }

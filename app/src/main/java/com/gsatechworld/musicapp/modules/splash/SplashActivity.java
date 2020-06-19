@@ -3,6 +3,7 @@ package com.gsatechworld.musicapp.modules.splash;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.WindowManager;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -23,6 +24,8 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         /*Binding layout file with JAVA class*/
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         DataBindingUtil.setContentView(this, R.layout.activity_splash);
 
         new Handler().postDelayed(this::openScreens, SPLASH_SCREEN_TIME);

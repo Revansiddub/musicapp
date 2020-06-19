@@ -14,7 +14,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_450dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/size_15dp"
             android:layout_marginTop="@dimen/size_20dp"
             android:layout_marginRight="@dimen/size_15dp"
@@ -170,17 +170,18 @@
                 <RadioGroup
                     android:id="@+id/radiogroup_attendance"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_10dp"
                     android:layout_toRightOf="@id/attendance"
-                    android:padding="@dimen/size_5dp"
-                    android:showDividers="beginning|middle|end"
-                    android:layout_below="@id/timing">
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:layout_below="@id/timing"
+                    >
+
+
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/size_10dp">
-
+                         android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <RadioButton
                             android:id="@+id/radio_prsent"
@@ -201,11 +202,7 @@
                             android:background="@color/colorPrimary"
                             android:text="Absent" />
 
-
-
                     </RelativeLayout>
-
-
 
 
                 </RadioGroup>
@@ -217,7 +214,7 @@
                     android:id="@+id/button_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/attendance"
+                    android:layout_below="@id/radiogroup_attendance"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="@dimen/size_20dp"
                     android:layout_marginTop="@dimen/size_30dp"
@@ -233,6 +230,7 @@
 
 
         </androidx.cardview.widget.CardView>
+
 
 
 
