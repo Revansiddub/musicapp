@@ -33,7 +33,7 @@ class SelectTimeSlotRepository {
      * ------------------------------------------------------------- */
 
     SelectTimeSlotRepository() {
-        networkAPI = getRetrofitInstance().create(NetworkAPI.class);
+
     }
 
     /* ------------------------------------------------------------- *

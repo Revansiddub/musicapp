@@ -92,8 +92,11 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
      * Overriding OnActionPerformedListener Method
      * ------------------------------------------------------------- */
 
+
+
     @Override
     public void onActionPerformed(String entrollmentID, String studentID, String action) {
+
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
             baseActivity.showLoadingIndicator();
 
@@ -110,6 +113,8 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
             baseActivity.showSnackBar(requireNonNull(getActivity()),
                     getString(R.string.no_internet_message));
     }
+
+
 
     /* ------------------------------------------------------------- *
      * Private Methods
@@ -144,4 +149,7 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
             baseActivity.showSnackBar(requireNonNull(getActivity()),
                     getString(R.string.no_internet_message));
     }
+
+
+
 }

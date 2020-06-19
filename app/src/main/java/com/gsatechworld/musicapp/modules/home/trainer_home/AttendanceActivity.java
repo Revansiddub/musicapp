@@ -25,12 +25,15 @@ import com.gsatechworld.musicapp.modules.home.HomeActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.StudentsAttendanceAdapter;
 import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.TimesAdapter;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.StudentsResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.AttendanceViewModel;
+import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.GetStudentsViewModel;
 import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.TimeSlotViewModel;
 import com.gsatechworld.musicapp.modules.select_time_slot.SelectTimeSlotViewModel;
 import com.gsatechworld.musicapp.modules.select_time_slot.adapter.TimeSlotAdapter;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlotResponse;
+import com.gsatechworld.musicapp.utilities.Constants;
 import com.gsatechworld.musicapp.utilities.NetworkUtilities;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
@@ -47,6 +50,7 @@ public class AttendanceActivity extends BaseActivity {
     AttendanceViewModel attendanceViewModel;
     SelectTimeSlotViewModel timeSlotViewModel;
     StudentsAttendanceAdapter attendanceAdapter;
+    public GetStudentsViewModel studentsViewModel;
     public int trainerId;
     public TimesAdapter timesAdapter;
     public int position;
@@ -80,6 +84,7 @@ public class AttendanceActivity extends BaseActivity {
         viewModel=new ViewModelProvider(this).get(TimeSlotViewModel.class);
         timeSlotViewModel=new ViewModelProvider(this).get(SelectTimeSlotViewModel.class);
         attendanceViewModel=new ViewModelProvider(this).get(AttendanceViewModel.class);
+        studentsViewModel=new ViewModelProvider(this).get(GetStudentsViewModel.class);
 
         trainerId=getIntent().getIntExtra("trainerID",0);
         trainerID=String.valueOf(trainerId);
@@ -125,11 +130,14 @@ public class AttendanceActivity extends BaseActivity {
 
     private void getStudents() {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()){
-            attendanceViewModel.getStudentsDetails().observe(this, new Observer<StudentsResponse>() {
+            studentsViewModel.getStudents(trainerID,date).observe(this, new Observer<GetStudentsResponse>() {
                 @Override
-                public void onChanged(StudentsResponse response) {
-                    recyclerView_studnts.setLayoutManager(new LinearLayoutManager(AttendanceActivity.this));
-                    recyclerView_studnts.setAdapter(new StudentsAttendanceAdapter(response.getAttendanceList(),AttendanceActivity.this));
+                public void onChanged(GetStudentsResponse response) {
+                    if (response.getStatus().equals(Constants.SERVER_RESPONSE_SUCCESS)){
+                        recyclerView_studnts.setLayoutManager(new LinearLayoutManager(AttendanceActivity.this));
+                        recyclerView_studnts.setAdapter(new StudentsAttendanceAdapter(response.getResult().getDates().get(position).getTime_slots().get(position).getStudent_list(),AttendanceActivity.this));
+
+                    }
 
                 }
             });
@@ -139,17 +147,17 @@ public class AttendanceActivity extends BaseActivity {
 
     private void getTimeLots() {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
-
-         timeSlotViewModel.fetchTimeSlots(trainerID).observe(this, avilableResponse ->{
-             if (avilableResponse.getStatus().equals("success")){
-               //  timesAdapter=new TimesAdapter(this,avilableResponse.getAvailable_slots().get(position));
-                 binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this,2));
-                 binding.recyclerTimeSlots.setAdapter(timesAdapter);
-             }
-         });
+            trainerID="1";
+            timeSlotViewModel.fetchTimeSlots(trainerID).observe(this, availableTimeSlotResponse -> {
+                if (availableTimeSlotResponse.getStatus().equals("success")){
+                    timesAdapter=new TimesAdapter(this,availableTimeSlotResponse.getAvailable_slots());
+                    binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this,2));
+                    binding.recyclerTimeSlots.setAdapter(timesAdapter);
+                }
+            });
         }
 
-        }
+    }
 
 }
 

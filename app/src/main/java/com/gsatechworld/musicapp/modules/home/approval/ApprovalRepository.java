@@ -69,17 +69,7 @@ class ApprovalRepository {
         return approvalMutableLiveData;
     }
 
-    LiveData<CommonResponse> storeAction(ActionInfo actionInfo) {
-        MutableLiveData<CommonResponse> actionMutableLiveData = new MutableLiveData<>();
 
-
-
-
-        actionMutableLiveData.postValue(new CommonResponse(SERVER_RESPONSE_SUCCESS,
-                "Request Accepted"));
-
-        return actionMutableLiveData;
-    }
 
     LiveData<CommonResponse> approveStatus(@Body ApproveStatus approveStatus){
         MutableLiveData<CommonResponse> mutableLiveData=new MutableLiveData<>();

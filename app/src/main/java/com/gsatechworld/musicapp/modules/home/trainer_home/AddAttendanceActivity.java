@@ -24,12 +24,12 @@ public class AddAttendanceActivity extends AppCompatActivity {
         name=getIntent().getStringExtra("name");
         age=getIntent().getStringExtra("age");
         phone=getIntent().getStringExtra("mobile");
-        timing=getIntent().getStringExtra("timing");
+     //   timing=getIntent().getStringExtra("timing");
 
         binding.textviewName.setText(name);
         binding.textviewAge.setText(age);
         binding.textviewMobile.setText(phone);
-        binding.textviewTiming.setText(timing);
+      //  binding.textviewTiming.setText(timing);
 
 
 

@@ -59,7 +59,7 @@ public class TimeSlotAdapter extends Adapter<TimeSlotAdapter.TimeSlotHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TimeSlotHolder holder, int position) {
-        holder.binding.setTimeSlot(timeSlotList.get(position));
+     //   holder.binding.setTimeSlot(timeSlotList.get(position));
     }
 
     @Override
@@ -98,25 +98,25 @@ public class TimeSlotAdapter extends Adapter<TimeSlotAdapter.TimeSlotHolder> {
 
             /*Setting Listeners to the view*/
             binding.layoutTimeSlot.setOnClickListener(this);
-            binding.imageClose.setOnClickListener(v -> {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
-                alertDialog.setTitle("Cancel Class in This Time");
-                alertDialog.setMessage("Are you sure to Cancel?");
-                alertDialog.setPositiveButton("YES",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                alertDialog.setNegativeButton("NO",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                alertDialog.show();
-
-            });
+//            binding.imageClose.setOnClickListener(v -> {
+//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
+//                alertDialog.setTitle("Cancel Class in This Time");
+//                alertDialog.setMessage("Are you sure to Cancel?");
+//                alertDialog.setPositiveButton("YES",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//                            }
+//                        });
+//                alertDialog.setNegativeButton("NO",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//                            }
+//                        });
+//                alertDialog.show();
+//
+//            });
         }
 
         /* ------------------------------------------------------------- *

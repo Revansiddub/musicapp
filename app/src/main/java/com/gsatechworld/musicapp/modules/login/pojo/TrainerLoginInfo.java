@@ -14,6 +14,11 @@ public class TrainerLoginInfo {
     @SerializedName("password")
     private String password;
 
+    @SerializedName("firebase_token")
+    private String firebase_token;
+
+
+
 
 
 
@@ -24,8 +29,9 @@ public class TrainerLoginInfo {
      * Constructor
      * ------------------------------------------------------------- */
 
-    public TrainerLoginInfo(String userName, String password) {
+    public TrainerLoginInfo(String userName, String password,String firebase_token) {
         this.userName = userName;
         this.password = password;
+        this.firebase_token=firebase_token;
     }
 }

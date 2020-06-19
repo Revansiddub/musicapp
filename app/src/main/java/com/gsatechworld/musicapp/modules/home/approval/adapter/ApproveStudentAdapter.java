@@ -3,6 +3,7 @@ package com.gsatechworld.musicapp.modules.home.approval.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.LayoutApproveStudentBinding;
 import com.gsatechworld.musicapp.modules.home.approval.StudentsDetails;
 import com.gsatechworld.musicapp.modules.home.approval.pojo.Approval;
+import com.gsatechworld.musicapp.modules.home.payment.adapter.PaymentRequestAdapter;
 import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity;
 
 import java.util.ArrayList;
@@ -48,7 +50,8 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
     private OnActionPerformedListener actionListener;
     private BaseActivity baseActivity;
    public  ConstraintLayout constraintLayout;
-   ApproveListener listener;
+    String entrollmet_id,student_id;
+
 
 
     /* ------------------------------------------------------------- *
@@ -92,18 +95,9 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 //            holder.binding.imageStudent
 //                    .setImageTintList(mCtx.getColorStateList(R.color.colorAccent));
 //        }
-        holder.binding.textAccept.setOnClickListener(v -> {
-            approvalList.remove(position);
-            notifyDataSetChanged();
-            actionListener.onActionPerformed(approval.getEnrollment_id(),approval.getStudentID(), ACCEPTED);
-            showSnackBar((Activity) mCtx,"Request Accepted");
 
-        });
-        holder.binding.textIgnore.setOnClickListener(v -> {
-            approvalList.remove(position);
-            notifyDataSetChanged();
-            showSnackBar((Activity) mCtx,"Request Ignored");
-        });
+
+
 
         holder.binding.layoutApprove.setOnClickListener(v -> {
             Intent intent=new Intent(mCtx.getApplicationContext(), StudentsDetails.class);
@@ -148,10 +142,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
      * Public Interface
      * ------------------------------------------------------------- */
 
-    public interface OnActionPerformedListener {
-        void onActionPerformed(String entrollmentID, String studentID,String action);
 
-    }
 
     /* ------------------------------------------------------------- *
      * Trainer Holder Class
@@ -191,10 +182,16 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
             switch (view.getId()) {
                 case R.id.textAccept:
-                    actionListener.onActionPerformed(approval.getEnrollment_id(),approval.getStudentID(), ACCEPTED);
+                    entrollmet_id=approval.getEnrollment_id();
+                    student_id=approval.getStudentID();
+                    actionListener.onActionPerformed(entrollmet_id,student_id, "2");
+                    showSnackBar((Activity) mCtx,"Request Accepted");
                     break;
                 case R.id.textIgnore:
-                    actionListener.onActionPerformed(approval.getEnrollment_id(),approval.getStudentID(), IGNORED);
+                   actionListener.onActionPerformed(entrollmet_id,student_id, "0");
+                    approvalList.remove(approval);
+                    notifyDataSetChanged();
+                    showSnackBar((Activity) mCtx,"Request Ignored");
                     break;
             }
         }
@@ -209,8 +206,11 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
         snackbar.show();
     }
+    public interface OnActionPerformedListener {
+        void onActionPerformed(String entrollmentID, String studentID,String action);
 
-    public interface ApproveListener{
-        void approveStudents();
+    }
+    public void setActionListener(OnActionPerformedListener listener){
+        this.actionListener=listener;
     }
 }

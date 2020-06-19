@@ -44,6 +44,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
     private String loginType, userName, password, mobileNumber;
     public String userType;
     public int  trainerId;
+    public String firebase_token="1234";
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -65,6 +66,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
         binding.textTrainer.setOnClickListener(this);
         binding.textStudent.setOnClickListener(this);
         binding.buttonLogin.setOnClickListener(this);
+        binding.editUserName.setText("jinshad130");
+        binding.editPassword.setText("Jinshad123");
     }
 
     /* ------------------------------------------------------------- *
@@ -142,7 +145,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
 
             userName="jinshad130";
             password="Jinshad123";
-            viewModel.authenticateTrainer(new TrainerLoginInfo(userName, password))
+
+            viewModel.authenticateTrainer(new TrainerLoginInfo(userName, password,firebase_token))
                     .observe(this, trainerResponse -> {
                         hideLoadingIndicator();
 

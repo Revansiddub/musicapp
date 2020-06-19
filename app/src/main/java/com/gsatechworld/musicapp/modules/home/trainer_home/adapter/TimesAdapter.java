@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutTimeSlotsBinding;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Available_slots;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Slot_details;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot;
 
@@ -26,11 +27,11 @@ import static androidx.databinding.DataBindingUtil.inflate;
 public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotViewHolder> {
 
     private Context mCtx;
-    private ArrayList<TimeSlot> timeSlotList;
+    private ArrayList<Available_slots> timeSlotList;
     private ConstraintLayout seletedTimeSlot;
     private TextView selectedTime;
 
-    public TimesAdapter(Context mCtx, ArrayList<TimeSlot> timeSlotList) {
+    public TimesAdapter(Context mCtx, ArrayList<Available_slots> timeSlotList) {
         this.mCtx = mCtx;
         this.timeSlotList = timeSlotList;
     }
@@ -47,9 +48,7 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     @Override
     public void onBindViewHolder(@NonNull TimesAdapter.TimeslotViewHolder holder, int position) {
         holder.binding.setTimeSlot(timeSlotList.get(position));
-        holder.binding.imageClose.setOnClickListener(v -> {
 
-        });
     }
 
     @Override

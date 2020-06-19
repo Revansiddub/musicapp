@@ -50,7 +50,6 @@ class LoginRepository {
                 TrainerResponse trainerResponse=response.body();
                 if (trainerResponse != null){
                     trainerMutableLiveData.postValue(trainerResponse);
-
                 }
             }
 

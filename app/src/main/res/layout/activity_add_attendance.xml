@@ -186,6 +186,9 @@
                             android:id="@+id/radio_prsent"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/size_50dp"
+                            android:textColor="@color/white"
+                            android:padding="@dimen/size_5dp"
+                            android:background="@color/colorPrimary"
                             android:text="Present"/>
 
                         <RadioButton
@@ -193,6 +196,9 @@
                             android:layout_width="wrap_content"
                             android:layout_toRightOf="@id/radio_prsent"
                             android:layout_height="@dimen/size_50dp"
+                            android:textColor="@color/white"
+                            android:padding="@dimen/size_5dp"
+                            android:background="@color/colorPrimary"
                             android:text="Absent" />
 
 

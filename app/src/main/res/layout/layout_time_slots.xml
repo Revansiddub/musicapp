@@ -6,7 +6,7 @@
 
         <variable
             name="timeSlot"
-            type="com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot" />
+            type="com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Available_slots"/>
     </data>
 
     <RelativeLayout
@@ -23,7 +23,7 @@
             android:id="@+id/textTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{timeSlot.startTime + ` - ` + timeSlot.endTime}"
+            android:text="@{timeSlot.start_time + ` - ` + timeSlot.end_time}"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_15sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,15 +35,15 @@
             android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/image_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_close_black_24dp"
-            android:padding="@dimen/size_5dp"
-            android:layout_margin="@dimen/size_2dp"
-            android:layout_alignParentEnd="true"
-            />
+<!--        <ImageView-->
+<!--            android:id="@+id/image_close"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/ic_close_black_24dp"-->
+<!--            android:padding="@dimen/size_5dp"-->
+<!--            android:layout_margin="@dimen/size_2dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            />-->
 
 
     </RelativeLayout>
