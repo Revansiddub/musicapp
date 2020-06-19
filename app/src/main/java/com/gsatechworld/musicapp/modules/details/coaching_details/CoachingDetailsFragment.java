@@ -35,6 +35,7 @@ import com.gsatechworld.musicapp.modules.details.coaching_details.adapter.TimeSl
 import com.gsatechworld.musicapp.modules.details.coaching_details.adapter.TimesListAdapter;
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
 import com.gsatechworld.musicapp.modules.details.pojo.Recurrence_types;
+import com.gsatechworld.musicapp.modules.details.pojo.Slot_details;
 import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.TimesAdapter;
 import com.gsatechworld.musicapp.modules.home.trainer_home.repository.TimeSlotRepository;
 import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.TimeSlotViewModel;
@@ -314,9 +315,13 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
      */
     private void returnCoachingDetails() {
         CoachingDetailsListener coachingDetailsListener = (CoachingDetailsListener) getActivity();
+        ArrayList<Slot_details> timeSlotes = new ArrayList<>();
+        for(int i = 0; i < modelData.size(); i++){
+            timeSlotes.add(new Slot_details(modelData.get(i).starttime, modelData.get(i).starttime));
+        }
         requireNonNull(coachingDetailsListener).coachingDetails(new CoachingDetails(isHomeSelected,
                 isInstituteSelected, address, charges, isDailySelected, isBiweeklySelected,
-                isWeeklySelected));
+                isWeeklySelected, timeSlotes));
     }
 
     /**

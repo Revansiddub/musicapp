@@ -44,7 +44,7 @@ class DetailsRepository {
 
         networkAPI = NetworkService.getRetrofitInstance().create(NetworkAPI.class);
 
-        Call<CommonResponse> responseCall=networkAPI.addTrainerDetails(details);
+        Call<CommonResponse> responseCall= networkAPI.addTrainerDetails(details);
         responseCall.enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {

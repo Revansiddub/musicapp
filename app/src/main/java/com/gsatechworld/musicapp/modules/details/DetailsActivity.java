@@ -136,9 +136,6 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
                     .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
             binding.textTitle.setText(R.string.personal_details);
             binding.viewPager.setCurrentItem(1);
-
-
-
         }
         if (coachingDetails.isHome()==true){
             coachingType=new ArrayList<>();
@@ -172,7 +169,17 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
 
 
 
-                viewModel.submitTrainerDetails(new OnBoadingTrainer(personalDetails.getProfile_Image(),coachingDetails.getAddress(),personalDetails.getGender(),recurrence_types,personalDetails.getHighestDegreeBase(),personalDetails.getAddressProofBackBase(),personalDetails.getExpertiseDocumentBase(),pinCode_ID,personalDetails.getGovtIDFrontBase(),personalDetails.getAddressProofFrontBase(),categoryID,coachingType,subCategoryID,personalDetails.getFullName(),personalDetails.getGovtIDBackBase(),personalDetails.getMobileNumber(),personalDetails.getEmailAddress(),coachingDetails.getCharge()))
+                viewModel.submitTrainerDetails(new OnBoadingTrainer(personalDetails.getProfile_Image()
+                        ,coachingDetails.getAddress(),personalDetails.getGender()
+                        ,recurrence_types,personalDetails.getHighestDegreeBase()
+                        ,personalDetails.getAddressProofBackBase()
+                        ,personalDetails.getExpertiseDocumentBase()
+                        ,pinCode_ID,personalDetails.getGovtIDFrontBase()
+                        ,personalDetails.getAddressProofFrontBase()
+                        ,categoryID,coachingType,subCategoryID,
+                        personalDetails.getFullName(),
+                        personalDetails.getGovtIDBackBase(),personalDetails.getMobileNumber()
+                        ,personalDetails.getEmailAddress(),coachingDetails.getCharge()))
                         .observe(this, commonResponse -> {
                             hideLoadingIndicator();
 

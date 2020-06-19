@@ -135,7 +135,7 @@ public class AttendanceActivity extends BaseActivity {
                 public void onChanged(GetStudentsResponse response) {
                     if (response.getStatus().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                         recyclerView_studnts.setLayoutManager(new LinearLayoutManager(AttendanceActivity.this));
-                        recyclerView_studnts.setAdapter(new StudentsAttendanceAdapter(response.getResult().getDates().get(position).getTime_slots().get(position).getStudent_list(),AttendanceActivity.this));
+//                        recyclerView_studnts.setAdapter(new StudentsAttendanceAdapter(response.getResult().getDates().get(position).getTime_slots().get(position).getStudent_list(),AttendanceActivity.this));
 
                     }
 
