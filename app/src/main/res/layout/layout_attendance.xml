@@ -6,7 +6,7 @@
 
         <variable
             name="attendance"
-            type="com.gsatechworld.musicapp.modules.home.trainer_home.pojo.StudentAttendance" />
+            type="com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse.GetStudentsResult.Dates.Time_slots.Studentslist" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/image_student"
-                android:text="@{attendance.name}"
+                android:text="@{attendance.student_name}"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:textSize="@dimen/size_20dp"
@@ -51,50 +51,6 @@
                 android:layout_toRightOf="@id/image_student"
                 android:text="Category Name"
                 />
-            <TextView
-                android:id="@+id/text_present"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Present"
-                android:textSize="@dimen/size_15sp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/size_70dp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="@dimen/size_17dp"
-                android:padding="@dimen/size_5dp"/>
-
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_present"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="84dp"
-                android:layout_alignParentRight="true"
-                android:button="@drawable/checkbox_check_background" />
-            <TextView
-                android:id="@+id/text_absent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Absent"
-                android:padding="@dimen/size_5dp"
-                android:textSize="@dimen/size_15sp"
-                android:layout_marginRight="@dimen/size_15sp"
-                android:textColor="@color/colorPrimary"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/size_17dp"/>
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_absent"
-                android:layout_alignParentRight="true"
-                android:padding="@dimen/size_5dp"
-                android:layout_marginTop="@dimen/size_2dp"
-                android:layout_marginRight="21dp"
-                android:button="@drawable/ic_close_black_24dp"/>
-
-
 
 
             <RelativeLayout
@@ -114,7 +70,7 @@
                     android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{attendance.phone}"
+                    android:text="@{attendance.mobile_number}"
                     android:layout_below="@id/text_phone"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginLeft="@dimen/size_15sp"/>
@@ -151,7 +107,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/timing"
                     android:layout_alignParentRight="true"
-                    android:text="@{attendance.timing}"
                     android:textColor="@color/colorPrimary"
                     android:layout_below="@id/text_timing"
                     android:layout_marginRight="@dimen/size_15sp"/>
