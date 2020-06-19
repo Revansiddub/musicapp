@@ -33,7 +33,7 @@ import static java.util.Objects.requireNonNull;
  * Use the {@link PaymentsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.OnActionPaymentPerformedListener{
+public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.OnActionPaymentPerformedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -133,7 +133,8 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
 
             paymentViewModel.acceptPayments(new AcceptPayment(trainerID,payment_request_id)).observe(getViewLifecycleOwner(),commonResponse -> {
                 if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-
+                    baseActivity.showSnackBar(requireNonNull(getActivity()),
+                            commonResponse.getMessage());
                 }
             });
 

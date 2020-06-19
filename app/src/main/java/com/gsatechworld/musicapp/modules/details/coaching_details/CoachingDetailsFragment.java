@@ -441,8 +441,14 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
             jsonObject.put("name", name);
             RecyclerData model = gson.fromJson(String.valueOf(jsonObject), RecyclerData.class);
             modelData.add(new RecyclerData(name));
+
+            timesListAdapter=new TimesListAdapter(getActivity(), modelData, new TimesListAdapter.Onclick() {
+                @Override
+                public void onEvent(RecyclerData model, int pos) {
+                    position = pos;
+                }
+            });
             binding.listSelectedTimes.setAdapter(timesListAdapter);
-            timesListAdapter=new TimesListAdapter(getActivity(),modelData);
             timesListAdapter.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();

@@ -3,263 +3,233 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
+        android:gravity="center_vertical"
         tools:context=".modules.home.trainer_home.AddAttendanceActivity">
 
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_250dp"
-            tools:ignore="MissingConstraints">
-
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_attendance"
-                android:layout_marginTop="@dimen/size_30dp"
-                android:textSize="@dimen/size_20dp"
-                android:fontFamily="georgia"
-                android:layout_centerHorizontal="true"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="@dimen/size_96dp"
-                android:layout_height="@dimen/size_90dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="@dimen/size_20dp"
-                android:layout_below="@id/text"
-                android:src="@drawable/music_appicon"
-                />
+            android:layout_height="@dimen/size_450dp"
+            android:layout_marginLeft="@dimen/size_15dp"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:layout_marginRight="@dimen/size_15dp"
+            app:cardCornerRadius="@dimen/size_5dp">
 
 
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/size_250dp"
-            tools:ignore="MissingConstraints"
-            >
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card"
+            <RelativeLayout
+                android:id="@+id/relative_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/size_15dp"
-                android:layout_marginTop="@dimen/size_20dp"
-                android:layout_marginRight="@dimen/size_15dp"
-                app:cardCornerRadius="@dimen/size_15dp">
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_icon"
+                    android:layout_width="@dimen/size_90dp"
+                    android:layout_height="@dimen/size_90dp"
+                    android:src="@drawable/music_logo"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:layout_below="@id/image_icon"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/textview_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text=""
+                    android:layout_below="@id/image_icon"
+                    android:layout_toRightOf="@id/textview_name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
 
 
-                <RelativeLayout
-                    android:id="@+id/relative_name"
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/age"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/textview_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/age"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/mobile_number"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/textview_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/age"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
+
+
+                <TextView
+                    android:id="@+id/timing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mobile"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text="Timing"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/textview_timing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mobile"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/attendance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/timing"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:fontFamily="georgia"
+                    android:padding="@dimen/size_10dp"
+                    android:text="Attendance"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="normal"
+                    tools:ignore="MissingConstraints" />
+
+                <RadioGroup
+                    android:id="@+id/radiogroup_attendance"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/size_10dp">
+                    android:layout_height="@dimen/size_50dp"
+                    android:layout_toRightOf="@id/attendance"
+                    android:padding="@dimen/size_5dp"
+                    android:showDividers="beginning|middle|end"
+                    android:layout_below="@id/timing">
 
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/size_15dp"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:fontFamily="georgia"
-                        android:padding="@dimen/size_10dp"
-                        android:text="Name"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size_15dp"
-                        android:textStyle="normal"
-                        tools:ignore="MissingConstraints" />
-
-                    <TextView
-                        android:id="@+id/textview_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:fontFamily="georgia"
-                        android:padding="@dimen/size_10dp"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size_15dp"
-                        android:textStyle="normal" />
-
-
-                    <TextView
-                        android:id="@+id/age"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/name"
-                        android:layout_marginStart="@dimen/size_15dp"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:fontFamily="georgia"
-                        android:padding="@dimen/size_10dp"
-                        android:text="@string/age"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size_15dp"
-                        android:textStyle="normal"
-                        tools:ignore="MissingConstraints" />
-
-                    <TextView
-                        android:id="@+id/textview_age"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/name"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:fontFamily="georgia"
-                        android:padding="@dimen/size_10dp"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size_15dp"
-                        android:textStyle="normal" />
-
-                    <TextView
-                        android:id="@+id/mobile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/age"
-                        android:layout_marginStart="@dimen/size_15dp"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:fontFamily="georgia"
-                        android:padding="@dimen/size_10dp"
-                        android:text="@string/mobile_number"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size_15dp"
-                        android:textStyle="normal"
-                        tools:ignore="MissingConstraints" />
-
-                    <TextView
-                        android:id="@+id/textview_mobile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/age"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:fontFamily="georgia"
-                        android:padding="@dimen/size_10dp"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size_15dp"
-                        android:textStyle="normal" />
-
-
-                    <TextView
-                        android:id="@+id/timing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/mobile"
-                        android:layout_marginStart="@dimen/size_15dp"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:fontFamily="georgia"
-                        android:padding="@dimen/size_10dp"
-                        android:text="Timing"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size_15dp"
-                        android:textStyle="normal" />
-
-                    <TextView
-                        android:id="@+id/textview_timing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/mobile"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:fontFamily="georgia"
-                        android:padding="@dimen/size_10dp"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size_15dp"
-                        android:textStyle="normal" />
-
-                    <TextView
-                        android:id="@+id/attendance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/timing"
-                        android:layout_marginStart="@dimen/size_15dp"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:fontFamily="georgia"
-                        android:padding="@dimen/size_10dp"
-                        android:text="Attendance"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size_15dp"
-                        android:textStyle="normal"
-                        tools:ignore="MissingConstraints" />
-
-                    <CheckBox
-                        android:id="@+id/checkbox_attented"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/timing"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:layout_toRightOf="@id/attendance"
-                        android:padding="@dimen/size_5dp"
-                        android:text="Attented"
-                        android:textColor="@color/black" />
-
-                    <CheckBox
-                        android:id="@+id/checkbox_not_attented"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/timing"
-                        android:layout_marginTop="@dimen/size_10dp"
-                        android:layout_toRightOf="@id/checkbox_attented"
-                        android:padding="@dimen/size_5dp"
-                        android:text="@string/not_attented"
-                        android:textColor="@color/black" />
-
-                    <Button
-                        android:id="@+id/button_submit"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/attendance"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="@dimen/size_20dp"
-                        android:layout_marginTop="@dimen/size_30dp"
-                        android:layout_marginRight="@dimen/size_20dp"
-                        android:background="@drawable/button_bg"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/size_10dp"
-                        android:text="@string/submit"
-                        android:textColor="@color/white" />
+                        android:layout_marginTop="@dimen/size_10dp">
 
 
-                </RelativeLayout>
+                        <RadioButton
+                            android:id="@+id/radio_prsent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/size_50dp"
+                            android:text="Present"/>
 
-
-            </androidx.cardview.widget.CardView>
-
-
-        </RelativeLayout>
+                        <RadioButton
+                            android:id="@+id/radio_absent"
+                            android:layout_width="wrap_content"
+                            android:layout_toRightOf="@id/radio_prsent"
+                            android:layout_height="@dimen/size_50dp"
+                            android:text="Absent" />
 
 
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
 
 
 
 
+                </RadioGroup>
 
 
 
 
+                <Button
+                    android:id="@+id/button_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/attendance"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginTop="@dimen/size_30dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:background="@drawable/button_bg"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/size_10dp"
+                    android:text="@string/submit"
+                    android:textColor="@color/white" />
+
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
 
 
 
 
-
-
-
-
-
+    </RelativeLayout>
 </layout>

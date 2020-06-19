@@ -24,6 +24,7 @@ public class PaymentRequestAdapter extends RecyclerView.Adapter<PaymentRequestAd
 
     public Context context;
     public List<Payment_requests> requestsList;
+    public List<AcceptPayment> acceptPaymentList;
     public String payment_request_id,trainedID;
 
     public PaymentRequestAdapter(Context context, List<Payment_requests> requestsList,String trainerID) {
