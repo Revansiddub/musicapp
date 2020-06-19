@@ -45,8 +45,13 @@ import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
@@ -317,11 +322,33 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         CoachingDetailsListener coachingDetailsListener = (CoachingDetailsListener) getActivity();
         ArrayList<Slot_details> timeSlotes = new ArrayList<>();
         for(int i = 0; i < modelData.size(); i++){
-            timeSlotes.add(new Slot_details(modelData.get(i).starttime, modelData.get(i).starttime));
+            String [] times = modelData.get(i).starttime.split("-");
+            String startTime = getFormatedTime(times[0].replaceAll("\\s+",""));
+            String endTime = getFormatedTime(times[1].replaceAll("\\s+",""));
+            timeSlotes.add(new Slot_details(startTime, endTime));
         }
         requireNonNull(coachingDetailsListener).coachingDetails(new CoachingDetails(isHomeSelected,
                 isInstituteSelected, address, charges, isDailySelected, isBiweeklySelected,
                 isWeeklySelected, timeSlotes));
+    }
+
+    private String getFormatedTime(String time) {
+        DateFormat readFormat = new SimpleDateFormat("hh:mm:a", Locale.getDefault());
+        DateFormat writeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+        String output = null;
+        Date date  = null;;
+
+        try {
+            date = readFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(date != null){
+            output = writeFormat.format(date);
+        }
+        return output;
     }
 
     /**

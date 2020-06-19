@@ -55,12 +55,10 @@ class DetailsRepository {
 
             @Override
             public void onFailure(Call<CommonResponse> call, Throwable t) {
-
+                trainerMutableLiveData.postValue(new CommonResponse(SERVER_RESPONSE_SUCCESS,
+                        "Oops! something went wrong. Please try again later."));
             }
         });
-
-        trainerMutableLiveData.postValue(new CommonResponse(SERVER_RESPONSE_SUCCESS,
-                "Oops! something went wrong. Please try again later."));
 
         return trainerMutableLiveData;
     }
