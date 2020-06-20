@@ -17,5 +17,8 @@ public class Slot_details {
         return end_time;
     }
 
-
+    public Slot_details(String start_time, String end_time) {
+        this.start_time = start_time;
+        this.end_time = end_time;
+    }
 }

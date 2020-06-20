@@ -2,17 +2,19 @@ package com.gsatechworld.musicapp.modules.details.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Recurrence_types {
 
     @SerializedName("slot_details")
-    private Slot_details[] slot_details;
+    private ArrayList<Slot_details> slot_details;
 
 
     public static void setRecurrence_type(String recurrence_type) {
         Recurrence_types.recurrence_type = recurrence_type;
     }
 
-    public void setSlot_details(Slot_details[] slot_details) {
+    public void setSlot_details(ArrayList<Slot_details> slot_details) {
         this.slot_details = slot_details;
     }
 
@@ -26,7 +28,7 @@ public class Recurrence_types {
     @SerializedName("coaching_days")
     public String[] coaching_days;
 
-    public Slot_details[] getSlot_details() {
+    public ArrayList<Slot_details> getSlot_details() {
         return slot_details;
     }
 

@@ -13,6 +13,7 @@ import com.gsatechworld.musicapp.databinding.LayoutPaymentRequestsBinding;
 import com.gsatechworld.musicapp.modules.home.earnings.adapter.EarningAdapter;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Payment;
+import com.gsatechworld.musicapp.modules.home.payment.PaymentsFragment;
 import com.gsatechworld.musicapp.modules.home.payment.pojo.Payment_requests;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class PaymentRequestAdapter extends RecyclerView.Adapter<PaymentRequestAd
     public List<Payment_requests> requestsList;
     public List<AcceptPayment> acceptPaymentList;
     public String payment_request_id,trainedID;
+    private OnActionPaymentPerformedListener listner;
 
     public PaymentRequestAdapter(Context context, List<Payment_requests> requestsList,String trainerID) {
         this.context = context;
@@ -52,8 +54,8 @@ public class PaymentRequestAdapter extends RecyclerView.Adapter<PaymentRequestAd
      holder.binding.setRequestlists(requestsList.get(position));
      payment_request_id=requestsList.get(position).getPayment_request_id();
      holder.binding.textPaid.setOnClickListener(v -> {
-         OnActionPaymentPerformedListener onActionPerformed = (OnActionPaymentPerformedListener) context;
-         onActionPerformed.onActionPerformed(trainedID,payment_request_id);
+         //OnActionPaymentPerformedListener onActionPerformed = (OnActionPaymentPerformedListener) context;
+         listner.onActionPerformed(trainedID,payment_request_id);
 
      });
     }
@@ -61,6 +63,10 @@ public class PaymentRequestAdapter extends RecyclerView.Adapter<PaymentRequestAd
     @Override
     public int getItemCount() {
         return requestsList.size();
+    }
+
+    public void setClickListner(OnActionPaymentPerformedListener listner) {
+        this.listner = listner;
     }
 
     public class RequestViewHolder extends RecyclerView.ViewHolder {

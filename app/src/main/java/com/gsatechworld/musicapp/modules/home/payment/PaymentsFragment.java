@@ -132,9 +132,13 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
             baseActivity.showLoadingIndicator();
 
             paymentViewModel.acceptPayments(new AcceptPayment(trainerID,payment_request_id)).observe(getViewLifecycleOwner(),commonResponse -> {
+                baseActivity.hideLoadingIndicator();
                 if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     baseActivity.showSnackBar(requireNonNull(getActivity()),
                             commonResponse.getMessage());
+                } else {
+                    baseActivity.showSnackBar(requireNonNull(getActivity()),
+                            "Failed");
                 }
             });
 
@@ -171,7 +175,10 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
                 if (paymentRequestResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     paymentsBinding.recyclerPaymentRequest.setLayoutManager(new LinearLayoutManager(getActivity()));
                     paymentsBinding.recyclerPaymentRequest.setHasFixedSize(true);
-                    paymentsBinding.recyclerPaymentRequest.setAdapter(new PaymentRequestAdapter(getActivity(),paymentRequestResponse.getPayment_requests(),trainerId));
+                    PaymentRequestAdapter adapter = new PaymentRequestAdapter(getActivity()
+                            ,paymentRequestResponse.getPayment_requests(),trainerId);
+                    adapter.setClickListner(this);
+                    paymentsBinding.recyclerPaymentRequest.setAdapter(adapter);
 
                 }else {
                     baseActivity.showSnackBar(requireNonNull(getActivity()),

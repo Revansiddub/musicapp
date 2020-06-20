@@ -136,25 +136,31 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
                     .setBackground(getDrawable(R.drawable.rectangle_titled_selected));
             binding.textTitle.setText(R.string.personal_details);
             binding.viewPager.setCurrentItem(1);
-
-
-
         }
+        coachingType=new ArrayList<>();
         if (coachingDetails.isHome()==true){
-            coachingType=new ArrayList<>();
             coachingType.add("Home");
+        } else {
+            coachingType.add("Institute");
         }
 
+        recurrence_types = new Recurrence_types();
         if (coachingDetails.isDaily() == true){
            recurrence_types.setRecurrence_type("Daily");
+           String [] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+           recurrence_types.setCoaching_days(days);
         }else if (coachingDetails.isWeekly() == true){
-
+            String [] days = {"monday"};
+            recurrence_types.setCoaching_days(days);
+            recurrence_types.setRecurrence_type("Weekly");
         }
         else {
-
+            String [] days = {"monday, tuesday"};
+            recurrence_types.setCoaching_days(days);
+            recurrence_types.setRecurrence_type("BiWeekly");
         }
 
-
+         recurrence_types.setSlot_details(coachingDetails.getSlot_details());
 
 
 
@@ -172,7 +178,17 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
 
 
 
-                viewModel.submitTrainerDetails(new OnBoadingTrainer(personalDetails.getProfile_Image(),coachingDetails.getAddress(),personalDetails.getGender(),recurrence_types,personalDetails.getHighestDegreeBase(),personalDetails.getAddressProofBackBase(),personalDetails.getExpertiseDocumentBase(),pinCode_ID,personalDetails.getGovtIDFrontBase(),personalDetails.getAddressProofFrontBase(),categoryID,coachingType,subCategoryID,personalDetails.getFullName(),personalDetails.getGovtIDBackBase(),personalDetails.getMobileNumber(),personalDetails.getEmailAddress(),coachingDetails.getCharge()))
+                viewModel.submitTrainerDetails(new OnBoadingTrainer(personalDetails.getProfile_Image()
+                        ,coachingDetails.getAddress(),personalDetails.getGender()
+                        ,recurrence_types,personalDetails.getHighestDegreeBase()
+                        ,personalDetails.getAddressProofBackBase()
+                        ,personalDetails.getExpertiseDocumentBase()
+                        ,pinCode_ID,personalDetails.getGovtIDFrontBase()
+                        ,personalDetails.getAddressProofFrontBase()
+                        ,categoryID,coachingType,subCategoryID,
+                        personalDetails.getFullName(),
+                        personalDetails.getGovtIDBackBase(),personalDetails.getMobileNumber()
+                        ,personalDetails.getEmailAddress(),coachingDetails.getCharge()))
                         .observe(this, commonResponse -> {
                             hideLoadingIndicator();
 

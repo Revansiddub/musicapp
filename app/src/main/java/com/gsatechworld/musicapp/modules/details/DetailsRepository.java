@@ -44,7 +44,7 @@ class DetailsRepository {
 
         networkAPI = NetworkService.getRetrofitInstance().create(NetworkAPI.class);
 
-        Call<CommonResponse> responseCall=networkAPI.addTrainerDetails(details);
+        Call<CommonResponse> responseCall= networkAPI.addTrainerDetails(details);
         responseCall.enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
@@ -55,12 +55,10 @@ class DetailsRepository {
 
             @Override
             public void onFailure(Call<CommonResponse> call, Throwable t) {
-
+                trainerMutableLiveData.postValue(new CommonResponse(SERVER_RESPONSE_SUCCESS,
+                        "Oops! something went wrong. Please try again later."));
             }
         });
-
-        trainerMutableLiveData.postValue(new CommonResponse(SERVER_RESPONSE_SUCCESS,
-                "Oops! something went wrong. Please try again later."));
 
         return trainerMutableLiveData;
     }
