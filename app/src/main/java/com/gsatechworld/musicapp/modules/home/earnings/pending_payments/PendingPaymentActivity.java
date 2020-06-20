@@ -131,7 +131,7 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
             viewModel.fetchPendingPaymentList(trainerId).observe(this, paymentResponse -> {
                 hideLoadingIndicator();
 
-                if (paymentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (paymentResponse.getPendingPaymentList() != null) {
 
                     adapter = new PendingPaymentAdapter(this,
                             paymentResponse.getStudentLists());

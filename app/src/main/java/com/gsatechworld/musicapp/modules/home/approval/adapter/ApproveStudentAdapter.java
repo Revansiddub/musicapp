@@ -84,17 +84,11 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
         holder.binding.setApproval(approval);
 
-//        if (approval.getGender().equals(MALE)) {
-//            holder.binding.imageStudent
-//                    .setImageDrawable(mCtx.getDrawable(R.drawable.icon_male_student));
-//            holder.binding.imageStudent
-//                    .setImageTintList(mCtx.getColorStateList(R.color.colorPrimary));
-//        } else {
-//            holder.binding.imageStudent
-//                    .setImageDrawable(mCtx.getDrawable(R.drawable.icon_female_student));
-//            holder.binding.imageStudent
-//                    .setImageTintList(mCtx.getColorStateList(R.color.colorAccent));
-//        }
+        holder.binding.textAccept.setOnClickListener(v -> {
+            entrollmet_id=approval.getEnrollment_id();
+            student_id=approval.getStudentID();
+            actionListener.onActionPerformed(entrollmet_id,student_id, "2");
+        });
 
 
 
@@ -148,7 +142,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
      * Trainer Holder Class
      * ------------------------------------------------------------- */
 
-    class ApproveStudentHolder extends ViewHolder implements OnClickListener {
+    class ApproveStudentHolder extends ViewHolder {
 
         /* ------------------------------------------------------------- *
          * Private Members
@@ -168,33 +162,12 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
             this.binding = binding;
 
             /*Setting listeners to the views*/
-            binding.textAccept.setOnClickListener(this);
-            binding.textIgnore.setOnClickListener(this);
+
         }
 
         /* ------------------------------------------------------------- *
          * Overriding OnClickListener Method
          * ------------------------------------------------------------- */
-
-        @Override
-        public void onClick(View view) {
-            Approval approval = approvalList.get(getAdapterPosition());
-
-            switch (view.getId()) {
-                case R.id.textAccept:
-                    entrollmet_id=approval.getEnrollment_id();
-                    student_id=approval.getStudentID();
-                    actionListener.onActionPerformed(entrollmet_id,student_id, "2");
-                    showSnackBar((Activity) mCtx,"Request Accepted");
-                    break;
-                case R.id.textIgnore:
-                   actionListener.onActionPerformed(entrollmet_id,student_id, "0");
-                    approvalList.remove(approval);
-                    notifyDataSetChanged();
-                    showSnackBar((Activity) mCtx,"Request Ignored");
-                    break;
-            }
-        }
     }
 
     public void showSnackBar(Activity context, String message) {

@@ -163,16 +163,14 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
     }
     public void fetchPaymentRequests(){
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
-            baseActivity.showLoadingIndicator();
-
-
+            //baseActivity.showLoadingIndicator();
 
             trainerId="1";
 
             viewModel.getPaymentRequests(trainerId).observe(getViewLifecycleOwner(),paymentRequestResponse -> {
-                baseActivity.hideLoadingIndicator();
 
-                if (paymentRequestResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+                if (paymentRequestResponse.getPayment_requests() != null){
+                    //baseActivity.hideLoadingIndicator();
                     paymentsBinding.recyclerPaymentRequest.setLayoutManager(new LinearLayoutManager(getActivity()));
                     paymentsBinding.recyclerPaymentRequest.setHasFixedSize(true);
                     PaymentRequestAdapter adapter = new PaymentRequestAdapter(getActivity()
@@ -182,8 +180,10 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
 
                 }else {
                     baseActivity.showSnackBar(requireNonNull(getActivity()),
-                            paymentRequestResponse.getStatus());
+                            "No Payment Requests");
                 }
+
+
             });
 
 
