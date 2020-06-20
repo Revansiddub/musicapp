@@ -19,12 +19,12 @@
 
         <ImageView
             android:id="@+id/imageStudent"
-            android:layout_width="@dimen/size_55dp"
-            android:layout_height="@dimen/size_55dp"
+            android:layout_width="@dimen/size_80dp"
+            android:layout_height="@dimen/size_80dp"
             android:layout_marginTop="@dimen/size_10dp"
             android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/icon_male"
+            android:src="@drawable/profile_round"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_5dp"
-            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginTop="@dimen/size_20dp"
             android:text="@{approval.studentName + `, ` + approval.age}"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_17sp"

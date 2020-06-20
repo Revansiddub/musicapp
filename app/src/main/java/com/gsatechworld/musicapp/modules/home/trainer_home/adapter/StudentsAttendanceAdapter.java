@@ -14,11 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.LayoutAttendanceBinding;
-import com.gsatechworld.musicapp.databinding.ListStudentsBinding;
-import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Student_list;
 import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
-import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.StudentAttendance;
 
 import java.util.List;
 
@@ -43,8 +40,8 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
-        GetStudentsResponse.GetStudentsResult.Dates.Time_slots.Studentslist attendance=attendanceList.get(position);
-        holder.binding.setAttendance(attendance);
+     //   GetStudentsResponse.GetStudentsResult.Dates.Time_slots.Studentslist attendance=attendanceList.get(position);
+       // holder.binding.setAttendance(attendance);
 
 //        if(attendance.gender.equals("Male")){
 //            holder.binding.imageStudent
@@ -61,11 +58,11 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
 
         holder.binding.layoutApprove.setOnClickListener(v -> {
             Intent intent=new Intent(context.getApplicationContext(), AddAttendanceActivity.class);
-            intent.putExtra("name",attendance.getStudent_name());
-            intent.putExtra("age",attendance.getStudent_age());
-            intent.putExtra("mobile",attendance.getMobile_number());
-            //intent.putExtra("timing",attendance.getTiming());
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            intent.putExtra("name",attendance.getStudent_name());
+//            intent.putExtra("age",attendance.getStudent_age());
+//            intent.putExtra("mobile",attendance.getMobile_number());
+//            //intent.putExtra("timing",attendance.getTiming());
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.getApplicationContext().startActivity(intent);
         });
 
@@ -74,7 +71,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
 
     @Override
     public int getItemCount() {
-        return attendanceList.size();
+        return 3;
     }
 
     public class StudentViewHolder extends RecyclerView.ViewHolder {

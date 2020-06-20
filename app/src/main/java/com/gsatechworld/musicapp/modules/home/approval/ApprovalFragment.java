@@ -143,8 +143,6 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
                             adapter.setClickListner(this);
                             binding.recyclerRequest.setLayoutManager(new
                                     LinearLayoutManager(getActivity(), VERTICAL, false));
-
-
                             binding.recyclerRequest.setAdapter(adapter);
                         } else
                             baseActivity.showSnackBar(requireNonNull(getActivity()),

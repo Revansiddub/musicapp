@@ -1,5 +1,7 @@
 package com.gsatechworld.musicapp.modules.home.earnings.pending_payments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -15,10 +17,12 @@ import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAda
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter.OnActionPerformedListener;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PaymentActionInfo;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
@@ -53,7 +57,9 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        trainerId=getIntent().getStringExtra(TRAINER_ID);
+        SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
+        trainerId = String.valueOf(sharedpreferences.getInt(TrainerId, 0));
+        //trainerId=getIntent().getStringExtra(TRAINER_ID);
 
         fetchPendingPaymentList();
 
@@ -126,15 +132,14 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            String trainerID = "1";
-
+            binding.recyclerPending.setAdapter(adapter);
             viewModel.fetchPendingPaymentList(trainerId).observe(this, paymentResponse -> {
                 hideLoadingIndicator();
 
-                if (paymentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (paymentResponse.getPending_payments() != null) {
 
                     adapter = new PendingPaymentAdapter(this,
-                            paymentResponse.getStudentLists());
+                            paymentResponse.getPending_payments());
 
                     binding.recyclerPending.setLayoutManager(new LinearLayoutManager(this,
                             VERTICAL, false));
@@ -149,7 +154,7 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
 
              @Override
              public void onActionPerformed(String entrollmentID, String studentID, String action) {
-                 if (action.equals(action.equals("PAID"))){
+                 if (action.equals(action.equals("PAID"))) {
 
                  }
              }

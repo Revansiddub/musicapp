@@ -1,6 +1,7 @@
 package com.gsatechworld.musicapp.modules.home.payment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -18,10 +19,12 @@ import com.gsatechworld.musicapp.databinding.FragmentPaymentsBinding;
 import com.gsatechworld.musicapp.modules.home.earnings.EarningsViewModel;
 import com.gsatechworld.musicapp.modules.home.payment.adapter.AcceptPayment;
 import com.gsatechworld.musicapp.modules.home.payment.adapter.PaymentRequestAdapter;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import static androidx.databinding.DataBindingUtil.inflate;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
@@ -163,16 +166,15 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
     }
     public void fetchPaymentRequests(){
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
-            baseActivity.showLoadingIndicator();
+            //baseActivity.showLoadingIndicator();
 
-
-
-            trainerId="1";
-
+            //trainerId="1";
+            SharedPreferences sharedpreferences = getContext().getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
+            trainerId = String.valueOf(sharedpreferences.getInt(TrainerId, 0));
             viewModel.getPaymentRequests(trainerId).observe(getViewLifecycleOwner(),paymentRequestResponse -> {
-                baseActivity.hideLoadingIndicator();
 
-                if (paymentRequestResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+                if (paymentRequestResponse.getPayment_requests() != null){
+                    //baseActivity.hideLoadingIndicator();
                     paymentsBinding.recyclerPaymentRequest.setLayoutManager(new LinearLayoutManager(getActivity()));
                     paymentsBinding.recyclerPaymentRequest.setHasFixedSize(true);
                     PaymentRequestAdapter adapter = new PaymentRequestAdapter(getActivity()
@@ -182,8 +184,10 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
 
                 }else {
                     baseActivity.showSnackBar(requireNonNull(getActivity()),
-                            paymentRequestResponse.getStatus());
+                            "No Payment Requests");
                 }
+
+
             });
 
 

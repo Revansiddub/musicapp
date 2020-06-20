@@ -4,11 +4,12 @@ package com.gsatechworld.musicapp.core.network;
 import com.gsatechworld.musicapp.modules.details.pojo.OnBoadingTrainer;
 import com.gsatechworld.musicapp.modules.home.approval.pojo.ApprovalResponse;
 import com.gsatechworld.musicapp.modules.home.approval.pojo.ApproveStatus;
-import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PaymentResponse;
+import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PendingPaymentsResp;
 import com.gsatechworld.musicapp.modules.home.earnings.pojo.EarningResponse;
 import com.gsatechworld.musicapp.modules.home.payment.adapter.AcceptPayment;
 import com.gsatechworld.musicapp.modules.home.payment.pojo.PaymentRequestResponse;
 import com.gsatechworld.musicapp.modules.home.settings.pojo.ChangePasswordRequest;
+import com.gsatechworld.musicapp.modules.home.trainer_home.AttendanceRequest;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.StudentResponse;
@@ -74,7 +75,7 @@ public interface NetworkAPI {
     Call<CommonResponse> verifyTrainer(@Body TrainerOTPVerification otpVerification);
 
     @POST("pendingPayments")
-    Call<PaymentResponse> getPendingPayments(@Query("trainer_id") String trainer_Id);
+    Call<PendingPaymentsResp> getPendingPayments(@Query("trainer_id") String trainer_Id);
 
     @POST("addNewSubcategory")
     Call<CommonResponse> addSubCategory(@Body AddSubCategory addSubCategory);
@@ -93,6 +94,9 @@ public interface NetworkAPI {
 
     @GET("studentsByMonth")
      Call<GetStudentsResponse> getStudentBydate(@Query("trainer_id") String trainer_ID,@Query("date") String date);
+
+   @POST("addAttendance")
+   Call<CommonResponse> addAttendance(@Body AttendanceRequest request);
 
 
 
