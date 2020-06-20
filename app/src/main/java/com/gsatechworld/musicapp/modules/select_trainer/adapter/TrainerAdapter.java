@@ -14,6 +14,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutTrainerBinding;
 import com.gsatechworld.musicapp.modules.select_time_slot.SelectTimeSlotActivity;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.Trainer;
+import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainersResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +31,14 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
      * ------------------------------------------------------------- */
 
     private Context mCtx;
-    private List<Trainer> trainerList;
-    private List<Trainer> searchableTrainerList;
+    private List<TrainersResponse.Trainers_list> trainerList;
+    private List<TrainersResponse.Trainers_list> searchableTrainerList;
 
     /* ------------------------------------------------------------- *
      * Constructor
      * ------------------------------------------------------------- */
 
-    public TrainerAdapter(Context mCtx, List<Trainer> trainerList) {
+    public TrainerAdapter(Context mCtx, ArrayList<TrainersResponse.Trainers_list> trainerList) {
         this.mCtx = mCtx;
         this.trainerList = trainerList;
         searchableTrainerList = new ArrayList<>(trainerList);
@@ -57,13 +58,13 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TrainerHolder holder, int position) {
-        Trainer trainer = trainerList.get(position);
+        TrainersResponse.Trainers_list trainer = trainerList.get(position);
         holder.binding.setTrainer(trainer);
 
         StringBuilder coachingType = new StringBuilder();
         StringBuilder recurrenceType = new StringBuilder();
         StringBuilder days = new StringBuilder();
-        for (String type : trainer.getCoachingType()) {
+        for (String type : trainer.getCoaching_types()) {
             coachingType.append(type);
             coachingType.append(", ");
         }
@@ -105,8 +106,8 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
         if (charText.length() == 0)
             trainerList.addAll(searchableTrainerList);
         else
-            for (Trainer trainer : searchableTrainerList)
-                if (trainer.getTrainerName().toLowerCase().contains(charText.toLowerCase()))
+            for (TrainersResponse.Trainers_list trainer : searchableTrainerList)
+                if (trainer.getTrainer_name().toLowerCase().contains(charText.toLowerCase()))
                     trainerList.add(trainer);
 
         notifyDataSetChanged();
@@ -144,10 +145,10 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.layoutTrainer) {
-                Trainer trainer = trainerList.get(getAdapterPosition());
+                TrainersResponse.Trainers_list trainer = trainerList.get(getAdapterPosition());
 
                 Intent intent = new Intent(mCtx, SelectTimeSlotActivity.class);
-                intent.putExtra(TRAINER_ID, trainer.getTrainerID());
+                intent.putExtra(TRAINER_ID, trainer.getTrainer_id());
                 mCtx.startActivity(intent);
             }
         }

@@ -31,7 +31,7 @@ public class TrainerOTPRepository {
         responseCall.enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
-                CommonResponse commonResponse=response.body();
+                CommonResponse commonResponse = response.body();
                 mutableLiveData.postValue(commonResponse);
             }
 

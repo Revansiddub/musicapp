@@ -29,7 +29,8 @@
         android:roundIcon="@drawable/music_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
+        android:debuggable="true"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning,HardcodedDebugMode,UnusedAttribute">
         <activity android:name=".modules.student_home.EntrollmentDetailsActivity"></activity>
         <activity android:name=".modules.home.trainer_home.AttendanceAdd" />
         <activity android:name=".modules.student_home.StudentHomeActivity" />

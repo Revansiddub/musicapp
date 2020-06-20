@@ -1,6 +1,7 @@
 package com.gsatechworld.musicapp.modules.welcome;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +19,7 @@ import com.gsatechworld.musicapp.databinding.ActivityWelcomeBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
 import com.gsatechworld.musicapp.select_category.SelectCategoriesActivity;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import in.aabhasjindal.otptextview.OTPListener;
 
@@ -150,11 +152,15 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
 
                         if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                             pincode_id=commonResponse.getPincode_id();
+                            SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+                            SharedPreferences.Editor editor=sharedPreferences.edit();
+                            editor.putInt(PINCODE_ID,pincode_id);
+                            editor.putString(USER_TYPE,userType);
+                            editor.commit();
                             Intent intent = new Intent(this, SelectCategoriesActivity.class);
                             intent.putExtra(USER_TYPE, userType);
                             intent.putExtra(PIN_CODE, pinCode);
                             intent.putExtra(PINCODE_ID,pincode_id);
-                            sessionManager.storeRegistrationData(userType,pincode_id);
                             startActivity(intent);
                         } else
                             showSnackBar(this, commonResponse.getMessage());

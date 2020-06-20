@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.select_trainer;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,9 +17,11 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivitySelectTrainerBinding;
 import com.gsatechworld.musicapp.modules.select_trainer.adapter.TrainerAdapter;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainerInfo;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.SUBCATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
@@ -48,6 +51,10 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_trainer);
+
+        SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        pincodeID=String.valueOf(sharedPreferences.getInt(PINCODE_ID,0));
+
         recyclerView=binding.recyclerTrainer;
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 DividerItemDecoration.VERTICAL);
@@ -114,7 +121,7 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
 
 
 
-            viewModel.fetchTrainers(new TrainerInfo("1", subcategoryID,categoryID)).observe(this,
+            viewModel.fetchTrainers(new TrainerInfo(pincodeID, subcategoryID,categoryID)).observe(this,
                     trainerResponse -> {
                         hideLoadingIndicator();
 

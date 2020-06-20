@@ -1,6 +1,8 @@
 package com.gsatechworld.musicapp.modules.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.gsatechworld.musicapp.modules.home.trainer_home.TrainerHomeFragment;
 import com.gsatechworld.musicapp.modules.login.pojo.StudentResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
 import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
@@ -71,8 +74,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
         binding.textTrainer.setOnClickListener(this);
         binding.textStudent.setOnClickListener(this);
         binding.buttonLogin.setOnClickListener(this);
-        binding.editUserName.setText("jinshad130");
-        binding.editPassword.setText("Jinshad123");
     }
 
     /* ------------------------------------------------------------- *
@@ -148,9 +149,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            userName="jinshad130";
-            password="Jinshad123";
-
             viewModel.authenticateTrainer(new TrainerLoginInfo(userName, password,firebase_token))
                     .observe(this, trainerResponse -> {
                         hideLoadingIndicator();
@@ -158,11 +156,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
 
                         if (trainerResponse.getResponse().equals("success")) {
                             trainerId= trainerResponse.getTrainerID();
-                            userType="Daily";
-                            Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
-                            intent.putExtra("type",userType);
-                            intent.putExtra("trainerId",trainerId);
+                            userType = "Daily";
+                            SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putInt(Constants.TrainerId, trainerId);
+                            editor.putString(Constants.TrainerType, userType);
+                            editor.putBoolean(Constants.IsTrainerLogin, true);
+                            editor.commit();
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
+
                         } else
                             showSnackBar(this, trainerResponse.getMessage());
                     });

@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="trainer"
-            type="com.gsatechworld.musicapp.modules.select_trainer.pojo.Trainer" />
+            type="com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainersResponse.Trainers_list" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/size_5dp"
                     android:layout_marginEnd="@dimen/size_10dp"
-                    android:text="@{`Rs. ` + trainer.charges}"
+                    android:text="@{`Rs. ` + trainer.charge_amount}"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/md_grey_800"
                     android:fontFamily="georgia"
@@ -57,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginEnd="@dimen/size_10dp"
-                    android:text="@{trainer.trainerName}"
+                    android:text="@{trainer.trainer_name}"
                     android:textColor="@color/md_grey_600"
                     android:textSize="@dimen/size_20sp"
                     android:layout_toRightOf="@id/imageTrainer"
@@ -112,6 +111,7 @@
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_3dp"
                     android:textColor="@color/md_grey_600"
+                    android:text="@{trainer.recurrence_types}"
                     android:textSize="@dimen/size_17sp"
                     android:layout_below="@id/textRecurrenceType"
                     android:layout_toRightOf="@id/imageTrainer"
@@ -139,6 +139,7 @@
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_3dp"
                     android:textColor="@color/md_grey_600"
+                    android:text="@{trainer.coaching_days}"
                     android:textSize="@dimen/size_17sp"
                     android:layout_toRightOf="@id/imageTrainer"
                     android:layout_below="@id/textDaysType"

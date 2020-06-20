@@ -49,7 +49,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
     private List<Approval> searchableApprovalList;
     private OnActionPerformedListener actionListener;
     private BaseActivity baseActivity;
-   public  ConstraintLayout constraintLayout;
+    public  ConstraintLayout constraintLayout;
     String entrollmet_id,student_id;
 
 
