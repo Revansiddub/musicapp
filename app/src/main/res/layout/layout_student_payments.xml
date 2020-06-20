@@ -55,6 +55,7 @@
                     android:layout_below="@id/entrollment_name"/>
 
                 <Button
+                    android:id="@+id/button_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

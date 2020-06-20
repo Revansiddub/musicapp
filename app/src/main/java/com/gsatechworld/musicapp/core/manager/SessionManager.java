@@ -18,6 +18,7 @@ public class SessionManager {
     private static final String EMAIL_ID = "emailID";
     private static final String PHONE_NO = "phoneNo";
     private static final String USER_TYPE = "userType";
+    private static final String PINCODE_ID="pincode_id";
 
     @SuppressLint("StaticFieldLeak")
     private static SessionManager sessionManager;
@@ -55,13 +56,19 @@ public class SessionManager {
      * @param userType     Type of user [Client/Customer]
      */
     public void storeUserCredentials(final String userID, final String userFullName, final String emailID,
-                                     final String phoneNo, final String userType) {
+                                     final String phoneNo, final String userType,final int pincode_id) {
         editor.putString(USER_ID, userID);
         editor.putString(USER_NAME, userFullName);
         editor.putString(EMAIL_ID, emailID);
         editor.putString(PHONE_NO, phoneNo);
         editor.putString(USER_TYPE, userType);
+        editor.putInt(PINCODE_ID,pincode_id);
         editor.commit();
+    }
+
+    public void storeRegistrationData(final String userType,final int pincode_id){
+        editor.putInt(PINCODE_ID,pincode_id);
+        editor.putString(USER_TYPE,userType);
     }
 
     /**
@@ -73,7 +80,7 @@ public class SessionManager {
      */
     public void updateUserCredentials(final String userFullName, final String emailID,
                                       final String phoneNo) {
-        storeUserCredentials(getUserID(), userFullName, emailID, phoneNo, getUserType());
+        storeUserCredentials(getUserID(), userFullName, emailID, phoneNo, getUserType(),getPincodeId());
     }
 
     /**
@@ -101,6 +108,10 @@ public class SessionManager {
      */
     public String getUserID() {
         return sharedPreference.getString(USER_ID, "");
+    }
+
+    public  int getPincodeId() {
+        return sharedPreference.getInt(PINCODE_ID,0);
     }
 
     /**

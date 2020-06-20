@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -51,6 +52,8 @@ public class StudentPaymentFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    StudentPaymentAdapter paymentAdapter;
+
     public StudentPaymentFragment() {
         // Required empty public constructor
     }
@@ -93,6 +96,7 @@ public class StudentPaymentFragment extends Fragment {
         baseActivity = (BaseActivity) getActivity();
 
         fetchingPaymentDetals();
+
 
         return binding.getRoot();
     }
@@ -142,6 +146,7 @@ public class StudentPaymentFragment extends Fragment {
                 if (studentPaymentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)) {
                     binding.recyclerPayments.setLayoutManager(new LinearLayoutManager(getActivity()));
                     binding.recyclerPayments.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+                   // paymentAdapter.setActionListener();
                     binding.recyclerPayments.setAdapter(new StudentPaymentAdapter(getActivity(), studentPaymentResponse.getPaymentList()));
 
                 } else {

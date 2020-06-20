@@ -33,7 +33,7 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
     private ActivitySelectTrainerBinding binding;
     private SelectTrainerViewModel viewModel;
     private TrainerAdapter adapter;
-    private String pinCode, subcategoryID,categoryID;
+    private String pinCode, subcategoryID,categoryID,pincodeID;
     RecyclerView recyclerView;
     private Bitmap profileImageBitmap;
 

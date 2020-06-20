@@ -42,6 +42,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
     private String[] usersArray;
     private String pinCode, userType;
     private int pincode_id;
+    public SessionManager sessionManager;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -53,6 +54,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
+        sessionManager=SessionManager.getSessionInstance(this);
 
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
@@ -152,6 +154,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
                             intent.putExtra(USER_TYPE, userType);
                             intent.putExtra(PIN_CODE, pinCode);
                             intent.putExtra(PINCODE_ID,pincode_id);
+                            sessionManager.storeRegistrationData(userType,pincode_id);
                             startActivity(intent);
                         } else
                             showSnackBar(this, commonResponse.getMessage());

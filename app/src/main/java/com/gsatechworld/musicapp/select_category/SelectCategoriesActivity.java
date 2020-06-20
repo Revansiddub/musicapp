@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.core.manager.SessionManager;
 import com.gsatechworld.musicapp.databinding.ActivitySelectSubCategoryBinding;
 import com.gsatechworld.musicapp.select_category.add_category.AddCategoryFragment;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
@@ -36,6 +37,8 @@ private SelectCategoriesViewModel viewModel;
     private String userType, pinCode;
     private int pinCodeId;
     CategoriesAdapter adapter;
+    SessionManager sessionManager;
+    private int id;
 
 
     @Override
@@ -43,6 +46,11 @@ private SelectCategoriesViewModel viewModel;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_sub_category);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_select_sub_category);
+
+        sessionManager=SessionManager.getSessionInstance(this);
+
+
+
 
         viewModel=new ViewModelProvider(this).get(SelectCategoriesViewModel.class);
 

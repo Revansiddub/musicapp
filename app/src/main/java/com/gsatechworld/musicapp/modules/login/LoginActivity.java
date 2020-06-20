@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.core.manager.SessionManager;
 import com.gsatechworld.musicapp.databinding.ActivityLoginBinding;
 import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
@@ -45,6 +46,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
     public String userType;
     public int  trainerId;
     public String firebase_token="1234";
+    public SessionManager sessionManager;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -56,6 +58,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        sessionManager=SessionManager.getSessionInstance(this);
+
+
 
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
