@@ -12,8 +12,14 @@ public class OnBoadingTrainer {
     private String gender;
 
 
-    @SerializedName("recurrence_types")
-    private Recurrence_types recurrence_types;
+    @SerializedName("recurrence_type")
+    private String  recurrence_type;
+
+    @SerializedName("slot_details")
+    private ArrayList<Slot_details> slot_details;
+
+    @SerializedName("coaching_days")
+    public ArrayList<String> coaching_days;
 
     @SerializedName("highest_degree")
     private String highest_degree;
@@ -62,11 +68,19 @@ public class OnBoadingTrainer {
     private String charge_amount;
 
 
-    public OnBoadingTrainer(String profile_image,String address, String gender, Recurrence_types recurrence_types, String highest_degree, String address_proof_back, String expertise_document, String pincode_id, String govt_id_front, String address_proof_front, String category_id, ArrayList<String> coaching_types, String sub_category_id, String name, String govt_id_back, String mobile_number, String email, String charge_amount) {
+    public OnBoadingTrainer(String profile_image,String address,
+                            String gender, String recurrence_type,
+                            String highest_degree, String address_proof_back,
+                            String expertise_document, String pincode_id,
+                            String govt_id_front, String address_proof_front,
+                            String category_id, ArrayList<String> coaching_types,
+                            String sub_category_id, String name, String govt_id_back,
+                            String mobile_number, String email, String charge_amount,
+                            ArrayList<Slot_details> slot_details, ArrayList<String> coaching_days) {
         this.profile_image=profile_image;
         this.address = address;
         this.gender = gender;
-        this.recurrence_types = recurrence_types;
+        this.recurrence_type = recurrence_type;
         this.highest_degree = highest_degree;
         this.address_proof_back = address_proof_back;
         this.expertise_document = expertise_document;
@@ -81,11 +95,25 @@ public class OnBoadingTrainer {
         this.mobile_number = mobile_number;
         this.email = email;
         this.charge_amount = charge_amount;
+        this.slot_details = slot_details;
+        this.coaching_days = coaching_days;
     }
 
 
-    public Recurrence_types getRecurrence_types() {
-        return recurrence_types;
+    public ArrayList<Slot_details> getSlot_details() {
+        return slot_details;
+    }
+
+    public void setSlot_details(ArrayList<Slot_details> slot_details) {
+        this.slot_details = slot_details;
+    }
+
+    public ArrayList<String> getCoaching_days() {
+        return coaching_days;
+    }
+
+    public void setCoaching_days(ArrayList<String> coaching_days) {
+        this.coaching_days = coaching_days;
     }
 
     public String getAddress() {

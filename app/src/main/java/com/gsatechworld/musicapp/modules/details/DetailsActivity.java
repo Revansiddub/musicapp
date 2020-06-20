@@ -45,12 +45,13 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
 
     private ActivityDetailsBinding binding;
     private DetailsViewModel viewModel;
-    private String categoryID, pinCode,subCategoryID;
+    private String categoryID, pinCode, subCategoryID;
     private CoachingDetails coachingDetails;
-    private Recurrence_types recurrence_types;
+    private String recurrence_type;
     private ArrayList<String> coachingType;
-    public int position,pincode_Id;
+    public int position, pincode_Id;
     public String pinCode_ID;
+    private ArrayList<String> recurrence_days;
 
 
     /* ------------------------------------------------------------- *
@@ -76,12 +77,12 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
         if (getIntent().getStringExtra(PIN_CODE) != null) {
             pinCode = getIntent().getStringExtra(PIN_CODE);
             categoryID = getIntent().getStringExtra(CATEGORY_ID);
-            subCategoryID=getIntent().getStringExtra(SUBCATEGORY_ID);
-            pincode_Id=getIntent().getIntExtra(PINCODE_ID,0);
+            subCategoryID = getIntent().getStringExtra(SUBCATEGORY_ID);
+            pincode_Id = getIntent().getIntExtra(PINCODE_ID, 0);
 
 
         }
-        pinCode_ID=String.valueOf(pincode_Id);
+        pinCode_ID = String.valueOf(pincode_Id);
         /*Setting Adapter to view pager*/
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new CoachingDetailsFragment(), getString(R.string.coaching_details));
@@ -137,30 +138,33 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
             binding.textTitle.setText(R.string.personal_details);
             binding.viewPager.setCurrentItem(1);
         }
-        coachingType=new ArrayList<>();
-        if (coachingDetails.isHome()==true){
+        coachingType = new ArrayList<>();
+        if (coachingDetails.isHome() == true) {
             coachingType.add("Home");
         } else {
             coachingType.add("Institute");
         }
 
-        recurrence_types = new Recurrence_types();
-        if (coachingDetails.isDaily() == true){
-           recurrence_types.setRecurrence_type("Daily");
-           String [] days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
-           recurrence_types.setCoaching_days(days);
-        }else if (coachingDetails.isWeekly() == true){
-            String [] days = {"monday"};
-            recurrence_types.setCoaching_days(days);
-            recurrence_types.setRecurrence_type("Weekly");
+        if (coachingDetails.isDaily() == true) {
+            recurrence_type = "Daily";
+            recurrence_days = new ArrayList<>();
+            recurrence_days.add("monday");
+            recurrence_days.add("tuesday");
+            recurrence_days.add("wednesday");
+            recurrence_days.add("thursday");
+            recurrence_days.add("friday");
+            recurrence_days.add("saturday");
+            recurrence_days.add("sunday");
+        } else if (coachingDetails.isWeekly() == true) {
+            recurrence_days = new ArrayList<>();
+            recurrence_days.add("wednesday");
+            recurrence_type = "Weekly";
+        } else {
+            recurrence_days = new ArrayList<>();
+            recurrence_days.add("monday");
+            recurrence_days.add("tuesday");
+            recurrence_type = "BiWeekly";
         }
-        else {
-            String [] days = {"monday, tuesday"};
-            recurrence_types.setCoaching_days(days);
-            recurrence_types.setRecurrence_type("BiWeekly");
-        }
-
-         recurrence_types.setSlot_details(coachingDetails.getSlot_details());
 
 
 
@@ -177,18 +181,18 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
                 showLoadingIndicator();
 
 
-
                 viewModel.submitTrainerDetails(new OnBoadingTrainer(personalDetails.getProfile_Image()
-                        ,coachingDetails.getAddress(),personalDetails.getGender()
-                        ,recurrence_types,personalDetails.getHighestDegreeBase()
-                        ,personalDetails.getAddressProofBackBase()
-                        ,personalDetails.getExpertiseDocumentBase()
-                        ,pinCode_ID,personalDetails.getGovtIDFrontBase()
-                        ,personalDetails.getAddressProofFrontBase()
-                        ,categoryID,coachingType,subCategoryID,
+                        , coachingDetails.getAddress(), personalDetails.getGender()
+                        , recurrence_type, personalDetails.getHighestDegreeBase()
+                        , personalDetails.getAddressProofBackBase()
+                        , personalDetails.getExpertiseDocumentBase()
+                        , pinCode_ID, personalDetails.getGovtIDFrontBase()
+                        , personalDetails.getAddressProofFrontBase()
+                        , categoryID, coachingType, subCategoryID,
                         personalDetails.getFullName(),
-                        personalDetails.getGovtIDBackBase(),personalDetails.getMobileNumber()
-                        ,personalDetails.getEmailAddress(),coachingDetails.getCharge()))
+                        personalDetails.getGovtIDBackBase(), personalDetails.getMobileNumber()
+                        , personalDetails.getEmailAddress(), coachingDetails.getCharge(), coachingDetails.getSlot_details(),
+                        recurrence_days))
                         .observe(this, commonResponse -> {
                             hideLoadingIndicator();
 
@@ -198,8 +202,7 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
                                 intent.putExtra("mobile_number", personalDetails.getMobileNumber());
                                 startActivity(intent);
 
-                            }
-                            else
+                            } else
                                 showSnackBar(this, commonResponse.getMessage());
                         });
             } else

@@ -1,5 +1,7 @@
 package com.gsatechworld.musicapp.modules.home.approval;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +22,13 @@ import com.gsatechworld.musicapp.modules.home.approval.pojo.ActionInfo;
 import com.gsatechworld.musicapp.modules.home.approval.pojo.ApproveStatus;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerResponse;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import static androidx.databinding.DataBindingUtil.inflate;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
@@ -52,7 +56,7 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_approval, container, false);
 
-        trainerId=getArguments().getString(TRAINER_ID);
+        trainerId = getArguments().getString(TRAINER_ID);
 
         /*Binding layout file with JAVA class*/
         viewModel = new ViewModelProvider(this).get(ApprovalViewModel.class);
@@ -127,8 +131,8 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
     private void fetchApprovalList() {
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
           //  baseActivity.showLoadingIndicator();
-            trainerId="1";
-
+            SharedPreferences sharedpreferences = getContext().getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
+            trainerId = String.valueOf(sharedpreferences.getInt(TrainerId, 0));
             viewModel.fetchApprovalList(trainerId).observe(getViewLifecycleOwner(),
                     approvalResponse -> {
                      //   baseActivity.hideLoadingIndicator();
@@ -136,6 +140,7 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
                         if (approvalResponse.getResponse().equals("success")) {
                             adapter = new ApproveStudentAdapter(getActivity(), approvalResponse.getApprovalList());
 
+                            adapter.setClickListner(this);
                             binding.recyclerRequest.setLayoutManager(new
                                     LinearLayoutManager(getActivity(), VERTICAL, false));
 

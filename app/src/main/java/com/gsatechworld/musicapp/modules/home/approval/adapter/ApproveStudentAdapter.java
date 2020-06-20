@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.LayoutApproveStudentBinding;
+import com.gsatechworld.musicapp.modules.home.approval.ApprovalFragment;
 import com.gsatechworld.musicapp.modules.home.approval.StudentsDetails;
 import com.gsatechworld.musicapp.modules.home.approval.pojo.Approval;
 import com.gsatechworld.musicapp.modules.home.payment.adapter.PaymentRequestAdapter;
@@ -47,10 +48,10 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
     private Context mCtx;
     private List<Approval> approvalList;
     private List<Approval> searchableApprovalList;
-    private OnActionPerformedListener actionListener;
     private BaseActivity baseActivity;
-   public  ConstraintLayout constraintLayout;
-    String entrollmet_id,student_id;
+    public ConstraintLayout constraintLayout;
+    String entrollmet_id, student_id;
+    private OnActionPerformedListener listner;
 
 
 
@@ -97,13 +98,11 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 //        }
 
 
-
-
         holder.binding.layoutApprove.setOnClickListener(v -> {
-            Intent intent=new Intent(mCtx.getApplicationContext(), StudentsDetails.class);
-            intent.putExtra("name",approval.getStudentName());
-            intent.putExtra("age",approval.getAge());
-            intent.putExtra("gender",approval.getGender());
+            Intent intent = new Intent(mCtx.getApplicationContext(), StudentsDetails.class);
+            intent.putExtra("name", approval.getStudentName());
+            intent.putExtra("age", approval.getAge());
+            intent.putExtra("gender", approval.getGender());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mCtx.getApplicationContext().startActivity(intent);
         });
@@ -138,6 +137,10 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
         notifyDataSetChanged();
     }
 
+    public void setClickListner(OnActionPerformedListener listner) {
+        this.listner = listner;
+    }
+
     /* ------------------------------------------------------------- *
      * Public Interface
      * ------------------------------------------------------------- */
@@ -163,7 +166,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
         ApproveStudentHolder(final LayoutApproveStudentBinding binding) {
             super(binding.getRoot());
 
-            constraintLayout=binding.layoutApprove;
+            constraintLayout = binding.layoutApprove;
 
             this.binding = binding;
 
@@ -182,16 +185,16 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
             switch (view.getId()) {
                 case R.id.textAccept:
-                    entrollmet_id=approval.getEnrollment_id();
-                    student_id=approval.getStudentID();
-                    actionListener.onActionPerformed(entrollmet_id,student_id, "2");
-                    showSnackBar((Activity) mCtx,"Request Accepted");
+                    entrollmet_id = approval.getEnrollment_id();
+                    student_id = approval.getStudentID();
+                    listner.onActionPerformed(entrollmet_id, student_id, "2");
+                    showSnackBar((Activity) mCtx, "Request Accepted");
                     break;
                 case R.id.textIgnore:
-                   actionListener.onActionPerformed(entrollmet_id,student_id, "0");
+                    listner.onActionPerformed(entrollmet_id, student_id, "0");
                     approvalList.remove(approval);
                     notifyDataSetChanged();
-                    showSnackBar((Activity) mCtx,"Request Ignored");
+                    showSnackBar((Activity) mCtx, "Request Ignored");
                     break;
             }
         }
@@ -206,11 +209,9 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
         snackbar.show();
     }
-    public interface OnActionPerformedListener {
-        void onActionPerformed(String entrollmentID, String studentID,String action);
 
-    }
-    public void setActionListener(OnActionPerformedListener listener){
-        this.actionListener=listener;
+    public interface OnActionPerformedListener {
+        void onActionPerformed(String entrollmentID, String studentID, String action);
+
     }
 }

@@ -1,6 +1,8 @@
 package com.gsatechworld.musicapp.modules.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -29,6 +31,7 @@ import static com.gsatechworld.musicapp.utilities.Constants.PAYMENT_FRAGMENT_TAG
 import static com.gsatechworld.musicapp.utilities.Constants.SETTINGS_FRAGMENT_TAG;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_HOME_FRAGMENT_TAG;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
 
 public class HomeActivity extends BaseActivity implements OnNavigationItemSelectedListener, CoachingDetailsFragment.CoachingDetailsListener {
 
@@ -54,10 +57,13 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         Bundle bundle=getIntent().getExtras();
         if (bundle != null){
-            userType=bundle.getString("type");
-            trainerID=bundle.getInt("trainerId");
+//            userType=bundle.getString("type");
+//            trainerID=bundle.getInt("trainerId");
         }
-        trainerId= String.valueOf(trainerID);
+
+        SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
+        userType= sharedpreferences.getString(Constants.TrainerType, null);
+        trainerId = String.valueOf(sharedpreferences.getInt(TrainerId, 0));
         /*Opening trainer's home fragment by default*/
 
 
