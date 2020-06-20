@@ -44,29 +44,41 @@ public class TrainersResponse {
     }
 
     public class Trainers_list {
+        @SerializedName("address")
         private String address;
 
+        @SerializedName("coaching_types")
         private String[] coaching_types;
 
-        private ArrayList<Availables_slots> available_slots;
+        @SerializedName("available_slots")
+        private Availables_slots[][] available_slots;
 
+        @SerializedName("recurrence_types")
         private String recurrence_types;
 
+        @SerializedName("trainer_name")
         private String trainer_name;
 
-        private String coaching_days;
+        @SerializedName("coaching_days")
+        private ArrayList<String> coaching_days;
 
+        @SerializedName("trainer_id")
         private String trainer_id;
+
+        @SerializedName("charge_amount")
+        private String charge_amount;
 
         public String getAddress() {
             return address;
         }
 
+
+
         public String[] getCoaching_types() {
             return coaching_types;
         }
 
-        public ArrayList<Availables_slots> getAvailable_slots() {
+        public Availables_slots[][] getAvailable_slots() {
             return available_slots;
         }
 
@@ -78,7 +90,7 @@ public class TrainersResponse {
             return trainer_name;
         }
 
-        public String getCoaching_days() {
+        public ArrayList<String> getCoaching_days() {
             return coaching_days;
         }
 
@@ -90,13 +102,22 @@ public class TrainersResponse {
             return charge_amount;
         }
 
-        private String charge_amount;
+        public class Coaching_days{
+
+        }
+
+
 
 
         public class Availables_slots{
+            @SerializedName("time_slot_id")
             private String time_slot_id;
 
+            @SerializedName("start_time")
             private String start_time;
+
+            @SerializedName("end_time")
+            private String end_time;
 
             public String getTime_slot_id() {
                 return time_slot_id;
@@ -110,7 +131,7 @@ public class TrainersResponse {
                 return end_time;
             }
 
-            private String end_time;
+
 
         }
     }

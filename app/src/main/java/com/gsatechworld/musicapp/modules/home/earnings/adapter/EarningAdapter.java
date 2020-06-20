@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutEarningBinding;
-import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Student_list;
-import com.gsatechworld.musicapp.modules.home.earnings.pojo.Earning;
 import com.gsatechworld.musicapp.modules.home.earnings.pojo.Student_lists;
 
 import java.util.List;

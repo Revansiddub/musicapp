@@ -36,12 +36,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/image_student"
-                android:text="@{attendance.student_name}"
+                android:text="Raj"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:textSize="@dimen/size_20dp"
                 android:layout_marginTop="@dimen/size_20dp"
                 />
+
+
+            <TextView
+                android:id="@+id/jksjkd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Present"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:textSize="@dimen/size_15dp"
+                android:layout_marginTop="@dimen/size_20dp"
+                />
+
 
             <TextView
                 android:id="@+id/text_category"
@@ -49,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_name"
                 android:layout_toRightOf="@id/image_student"
-                android:text="Category Name"
+                android:text="Gitar"
                 />
 
 
@@ -70,7 +84,7 @@
                     android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{attendance.mobile_number}"
+                    android:text="7829825965"
                     android:layout_below="@id/text_phone"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginLeft="@dimen/size_15sp"/>
@@ -106,6 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/timing"
+                    android:text="10 AM- 11 AM"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/colorPrimary"
                     android:layout_below="@id/text_timing"

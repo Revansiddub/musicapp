@@ -50,13 +50,12 @@ public class PaymentRequestAdapter extends RecyclerView.Adapter<PaymentRequestAd
 
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder holder, int position) {
-     Payment_requests requests=requestsList.get(position);
+     Payment_requests requests = requestsList.get(position);
      holder.binding.setRequestlists(requestsList.get(position));
-     payment_request_id=requestsList.get(position).getPayment_request_id();
+     payment_request_id = requestsList.get(position).getPayment_request_id();
      holder.binding.textPaid.setOnClickListener(v -> {
          //OnActionPaymentPerformedListener onActionPerformed = (OnActionPaymentPerformedListener) context;
          listner.onActionPerformed(trainedID,payment_request_id);
-
      });
     }
 

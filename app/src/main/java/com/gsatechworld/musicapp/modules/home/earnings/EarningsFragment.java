@@ -1,6 +1,8 @@
 package com.gsatechworld.musicapp.modules.home.earnings;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +19,13 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.FragmentEarningsBinding;
 import com.gsatechworld.musicapp.modules.home.earnings.adapter.EarningAdapter;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.PendingPaymentActivity;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import static androidx.databinding.DataBindingUtil.inflate;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
@@ -55,49 +59,23 @@ public class EarningsFragment extends Fragment  {
 
         baseActivity = (BaseActivity) getActivity();
 
-        trainerId=getArguments().getString(TRAINER_ID);
+        SharedPreferences sharedpreferences = getContext().getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
+        trainerId = String.valueOf(sharedpreferences.getInt(TrainerId, 0));
+        //trainerId=getArguments().getString(TRAINER_ID);
 
         fetchEarningDetails();
 
         /*Setting listeners to the view*/
 
-
         binding.cardPending.setOnClickListener(v -> {
-            Intent intent=new Intent(getActivity(),PendingPaymentActivity.class);
-            intent.putExtra(TRAINER_ID,trainerId);
+            Intent intent=new Intent(getActivity(), PendingPaymentActivity.class);
+            intent.putExtra(TRAINER_ID, trainerId);
             startActivity(intent);
         });
 
-
-
-
-
         return binding.getRoot();
-
-
-
-
     }
 
-    /* ------------------------------------------------------------- *
-     * Overriding OnClickListener Method
-     * ------------------------------------------------------------- */
-
-//    @Override
-//    public void onClick(View view) {
-//        if (view.getId() == R.id.cardPending)
-//
-//
-//            startActivity(new Intent(getActivity(), PendingPaymentActivity.class));
-//    }
-
-    /* ------------------------------------------------------------- *
-     * Private Methods
-     * ------------------------------------------------------------- */
-
-    /**
-     * This method is invoked to fetch a list of all earnings of that particular trainer
-     */
     private void fetchEarningDetails() {
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
             baseActivity.showLoadingIndicator();

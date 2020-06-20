@@ -45,9 +45,6 @@ public class AddAttendanceActivity extends BaseActivity {
             addStudenceAttendance();
         });
 
-
-
-
     }
 
     public void addStudenceAttendance(){

@@ -14,13 +14,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutPendingPaymentBinding;
-import com.gsatechworld.musicapp.databinding.LayoutStudentPaymentsBinding;
-import com.gsatechworld.musicapp.databinding.ListStudentsBinding;
-import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Payment;
-import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Student_list;
+import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PendingPaymentsResp;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
@@ -37,22 +33,14 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
      * ------------------------------------------------------------- */
 
     private Context mCtx;
-    private ArrayList<Student_list> pendingPaymentList;
+    private ArrayList<PendingPaymentsResp.PendingPayments> pendingPaymentList;
   //  private List<Payment> searchablePaymentList;
 
-    /* ------------------------------------------------------------- *
-     * Constructor
-     * ------------------------------------------------------------- */
-
-    public PendingPaymentAdapter(Context mCtx, ArrayList<Student_list> pendingPaymentList) {
+    public PendingPaymentAdapter(Context mCtx, ArrayList<PendingPaymentsResp.PendingPayments> pendingPaymentList) {
         this.mCtx = mCtx;
         this.pendingPaymentList = pendingPaymentList;
       //  searchablePaymentList = new ArrayList<>(pendingPaymentList);
     }
-
-    /* ------------------------------------------------------------- *
-     * Overriding RecyclerView.Adapter Methods
-     * ------------------------------------------------------------- */
 
     @NonNull
     @Override
@@ -101,29 +89,13 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
 //        notifyDataSetChanged();
 //    }
 
-    /* ------------------------------------------------------------- *
-     * Public Interface
-     * ------------------------------------------------------------- */
-
     public interface OnActionPerformedListener {
         void onActionPerformed(String studentID, String action);
     }
 
-    /* ------------------------------------------------------------- *
-     * Trainer Holder Class
-     * ------------------------------------------------------------- */
-
     class PendingPaymentHolder extends ViewHolder implements OnClickListener {
 
-        /* ------------------------------------------------------------- *
-         * Private Members
-         * ------------------------------------------------------------- */
-
         private final LayoutPendingPaymentBinding binding;
-
-        /* ------------------------------------------------------------- *
-         * Constructor
-         * ------------------------------------------------------------- */
 
         PendingPaymentHolder(final LayoutPendingPaymentBinding binding) {
             super(binding.getRoot());
@@ -135,21 +107,17 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
             binding.textNotPaid.setOnClickListener(this);
         }
 
-        /* ------------------------------------------------------------- *
-         * Overriding OnClickListener Method
-         * ------------------------------------------------------------- */
-
         @Override
         public void onClick(View view) {
-            Student_list payment = pendingPaymentList.get(getAdapterPosition());
+            PendingPaymentsResp.PendingPayments payment = pendingPaymentList.get(getAdapterPosition());
             OnActionPerformedListener onActionPerformed = (OnActionPerformedListener) mCtx;
             switch (view.getId()) {
                 case R.id.textPaid:
-                    onActionPerformed.onActionPerformed(payment.getId(), PAID);
+                    onActionPerformed.onActionPerformed(String.valueOf(payment.getStudent_id()), PAID);
                     break;
-//                case R.id.textNotPaid:
-//                    onActionPerformed.onActionPerformed(payment.getId()), NOT_PAID);
-//                    break;
+                case R.id.textNotPaid:
+                    onActionPerformed.onActionPerformed(String.valueOf(payment.getStudent_id()), NOT_PAID);
+                    break;
             }
         }
     }

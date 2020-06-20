@@ -47,7 +47,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
     private Context mCtx;
     private List<Approval> approvalList;
     private List<Approval> searchableApprovalList;
-    private OnActionPerformedListener actionListener;
+    private OnActionPerformedListener listner;
     private BaseActivity baseActivity;
     public  ConstraintLayout constraintLayout;
     String entrollmet_id,student_id;
@@ -87,7 +87,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
         holder.binding.textAccept.setOnClickListener(v -> {
             entrollmet_id=approval.getEnrollment_id();
             student_id=approval.getStudentID();
-            actionListener.onActionPerformed(entrollmet_id,student_id, "2");
+            listner.onActionPerformed(entrollmet_id,student_id, "2");
         });
 
 
@@ -142,7 +142,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
      * Trainer Holder Class
      * ------------------------------------------------------------- */
 
-    class ApproveStudentHolder extends ViewHolder {
+    class ApproveStudentHolder extends ViewHolder implements OnClickListener{
 
         /* ------------------------------------------------------------- *
          * Private Members
@@ -165,9 +165,29 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
         }
 
+
         /* ------------------------------------------------------------- *
          * Overriding OnClickListener Method
          * ------------------------------------------------------------- */
+
+        @Override
+        public void onClick(View view) {
+            Approval approval = approvalList.get(getAdapterPosition());
+
+            switch (view.getId()) {
+                case R.id.textAccept:
+                    entrollmet_id = approval.getEnrollment_id();
+                    student_id = approval.getStudentID();
+                    listner.onActionPerformed(entrollmet_id, student_id, "2");
+                    break;
+                case R.id.textIgnore:
+                    listner.onActionPerformed(entrollmet_id, student_id, "0");
+                    approvalList.remove(approval);
+                    notifyDataSetChanged();
+                    break;
+            }
+        }
+
     }
 
     public void showSnackBar(Activity context, String message) {
@@ -184,6 +204,6 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
 
     }
     public void setActionListener(OnActionPerformedListener listener){
-        this.actionListener=listener;
+        this.listner=listener;
     }
 }

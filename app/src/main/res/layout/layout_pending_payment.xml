@@ -7,7 +7,7 @@
 
         <variable
             name="studentlist"
-            type="com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Student_list" />
+            type="com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PendingPaymentsResp.PendingPayments" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_10dp"
             android:layout_marginTop="@dimen/size_10dp"
-            android:text="@{studentlist.name}"
+            android:text="@{studentlist.student_name}"
             android:textColor="@color/black"
             android:textSize="@dimen/size_18sp"
             app:layout_constraintStart_toEndOf="@id/imagePayment"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_10dp"
             android:layout_marginTop="@dimen/size_5dp"
-            android:text="@{`Rs. ` + studentlist.amount}"
+            android:text="@{String.valueOf(studentlist.amount)}"
             android:textColor="@color/md_grey_700"
             android:textSize="@dimen/size_15sp"
             android:textStyle="bold"

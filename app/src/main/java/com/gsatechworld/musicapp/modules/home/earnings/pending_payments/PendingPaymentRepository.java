@@ -5,13 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.gsatechworld.musicapp.core.network.NetworkAPI;
 import com.gsatechworld.musicapp.core.network.NetworkService;
-import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Payment;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PaymentActionInfo;
-import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PaymentResponse;
+import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PendingPaymentsResp;
 import com.gsatechworld.musicapp.utilities.CommonResponse;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,25 +37,25 @@ class PendingPaymentRepository {
      * Default Methods
      * ------------------------------------------------------------- */
 
-    LiveData<PaymentResponse> fetchPendingPaymentList(String trainerID) {
-        MutableLiveData<PaymentResponse> paymentMutableLiveData = new MutableLiveData<>();
+    LiveData<PendingPaymentsResp> fetchPendingPaymentList(String trainerID) {
+        MutableLiveData<PendingPaymentsResp> paymentMutableLiveData = new MutableLiveData<>();
 
 
         networkAPI= NetworkService.getRetrofitInstance().create(NetworkAPI.class);
 
-        Call<PaymentResponse> paymentResponseCall=networkAPI.getPendingPayments(trainerID);
+        Call<PendingPaymentsResp> paymentResponseCall = networkAPI.getPendingPayments(trainerID);
 
-        paymentResponseCall.enqueue(new Callback<PaymentResponse>() {
+        paymentResponseCall.enqueue(new Callback<PendingPaymentsResp>() {
             @Override
-            public void onResponse(Call<PaymentResponse> call, Response<PaymentResponse> response) {
-                PaymentResponse paymentResponse=response.body();
+            public void onResponse(Call<PendingPaymentsResp> call, Response<PendingPaymentsResp> response) {
+                PendingPaymentsResp paymentResponse = response.body();
                 if (paymentResponse != null){
                     paymentMutableLiveData.setValue(paymentResponse);
                 }
             }
 
             @Override
-            public void onFailure(Call<PaymentResponse> call, Throwable t) {
+            public void onFailure(Call<PendingPaymentsResp> call, Throwable t) {
              paymentMutableLiveData.setValue(null);
             }
         });

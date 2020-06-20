@@ -16,8 +16,6 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/size_10dp">
 
-
-
         <ImageView
             android:id="@+id/imagePayment"
             android:layout_width="@dimen/size_55dp"

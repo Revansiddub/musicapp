@@ -139,7 +139,7 @@
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_3dp"
                     android:textColor="@color/md_grey_600"
-                    android:text="@{trainer.coaching_days}"
+                    android:text=""
                     android:textSize="@dimen/size_17sp"
                     android:layout_toRightOf="@id/imageTrainer"
                     android:layout_below="@id/textDaysType"
