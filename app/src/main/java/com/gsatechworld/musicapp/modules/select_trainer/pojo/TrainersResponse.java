@@ -11,25 +11,11 @@ public class TrainersResponse {
      * Private Members
      * ------------------------------------------------------------- */
     @SerializedName("status")
-    private String response;
+    public String response;
     @SerializedName("message")
-    private String message;
+    public String message;
     @SerializedName("trainers_list")
     private ArrayList<Trainers_list> trainers_list;
-
-    /* ------------------------------------------------------------- *
-     * Constructor
-     * ------------------------------------------------------------- */
-
-    public TrainersResponse(String response, String message, ArrayList<Trainers_list> trainerList) {
-        this.response = response;
-        this.message = message;
-        this.trainers_list = trainerList;
-    }
-
-    /* ------------------------------------------------------------- *
-     * Getters
-     * ------------------------------------------------------------- */
 
     public String getResponse() {
         return response;
@@ -39,77 +25,69 @@ public class TrainersResponse {
         return message;
     }
 
-    public ArrayList<Trainers_list> getTrainerList() {
+    public ArrayList<Trainers_list> getTrainers_list() {
         return trainers_list;
     }
 
     public class Trainers_list {
-        @SerializedName("address")
-        private String address;
-
-        @SerializedName("coaching_types")
-        private String[] coaching_types;
-
-        @SerializedName("available_slots")
-        private Availables_slots[][] available_slots;
-
-        @SerializedName("recurrence_types")
-        private String recurrence_types;
+        @SerializedName("trainer_id")
+        private int trainer_id;
 
         @SerializedName("trainer_name")
         private String trainer_name;
 
+        @SerializedName("charge_amount")
+        private int charge_amount;
+
+        @SerializedName("address")
+        private String address;
+
+        @SerializedName("coaching_types")
+        private ArrayList<String> coaching_types;
+
         @SerializedName("coaching_days")
         private ArrayList<String> coaching_days;
 
-        @SerializedName("trainer_id")
-        private String trainer_id;
+        @SerializedName("recurrence_types")
+        private String recurrence_types;
 
-        @SerializedName("charge_amount")
-        private String charge_amount;
+        @SerializedName("available_slots")
+        public ArrayList<Availables_slots> available_slots;
 
-        public String getAddress() {
-            return address;
-        }
-
-
-
-        public String[] getCoaching_types() {
-            return coaching_types;
-        }
-
-        public Availables_slots[][] getAvailable_slots() {
-            return available_slots;
-        }
-
-        public String getRecurrence_types() {
-            return recurrence_types;
+        public int getTrainer_id() {
+            return trainer_id;
         }
 
         public String getTrainer_name() {
             return trainer_name;
         }
 
+        public int getCharge_amount() {
+            return charge_amount;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public ArrayList<String> getCoaching_types() {
+            return coaching_types;
+        }
+
         public ArrayList<String> getCoaching_days() {
             return coaching_days;
         }
 
-        public String getTrainer_id() {
-            return trainer_id;
+        public String getRecurrence_types() {
+            return recurrence_types;
         }
 
-        public String getCharge_amount() {
-            return charge_amount;
-        }
-
-        public class Coaching_days{
-
+        public ArrayList<Availables_slots> getAvailable_slots() {
+            return available_slots;
         }
 
 
-
-
-        public class Availables_slots{
+        public class Availables_slots {
             @SerializedName("time_slot_id")
             private String time_slot_id;
 
@@ -131,9 +109,6 @@ public class TrainersResponse {
                 return end_time;
             }
 
-
-
         }
     }
-
 }

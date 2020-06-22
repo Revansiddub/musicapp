@@ -146,10 +146,10 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
         public void onClick(View view) {
             if (view.getId() == R.id.layoutTrainer) {
                 TrainersResponse.Trainers_list trainer = trainerList.get(getAdapterPosition());
-
-                Intent intent = new Intent(mCtx, SelectTimeSlotActivity.class);
+                Intent intent = new Intent(mCtx.getApplicationContext(), SelectTimeSlotActivity.class);
                 intent.putExtra(TRAINER_ID, trainer.getTrainer_id());
-                mCtx.startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mCtx.getApplicationContext().startActivity(intent);
             }
         }
     }

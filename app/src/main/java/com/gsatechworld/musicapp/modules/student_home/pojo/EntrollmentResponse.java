@@ -1,29 +1,44 @@
 package com.gsatechworld.musicapp.modules.student_home.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntrollmentResponse {
+    @SerializedName("status")
     private String response;
-    private String message;
-
-    public EntrollmentResponse(String response, String message, List<Entrollments> entrollmentsList) {
-        this.response = response;
-        this.message = message;
-        this.entrollmentsList = entrollmentsList;
-    }
 
     public String getResponse() {
         return response;
     }
 
-    public String getMessage() {
-        return message;
+    public ArrayList<Enrollment_details> getEnrollment_details() {
+        return enrollment_details;
     }
 
-    public List<Entrollments> getEntrollmentsList() {
-        return entrollmentsList;
+    @SerializedName("enrollment_details")
+    private ArrayList<Enrollment_details> enrollment_details;
+
+
+    public static class Enrollment_details {
+        @SerializedName("entrollment_name")
+        private String entrollment_name;
+
+        @SerializedName("entrollment_id")
+        private String entrollment_id;
+
+        public String getEntrollment_name() {
+            return entrollment_name;
+        }
+
+        public String getEntrollment_id() {
+            return entrollment_id;
+        }
+
+
+
+
+
     }
-
-    private List<Entrollments> entrollmentsList;
-
 }

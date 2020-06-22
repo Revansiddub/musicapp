@@ -15,19 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivitySelectTimeSlotBinding;
+import com.gsatechworld.musicapp.modules.select_time_slot.adapter.StudentTimeSlotAdapter;
 import com.gsatechworld.musicapp.modules.select_time_slot.adapter.TimeSlotAdapter;
 import com.gsatechworld.musicapp.modules.select_time_slot.adapter.TimeSlotAdapter.OnTimeSlotSelectedListener;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot;
 import com.gsatechworld.musicapp.modules.student_details.StudentDetailsActivity;
 
+import static com.gsatechworld.musicapp.utilities.Constants.END_TIME;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.Constants.START_TIME;
 import static com.gsatechworld.musicapp.utilities.Constants.TIME_SLOT;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
 public class SelectTimeSlotActivity extends BaseActivity implements OnClickListener,
-        OnTimeSlotSelectedListener {
+        OnTimeSlotSelectedListener, StudentTimeSlotAdapter.OnTimeSelectedListener {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -39,6 +42,8 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
     private TimeSlot selectedTimeSlot;
     RecyclerView recyclerView;
     public int position;
+    public StudentTimeSlotAdapter slotAdapter;
+    public String start_time,end_time;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -50,6 +55,9 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_time_slot);
+
+        trainerID = String.valueOf(getIntent().getIntExtra(TRAINER_ID,0));
+
         recyclerView=binding.recyclerTimeSlots;
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 DividerItemDecoration.VERTICAL);
@@ -64,21 +72,30 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        if (getIntent().getStringExtra(TRAINER_ID) != null)
-            trainerID = getIntent().getStringExtra(TRAINER_ID);
+
+
 
         fetchTimeSlots();
 
         /*Setting listeners to the view*/
-        binding.buttonNext.setOnClickListener(v -> {
-            Intent intent = new Intent(this, StudentDetailsActivity.class);
-            intent.putExtra(TRAINER_ID, trainerID);
-            intent.putExtra(TIME_SLOT, selectedTimeSlot);
-            startActivity(intent);
-        });
-
+//        binding.buttonNext.setOnClickListener(v -> {
+//            Intent intent = new Intent(this, StudentDetailsActivity.class);
+//            intent.putExtra(TRAINER_ID, trainerID);
+//            intent.putExtra(START_TIME,start_time);
+//            intent.putExtra(END_TIME,end_time);
+//            startActivity(intent);
+//        });
+         binding.buttonNext.setOnClickListener(this);
 
     }
+
+
+    @Override
+    public void onTimeAction(String startTime, String endTime) {
+        start_time= startTime;
+        end_time= endTime;
+    }
+
 
     /* ------------------------------------------------------------- *
      * Overriding onOptionsItemSelected Method
@@ -106,13 +123,18 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
      * Overriding OnClickListener Method
      * ------------------------------------------------------------- */
 
+
+
+
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.buttonNext) {
-            if (selectedTimeSlot != null) {
+            if (start_time != null && end_time !=null) {
                 Intent intent = new Intent(this, StudentDetailsActivity.class);
                 intent.putExtra(TRAINER_ID, trainerID);
-                intent.putExtra(TIME_SLOT, selectedTimeSlot);
+               // intent.putExtra(TIME_SLOT, selectedTimeSlot);
+                intent.putExtra(START_TIME,start_time);
+                intent.putExtra(END_TIME,end_time);
                 startActivity(intent);
             } else
                 showSnackBar(this, "Please select time slot first");
@@ -130,18 +152,22 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.fetchTimeSlots(trainerID).observe(this, availableTimeSlotResponse -> {
+            viewModel.fetchStudentsTimeslot(trainerID).observe(this, availableTimesSlotResponse -> {
                 hideLoadingIndicator();
 
-                if (availableTimeSlotResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (availableTimesSlotResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                     binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this,
                             2));
-//                    binding.recyclerTimeSlots.setAdapter(new TimeSlotAdapter(this,
-//                            availableTimeSlotResponse.getAvailable_slots().get(position).getSlot_details()));
+                    slotAdapter=new StudentTimeSlotAdapter(this,availableTimesSlotResponse.getAvailable_slots());
+                    slotAdapter.setClickListner(this);
+                   binding.recyclerTimeSlots.setAdapter(slotAdapter);
+
                 } else
-                    showSnackBar(this, availableTimeSlotResponse.getMessage());
+                    showSnackBar(this, availableTimesSlotResponse.getMessage());
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));
     }
+
+
 }

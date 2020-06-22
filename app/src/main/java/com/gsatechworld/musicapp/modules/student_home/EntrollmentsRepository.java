@@ -14,6 +14,10 @@ import com.gsatechworld.musicapp.utilities.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class EntrollmentsRepository {
     private NetworkAPI networkAPI;
 
@@ -26,15 +30,25 @@ public class EntrollmentsRepository {
     public LiveData<EntrollmentResponse> fetchEntrollments(String student_Id){
         MutableLiveData<EntrollmentResponse> responseMutableLiveData=new MutableLiveData<>();
 
-        List<Entrollments> entrollmentsList = new ArrayList<>();
-        entrollmentsList.add(new Entrollments("Guitar"));
-        entrollmentsList.add(new Entrollments("Violin"));
-        entrollmentsList.add(new Entrollments("Country Music"));
-        entrollmentsList.add(new Entrollments("Electronic Dance Music"));
+        networkAPI=NetworkService.getRetrofitInstance().create(NetworkAPI.class);
 
+        Call<EntrollmentResponse> responseCall=networkAPI.fetchEntrollments(student_Id);
 
+        responseCall.enqueue(new Callback<EntrollmentResponse>() {
+            @Override
+            public void onResponse(Call<EntrollmentResponse> call, Response<EntrollmentResponse> response) {
+                EntrollmentResponse entrollmentResponse=response.body();
+                if (entrollmentResponse != null){
+                    responseMutableLiveData.setValue(entrollmentResponse);
+                }
+            }
 
-        responseMutableLiveData.postValue(new EntrollmentResponse(Constants.SERVER_RESPONSE_SUCCESS,"Oops! something went wrong. Please try again later.",entrollmentsList));
+            @Override
+            public void onFailure(Call<EntrollmentResponse> call, Throwable t) {
+                responseMutableLiveData.setValue(null);
+            }
+        });
+
 
         return responseMutableLiveData;
 

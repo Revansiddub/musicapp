@@ -18,8 +18,13 @@ import com.gsatechworld.musicapp.modules.login.pojo.TrainerResponse;
 import com.gsatechworld.musicapp.modules.otp.pojo.TrainerOTPVerification;
 import com.gsatechworld.musicapp.modules.select_subcategory.add_subcategory.AddSubCategory;
 import com.gsatechworld.musicapp.modules.select_subcategory.pojo.CategoryResponse;
+import com.gsatechworld.musicapp.modules.select_time_slot.pojo.AvailableTimesSlotResponse;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainerInfo;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainersResponse;
+import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingRequest;
+import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingStudentResponse;
+import com.gsatechworld.musicapp.modules.student_home.pojo.EntrollmentResponse;
+import com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPaymentResponse;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
 import com.gsatechworld.musicapp.select_category.add_category.AddCategory;
 import com.gsatechworld.musicapp.select_category.pojo.CategoriesResponse;
@@ -98,7 +103,17 @@ public interface NetworkAPI {
    @POST("addAttendance")
    Call<CommonResponse> addAttendance(@Body AttendanceRequest request);
 
+   @GET("studentEnrollment")
+   Call<EntrollmentResponse> fetchEntrollments(@Query("student_id") String student_id);
 
+   @GET("studentsPendingPayments")
+   Call<StudentPaymentResponse> getStudentPayments(@Query("student_id") String student_id);
+
+    @POST("getAvailableTimeslot")
+    Call<AvailableTimesSlotResponse> fecthTimeslots(@Query("trainer_id") String trainer_id);
+
+    @POST("onBoardStudents")
+    Call<CommonResponse> studentRegister(@Body OnboardingRequest onboardingRequest);
 
 
 

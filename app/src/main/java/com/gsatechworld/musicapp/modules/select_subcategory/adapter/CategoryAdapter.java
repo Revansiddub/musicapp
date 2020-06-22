@@ -2,6 +2,7 @@ package com.gsatechworld.musicapp.modules.select_subcategory.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingD
 import com.gsatechworld.musicapp.modules.select_subcategory.SelectCategoryActivity;
 import com.gsatechworld.musicapp.modules.select_subcategory.pojo.SubCategory;
 import com.gsatechworld.musicapp.modules.select_trainer.SelectTrainerActivity;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,6 +149,12 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder>  {
                 intent.putExtra(SUBCATEGORY_ID, category.getSubcategoryID());
                 intent.putExtra(PIN_CODE, pinCode);
                 intent.putExtra(PINCODE_ID,pincode_Id);
+                SharedPreferences sharedPreferences=mCtx.getSharedPreferences(Constants.MyPREFERENCES,Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putString(CATEGORY_ID,categoryID);
+                editor.putString(SUBCATEGORY_ID,category.getSubcategoryID());
+                editor.putInt(PINCODE_ID,pincode_Id);
+                editor.commit();
                 mCtx.startActivity(intent);
 
 

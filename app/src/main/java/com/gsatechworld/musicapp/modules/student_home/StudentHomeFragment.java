@@ -115,7 +115,7 @@ public class StudentHomeFragment extends Fragment {
              baseActivity.hideLoadingIndicator();
              if (entrollmentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                  studentHomeBinding.recyclerEntrollments.setLayoutManager(new GridLayoutManager(getActivity(),2));
-                 studentHomeBinding.recyclerEntrollments.setAdapter(new EntrollmentAdapter(getActivity(),entrollmentResponse.getEntrollmentsList()));
+                 studentHomeBinding.recyclerEntrollments.setAdapter(new EntrollmentAdapter(getActivity(),entrollmentResponse.getEnrollment_details()));
              }
              else {
                  baseActivity.showSnackBar(requireNonNull(getActivity()),

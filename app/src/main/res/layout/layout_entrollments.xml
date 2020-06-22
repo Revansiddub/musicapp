@@ -5,7 +5,7 @@
 
         <variable
             name="entrollments"
-            type="com.gsatechworld.musicapp.modules.student_home.pojo.Entrollments" />
+            type="com.gsatechworld.musicapp.modules.student_home.pojo.EntrollmentResponse.Enrollment_details" />
     </data>
 
 
@@ -45,9 +45,9 @@
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimaryDark"
                     android:fontFamily="georgia"
-                    android:textSize="@dimen/size_20dp"
+                    android:textSize="@dimen/size_15dp"
                     android:layout_below="@id/image_entrollment"
-                    android:text="@{entrollments.name}"
+                    android:text="@{entrollments.entrollment_name}"
                     android:singleLine="true"
                     android:layout_centerInParent="true"/>
 

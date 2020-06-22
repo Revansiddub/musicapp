@@ -3,6 +3,7 @@ package com.gsatechworld.musicapp.modules.student_details;
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,14 +22,18 @@ import androidx.lifecycle.ViewModelProvider;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityStudentDetailsBinding;
+import com.gsatechworld.musicapp.modules.details.pojo.Slot_details;
+import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingRequest;
 import com.gsatechworld.musicapp.modules.student_details.pojo.StudentDetailsInfo;
 import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
+import com.gsatechworld.musicapp.utilities.Constants;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.CAMERA;
@@ -40,14 +45,21 @@ import static android.provider.MediaStore.Images.Media.getBitmap;
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.VISIBLE;
 import static com.bumptech.glide.Glide.with;
+import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.END_TIME;
 import static com.gsatechworld.musicapp.utilities.Constants.FEMALE;
 import static com.gsatechworld.musicapp.utilities.Constants.MALE;
 import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER_LENGTH;
 import static com.gsatechworld.musicapp.utilities.Constants.OPEN_GALLERY_REQUEST_CODE;
+import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.PROFILE_IMAGE;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.Constants.START_TIME;
 import static com.gsatechworld.musicapp.utilities.Constants.STEP_ONE_COMPLETE;
 import static com.gsatechworld.musicapp.utilities.Constants.STEP_TWO_COMPLETE;
+import static com.gsatechworld.musicapp.utilities.Constants.SUBCATEGORY_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static com.karumi.dexter.Dexter.withActivity;
 import static java.util.Objects.requireNonNull;
@@ -64,6 +76,9 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
     private Bitmap profileImageBitmap;
     private String uploadType;
     private String profileImage;
+    public String start_time,end_time;
+    public String pincode_id,category_id,sub_category_id,trainerID;
+    public ArrayList<Slot_details> timeSlotes;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -75,6 +90,19 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_student_details);
+
+        trainerID=getIntent().getStringExtra(TRAINER_ID);
+        start_time=getIntent().getStringExtra(START_TIME);
+        end_time=getIntent().getStringExtra(END_TIME);
+        timeSlotes = new ArrayList<>();
+        timeSlotes.add(new Slot_details(start_time,end_time));
+
+
+
+        SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        pincode_id=String.valueOf(sharedPreferences.getInt(PINCODE_ID,0));
+        category_id=sharedPreferences.getString(CATEGORY_ID,null);
+        sub_category_id=sharedPreferences.getString(SUBCATEGORY_ID,null);
 
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(StudentDetailsViewModel.class);
@@ -129,7 +157,9 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
                         token.continuePermissionRequest();
                     }
-                });
+                }).check();
+
+                break;
             case R.id.textMale:
                 binding.textMale.setTextColor(getResources().getColor(R.color.colorAccent));
                 binding.textMale.setCompoundDrawableTintList
@@ -181,8 +211,8 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.onBoardStudent(new StudentDetailsInfo(fullName, age, gender, standard,
-                    schoolName, mobileNumber, address)).observe(this, commonResponse -> {
+            viewModel.onBoardStudent(new OnboardingRequest(pincode_id,category_id,sub_category_id,timeSlotes,fullName, age, standard,
+                    schoolName,address, mobileNumber,trainerID,profileImage)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
 
                 if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))

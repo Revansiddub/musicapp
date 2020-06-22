@@ -147,7 +147,7 @@ public class StudentPaymentFragment extends Fragment {
                     binding.recyclerPayments.setLayoutManager(new LinearLayoutManager(getActivity()));
                     binding.recyclerPayments.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
                    // paymentAdapter.setActionListener();
-                    binding.recyclerPayments.setAdapter(new StudentPaymentAdapter(getActivity(), studentPaymentResponse.getPaymentList()));
+                    binding.recyclerPayments.setAdapter(new StudentPaymentAdapter(getActivity(), studentPaymentResponse.getPending_payments()));
 
                 } else {
                     baseActivity.showSnackBar(requireNonNull(getActivity()),

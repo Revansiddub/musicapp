@@ -14,6 +14,10 @@ public final class Constants {
     public static final String CATEGORY_NAME = "categoryName";
     public static final String TRAINER_ID = "trainerID";
     public static final String TIME_SLOT = "timeSlot";
+    public static final String START_TIME = "starttime";
+    public static final String END_TIME = "endtime";
+
+
 
     /* ------------------------------------------------------------- *
      * Fragment Tags

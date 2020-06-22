@@ -5,7 +5,7 @@
 
         <variable
             name="studentpayment"
-            type="com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPayment" />
+            type="com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPaymentResponse.Pending_payments" />
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
@@ -40,7 +40,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_marginLeft="@dimen/size_10dp"
                     android:layout_marginTop="@dimen/size_20dp"
-                    android:text="@{studentpayment.entrollment_name}"/>
+                    android:text="@{studentpayment.enrollment_name}"/>
 
                 <TextView
                     android:layout_width="wrap_content"

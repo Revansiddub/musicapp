@@ -121,14 +121,14 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
 
 
 
-            viewModel.fetchTrainers(new TrainerInfo(pincodeID, subcategoryID,categoryID)).observe(this,
+            viewModel.fetchTrainers(new TrainerInfo(pincodeID, categoryID,subcategoryID)).observe(this,
                     trainerResponse -> {
                         hideLoadingIndicator();
 
                         if (trainerResponse.getResponse().equals("success")){
                             binding.recyclerTrainer.setLayoutManager(new
                                     LinearLayoutManager(this, VERTICAL, false));
-                            adapter = new TrainerAdapter(this, trainerResponse.getTrainerList());
+                            adapter = new TrainerAdapter(this, trainerResponse.getTrainers_list());
                             binding.recyclerTrainer.setAdapter(adapter);
                         }
 

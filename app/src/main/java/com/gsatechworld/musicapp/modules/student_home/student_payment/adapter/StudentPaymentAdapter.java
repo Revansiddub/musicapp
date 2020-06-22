@@ -16,6 +16,7 @@ import com.gsatechworld.musicapp.databinding.LayoutEarningBinding;
 import com.gsatechworld.musicapp.databinding.LayoutStudentPaymentsBinding;
 import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAdapter;
 import com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPayment;
+import com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPaymentResponse;
 
 import java.util.List;
 
@@ -24,10 +25,10 @@ import static androidx.databinding.DataBindingUtil.inflate;
 
 public class StudentPaymentAdapter extends RecyclerView.Adapter<StudentPaymentAdapter.PaymentViewHolder> {
     public Context context;
-    public List<StudentPayment> paymentList;
+    public List<StudentPaymentResponse.Pending_payments> paymentList;
     public onStudentPaymentListener listener;
 
-    public StudentPaymentAdapter(Context context, List<StudentPayment> paymentList) {
+    public StudentPaymentAdapter(Context context, List<StudentPaymentResponse.Pending_payments> paymentList) {
         this.context = context;
         this.paymentList = paymentList;
     }
@@ -43,7 +44,7 @@ public class StudentPaymentAdapter extends RecyclerView.Adapter<StudentPaymentAd
 
     @Override
     public void onBindViewHolder(@NonNull PaymentViewHolder holder, int position) {
-    StudentPayment payment=paymentList.get(position);
+    StudentPaymentResponse.Pending_payments payment=paymentList.get(position);
     holder.binding.setStudentpayment(payment);
     holder.binding.buttonPay.setOnClickListener(v -> {
      listener.onActionPerformed();

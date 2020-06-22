@@ -62,6 +62,7 @@ private SelectCategoriesViewModel viewModel;
             pinCodeId=getIntent().getIntExtra(PINCODE_ID,0);
 
 
+
             if (userType.equals(STUDENT))
                 binding.textCategoryNotFound.setVisibility(GONE);
         }
