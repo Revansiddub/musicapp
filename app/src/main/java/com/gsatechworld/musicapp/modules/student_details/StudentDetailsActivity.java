@@ -78,7 +78,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
     private String profileImage;
     public String start_time,end_time;
     public String pincode_id,category_id,sub_category_id,trainerID;
-    public ArrayList<Slot_details> timeSlotes;
+    public ArrayList<OnboardingRequest.Slots_Details> timeSlotes;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -95,7 +95,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         start_time=getIntent().getStringExtra(START_TIME);
         end_time=getIntent().getStringExtra(END_TIME);
         timeSlotes = new ArrayList<>();
-        timeSlotes.add(new Slot_details(start_time,end_time));
+        timeSlotes.add(new OnboardingRequest.Slots_Details(start_time,end_time));
 
 
 

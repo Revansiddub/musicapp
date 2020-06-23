@@ -5,12 +5,20 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.databinding.FragmentStudentProfileBinding;
+import com.gsatechworld.musicapp.modules.home.approval.ApprovalViewModel;
+import com.gsatechworld.musicapp.utilities.Constants;
+
+import static androidx.databinding.DataBindingUtil.inflate;
+import static androidx.databinding.DataBindingUtil.setDefaultComponent;
+import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +39,8 @@ public class StudentProfileFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    public ProfileViewModel profileViewModel;
+    public FragmentStudentProfileBinding profileBinding;
 
     public StudentProfileFragment() {
         // Required empty public constructor
@@ -67,7 +77,16 @@ public class StudentProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_profile, container, false);
+        profileBinding = inflate(inflater, R.layout.fragment_student_profile, container, false);
+
+        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+
+
+        fetchStudentProfile();
+
+
+
+        return profileBinding.getRoot();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +123,17 @@ public class StudentProfileFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void fetchStudentProfile(){
+        if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
+         String student_id="1";
+         profileViewModel.fetchStudentProfile(student_id).observe(getViewLifecycleOwner(),studentProfileResponse -> {
+             if (studentProfileResponse.getStatus().equals(Constants.SERVER_RESPONSE_SUCCESS)){
+                 profileBinding.setStudentprofile(studentProfileResponse);
+
+             }
+         });
+        }
     }
 }

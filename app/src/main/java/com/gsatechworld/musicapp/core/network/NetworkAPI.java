@@ -25,6 +25,7 @@ import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingRequest;
 import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingStudentResponse;
 import com.gsatechworld.musicapp.modules.student_home.pojo.EntrollmentResponse;
 import com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPaymentResponse;
+import com.gsatechworld.musicapp.modules.student_home.student_profile.pojo.StudentProfileResponse;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
 import com.gsatechworld.musicapp.select_category.add_category.AddCategory;
 import com.gsatechworld.musicapp.select_category.pojo.CategoriesResponse;
@@ -114,6 +115,9 @@ public interface NetworkAPI {
 
     @POST("onBoardStudents")
     Call<CommonResponse> studentRegister(@Body OnboardingRequest onboardingRequest);
+
+    @GET("studentProfile")
+    Call<StudentProfileResponse> fetchstudentProfile(@Query("student_id") String student_id);
 
 
 

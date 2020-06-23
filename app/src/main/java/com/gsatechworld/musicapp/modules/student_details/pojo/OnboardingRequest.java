@@ -16,7 +16,7 @@ public class OnboardingRequest {
     public String sub_category_id;
 
     @SerializedName("slot_details")
-    public ArrayList<Slot_Details> slot_details;
+    public ArrayList<Slots_Details> slot_details;
 
     @SerializedName("name")
     public String name;
@@ -40,7 +40,7 @@ public class OnboardingRequest {
     @SerializedName("trainer_id")
     public String trainer_id;
 
-    public OnboardingRequest(String pincode_id, String category_id, String sub_category_id, ArrayList<Slot_Details> slot_details, String name, String age, String standard, String school_name, String address, String mobile_number, String trainer_id, String profile_image) {
+    public OnboardingRequest(String pincode_id, String category_id, String sub_category_id, ArrayList<Slots_Details> slot_details, String name, String age, String standard, String school_name, String address, String mobile_number, String trainer_id, String profile_image) {
         this.pincode_id = pincode_id;
         this.category_id = category_id;
         this.sub_category_id = sub_category_id;
@@ -76,7 +76,7 @@ public class OnboardingRequest {
         return category_id;
     }
 
-    public ArrayList<Slot_Details> getSlot_details() {
+    public ArrayList<Slots_Details> getSlot_details() {
         return slot_details;
     }
 
@@ -109,12 +109,28 @@ public class OnboardingRequest {
     }
 
 
+    public static class Slots_Details {
+        @SerializedName("start_time")
+        private String start_time;
+
+        @SerializedName("end_time")
+        private String end_time;
+
+        public Slots_Details(String start_time, String end_time) {
+            this.start_time = start_time;
+            this.end_time = end_time;
+        }
+
+        public String getStart_time() {
+            return start_time;
+        }
+
+        public String getEnd_time() {
+            return end_time;
+        }
 
 
 
 
-
-
-
-
+    }
 }
