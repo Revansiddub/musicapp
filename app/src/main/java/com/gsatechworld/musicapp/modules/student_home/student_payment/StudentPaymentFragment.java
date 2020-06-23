@@ -1,10 +1,15 @@
 package com.gsatechworld.musicapp.modules.student_home.student_payment;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,11 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.FragmentStudentPaymentBinding;
+import com.gsatechworld.musicapp.modules.home.payment.adapter.PaymentRequestAdapter;
+import com.gsatechworld.musicapp.modules.student_home.student_payment.adapter.MyDialogFragment;
 import com.gsatechworld.musicapp.modules.student_home.student_payment.adapter.StudentPaymentAdapter;
+import com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPaymentRequest;
 import com.gsatechworld.musicapp.utilities.Constants;
 
 import static android.widget.LinearLayout.VERTICAL;
@@ -35,7 +47,7 @@ import static java.util.Objects.requireNonNull;
  * Use the {@link StudentPaymentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StudentPaymentFragment extends Fragment {
+public class StudentPaymentFragment extends Fragment implements StudentPaymentAdapter.onStudentPaymentListener, MyDialogFragment.onStudentPaymentListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -48,11 +60,22 @@ public class StudentPaymentFragment extends Fragment {
     private String mParam2;
     public StudentPaymentViewModel paymentViewModel;
 
+    public PaymentRequestViewModel requestViewModel;
+
     private BaseActivity baseActivity;
+
+    public StudentPaymentAdapter paymentAdapter;
+
+    public Context context;
 
     private OnFragmentInteractionListener mListener;
 
-    StudentPaymentAdapter paymentAdapter;
+    private MyDialogFragment.onStudentPaymentListener onStudentPaymentListener;
+
+    private StudentPaymentAdapter.onStudentPaymentListener listener;
+
+    public String paymentamount,entrollment_id;
+
 
     public StudentPaymentFragment() {
         // Required empty public constructor
@@ -93,6 +116,15 @@ public class StudentPaymentFragment extends Fragment {
 
         paymentViewModel= new ViewModelProvider(this).get(StudentPaymentViewModel.class);
 
+        requestViewModel=new ViewModelProvider(this).get(PaymentRequestViewModel.class);
+
+        if (listener != null){
+            SharedPreferences sharedPreferences=context.getSharedPreferences(Constants.MyPREFERENCES,Context.MODE_PRIVATE);
+            entrollment_id=sharedPreferences.getString(Constants.ENTROLLMENT_ID,null);
+        }
+
+
+
         baseActivity = (BaseActivity) getActivity();
 
         fetchingPaymentDetals();
@@ -122,6 +154,25 @@ public class StudentPaymentFragment extends Fragment {
         mListener = null;
     }
 
+
+
+    @Override
+    public void onActionPerformed(View v,String entrollment_id) {
+        this.entrollment_id=entrollment_id;
+        MyDialogFragment dialogFragment=new MyDialogFragment();
+        dialogFragment.show(getFragmentManager(),"Payment");
+        dialogFragment.setActionListener(this);
+    }
+
+
+    @Override
+    public void onActionListener(String amount) {
+
+        paymentamount=String.valueOf(amount);
+
+        paymentRequest();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -146,8 +197,9 @@ public class StudentPaymentFragment extends Fragment {
                 if (studentPaymentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)) {
                     binding.recyclerPayments.setLayoutManager(new LinearLayoutManager(getActivity()));
                     binding.recyclerPayments.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
-                   // paymentAdapter.setActionListener();
-                    binding.recyclerPayments.setAdapter(new StudentPaymentAdapter(getActivity(), studentPaymentResponse.getPending_payments()));
+                    paymentAdapter=new StudentPaymentAdapter(getActivity(),studentPaymentResponse.getPending_payments(),this);
+                    paymentAdapter.setActionListener(this);
+                    binding.recyclerPayments.setAdapter(paymentAdapter);
 
                 } else {
                     baseActivity.showSnackBar(requireNonNull(getActivity()),
@@ -155,5 +207,22 @@ public class StudentPaymentFragment extends Fragment {
                 }
             });
         }
+    }
+
+    public void paymentRequest(){
+
+        Toast.makeText(getActivity(),"Payement Request Sent Successfully",Toast.LENGTH_SHORT).show();
+        if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
+            String student_id="1";
+            requestViewModel.sendPaymentRequest(new StudentPaymentRequest(student_id,entrollment_id,paymentamount)).observe(getViewLifecycleOwner(),commonResponse -> {
+                if (commonResponse.getStatus().equals(Constants.SERVER_RESPONSE_SUCCESS)){
+                    baseActivity.openSuccessDialog("Payment Request Send Successfully");
+                }
+            });
+
+        }
+
+
+
     }
 }

@@ -48,6 +48,7 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
     public String trainerId;
     public  int position;
 
+
     private BaseActivity baseActivity;
 
     // TODO: Rename and change types of parameters

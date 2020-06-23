@@ -16,6 +16,7 @@ import com.gsatechworld.musicapp.modules.login.pojo.StudentResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerResponse;
 import com.gsatechworld.musicapp.modules.otp.pojo.TrainerOTPVerification;
+import com.gsatechworld.musicapp.modules.otp.student.StudentOTPRequest;
 import com.gsatechworld.musicapp.modules.select_subcategory.add_subcategory.AddSubCategory;
 import com.gsatechworld.musicapp.modules.select_subcategory.pojo.CategoryResponse;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.AvailableTimesSlotResponse;
@@ -23,7 +24,10 @@ import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainerInfo;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainersResponse;
 import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingRequest;
 import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingStudentResponse;
+import com.gsatechworld.musicapp.modules.student_home.pojo.AddEntrollmentRequest;
 import com.gsatechworld.musicapp.modules.student_home.pojo.EntrollmentResponse;
+import com.gsatechworld.musicapp.modules.student_home.pojo.UpcomingResponse;
+import com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPaymentRequest;
 import com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPaymentResponse;
 import com.gsatechworld.musicapp.modules.student_home.student_profile.pojo.StudentProfileResponse;
 import com.gsatechworld.musicapp.modules.welcome.pojo.PinCodeInfo;
@@ -118,6 +122,18 @@ public interface NetworkAPI {
 
     @GET("studentProfile")
     Call<StudentProfileResponse> fetchstudentProfile(@Query("student_id") String student_id);
+
+    @POST("studentsPaymentsRequest")
+    Call<CommonResponse> studentsPaymentRequests(@Body StudentPaymentRequest paymentRequest);
+
+    @POST("addEnrollment")
+    Call<CommonResponse> addnewEntrollment(@Body AddEntrollmentRequest entrollmentRequest);
+
+    @GET("upcomingClass")
+    Call<UpcomingResponse> upcomingResponse(@Query("student_id") String student_id);
+
+    @POST("loginStudents/verifyOtp")
+    Call<CommonResponse> verfyStudentOTP(@Body StudentOTPRequest otpRequest);
 
 
 

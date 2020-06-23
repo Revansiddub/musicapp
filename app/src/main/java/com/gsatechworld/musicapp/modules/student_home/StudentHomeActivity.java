@@ -15,6 +15,7 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityStudentHomeBinding;
 import com.gsatechworld.musicapp.modules.student_home.student_payment.StudentPaymentFragment;
 import com.gsatechworld.musicapp.modules.student_home.student_profile.StudentProfileFragment;
+import com.gsatechworld.musicapp.modules.student_home.student_settings.SettingsFragment;
 import com.gsatechworld.musicapp.utilities.Constants;
 
 public class StudentHomeActivity extends BaseActivity  {
@@ -41,8 +42,9 @@ public class StudentHomeActivity extends BaseActivity  {
                     case R.id.navigationProfile:
                         openFragment(new StudentProfileFragment(), Constants.STUDENT_PROFILE_FRAGMENT_TAG);
                         break;
-
-
+                    case R.id.navigationSettings:
+                        openFragment(new StudentPaymentFragment(),Constants.STUDENT_PROFILE_SETTINGS_TAG);
+                        break;
                 }
                 return false;
             }

@@ -16,6 +16,8 @@ public final class Constants {
     public static final String TIME_SLOT = "timeSlot";
     public static final String START_TIME = "starttime";
     public static final String END_TIME = "endtime";
+    public static final String ENTROLLMENT_ID="entrollment_id";
+
 
 
 
@@ -33,6 +35,7 @@ public final class Constants {
     public static final String STUDENT_HOME_FRAGMENT_TAG = "studentHomeTag";
     public static final String STUDENT_PAYMENT_FRAGMENT_TAG = "studentPaymentTag";
     public static final String STUDENT_PROFILE_FRAGMENT_TAG = "studentProfileTag";
+    public static final String STUDENT_PROFILE_SETTINGS_TAG = "studentProfileSettingsTag";
 
 
 

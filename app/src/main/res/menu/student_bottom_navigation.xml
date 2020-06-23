@@ -15,6 +15,13 @@
         android:icon="@drawable/ic_person_black_24dp"
         android:title="@string/profile" />
 
+    <item
+        android:id="@+id/navigationSettings"
+        android:icon="@drawable/icon_settings"
+        android:title="@string/settings" />
+
+
+
 
 
 </menu>
