@@ -135,6 +135,7 @@ public class TrainerOtpVerification extends BaseActivity {
     }
 
     public void verifyTrainerOTP(String otp){
+
         otpViewModel.verifyTrainerOTP(new TrainerOTPVerification(phone,otp)).observe(this,commonResponse -> {
             if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                 openSuccessDialog("OTP Verification successfully Completed.");

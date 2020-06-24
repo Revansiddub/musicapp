@@ -23,9 +23,11 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityStudentDetailsBinding;
 import com.gsatechworld.musicapp.modules.details.pojo.Slot_details;
+import com.gsatechworld.musicapp.modules.otp.StudentOTPVerificationActivity;
 import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingRequest;
 import com.gsatechworld.musicapp.modules.student_details.pojo.StudentDetailsInfo;
 import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
+import com.gsatechworld.musicapp.modules.welcome.WelcomeActivity;
 import com.gsatechworld.musicapp.utilities.Constants;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -108,9 +110,11 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         viewModel = new ViewModelProvider(this).get(StudentDetailsViewModel.class);
 
         /*Setting Screen title*/
-        binding.layoutBase.toolbar.setTitle("Enter Details");
+        binding.layout.toolbar.setTitle("Enter Details");
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+
 
         /*Setting listeners to the views*/
         binding.textMale.setOnClickListener(this);
@@ -207,21 +211,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
     /**
      * This method is invoked to store student details in server.
      */
-    private void onBoardStudent() {
-        if (getNetworkInstance(this).isConnectedToInternet()) {
-            showLoadingIndicator();
 
-            viewModel.onBoardStudent(new OnboardingRequest(pincode_id,category_id,sub_category_id,timeSlotes,fullName, age, standard,
-                    schoolName,address, mobileNumber,trainerID,profileImage)).observe(this, commonResponse -> {
-                hideLoadingIndicator();
-
-                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
-                    openSuccessDialog("Your details have been submitted successfully.");
-                     startActivity(new Intent(this,StudentHomeActivity.class));
-            });
-        } else
-            showSnackBar(this, getString(R.string.no_internet_message));
-    }
 
     /**
      * This method is invoked to validate all fields present in this screen.
@@ -343,6 +333,24 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
             }
         };
         backgroundThread.start();
+    }
+
+    private void onBoardStudent() {
+        if (getNetworkInstance(this).isConnectedToInternet()) {
+            showLoadingIndicator();
+            profileImage
+                    =encodeToBase64(profileImageBitmap);
+            viewModel.onBoardStudent(new OnboardingRequest(pincode_id,category_id,sub_category_id,timeSlotes,fullName, age, standard,
+                    schoolName,address, mobileNumber,trainerID,profileImage)).observe(this, commonResponse -> {
+                hideLoadingIndicator();
+
+                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
+                    encodeDocuments();
+                    openSuccessDialog("Your details have been submitted successfully.");
+                startActivity(new Intent(this, WelcomeActivity.class));
+            });
+        } else
+            showSnackBar(this, getString(R.string.no_internet_message));
     }
 
     @SuppressLint("HandlerLeak")

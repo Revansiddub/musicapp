@@ -1,0 +1,158 @@
+package com.gsatechworld.musicapp.modules.otp;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+
+import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.databinding.ActivityStudentOtpverificationBinding;
+import com.gsatechworld.musicapp.modules.otp.pojo.TrainerOTPViewModel;
+import com.gsatechworld.musicapp.modules.otp.student.StudentOTPRequest;
+import com.gsatechworld.musicapp.modules.otp.student.StudentOTPViewModel;
+import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
+import com.gsatechworld.musicapp.utilities.Constants;
+
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_FAILED;
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
+
+public class StudentOTPVerificationActivity extends BaseActivity {
+public ActivityStudentOtpverificationBinding otpverificationBinding;
+public StudentOTPViewModel viewModel;
+public String mobile_number;
+public String otp;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        otpverificationBinding= DataBindingUtil.setContentView(this,R.layout.activity_student_otpverification);
+
+
+
+        SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        mobile_number=sharedPreferences.getString(Constants.MOBILE_NUMBER,null);
+
+        viewModel= new ViewModelProvider(this).get(StudentOTPViewModel.class);
+
+        otpverificationBinding.etOtp1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 1) {
+                    otpverificationBinding.etOtp2.requestFocus();
+                }
+            }
+        });
+
+        otpverificationBinding.etOtp2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    otpverificationBinding.etOtp3.requestFocus();
+                } else {
+                    otpverificationBinding.etOtp1.requestFocus();
+                }
+            }
+        });
+
+        otpverificationBinding.etOtp3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    otpverificationBinding.etOtp4.requestFocus();
+                } else {
+                    otpverificationBinding.etOtp2.requestFocus();
+                }
+            }
+        });
+
+        otpverificationBinding.etOtp4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    otpverificationBinding.etOtp3.requestFocus();
+                }
+            }
+        });
+
+
+
+        otpverificationBinding.buttonSubmit.setOnClickListener(v -> {
+            otp = otpverificationBinding.etOtp1.getText().toString() + otpverificationBinding.etOtp2.getText().toString() + otpverificationBinding.etOtp3.getText().toString()
+                    + otpverificationBinding.etOtp4.getText().toString();
+
+            verifyStudentOTP(otp);
+
+        });
+
+
+
+
+
+
+
+
+    }
+
+    public void verifyStudentOTP(String OTP){
+        if (getNetworkInstance(this).isConnectedToInternet()) {
+            showLoadingIndicator();
+
+            viewModel.verifyStudentOTP(new StudentOTPRequest(mobile_number,OTP,"1234")).observe(this,commonResponse -> {
+                hideLoadingIndicator();
+                if (commonResponse.getStatus().equals(SERVER_RESPONSE_FAILED)){
+                    openSuccessDialog("OTP Verification successfully Completed.");
+                    startActivity(new Intent(this, StudentHomeActivity.class));
+                }
+            });
+        }
+
+    }
+}

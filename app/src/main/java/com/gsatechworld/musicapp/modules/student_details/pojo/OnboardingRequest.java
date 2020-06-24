@@ -12,7 +12,7 @@ public class OnboardingRequest {
     @SerializedName("category_id")
     public String category_id;
 
-    @SerializedName("sub_category_id")
+    @SerializedName("subcategory_id")
     public String sub_category_id;
 
     @SerializedName("slot_details")
@@ -40,6 +40,11 @@ public class OnboardingRequest {
     @SerializedName("trainer_id")
     public String trainer_id;
 
+    @SerializedName("profile_image")
+    public String profile_image;
+
+
+
     public OnboardingRequest(String pincode_id, String category_id, String sub_category_id, ArrayList<Slots_Details> slot_details, String name, String age, String standard, String school_name, String address, String mobile_number, String trainer_id, String profile_image) {
         this.pincode_id = pincode_id;
         this.category_id = category_id;
@@ -55,8 +60,7 @@ public class OnboardingRequest {
         this.profile_image = profile_image;
     }
 
-    @SerializedName("profile_image")
-    public String profile_image;
+
 
     public String getSub_category_id() {
         return sub_category_id;

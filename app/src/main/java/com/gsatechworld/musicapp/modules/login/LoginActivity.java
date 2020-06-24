@@ -24,12 +24,14 @@ import com.gsatechworld.musicapp.modules.home.HomeActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.TrainerHomeFragment;
 import com.gsatechworld.musicapp.modules.login.pojo.StudentResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
+import com.gsatechworld.musicapp.modules.otp.StudentOTPVerificationActivity;
 import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
 import com.gsatechworld.musicapp.utilities.Constants;
 
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER;
 import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER_LENGTH;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT;
@@ -131,7 +133,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
 
 
                     else
-                        authenticateStudent(mobileNumber);
+                        authenticateStudent();
 
                 break;
         }
@@ -176,34 +178,39 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
     /**
      * This method is invoked to check entered credentials of any student or not.
      */
-//    private void authenticateStudent() {
-//        if (getNetworkInstance(this).isConnectedToInternet()) {
-//            showLoadingIndicator();
-//
-//            viewModel.authenticateStudent(mobileNumber).observe(this, studentResponse -> {
-//                hideLoadingIndicator();
-//
-//                if (studentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
-//
-//                    startActivity(new Intent(this, StudentHomeActivity.class));
-//                } else
-//                    showSnackBar(this, studentResponse.getMessage());
-//            });
-//        } else
-//            showSnackBar(this, getString(R.string.no_internet_message));
-//    }
+    private void authenticateStudent() {
+        if (getNetworkInstance(this).isConnectedToInternet()) {
+            showLoadingIndicator();
 
+            viewModel.authenticateStudent(mobileNumber).observe(this, studentResponse -> {
+                hideLoadingIndicator();
 
-    LiveData<StudentResponse> authenticateStudent(String mobileNumber) {
-        MutableLiveData<StudentResponse> studentMutableLiveData = new MutableLiveData<>();
+                if (studentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                    SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
 
-        studentMutableLiveData.postValue(new StudentResponse(SERVER_RESPONSE_SUCCESS,
-                "Oops! something went wrong. Please try again later.", ""));
+                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                    editor.putString(MOBILE_NUMBER,mobileNumber);
+                    editor.commit();
 
-        startActivity(new Intent(this,StudentHomeActivity.class));
-
-        return studentMutableLiveData;
+                    startActivity(new Intent(this, StudentOTPVerificationActivity.class));
+                } else
+                    showSnackBar(this, studentResponse.getMessage());
+            });
+        } else
+            showSnackBar(this, getString(R.string.no_internet_message));
     }
+
+
+//    LiveData<StudentResponse> authenticateStudent(String mobileNumber) {
+//        MutableLiveData<StudentResponse> studentMutableLiveData = new MutableLiveData<>();
+//
+//        studentMutableLiveData.postValue(new StudentResponse(SERVER_RESPONSE_SUCCESS,
+//                "Oops! something went wrong. Please try again later.", ""));
+//
+//        startActivity(new Intent(this,StudentHomeActivity.class));
+//
+//        return studentMutableLiveData;
+//    }
 
     /**
      * This method is invoked to validate all fields present in this screen.

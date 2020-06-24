@@ -76,8 +76,10 @@ public final class Constants {
     public static String MyPREFERENCES = "Music app";
     public static String TrainerId = "trainerId";
     public static String IsTrainerLogin = "isTrainerLogin";
+    public static String IsStudentLogin="isStudentLogin";
     public static String TrainerType = "type";
     public static int PincodeId =0;
+    public static String MOBILE_NUMBER="mobileNumber";
 
     /* ------------------------------------------------------------- *
      * Network Call Keys

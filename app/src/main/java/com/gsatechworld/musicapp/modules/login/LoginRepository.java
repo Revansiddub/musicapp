@@ -64,7 +64,7 @@ class LoginRepository {
         return trainerMutableLiveData;
     }
 
-    LiveData<StudentResponse> authenticateStudent(String mobileNumber) {
+    public LiveData<StudentResponse> authenticateStudent(String mobileNumber) {
         MutableLiveData<StudentResponse> studentMutableLiveData = new MutableLiveData<>();
 
         networkAPI=NetworkService.getRetrofitInstance().create(NetworkAPI.class);
