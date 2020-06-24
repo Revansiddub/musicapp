@@ -2,6 +2,7 @@ package com.gsatechworld.musicapp.modules.student_home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import com.gsatechworld.musicapp.modules.student_home.adapter.EntrollmentAdapter
 import com.gsatechworld.musicapp.select_category.SelectCategoriesActivity;
 import com.gsatechworld.musicapp.utilities.Constants;
 
+import static android.content.Context.MODE_PRIVATE;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
@@ -49,6 +51,12 @@ public class StudentHomeFragment extends Fragment {
     private BaseActivity baseActivity;
 
     FragmentStudentHomeBinding studentHomeBinding;
+
+    public String student_id;
+
+    public Context context;
+
+    public boolean isRegisteredStudent;
 
     public StudentHomeFragment() {
         // Required empty public constructor
@@ -89,6 +97,9 @@ public class StudentHomeFragment extends Fragment {
 
         entrollmentsViewModel=new ViewModelProvider(getActivity()).get(EntrollmentsViewModel.class);
 
+        SharedPreferences preferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        student_id=preferences.getString(Constants.STUDENT_ID,null);
+
         baseActivity = (BaseActivity) getActivity();
 
         fetchEntrollemntDetals();
@@ -97,6 +108,8 @@ public class StudentHomeFragment extends Fragment {
             Intent intent=new Intent(getActivity(),SelectCategoriesActivity.class);
             intent.putExtra(Constants.PIN_CODE,"560078");
             intent.putExtra(Constants.USER_TYPE,"Student");
+            SharedPreferences sharedPreferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
             startActivity(intent);
 
         });
@@ -110,8 +123,8 @@ public class StudentHomeFragment extends Fragment {
             baseActivity.showLoadingIndicator();
 
 
-            String student_Id="1";
-            entrollmentsViewModel.fetchStudentEntrollments(student_Id).observe(getViewLifecycleOwner(),entrollmentResponse -> {
+            //String student_Id="1";
+            entrollmentsViewModel.fetchStudentEntrollments(student_id).observe(getViewLifecycleOwner(),entrollmentResponse -> {
              baseActivity.hideLoadingIndicator();
              if (entrollmentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                  studentHomeBinding.recyclerEntrollments.setLayoutManager(new GridLayoutManager(getActivity(),2));
@@ -162,4 +175,6 @@ public class StudentHomeFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

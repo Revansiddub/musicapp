@@ -110,7 +110,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         viewModel = new ViewModelProvider(this).get(StudentDetailsViewModel.class);
 
         /*Setting Screen title*/
-        binding.layout.toolbar.setTitle("Enter Details");
+        binding.layoutBase.toolbar.setTitle("Enter Details");
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 

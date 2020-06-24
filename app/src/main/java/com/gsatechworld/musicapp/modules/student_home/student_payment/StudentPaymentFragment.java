@@ -34,6 +34,7 @@ import com.gsatechworld.musicapp.modules.student_home.student_payment.adapter.St
 import com.gsatechworld.musicapp.modules.student_home.student_payment.pojo.StudentPaymentRequest;
 import com.gsatechworld.musicapp.utilities.Constants;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.widget.LinearLayout.VERTICAL;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
@@ -74,7 +75,7 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
 
     private StudentPaymentAdapter.onStudentPaymentListener listener;
 
-    public String paymentamount,entrollment_id;
+    public String paymentamount,entrollment_id,student_id;
 
 
     public StudentPaymentFragment() {
@@ -113,6 +114,9 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding=inflate(inflater, R.layout.fragment_student_payment, container, false);
+
+        SharedPreferences preferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        student_id=preferences.getString(Constants.STUDENT_ID,null);
 
         paymentViewModel= new ViewModelProvider(this).get(StudentPaymentViewModel.class);
 
@@ -191,8 +195,7 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
     public void fetchingPaymentDetals() {
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
             baseActivity.showLoadingIndicator();
-            String studentId = "1";
-            paymentViewModel.fetchStudentPayment(studentId).observe(getViewLifecycleOwner(), studentPaymentResponse -> {
+            paymentViewModel.fetchStudentPayment(student_id).observe(getViewLifecycleOwner(), studentPaymentResponse -> {
                 baseActivity.hideLoadingIndicator();
                 if (studentPaymentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)) {
                     binding.recyclerPayments.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -213,7 +216,6 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
 
         Toast.makeText(getActivity(),"Payement Request Sent Successfully",Toast.LENGTH_SHORT).show();
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
-            String student_id="1";
             requestViewModel.sendPaymentRequest(new StudentPaymentRequest(student_id,entrollment_id,paymentamount)).observe(getViewLifecycleOwner(),commonResponse -> {
                 if (commonResponse.getStatus().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                     baseActivity.openSuccessDialog("Payment Request Send Successfully");

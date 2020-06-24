@@ -17,6 +17,7 @@ import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerResponse;
 import com.gsatechworld.musicapp.modules.otp.pojo.TrainerOTPVerification;
 import com.gsatechworld.musicapp.modules.otp.student.StudentOTPRequest;
+import com.gsatechworld.musicapp.modules.otp.student.pojo.StudentOTPResponse;
 import com.gsatechworld.musicapp.modules.select_subcategory.add_subcategory.AddSubCategory;
 import com.gsatechworld.musicapp.modules.select_subcategory.pojo.CategoryResponse;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.AvailableTimesSlotResponse;
@@ -133,7 +134,7 @@ public interface NetworkAPI {
     Call<UpcomingResponse> upcomingResponse(@Query("student_id") String student_id);
 
     @POST("loginStudents/verifyOtp")
-    Call<CommonResponse> verfyStudentOTP(@Body StudentOTPRequest otpRequest);
+    Call<StudentOTPResponse> verfyStudentOTP(@Body StudentOTPRequest otpRequest);
 
 
 

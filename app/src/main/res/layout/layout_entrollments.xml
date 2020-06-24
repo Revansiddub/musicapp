@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,10 +10,10 @@
     </data>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="@dimen/size_170dp"
-        android:layout_height="@dimen/size_170dp">
+        android:layout_height="@dimen/size_200dp">
 
 
 
@@ -42,14 +43,16 @@
                     android:id="@+id/entrollement_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:fontFamily="georgia"
-                    android:textSize="@dimen/size_15dp"
                     android:layout_below="@id/image_entrollment"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="georgia"
+                    android:singleLine="false"
+                    android:gravity="center_horizontal"
+                    android:maxLines="2"
                     android:text="@{entrollments.entrollment_name}"
-                    android:singleLine="true"
-                    android:layout_centerInParent="true"/>
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="bold" />
 
 
 

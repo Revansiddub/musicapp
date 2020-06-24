@@ -8,7 +8,7 @@
         android:id="@+id/layoutWelcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F0F8FF"
+        android:background="#F8F8FF"
         android:gravity="center_vertical"
         >
 
@@ -51,7 +51,7 @@
                         android:layout_centerVertical="true"
                         android:padding="@dimen/size_10dp"
                         android:layout_marginTop="@dimen/size_20dp"
-                        android:src="@drawable/ic_music_note" />
+                        android:src="@drawable/musicapp_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
                         android:layout_below="@id/appLogo"
                         android:layout_marginTop="@dimen/size_5dp"
                         android:layout_marginBottom="@dimen/size_20dp"
-                        android:fontFamily="georgia"
+                        android:fontFamily="@font/artifika"
                         android:text="Register"
                         android:textColor="@color/white"
                         android:textSize="@dimen/size_20dp" />

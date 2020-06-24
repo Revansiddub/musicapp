@@ -22,6 +22,7 @@ import com.gsatechworld.musicapp.utilities.Constants;
 
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_FAILED;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 
 public class StudentOTPVerificationActivity extends BaseActivity {
@@ -145,10 +146,15 @@ public String otp;
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.verifyStudentOTP(new StudentOTPRequest(mobile_number,OTP,"1234")).observe(this,commonResponse -> {
+            viewModel.verifyStudentOTP(new StudentOTPRequest(mobile_number,OTP,"1234")).observe(this,studentOTPResponse -> {
                 hideLoadingIndicator();
-                if (commonResponse.getStatus().equals(SERVER_RESPONSE_FAILED)){
+                if (studentOTPResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     openSuccessDialog("OTP Verification successfully Completed.");
+                    String student_id=studentOTPResponse.getStudent_id();
+                    SharedPreferences preferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+                    SharedPreferences.Editor editor=preferences.edit();
+                    editor.putString(STUDENT_ID,student_id);
+                    editor.commit();
                     startActivity(new Intent(this, StudentHomeActivity.class));
                 }
             });

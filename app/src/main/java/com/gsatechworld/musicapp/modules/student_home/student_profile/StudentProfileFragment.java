@@ -1,6 +1,7 @@
 package com.gsatechworld.musicapp.modules.student_home.student_profile;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import com.gsatechworld.musicapp.databinding.FragmentStudentProfileBinding;
 import com.gsatechworld.musicapp.modules.home.approval.ApprovalViewModel;
 import com.gsatechworld.musicapp.utilities.Constants;
 
+import static android.content.Context.MODE_PRIVATE;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static androidx.databinding.DataBindingUtil.setDefaultComponent;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
@@ -33,6 +35,7 @@ public class StudentProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public String student_id;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -78,6 +81,9 @@ public class StudentProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         profileBinding = inflate(inflater, R.layout.fragment_student_profile, container, false);
+
+        SharedPreferences preferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        student_id=preferences.getString(Constants.STUDENT_ID,null);
 
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
@@ -127,7 +133,6 @@ public class StudentProfileFragment extends Fragment {
 
     public void fetchStudentProfile(){
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
-         String student_id="1";
          profileViewModel.fetchStudentProfile(student_id).observe(getViewLifecycleOwner(),studentProfileResponse -> {
              if (studentProfileResponse.getStatus().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                  profileBinding.setStudentprofile(studentProfileResponse);

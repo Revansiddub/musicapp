@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -19,6 +20,7 @@ import com.gsatechworld.musicapp.modules.student_home.student_settings.SettingsF
 import com.gsatechworld.musicapp.utilities.Constants;
 
 public class StudentHomeActivity extends BaseActivity  {
+    public String student_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,9 @@ public class StudentHomeActivity extends BaseActivity  {
 
 
         ActivityStudentHomeBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_student_home);
+
+        SharedPreferences preferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        student_id=preferences.getString(Constants.STUDENT_ID,null);
 
         openFragment(new StudentHomeFragment(), Constants.STUDENT_HOME_FRAGMENT_TAG);
 
@@ -43,7 +48,7 @@ public class StudentHomeActivity extends BaseActivity  {
                         openFragment(new StudentProfileFragment(), Constants.STUDENT_PROFILE_FRAGMENT_TAG);
                         break;
                     case R.id.navigationSettings:
-                        openFragment(new StudentPaymentFragment(),Constants.STUDENT_PROFILE_SETTINGS_TAG);
+                        openFragment(new SettingsFragment(),Constants.STUDENT_PROFILE_SETTINGS_TAG);
                         break;
                 }
                 return false;

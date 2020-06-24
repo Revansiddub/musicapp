@@ -132,6 +132,8 @@
             android:cursorVisible="true"
             android:focusable="true"
             android:hint="@string/username"
+            android:drawablePadding="@dimen/size_10dp"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
             android:inputType="textCapWords"
             android:textSize="@dimen/size_15sp"
             app:met_errorColor="@android:color/holo_red_light"
@@ -158,7 +160,9 @@
             app:met_errorColor="@android:color/holo_red_light"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelTextColor="@color/black"
+            android:drawableLeft="@drawable/ic_lock_black_24dp"
             app:met_primaryColor="@color/black"
+            android:drawablePadding="@dimen/size_10dp"
             app:met_textColor="@color/black"
             app:met_textColorHint="@color/black"
             tools:ignore="UnusedAttribute"/>
