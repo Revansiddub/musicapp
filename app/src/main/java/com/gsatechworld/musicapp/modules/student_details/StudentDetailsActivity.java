@@ -346,7 +346,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
 
                 if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
                     encodeDocuments();
-                    openSuccessDialog("Your details have been submitted successfully.");
+                openSuccessDialog("Your details have been submitted successfully.");
                 startActivity(new Intent(this, WelcomeActivity.class));
             });
         } else
