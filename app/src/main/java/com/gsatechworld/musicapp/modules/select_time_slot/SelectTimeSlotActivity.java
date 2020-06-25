@@ -1,6 +1,7 @@
 package com.gsatechworld.musicapp.modules.select_time_slot;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +21,22 @@ import com.gsatechworld.musicapp.modules.select_time_slot.adapter.TimeSlotAdapte
 import com.gsatechworld.musicapp.modules.select_time_slot.adapter.TimeSlotAdapter.OnTimeSlotSelectedListener;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot;
 import com.gsatechworld.musicapp.modules.student_details.StudentDetailsActivity;
+import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingRequest;
+import com.gsatechworld.musicapp.modules.student_home.AddEnrollmentViewModel;
+import com.gsatechworld.musicapp.modules.student_home.EntrollmentsViewModel;
+import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
+import com.gsatechworld.musicapp.modules.student_home.pojo.AddEntrollmentRequest;
+import com.gsatechworld.musicapp.utilities.Constants;
 
+import java.util.ArrayList;
+
+import static com.gsatechworld.musicapp.utilities.Constants.ALREADY_REGISTERED;
+import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.END_TIME;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.START_TIME;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.SUBCATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.TIME_SLOT;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
@@ -44,6 +57,11 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
     public int position;
     public StudentTimeSlotAdapter slotAdapter;
     public String start_time,end_time;
+    public boolean isLogedIn;
+    public String category_ID,sub_categoryID,student_ID;
+    public ArrayList<AddEntrollmentRequest.Time_slot_Details> timeSlotes;
+    public AddEnrollmentViewModel enrollmentViewModel;
+
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -56,6 +74,7 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_time_slot);
 
+
         trainerID = String.valueOf(getIntent().getIntExtra(TRAINER_ID,0));
 
         recyclerView=binding.recyclerTimeSlots;
@@ -66,6 +85,8 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
 
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(SelectTimeSlotViewModel.class);
+
+        enrollmentViewModel=new ViewModelProvider(this).get(AddEnrollmentViewModel.class);
 
         /*Setting Screen title*/
         binding.layoutBase.toolbar.setTitle("Select Time Slots");
@@ -130,12 +151,25 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
     public void onClick(View view) {
         if (view.getId() == R.id.buttonNext) {
             if (start_time != null && end_time !=null) {
-                Intent intent = new Intent(this, StudentDetailsActivity.class);
-                intent.putExtra(TRAINER_ID, trainerID);
-               // intent.putExtra(TIME_SLOT, selectedTimeSlot);
-                intent.putExtra(START_TIME,start_time);
-                intent.putExtra(END_TIME,end_time);
-                startActivity(intent);
+                SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+                //sharedPreferences.getBoolean(ALREADY_REGISTERED,false);
+                isLogedIn=sharedPreferences.getBoolean(ALREADY_REGISTERED,false);
+                if (isLogedIn == true){
+                    timeSlotes=new ArrayList<>();
+                    timeSlotes.add(new AddEntrollmentRequest.Time_slot_Details(start_time,end_time));
+                    student_ID=sharedPreferences.getString(STUDENT_ID,null);
+                    category_ID=sharedPreferences.getString(CATEGORY_ID,null);
+                    sub_categoryID=sharedPreferences.getString(SUBCATEGORY_ID,null);
+                    addEntrollment();
+                }else {
+                    Intent intent = new Intent(this, StudentDetailsActivity.class);
+                    intent.putExtra(TRAINER_ID, trainerID);
+                    // intent.putExtra(TIME_SLOT, selectedTimeSlot);
+                    intent.putExtra(START_TIME,start_time);
+                    intent.putExtra(END_TIME,end_time);
+                    startActivity(intent);
+                }
+
             } else
                 showSnackBar(this, "Please select time slot first");
         }
@@ -167,6 +201,32 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));
+    }
+
+    public void checkAlreadyRegistered(){
+        SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        //sharedPreferences.getBoolean(ALREADY_REGISTERED,false);
+        isLogedIn=sharedPreferences.getBoolean(ALREADY_REGISTERED,false);
+        if (isLogedIn == true){
+            startActivity(new Intent(this, StudentHomeActivity.class));
+        }
+    }
+
+    //Add new Enrollment for student
+    public void addEntrollment(){
+        if (getNetworkInstance(this).isConnectedToInternet()) {
+            showLoadingIndicator();
+
+            enrollmentViewModel.addNewEnrollment(new AddEntrollmentRequest(student_ID,trainerID,category_ID,sub_categoryID,timeSlotes)).observe(this,commonResponse -> {
+              hideLoadingIndicator();
+              if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+                  openSuccessDialog(commonResponse.getMessage());
+                  startActivity(new Intent(this, StudentHomeActivity.class));
+              }
+
+            });
+        }
+
     }
 
 

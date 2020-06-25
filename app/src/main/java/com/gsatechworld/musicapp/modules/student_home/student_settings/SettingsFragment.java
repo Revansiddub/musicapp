@@ -1,6 +1,8 @@
 package com.gsatechworld.musicapp.modules.student_home.student_settings;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,8 +14,12 @@ import android.view.ViewGroup;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.FragmentSettings2Binding;
+import com.gsatechworld.musicapp.modules.login.LoginActivity;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static androidx.databinding.DataBindingUtil.inflate;
+import static com.gsatechworld.musicapp.core.manager.SessionManager.getSessionInstance;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,6 +78,29 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         settings2Binding = inflate(inflater, R.layout.fragment_settings2, container, false);
+
+        settings2Binding.layoutBase.toolbar.setTitle("Settings");
+
+        settings2Binding.logout.setOnClickListener(v -> {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+
+            alertDialog.setTitle(getActivity().getString(R.string.logout_title));
+            alertDialog.setMessage(getActivity().getString(R.string.logout_message));
+
+            alertDialog.setPositiveButton(getActivity().getString(R.string.yes), (dialog, which) -> {
+                getSessionInstance(getActivity()).clearUserCredentials();
+                Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                loginIntent.setFlags((FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK));
+                dialog.cancel();
+                startActivity(loginIntent);
+            });
+            alertDialog.setNegativeButton(getActivity().getString(R.string.no), (dialog, which) -> dialog.cancel());
+
+            alertDialog.show();
+
+
+        });
+
         return settings2Binding.getRoot();
     }
 

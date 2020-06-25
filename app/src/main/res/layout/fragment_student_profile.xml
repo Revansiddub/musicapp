@@ -11,6 +11,7 @@
             name="studentprofile"
             type="com.gsatechworld.musicapp.modules.student_home.student_profile.pojo.StudentProfileResponse" />
 
+
     </data>
 
     <!-- TODO: Update blank fragment layout -->
@@ -50,9 +51,12 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/profile_round" />
+                        tools:ignore="XmlEscapeNeeded"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:adjustViewBounds="true"
+                        bind:profile_image="@{studentprofile.profile_image}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"

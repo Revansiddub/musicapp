@@ -1,5 +1,11 @@
 package com.gsatechworld.musicapp.modules.student_home.student_profile.pojo;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.annotations.SerializedName;
 
 public class StudentProfileResponse {
@@ -23,7 +29,18 @@ public class StudentProfileResponse {
     private String school_name;
 
     @SerializedName("profile_image")
-    private String profile_image;
+    public String profile_image;
+
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
+    }
+
+
+
+    public String getProfile_image() {
+        return profile_image;
+    }
 
 
 
@@ -31,9 +48,7 @@ public class StudentProfileResponse {
         return standard;
     }
 
-    public String getProfile_image() {
-        return profile_image;
-    }
+
 
     public String getName() {
         return name;
@@ -53,6 +68,13 @@ public class StudentProfileResponse {
 
     public String getStatus() {
         return status;
+    }
+
+    @BindingAdapter("profile_image")
+    public static void loadImage(ImageView view, String imageUrl) {
+        Glide.with(view.getContext())
+                .load(imageUrl).apply(new RequestOptions().circleCrop())
+                .into(view);
     }
 
 

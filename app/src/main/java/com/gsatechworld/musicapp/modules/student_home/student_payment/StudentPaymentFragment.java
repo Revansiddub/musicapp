@@ -115,6 +115,9 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
         // Inflate the layout for this fragment
         binding=inflate(inflater, R.layout.fragment_student_payment, container, false);
 
+        binding.layoutBase.toolbar.setTitle("Payments");
+
+
         SharedPreferences preferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
         student_id=preferences.getString(Constants.STUDENT_ID,null);
 

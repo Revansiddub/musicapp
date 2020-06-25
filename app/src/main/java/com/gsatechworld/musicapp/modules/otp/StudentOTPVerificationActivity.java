@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.WindowManager;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
@@ -23,6 +24,8 @@ import com.gsatechworld.musicapp.utilities.Constants;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_FAILED;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_PINCODE;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 
 public class StudentOTPVerificationActivity extends BaseActivity {
@@ -34,6 +37,7 @@ public String otp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         otpverificationBinding= DataBindingUtil.setContentView(this,R.layout.activity_student_otpverification);
 
 
@@ -151,9 +155,13 @@ public String otp;
                 if (studentOTPResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     openSuccessDialog("OTP Verification successfully Completed.");
                     String student_id=studentOTPResponse.getStudent_id();
+                    String pincode_id=studentOTPResponse.getPincode_id();
+                    String pincode=studentOTPResponse.getPincode();
                     SharedPreferences preferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
                     SharedPreferences.Editor editor=preferences.edit();
                     editor.putString(STUDENT_ID,student_id);
+                    editor.putString(STUDENT_PINCODE,pincode);
+                    editor.putString(STUDENT_PINCODE_ID,pincode_id);
                     editor.commit();
                     startActivity(new Intent(this, StudentHomeActivity.class));
                 }

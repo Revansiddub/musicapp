@@ -2,6 +2,7 @@ package com.gsatechworld.musicapp.modules.select_trainer.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.gsatechworld.musicapp.databinding.LayoutTrainerBinding;
 import com.gsatechworld.musicapp.modules.select_time_slot.SelectTimeSlotActivity;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.Trainer;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainersResponse;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,6 +148,10 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
         public void onClick(View view) {
             if (view.getId() == R.id.layoutTrainer) {
                 TrainersResponse.Trainers_list trainer = trainerList.get(getAdapterPosition());
+                SharedPreferences sharedPreferences=mCtx.getSharedPreferences(Constants.MyPREFERENCES,Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putString(TRAINER_ID,String.valueOf(trainer.getTrainer_id()));
+                editor.commit();
                 Intent intent = new Intent(mCtx.getApplicationContext(), SelectTimeSlotActivity.class);
                 intent.putExtra(TRAINER_ID, trainer.getTrainer_id());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

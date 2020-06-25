@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.select_trainer;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -17,12 +18,15 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivitySelectTrainerBinding;
 import com.gsatechworld.musicapp.modules.select_trainer.adapter.TrainerAdapter;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainerInfo;
+import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
 import com.gsatechworld.musicapp.utilities.Constants;
 
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
+import static com.gsatechworld.musicapp.utilities.Constants.ALREADY_REGISTERED;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.SUBCATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
@@ -39,6 +43,7 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
     private String pinCode, subcategoryID,categoryID,pincodeID;
     RecyclerView recyclerView;
     private Bitmap profileImageBitmap;
+    public boolean isLogedIn;
 
 
     /* ------------------------------------------------------------- *
@@ -53,7 +58,13 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_trainer);
 
         SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
-        pincodeID=String.valueOf(sharedPreferences.getInt(PINCODE_ID,0));
+        isLogedIn=sharedPreferences.getBoolean(ALREADY_REGISTERED,false);
+        if (isLogedIn == true) {
+            pincodeID=sharedPreferences.getString(STUDENT_PINCODE_ID,null);
+        }
+        else {
+            pincodeID=String.valueOf(sharedPreferences.getInt(PINCODE_ID,0));
+        }
 
         recyclerView=binding.recyclerTrainer;
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -136,12 +147,17 @@ public class SelectTrainerActivity extends BaseActivity implements OnQueryTextLi
                             showSnackBar(this,"No Trainer Available in your Area");
                         }
 
-
-
-
-
                     });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));
+    }
+
+    public void checkAlreadyRegistered(){
+        SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        //sharedPreferences.getBoolean(ALREADY_REGISTERED,false);
+        isLogedIn=sharedPreferences.getBoolean(ALREADY_REGISTERED,false);
+        if (isLogedIn == true){
+            startActivity(new Intent(this, StudentHomeActivity.class));
+        }
     }
 }

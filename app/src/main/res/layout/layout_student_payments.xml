@@ -37,7 +37,6 @@
                     android:layout_marginLeft="@dimen/size_10dp"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:layout_toRightOf="@id/imageStatus"
-                    android:singleLine="true"
                     android:maxLines="2"
                     android:text="@{studentpayment.enrollment_name}"
                     android:textColor="@color/colorPrimaryDark"

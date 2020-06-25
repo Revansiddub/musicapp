@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.FragmentStudentProfileBinding;
@@ -81,6 +82,9 @@ public class StudentProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         profileBinding = inflate(inflater, R.layout.fragment_student_profile, container, false);
+
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         SharedPreferences preferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
         student_id=preferences.getString(Constants.STUDENT_ID,null);

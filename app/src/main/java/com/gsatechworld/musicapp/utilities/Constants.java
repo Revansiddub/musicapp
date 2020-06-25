@@ -18,6 +18,8 @@ public final class Constants {
     public static final String END_TIME = "endtime";
     public static final String ENTROLLMENT_ID="entrollment_id";
     public static final String STUDENT_ID="studentId";
+    public static final String STUDENT_PINCODE_ID="studentpinCodeId";
+    public static final String STUDENT_PINCODE="studentPincode";
 
 
 
@@ -81,6 +83,7 @@ public final class Constants {
     public static String TrainerType = "type";
     public static int PincodeId =0;
     public static String MOBILE_NUMBER="mobileNumber";
+    public static String ALREADY_REGISTERED="alreadyregistered";
 
     /* ------------------------------------------------------------- *
      * Network Call Keys

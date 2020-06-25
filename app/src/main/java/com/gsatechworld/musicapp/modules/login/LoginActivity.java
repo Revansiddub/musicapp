@@ -189,9 +189,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
 
                 if (studentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
                     SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
-
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString(MOBILE_NUMBER,mobileNumber);
+                    editor.putBoolean(Constants.IsStudentLogin,true);
                     editor.commit();
 
                     startActivity(new Intent(this, StudentOTPVerificationActivity.class));

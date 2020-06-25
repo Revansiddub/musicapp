@@ -9,12 +9,21 @@ public class UpcomingResponse {
     @SerializedName("upcoming_class")
     public String upcoming_class;
 
+    @SerializedName("time")
+    public String time;
+
+
+
     public String getStatus() {
         return status;
     }
 
     public String getUpcoming_class() {
         return upcoming_class;
+    }
+
+    public String getTime() {
+        return time;
     }
 
 

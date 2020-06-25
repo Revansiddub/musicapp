@@ -52,9 +52,11 @@ public class StudentHomeFragment extends Fragment {
 
     FragmentStudentHomeBinding studentHomeBinding;
 
-    public String student_id;
+    public String student_id,pincode_id,pincode;
 
     public Context context;
+
+    public int id;
 
     public boolean isRegisteredStudent;
 
@@ -99,6 +101,9 @@ public class StudentHomeFragment extends Fragment {
 
         SharedPreferences preferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
         student_id=preferences.getString(Constants.STUDENT_ID,null);
+        pincode_id=preferences.getString(Constants.STUDENT_PINCODE_ID,null);
+        pincode=preferences.getString(Constants.STUDENT_PINCODE,null);
+        id=Integer.parseInt(pincode);
 
         baseActivity = (BaseActivity) getActivity();
 
@@ -106,10 +111,13 @@ public class StudentHomeFragment extends Fragment {
 
         studentHomeBinding.textAddentrollment.setOnClickListener(v -> {
             Intent intent=new Intent(getActivity(),SelectCategoriesActivity.class);
-            intent.putExtra(Constants.PIN_CODE,"560078");
+            intent.putExtra(Constants.PIN_CODE,pincode);
             intent.putExtra(Constants.USER_TYPE,"Student");
+            intent.putExtra(Constants.PINCODE_ID,id);
             SharedPreferences sharedPreferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
             SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.putBoolean(Constants.ALREADY_REGISTERED,true);
+            editor.commit();
             startActivity(intent);
 
         });

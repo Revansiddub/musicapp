@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.WindowManager;
 
 
 import com.gsatechworld.musicapp.R;
@@ -32,6 +33,9 @@ public class TrainerOtpVerification extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_trainer_otp_verification);
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_trainer_otp_verification);
