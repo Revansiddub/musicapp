@@ -50,6 +50,8 @@ public class SettingsFragment extends Fragment {
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_settings, container, false);
 
+        binding.layoutBase.toolbar.setTitle("Settings");
+
         /*Binding layout file with JAVA class*/
         viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 

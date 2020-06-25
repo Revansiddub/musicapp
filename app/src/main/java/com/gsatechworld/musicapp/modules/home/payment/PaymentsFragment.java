@@ -94,6 +94,8 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
         // Inflate the layout for this fragment
         paymentsBinding=inflate(inflater, R.layout.fragment_payments, container, false);
 
+        paymentsBinding.layoutBase.toolbar.setTitle("Payments");
+
         viewModel=new ViewModelProvider(this).get(PaymentRequestViewModel.class);
 
         paymentViewModel=new ViewModelProvider(this).get(AcceptPaymentViewModel.class);

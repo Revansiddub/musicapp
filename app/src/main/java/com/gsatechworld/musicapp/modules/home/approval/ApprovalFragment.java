@@ -144,9 +144,10 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
                             binding.recyclerRequest.setLayoutManager(new
                                     LinearLayoutManager(getActivity(), VERTICAL, false));
                             binding.recyclerRequest.setAdapter(adapter);
-                        } else
-                            baseActivity.showSnackBar(requireNonNull(getActivity()),
-                                    approvalResponse.getMessage());
+                        }
+                        if (adapter.getItemCount() == 0){
+                            baseActivity.showSnackBar(getActivity(),"No Approval Requests");
+                        }
                     });
         } else
             baseActivity.showSnackBar(requireNonNull(getActivity()),
