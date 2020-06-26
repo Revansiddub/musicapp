@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <androidx.core.widget.NestedScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         tools:context=".modules.home.trainer_home.AttendanceActivity"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
@@ -60,13 +59,13 @@
                 android:id="@+id/textview_total_students"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mark Attendance"
-                android:textSize="@dimen/size_20dp"
+                android:layout_below="@id/recycler_timeSlots"
+                android:layout_marginLeft="@dimen/size_15dp"
                 android:layout_marginTop="@dimen/size_10dp"
                 android:fontFamily="georgia"
+                android:text="Students List"
                 android:textColor="@color/colorPrimary"
-                android:layout_below="@id/recycler_timeSlots"
-                android:layout_marginLeft="@dimen/size_15dp"/>
+                android:textSize="@dimen/size_20dp" />
 
             <TextView
                 android:id="@+id/textview_students_number"
@@ -84,17 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textview_total_students"
                 android:layout_marginTop="@dimen/size_10dp"/>
-
-            <Button
-                android:id="@+id/button_submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
-                android:layout_below="@id/recycler_students"
-                android:text="@string/submit"
-                android:textColor="@color/white"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/size_20dp"/>
 
         </RelativeLayout>
 

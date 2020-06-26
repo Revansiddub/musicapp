@@ -18,13 +18,13 @@ public class GetStudentRepository {
     public GetStudentRepository() {
     }
 
-    public LiveData<GetStudentsResponse> getStudents(String trainer_ID, String date) {
+    public LiveData<GetStudentsResponse> getStudents(int trainer_ID) {
 
         MutableLiveData<GetStudentsResponse> mutableLiveData = new MutableLiveData<>();
 
         networkAPI = NetworkService.getRetrofitInstance().create(NetworkAPI.class);
 
-        Call<GetStudentsResponse> responseCall = networkAPI.getStudentBydate(trainer_ID, date);
+        Call<GetStudentsResponse> responseCall = networkAPI.getStudentBydate(trainer_ID);
         responseCall.enqueue(new Callback<GetStudentsResponse>() {
             @Override
             public void onResponse(Call<GetStudentsResponse> call, Response<GetStudentsResponse> response) {

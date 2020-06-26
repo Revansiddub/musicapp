@@ -84,6 +84,10 @@ public final class Constants {
     public static int PincodeId =0;
     public static String MOBILE_NUMBER="mobileNumber";
     public static String ALREADY_REGISTERED="alreadyregistered";
+    public static String PRESENT="present";
+    public static String ABSENT="absent";
+    public static String ENROLLMENT_ID="enrollmentid";
+    public static String SELECTED_DATE="selectedDate";
 
     /* ------------------------------------------------------------- *
      * Network Call Keys

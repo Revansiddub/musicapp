@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.home.trainer_home;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -15,6 +16,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -38,12 +40,17 @@ import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlotResponse;
 import com.gsatechworld.musicapp.utilities.Constants;
 import com.gsatechworld.musicapp.utilities.NetworkUtilities;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.google.android.material.snackbar.Snackbar.make;
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
 import static java.util.Objects.requireNonNull;
 
@@ -56,14 +63,14 @@ public class AttendanceActivity extends BaseActivity {
     TimeSlotViewModel viewModel;
     AttendanceViewModel attendanceViewModel;
     SelectTimeSlotViewModel timeSlotViewModel;
-    StudentsAttendanceAdapter attendanceAdapter;
+    public StudentsAttendanceAdapter attendanceAdapter;
     public GetStudentsViewModel studentsViewModel;
-    public int trainerId;
     public TimesAdapter timesAdapter;
     public int position;
-    public String date ;
+    public String selected_date,string_date ;
     private String userType;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +78,12 @@ public class AttendanceActivity extends BaseActivity {
         binding= DataBindingUtil.setContentView(this,R.layout.activity_attendance);
 
 
-        date = getIntent().getStringExtra("date");
+         selected_date = getIntent().getStringExtra("date");
+         binding.textDate.setText(selected_date);
+         //LocalDate localDate=LocalDate.parse(selected_date);
 
-        binding.textDate.setText(date);
+
+
 
 
 
@@ -101,31 +111,6 @@ public class AttendanceActivity extends BaseActivity {
         getTimeLots();
         getStudents();
 
-        binding.buttonSubmit.setOnClickListener(v -> {
-            openSuccessDialog("Attendance Added Succesfully");
-            String userType = "Daily";
-            Intent intent = new Intent(AttendanceActivity.this, HomeActivity.class);
-            intent.putExtra("type", userType);
-            startActivity(intent);
-//            AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
-//            alertDialog.setTitle("Add Attendance");
-//            alertDialog.setMessage("Are you sure want to Submit");
-//            alertDialog.setPositiveButton("YES",
-//                    new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            startActivity(new Intent(AttendanceActivity.this, HomeActivity.class));
-//                        }
-//                    });
-//            alertDialog.setNegativeButton("NO",
-//                    new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int which) {
-//
-//                        }
-//                    });
-//            alertDialog.show();
-        });
-
-
     }
 
     public void showSnackBar(Activity context, String message) {
@@ -140,19 +125,19 @@ public class AttendanceActivity extends BaseActivity {
 
     private void getStudents() {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()){
-            recyclerView_studnts.setLayoutManager(new LinearLayoutManager(AttendanceActivity.this));
-            StudentsAttendanceAdapter studentsAttendanceAdapter = new StudentsAttendanceAdapter(null,AttendanceActivity.this);
-            recyclerView_studnts.setAdapter(studentsAttendanceAdapter);
-            studentsViewModel.getStudents(trainerID , getDate(date)).observe(this, new Observer<GetStudentsResponse>() {
-                @Override
-                public void onChanged(GetStudentsResponse response) {
-                    if (response.getStatus().equals(Constants.SERVER_RESPONSE_SUCCESS)){
-//                        recyclerView_studnts.setLayoutManager(new LinearLayoutManager(AttendanceActivity.this));
-//                        recyclerView_studnts.setAdapter(new StudentsAttendanceAdapter(response.getResult().getDates()
-//                        .get(position).getTime_slots().get(position).getStudent_list(),AttendanceActivity.this));
-                    }
+            showLoadingIndicator();
+            int id=Integer.parseInt(trainerID);
+            studentsViewModel.getStudents(id).observe(this, getStudentsResponse -> {
+                hideLoadingIndicator();
+                if (getStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+                    recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
+                    String star_time=getStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
+                    String end_time=getStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
+                    attendanceAdapter=new StudentsAttendanceAdapter(getStudentsResponse.getResult().getTime_slots().get(position).getStudent_list(),this,star_time,end_time);
+                    recyclerView_studnts.setAdapter(attendanceAdapter);
                 }
             });
+
 
         }
     }
@@ -173,7 +158,6 @@ public class AttendanceActivity extends BaseActivity {
 
     private void getTimeLots() {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
-            trainerID="1";
             timeSlotViewModel.fetchTimeSlots(trainerID).observe(this, availableTimeSlotResponse -> {
                 if (availableTimeSlotResponse.getStatus().equals("success")){
                     timesAdapter=new TimesAdapter(this,availableTimeSlotResponse.getAvailable_slots());

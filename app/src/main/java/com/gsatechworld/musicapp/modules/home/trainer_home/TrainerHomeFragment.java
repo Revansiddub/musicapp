@@ -1,6 +1,8 @@
 package com.gsatechworld.musicapp.modules.home.trainer_home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.FragmentTrainerHomeBinding;
 import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
     private  CoachingDetails coachingDetails;
     public String type;
     public int trainerId;
+    public Context context;
 
 
     /* ------------------------------------------------------------- *
@@ -58,6 +62,11 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
             SimpleDateFormat simpleDateFormat =
                     new SimpleDateFormat("dd-MM-yyyy");
             String timestamp= simpleDateFormat.format(date);
+
+            SharedPreferences sharedPreferences=getActivity().getSharedPreferences(Constants.MyPREFERENCES,Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.putString(Constants.SELECTED_DATE,timestamp);
+            editor.commit();
 
             Intent intent = new Intent(getActivity(), AttendanceActivity.class);
             intent.putExtra("trainerID",trainerId);

@@ -145,8 +145,12 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
                             VERTICAL, false));
 
                     binding.recyclerPending.setAdapter(adapter);
-                } else
-                    showSnackBar(this, paymentResponse.getMessage());
+                }
+                if (adapter.getItemCount() == 0) {
+                    showSnackBar(this,"No Pending Payments");
+                }
+
+
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

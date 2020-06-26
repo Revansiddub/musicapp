@@ -9,6 +9,7 @@
         <variable
             name="approval"
             type="com.gsatechworld.musicapp.modules.home.approval.pojo.Approval" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +42,6 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/imageStudent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
 
         <TextView

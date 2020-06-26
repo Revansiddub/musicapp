@@ -6,9 +6,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="#E6E6FA"
         android:gravity="center_vertical"
         tools:context=".modules.home.trainer_home.AddAttendanceActivity">
+
+
 
 
         <androidx.cardview.widget.CardView
@@ -133,13 +135,13 @@
                     android:layout_marginTop="@dimen/size_10dp"
                     android:fontFamily="georgia"
                     android:padding="@dimen/size_10dp"
-                    android:text="Timing"
+                    android:text="Start Time"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size_15dp"
                     android:textStyle="normal" />
 
                 <TextView
-                    android:id="@+id/textview_timing"
+                    android:id="@+id/textview_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/mobile"
@@ -153,60 +155,78 @@
                     android:textStyle="normal" />
 
                 <TextView
-                    android:id="@+id/attendance"
+                    android:id="@+id/text_endtime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/timing"
+                    android:text="End Time"
+                    android:textSize="@dimen/size_15dp"
+                    android:textColor="@color/black"
+                    android:padding="@dimen/size_10dp"
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:fontFamily="georgia"
+                    />
+
+                <TextView
+                    android:id="@+id/endTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/timing"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size_10dp"
                     android:padding="@dimen/size_10dp"
-                    android:text="Attendance"
                     android:textColor="@color/black"
                     android:textSize="@dimen/size_15dp"
-                    android:textStyle="normal"
-                    tools:ignore="MissingConstraints" />
 
-                <RadioGroup
-                    android:id="@+id/radiogroup_attendance"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutUserType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_10dp"
-                    android:layout_toRightOf="@id/attendance"
-                    android:layout_marginTop="@dimen/size_5dp"
-                    android:layout_below="@id/timing"
-                    >
+                    android:layout_below="@id/text_endtime"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:layout_marginStart="@dimen/size_20dp"
+                    android:layout_marginEnd="@dimen/size_20dp"
+                    android:background="@drawable/button_rectangle_unselected"
+                    android:backgroundTint="@color/md_grey_100"
+                    android:padding="@dimen/size_2dp">
+
+                    <TextView
+                        android:id="@+id/text_present"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_rounded_corner"
+                        android:backgroundTint="@color/colorAccent"
+                        android:drawableTint="@color/white"
+                        android:padding="@dimen/size_10dp"
+                        android:text="Present"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size_17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/text_absent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="UnusedAttribute"/>
+
+                    <TextView
+                        android:id="@+id/text_absent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:drawableTint="@color/colorPrimaryDark"
+                        android:padding="@dimen/size_10dp"
+                        android:text="Absent"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/size_17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/text_present"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="UnusedAttribute" />
 
 
-
-                    <RelativeLayout
-                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <RadioButton
-                            android:id="@+id/radio_prsent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/size_50dp"
-                            android:textColor="@color/white"
-                            android:padding="@dimen/size_5dp"
-                            android:background="@color/colorPrimary"
-                            android:text="Present"/>
-
-                        <RadioButton
-                            android:id="@+id/radio_absent"
-                            android:layout_width="wrap_content"
-                            android:layout_toRightOf="@id/radio_prsent"
-                            android:layout_height="@dimen/size_50dp"
-                            android:textColor="@color/white"
-                            android:padding="@dimen/size_5dp"
-                            android:background="@color/colorPrimary"
-                            android:text="Absent" />
-
-                    </RelativeLayout>
-
-
-                </RadioGroup>
-
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
@@ -214,7 +234,7 @@
                     android:id="@+id/button_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/radiogroup_attendance"
+                    android:layout_below="@id/layoutUserType"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="@dimen/size_20dp"
                     android:layout_marginTop="@dimen/size_30dp"

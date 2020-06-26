@@ -104,7 +104,7 @@ public interface NetworkAPI {
     Call<CommonResponse> acceptPamentRequest(@Body AcceptPayment acceptPayment);
 
     @GET("studentsByMonth")
-     Call<GetStudentsResponse> getStudentBydate(@Query("trainer_id") String trainer_ID,@Query("date") String date);
+     Call<GetStudentsResponse> getStudentBydate(@Query("trainer_id") int trainer_ID);
 
    @POST("addAttendance")
    Call<CommonResponse> addAttendance(@Body AttendanceRequest request);

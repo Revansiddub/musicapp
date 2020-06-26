@@ -16,18 +16,26 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.LayoutAttendanceBinding;
 import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
+import com.gsatechworld.musicapp.modules.select_time_slot.adapter.StudentTimeSlotAdapter;
 
 import java.util.List;
 
-public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAttendanceAdapter.StudentViewHolder> {
-    public List<GetStudentsResponse.GetStudentsResult.Dates.Time_slots.Studentslist> attendanceList;
+import static com.gsatechworld.musicapp.utilities.Constants.ENROLLMENT_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
+
+public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAttendanceAdapter.StudentViewHolder> implements AddAttendanceActivity.onStatusListener {
+    public List<GetStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList;
+    public List<GetStudentsResponse.GetStudentsResult.Time_slots> time_slotsList;
+    public String start_time,end_time;
 
     public Context context;
     BaseActivity baseActivity;
 
-    public StudentsAttendanceAdapter(List<GetStudentsResponse.GetStudentsResult.Dates.Time_slots.Studentslist> attendanceList, Context context) {
+    public StudentsAttendanceAdapter(List<GetStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList, Context context,String startTime,String endTime) {
         this.attendanceList = attendanceList;
         this.context = context;
+        this.start_time=startTime;
+        this.end_time=endTime;
     }
 
     @NonNull
@@ -41,28 +49,25 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
      //   GetStudentsResponse.GetStudentsResult.Dates.Time_slots.Studentslist attendance=attendanceList.get(position);
-       // holder.binding.setAttendance(attendance);
+        GetStudentsResponse.GetStudentsResult.Time_slots.Student_list student_list=attendanceList.get(position);
 
-//        if(attendance.gender.equals("Male")){
-//            holder.binding.imageStudent
-//                    .setImageDrawable(context.getDrawable(R.drawable.icon_male_student));
-//            holder.binding.imageStudent
-//                    .setImageTintList(context.getColorStateList(R.color.colorPrimaryDark));
-//        }
-//        else {
-//            holder.binding.imageStudent
-//                    .setImageDrawable(context.getDrawable(R.drawable.icon_female_student));
-//            holder.binding.imageStudent
-//                    .setImageTintList(context.getColorStateList(R.color.colorAccent));
-//        }
+
+
+        holder.binding.setAttendance(student_list);
+        holder.binding.startTime.setText(start_time);
+        holder.binding.endtime.setText(end_time);
 
         holder.binding.layoutApprove.setOnClickListener(v -> {
             Intent intent=new Intent(context.getApplicationContext(), AddAttendanceActivity.class);
-//            intent.putExtra("name",attendance.getStudent_name());
-//            intent.putExtra("age",attendance.getStudent_age());
-//            intent.putExtra("mobile",attendance.getMobile_number());
-//            //intent.putExtra("timing",attendance.getTiming());
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("name",student_list.getStudent_name());
+             intent.putExtra("age",student_list.getStudent_age());
+             intent.putExtra("mobile",student_list.getMobile_number());
+             intent.putExtra("startTime",start_time);
+             intent.putExtra("endTime",end_time);
+             intent.putExtra(ENROLLMENT_ID,student_list.getEnrollment_id());
+             intent.putExtra(STUDENT_ID,student_list.getStudent_id());
+             //intent.putExtra("timing",attendance.getTiming());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.getApplicationContext().startActivity(intent);
         });
 
@@ -71,7 +76,12 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
 
     @Override
     public int getItemCount() {
-        return 3;
+        return attendanceList.size();
+    }
+
+    @Override
+    public void onStatusPerformed(String status) {
+
     }
 
     public class StudentViewHolder extends RecyclerView.ViewHolder {
@@ -79,7 +89,6 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
         public StudentViewHolder(LayoutAttendanceBinding binding) {
             super(binding.getRoot());
             this.binding=binding;
-
         }
     }
 

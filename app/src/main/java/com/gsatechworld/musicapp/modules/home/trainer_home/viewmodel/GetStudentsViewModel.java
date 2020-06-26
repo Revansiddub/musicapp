@@ -15,8 +15,8 @@ public class GetStudentsViewModel extends ViewModel {
         this.studentRepository=new GetStudentRepository();
     }
 
-    public LiveData<GetStudentsResponse> getStudents(String trainerID,String date){
-        return studentRepository.getStudents(trainerID,date);
+    public LiveData<GetStudentsResponse> getStudents(int trainerID){
+        return studentRepository.getStudents(trainerID);
     }
 
 
