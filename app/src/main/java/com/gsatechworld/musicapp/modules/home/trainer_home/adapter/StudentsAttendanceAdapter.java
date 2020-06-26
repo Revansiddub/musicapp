@@ -27,15 +27,24 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     public List<GetStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList;
     public List<GetStudentsResponse.GetStudentsResult.Time_slots> time_slotsList;
     public String start_time,end_time;
+    public String status;
 
     public Context context;
     BaseActivity baseActivity;
+    public boolean stat=false;
 
     public StudentsAttendanceAdapter(List<GetStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList, Context context,String startTime,String endTime) {
         this.attendanceList = attendanceList;
         this.context = context;
         this.start_time=startTime;
         this.end_time=endTime;
+    }
+
+    public StudentsAttendanceAdapter(String status) {
+        this.status=status;
+        if (status != null){
+            stat=true;
+        }
     }
 
     @NonNull
@@ -52,7 +61,6 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
         GetStudentsResponse.GetStudentsResult.Time_slots.Student_list student_list=attendanceList.get(position);
 
 
-
         holder.binding.setAttendance(student_list);
         holder.binding.startTime.setText(start_time);
         holder.binding.endtime.setText(end_time);
@@ -64,6 +72,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
              intent.putExtra("mobile",student_list.getMobile_number());
              intent.putExtra("startTime",start_time);
              intent.putExtra("endTime",end_time);
+             intent.putExtra(Intent.EXTRA_TEXT,student_list.getStudent_image());
              intent.putExtra(ENROLLMENT_ID,student_list.getEnrollment_id());
              intent.putExtra(STUDENT_ID,student_list.getStudent_id());
              //intent.putExtra("timing",attendance.getTiming());

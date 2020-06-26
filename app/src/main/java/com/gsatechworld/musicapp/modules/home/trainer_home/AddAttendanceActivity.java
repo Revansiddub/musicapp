@@ -13,10 +13,12 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityAddAttendanceBinding;
 import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAdapter;
+import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.StudentsAttendanceAdapter;
 import com.gsatechworld.musicapp.modules.login.LoginViewModel;
 import com.gsatechworld.musicapp.utilities.Constants;
 
@@ -39,7 +41,7 @@ public class AddAttendanceActivity extends BaseActivity {
     public String name,phone,timing,age,startTime,endTime,enrollment_id,student_id;
     ActivityAddAttendanceBinding binding;
     AttendanceViewModel attendanceViewModel;
-    public String selected_date;
+    public String selected_date,student_image;
     private String status,trainerID;
     public onStatusListener listener;
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -55,6 +57,13 @@ public class AddAttendanceActivity extends BaseActivity {
         phone=getIntent().getStringExtra("mobile");
         startTime=getIntent().getStringExtra("startTime");
         endTime=getIntent().getStringExtra("endTime");
+        Intent intent=getIntent();
+        if (intent.hasExtra(Intent.EXTRA_TEXT)){
+            student_image=getIntent().getExtras().getString(Intent.EXTRA_TEXT);
+            Glide.with(this).load(student_image).into(binding.imageIcon);
+
+        }
+
         enrollment_id=String.valueOf(getIntent().getIntExtra(ENROLLMENT_ID,0));
         student_id=getIntent().getStringExtra(STUDENT_ID);
         SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -119,7 +128,7 @@ public class AddAttendanceActivity extends BaseActivity {
             attendanceViewModel.addAttendance(new AttendanceRequest(student_id, enrollment_id, selected_date, startTime, endTime)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
               if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-                  listener.onStatusPerformed(status);
+                 StudentsAttendanceAdapter studentsAttendanceAdapter=new StudentsAttendanceAdapter(status);
                 openSuccessDialog(commonResponse.getMessage());
                 startActivity(new Intent(AddAttendanceActivity.this,AttendanceActivity.class));
               }
