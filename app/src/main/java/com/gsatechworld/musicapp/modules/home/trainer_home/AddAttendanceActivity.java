@@ -18,6 +18,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityAddAttendanceBinding;
 import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAdapter;
+import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.Attendance;
 import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.StudentsAttendanceAdapter;
 import com.gsatechworld.musicapp.modules.login.LoginViewModel;
 import com.gsatechworld.musicapp.utilities.Constants;
@@ -42,7 +43,8 @@ public class AddAttendanceActivity extends BaseActivity {
     ActivityAddAttendanceBinding binding;
     AttendanceViewModel attendanceViewModel;
     public String selected_date,student_image;
-    private String status,trainerID;
+    private String trainerID;
+    public int status;
     public onStatusListener listener;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -78,7 +80,7 @@ public class AddAttendanceActivity extends BaseActivity {
         binding.endTime.setText(endTime);
       //  binding.textviewTiming.setText(timing);
 
-        status=PRESENT;
+        status=1;
 
 
 
@@ -100,7 +102,7 @@ public class AddAttendanceActivity extends BaseActivity {
             binding.textAbsent.setBackground(null);
 
 
-            status = PRESENT;
+            status = 1;
         });
 
         binding.textAbsent.setOnClickListener(v -> {
@@ -116,7 +118,7 @@ public class AddAttendanceActivity extends BaseActivity {
                     (getResources().getColorStateList(R.color.colorPrimaryDark));
             binding.textPresent.setBackground(null);
 
-            status = ABSENT;
+            status = 0;
         });
 
     }
@@ -125,12 +127,13 @@ public class AddAttendanceActivity extends BaseActivity {
 
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
-            attendanceViewModel.addAttendance(new AttendanceRequest(student_id, enrollment_id, selected_date, startTime, endTime)).observe(this, commonResponse -> {
+
+            attendanceViewModel.addAttendance(new AttendanceRequest(student_id, enrollment_id, selected_date, startTime, endTime,status)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
               if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-                 StudentsAttendanceAdapter studentsAttendanceAdapter=new StudentsAttendanceAdapter(status);
                 openSuccessDialog(commonResponse.getMessage());
                 startActivity(new Intent(AddAttendanceActivity.this,AttendanceActivity.class));
+                finish();
               }
 
             });

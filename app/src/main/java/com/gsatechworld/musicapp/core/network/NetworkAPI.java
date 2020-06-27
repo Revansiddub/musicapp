@@ -11,6 +11,7 @@ import com.gsatechworld.musicapp.modules.home.payment.pojo.PaymentRequestRespons
 import com.gsatechworld.musicapp.modules.home.settings.pojo.ChangePasswordRequest;
 import com.gsatechworld.musicapp.modules.home.trainer_home.AttendanceRequest;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.DateResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.StudentResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
@@ -135,6 +136,10 @@ public interface NetworkAPI {
 
     @POST("loginStudents/verifyOtp")
     Call<StudentOTPResponse> verfyStudentOTP(@Body StudentOTPRequest otpRequest);
+
+    @GET("getTrainersDates")
+    Call<DateResponse> getDates(@Query("trainer_id")String trainer_id,@Query("month") String month,@Query("year") String year);
+
 
 
 

@@ -12,11 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.gsatechworld.musicapp.R;
+import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.FragmentTrainerHomeBinding;
 import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
+import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.DateViewModel;
 import com.gsatechworld.musicapp.utilities.Constants;
 
 import java.text.SimpleDateFormat;
@@ -26,6 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 import static androidx.databinding.DataBindingUtil.inflate;
+import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 
 public class TrainerHomeFragment extends Fragment implements View.OnClickListener,CoachingDetailsFragment.CoachingDetailsListener {
 
@@ -39,6 +43,11 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
     public String type;
     public int trainerId;
     public Context context;
+    public DateViewModel dateViewModel;
+    private BaseActivity baseActivity;
+    public String  month,year;
+    public String trainerID;
+    public ArrayList<String> dateList;
 
 
     /* ------------------------------------------------------------- *
@@ -51,11 +60,29 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_trainer_home, container, false);
 
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences(Constants.MyPREFERENCES,Context.MODE_PRIVATE);
+        trainerID=String.valueOf(sharedPreferences.getInt(Constants.TrainerId,0));
+
+
+        dateViewModel=new ViewModelProvider(this).get(DateViewModel.class);
+
+        baseActivity = (BaseActivity) getActivity();
+
 
         Bundle bundle=this.getArguments();
         type = bundle.getString("coaching_type");
         trainerId=bundle.getInt("trainerID");
         binding.calendarView.setSelectedDates(getSelectedDays());
+        Calendar calendar=binding.calendarView.getCurrentPageDate();
+        Date date1=calendar.getTime();
+        SimpleDateFormat simpleDateFormat1 =
+                new SimpleDateFormat("dd-MM-yyyy");
+        String formatted_date=simpleDateFormat1.format(date1);
+        String[] current_date=formatted_date.split("-");
+        month=current_date[1];
+        year=current_date[2];
+
+        fetchDates();
         binding.calendarView.setOnDayClickListener(eventDay -> {
             Calendar selectedDate=binding.calendarView.getSelectedDate();
             Date date=selectedDate.getTime();
@@ -63,7 +90,7 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
                     new SimpleDateFormat("dd-MM-yyyy");
             String timestamp= simpleDateFormat.format(date);
 
-            SharedPreferences sharedPreferences=getActivity().getSharedPreferences(Constants.MyPREFERENCES,Context.MODE_PRIVATE);
+
             SharedPreferences.Editor editor=sharedPreferences.edit();
             editor.putString(Constants.SELECTED_DATE,timestamp);
             editor.commit();
@@ -77,6 +104,10 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
         /*Binding layout file with JAVA class*/
         viewModel = new ViewModelProvider(this).get(TrainerHomeViewModel.class);
 
+
+
+
+
         return binding.getRoot();
     }
 
@@ -85,7 +116,8 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
         if(type.equals("Daily")){
             for (int i = 0; i < 30; i++) {
                 Calendar calendar = DateUtils.getCalendar();
-                calendar.add(Calendar.DAY_OF_MONTH, i);
+                //calendar.add(Calendar.DAY_OF_MONTH,i);
+                calendar.add(Calendar.DAY_OF_MONTH,i);
                 calendars.add(calendar);
             }
 
@@ -93,6 +125,7 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
         else {
             for (int i=0;i<30;i++){
                 Calendar calendar = DateUtils.getCalendar();
+                i=i+7;
 
             }
         }
@@ -114,6 +147,24 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    public void fetchDates(){
+        if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
+            baseActivity.showLoadingIndicator();
+
+            dateViewModel.getDates(trainerID,month,year).observe(getViewLifecycleOwner(),dateResponse -> {
+                baseActivity.hideLoadingIndicator();
+                if (dateResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
+                    dateList=dateResponse.getDates();
+
+                }
+                else {
+
+                }
+            });
+        }
 
     }
 }

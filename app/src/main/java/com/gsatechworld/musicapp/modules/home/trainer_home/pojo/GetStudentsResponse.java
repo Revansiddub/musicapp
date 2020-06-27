@@ -20,6 +20,18 @@ public class GetStudentsResponse {
     @SerializedName("status")
     private String status;
 
+    public String stat;
+
+    public String getStat() {
+        return stat;
+    }
+
+    public void setStat(String stat) {
+        this.stat = stat;
+    }
+
+
+
     public GetStudentsResult getResult() {
         return result;
     }
@@ -84,6 +96,7 @@ public class GetStudentsResponse {
 
                 @SerializedName("enrollment_id")
                 private int enrollment_id;
+
 
                 public int getEnrollment_id() {
                     return enrollment_id;

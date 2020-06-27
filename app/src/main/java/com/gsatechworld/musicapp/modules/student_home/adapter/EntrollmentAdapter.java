@@ -48,6 +48,7 @@ public LayoutEntrollmentsBinding entrollmentsBinding;
        Intent intent=new Intent(context.getApplicationContext(),EntrollmentDetailsActivity.class);
        intent.putExtra("entroll_name",entrollments.getEntrollment_name());
        intent.putExtra("entrillment_id",entrollments.getEntrollment_id());
+       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
        context.getApplicationContext().startActivity(intent);
       });
 

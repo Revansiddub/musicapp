@@ -25,9 +25,11 @@ import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
 
 public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAttendanceAdapter.StudentViewHolder> implements AddAttendanceActivity.onStatusListener {
     public List<GetStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList;
+    public List<GetStudentsResponse.GetStudentsResult>  studentsResults;
     public List<GetStudentsResponse.GetStudentsResult.Time_slots> time_slotsList;
     public String start_time,end_time;
-    public String status;
+    public String statusString;
+    public int position;
 
     public Context context;
     BaseActivity baseActivity;
@@ -40,12 +42,20 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
         this.end_time=endTime;
     }
 
-    public StudentsAttendanceAdapter(String status) {
-        this.status=status;
-        if (status != null){
-            stat=true;
-        }
+    public StudentsAttendanceAdapter(Context context,String attendance_status) {
+        this.context=context;
+        this.statusString=attendance_status;
+
+        if (statusString.equals("present")){
+            this.statusString="present";
+            }
+            else {
+            this.statusString="absent";
+            }
+
+
     }
+
 
     @NonNull
     @Override
@@ -60,10 +70,14 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
      //   GetStudentsResponse.GetStudentsResult.Dates.Time_slots.Studentslist attendance=attendanceList.get(position);
         GetStudentsResponse.GetStudentsResult.Time_slots.Student_list student_list=attendanceList.get(position);
 
-
         holder.binding.setAttendance(student_list);
         holder.binding.startTime.setText(start_time);
         holder.binding.endtime.setText(end_time);
+
+
+
+        holder.binding.attendanceStatus.setText(statusString);
+
 
         holder.binding.layoutApprove.setOnClickListener(v -> {
             Intent intent=new Intent(context.getApplicationContext(), AddAttendanceActivity.class);
@@ -78,6 +92,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
              //intent.putExtra("timing",attendance.getTiming());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.getApplicationContext().startActivity(intent);
+
         });
 
 

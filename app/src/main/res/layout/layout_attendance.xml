@@ -67,9 +67,10 @@
                 android:layout_below="@id/text_category"
                 />
             <TextView
+                android:id="@+id/attendance_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pending"
+                android:text=""
                 android:textSize="@dimen/size_15dp"
                 android:textColor="@color/black"
                 android:layout_marginLeft="@dimen/size_10dp"

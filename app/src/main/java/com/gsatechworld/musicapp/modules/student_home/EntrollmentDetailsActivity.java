@@ -35,6 +35,12 @@ public class EntrollmentDetailsActivity extends BaseActivity {
         entrollment_name=getIntent().getStringExtra("entroll_name");
         binding.textEntrollment.setText(entrollment_name);
 
+        binding.buttonCancel.setOnClickListener(v -> {
+
+        });
+
+
+
         fetchUpcomingClass();
 
 

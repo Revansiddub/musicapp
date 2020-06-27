@@ -50,6 +50,7 @@ import java.util.Locale;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.google.android.material.snackbar.Snackbar.make;
+import static com.gsatechworld.musicapp.utilities.Constants.SELECTED_DATE;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
 import static java.util.Objects.requireNonNull;
@@ -76,6 +77,8 @@ public class AttendanceActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_attendance);
+
+
 
 
          selected_date = getIntent().getStringExtra("date");
@@ -108,6 +111,7 @@ public class AttendanceActivity extends BaseActivity {
         SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
         userType = sharedpreferences.getString(Constants.TrainerType, null);
         trainerID = String.valueOf(sharedpreferences.getInt(Constants.TrainerId, 0));
+        String selected_date=sharedpreferences.getString(SELECTED_DATE,null);
         getTimeLots();
         getStudents();
 
