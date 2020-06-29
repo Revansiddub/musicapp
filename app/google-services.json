@@ -1,0 +1,415 @@
+{
+  "project_info": {
+    "project_number": "34701221680",
+    "firebase_url": "https://loyaltyusreapp.firebaseio.com",
+    "project_id": "loyaltyusreapp",
+    "storage_bucket": "loyaltyusreapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:611b3512036ecf864a72f5",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.angadimane"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:45254ff673cd6b984a72f5",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.credito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:2f7c1ef1c57c31534a72f5",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.gofreshdelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:9bc9a127301a3655",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.grocaryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:1472bf4a01d237a44a72f5",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.jyeshta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:0ab451df5bb878e94a72f5",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.licious"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:6c86804718bf0cb6",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.loyaltyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-p1pl9bltd8sm0urdvr1s5e8n1eb1mjat.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gsatechworld.loyaltyapp",
+            "certificate_hash": "92766f6d48d71531b708c6373aa872e993b96b41"
+          }
+        },
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:5ced6727d8e998ba",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.loyltyvendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:08b6e693340c4b0c",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.luckydroplet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:ad6d1984cfd0ab9a4a72f5",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.musicapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34701221680:android:134f61582fd7ff3d4a72f5",
+        "android_client_info": {
+          "package_name": "com.gsatechworld.pachakkari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaorb20EQJY7yLbvTk7M0FzRK1S1pkg1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34701221680-2ulb27g9ip849fujkrbj56memblsdnng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34701221680-fcmffshsvuirqm419q14nca6k6ruskgj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GSATechWorldPvtLtd.Go-Fresh"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

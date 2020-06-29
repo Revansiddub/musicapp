@@ -51,7 +51,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
     private String loginType, userName, password, mobileNumber;
     public String userType;
     public int  trainerId;
-    public String firebase_token="1234";
     public SessionManager sessionManager;
 
     /* ------------------------------------------------------------- *
@@ -65,7 +64,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        sessionManager=SessionManager.getSessionInstance(this);
+        sessionManager = SessionManager.getSessionInstance(this);
 
 
 
@@ -130,16 +129,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                 if (validateFields())
                     if (loginType.equals(TRAINER)){
                         authenticateTrainer();
-
                     }
-
-
                     else
                         authenticateStudent();
 
                 break;
         }
-
     }
 
     /* ------------------------------------------------------------- *
@@ -153,18 +148,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.authenticateTrainer(new TrainerLoginInfo(userName, password,firebase_token))
+            viewModel.authenticateTrainer(new TrainerLoginInfo(userName, password, sessionManager.getFcmToken()))
                     .observe(this, trainerResponse -> {
                         hideLoadingIndicator();
 
 
                         if (trainerResponse.getResponse().equals("success")) {
-                            trainerId= trainerResponse.getTrainerID();
-                            userType = "Daily";
+                            trainerId = trainerResponse.getTrainerID();
                             SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putInt(Constants.TrainerId, trainerId);
-                            editor.putString(Constants.TrainerType, userType);
                             editor.putBoolean(Constants.IsTrainerLogin, true);
                             editor.commit();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -190,7 +183,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                 if (studentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
                     SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
-                    editor.putString(MOBILE_NUMBER,mobileNumber);
+                    editor.putString(MOBILE_NUMBER, mobileNumber);
                     editor.putBoolean(Constants.IsStudentLogin,true);
                     editor.commit();
 

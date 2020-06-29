@@ -129,7 +129,8 @@ public class AddAttendanceActivity extends BaseActivity {
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            attendanceViewModel.addAttendance(new AttendanceRequest(student_id, enrollment_id, selected_date, startTime, endTime,status)).observe(this, commonResponse -> {
+            attendanceViewModel.addAttendance(new AttendanceRequest(student_id, enrollment_id, selected_date,
+                    startTime, endTime,status)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
               if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                 openSuccessDialog(commonResponse.getMessage());

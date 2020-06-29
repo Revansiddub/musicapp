@@ -77,6 +77,7 @@ public final class Constants {
     public static final String PAID = "paid";
     public static final String NOT_PAID = "not_paid";
     public static String MyPREFERENCES = "Music app";
+    public static String FCM_TOKEN = "fcm_token";
     public static String TrainerId = "trainerId";
     public static String IsTrainerLogin = "isTrainerLogin";
     public static String IsStudentLogin="isStudentLogin";

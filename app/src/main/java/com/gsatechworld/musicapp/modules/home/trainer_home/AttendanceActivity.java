@@ -76,7 +76,7 @@ public class AttendanceActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_attendance);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_attendance);
 
          selected_date = getIntent().getStringExtra("date");
          binding.textDate.setText(selected_date);
@@ -85,7 +85,6 @@ public class AttendanceActivity extends BaseActivity {
         binding.layoutBase.toolbar.setTitle(getString(R.string.students_details));
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
 
         recyclerView_slot=binding.recyclerTimeSlots;
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView_slot.getContext(),
@@ -124,7 +123,8 @@ public class AttendanceActivity extends BaseActivity {
             int id=Integer.parseInt(trainerID);
             studentsViewModel.getStudents(id).observe(this, getStudentsResponse -> {
                 hideLoadingIndicator();
-                if (getStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS) && getStudentsResponse.getResult().getTime_slots().get(position).getStudent_list() != null) {
+                if (getStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS) && getStudentsResponse.getResult()
+                        .getTime_slots().get(position).getStudent_list() != null) {
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
                     String star_time=getStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
                     String end_time=getStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();

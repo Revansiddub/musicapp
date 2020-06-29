@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.core.manager.SessionManager;
 import com.gsatechworld.musicapp.databinding.ActivityStudentOtpverificationBinding;
 import com.gsatechworld.musicapp.modules.otp.pojo.TrainerOTPViewModel;
 import com.gsatechworld.musicapp.modules.otp.student.StudentOTPRequest;
@@ -33,16 +34,16 @@ public ActivityStudentOtpverificationBinding otpverificationBinding;
 public StudentOTPViewModel viewModel;
 public String mobile_number;
 public String otp;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         otpverificationBinding= DataBindingUtil.setContentView(this,R.layout.activity_student_otpverification);
+        sessionManager = new SessionManager(this);
 
-
-
-        SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.MyPREFERENCES, MODE_PRIVATE);
         mobile_number=sharedPreferences.getString(Constants.MOBILE_NUMBER,null);
 
         viewModel= new ViewModelProvider(this).get(StudentOTPViewModel.class);
@@ -150,15 +151,15 @@ public String otp;
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.verifyStudentOTP(new StudentOTPRequest(mobile_number,OTP,"1234")).observe(this,studentOTPResponse -> {
+            viewModel.verifyStudentOTP(new StudentOTPRequest(mobile_number,OTP, sessionManager.getFcmToken())).observe(this,studentOTPResponse -> {
                 hideLoadingIndicator();
                 if (studentOTPResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     openSuccessDialog("OTP Verification successfully Completed.");
                     String student_id=studentOTPResponse.getStudent_id();
-                    String pincode_id=studentOTPResponse.getPincode_id();
-                    String pincode=studentOTPResponse.getPincode();
+                    String pincode_id = studentOTPResponse.getPincode_id();
+                    String pincode = studentOTPResponse.getPincode();
                     SharedPreferences preferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
-                    SharedPreferences.Editor editor=preferences.edit();
+                    SharedPreferences.Editor editor = preferences.edit();
                     editor.putString(STUDENT_ID,student_id);
                     editor.putString(STUDENT_PINCODE,pincode);
                     editor.putString(STUDENT_PINCODE_ID,pincode_id);

@@ -84,6 +84,7 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
         year = current_date[2];
 
         fetchDates(month, year);
+
         binding.calendarView.setOnDayClickListener(eventDay -> {
             Calendar selectedDate = binding.calendarView.getSelectedDate();
             Date date = selectedDate.getTime();
@@ -100,19 +101,16 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
         /*Binding layout file with JAVA class*/
         viewModel = new ViewModelProvider(this).get(TrainerHomeViewModel.class);
 
-        binding.calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
-            @Override
-            public void onChange() {
-                Calendar calendar = binding.calendarView.getCurrentPageDate();
-                Date date1 = calendar.getTime();
-                SimpleDateFormat simpleDateFormat1 =
-                        new SimpleDateFormat("dd-MM-yyyy");
-                String formatted_date = simpleDateFormat1.format(date1);
-                String[] current_date = formatted_date.split("-");
-                month = current_date[1];
-                year = current_date[2];
-              fetchDates(month, year);
-            }
+        binding.calendarView.setOnPreviousPageChangeListener(() -> {
+            Calendar calendar1 = binding.calendarView.getCurrentPageDate();
+            Date date11 = calendar1.getTime();
+            SimpleDateFormat simpleDateFormat11 =
+                    new SimpleDateFormat("dd-MM-yyyy");
+            String formatted_date1 = simpleDateFormat11.format(date11);
+            String[] current_date1 = formatted_date1.split("-");
+            month = current_date1[1];
+            year = current_date1[2];
+          fetchDates(month, year);
         });
 
         binding.calendarView.setOnForwardPageChangeListener(new OnCalendarPageChangeListener() {

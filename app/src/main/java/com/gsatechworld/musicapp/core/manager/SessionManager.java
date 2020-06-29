@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.gsatechworld.musicapp.utilities.Constants.FCM_TOKEN;
 
 public class SessionManager {
 
@@ -82,6 +83,11 @@ public class SessionManager {
                                       final String phoneNo) {
         storeUserCredentials(getUserID(), userFullName, emailID, phoneNo, getUserType(),getPincodeId());
     }
+
+    public String getFcmToken(){
+        return sharedPreference.getString(FCM_TOKEN, "");
+    }
+
 
     /**
      * This method is invoked when user is successfully logged In and we will store its login value
