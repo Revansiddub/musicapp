@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
@@ -32,7 +34,7 @@ import java.util.Objects;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 
-public class TrainerHomeFragment extends Fragment implements View.OnClickListener,CoachingDetailsFragment.CoachingDetailsListener {
+public class TrainerHomeFragment extends Fragment implements View.OnClickListener, CoachingDetailsFragment.CoachingDetailsListener {
 
     /* ------------------------------------------------------------- *
      * Private Members
@@ -40,23 +42,18 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
 
     private FragmentTrainerHomeBinding binding;
     private TrainerHomeViewModel viewModel;
-    private  CoachingDetails coachingDetails;
+    private CoachingDetails coachingDetails;
     public String type;
     public int trainerId;
     public Context context;
     public DateViewModel dateViewModel;
     private BaseActivity baseActivity;
-    public String  month,year;
+    public String month, year;
     public String trainerID;
     public ArrayList<String> dateList;
     public int selected_day;
     public int selected_month;
     public int selected_year;
-
-
-    /* ------------------------------------------------------------- *
-     * Overriding Fragment Method
-     * ------------------------------------------------------------- */
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,86 +61,105 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
         /*Binding layout file with JAVA class*/
         binding = inflate(inflater, R.layout.fragment_trainer_home, container, false);
 
-        SharedPreferences sharedPreferences=getActivity().getSharedPreferences(Constants.MyPREFERENCES,Context.MODE_PRIVATE);
-        trainerID=String.valueOf(sharedPreferences.getInt(Constants.TrainerId,0));
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
+        trainerID = String.valueOf(sharedPreferences.getInt(Constants.TrainerId, 0));
 
 
-        dateViewModel=new ViewModelProvider(this).get(DateViewModel.class);
+        dateViewModel = new ViewModelProvider(this).get(DateViewModel.class);
 
         baseActivity = (BaseActivity) getActivity();
 
 
-        Bundle bundle=this.getArguments();
-       // type = bundle.getString("coaching_type");
-       // trainerId=bundle.getInt("trainerID");
+        Bundle bundle = this.getArguments();
+        // type = bundle.getString("coaching_type");
+        // trainerId=bundle.getInt("trainerID");
 //        binding.calendarView.setSelectedDates(getSelectedDays());
-        Calendar calendar=binding.calendarView.getCurrentPageDate();
-        Date date1=calendar.getTime();
+        Calendar calendar = binding.calendarView.getCurrentPageDate();
+        Date date1 = calendar.getTime();
         SimpleDateFormat simpleDateFormat1 =
                 new SimpleDateFormat("dd-MM-yyyy");
-        String formatted_date=simpleDateFormat1.format(date1);
-        String[] current_date=formatted_date.split("-");
-        month=current_date[1];
-        year=current_date[2];
+        String formatted_date = simpleDateFormat1.format(date1);
+        String[] current_date = formatted_date.split("-");
+        month = current_date[1];
+        year = current_date[2];
 
-        fetchDates();
+        fetchDates(month, year);
         binding.calendarView.setOnDayClickListener(eventDay -> {
-            Calendar selectedDate=binding.calendarView.getSelectedDate();
-            Date date=selectedDate.getTime();
+            Calendar selectedDate = binding.calendarView.getSelectedDate();
+            Date date = selectedDate.getTime();
             SimpleDateFormat simpleDateFormat =
                     new SimpleDateFormat("dd-MM-yyyy");
-            String timestamp= simpleDateFormat.format(date);
-
-
-            SharedPreferences.Editor editor=sharedPreferences.edit();
-            editor.putString(Constants.SELECTED_DATE,timestamp);
-            editor.commit();
+            String timestamp = simpleDateFormat.format(date);
 
             Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-            intent.putExtra("trainerID",trainerID);
-            intent.putExtra("date",timestamp);
-                startActivity(intent);
+            intent.putExtra("trainerID", trainerID);
+            intent.putExtra("date", timestamp);
+            startActivity(intent);
         });
 
         /*Binding layout file with JAVA class*/
         viewModel = new ViewModelProvider(this).get(TrainerHomeViewModel.class);
 
+        binding.calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
+            @Override
+            public void onChange() {
+                Calendar calendar = binding.calendarView.getCurrentPageDate();
+                Date date1 = calendar.getTime();
+                SimpleDateFormat simpleDateFormat1 =
+                        new SimpleDateFormat("dd-MM-yyyy");
+                String formatted_date = simpleDateFormat1.format(date1);
+                String[] current_date = formatted_date.split("-");
+                month = current_date[1];
+                year = current_date[2];
+              fetchDates(month, year);
+            }
+        });
 
-
+        binding.calendarView.setOnForwardPageChangeListener(new OnCalendarPageChangeListener() {
+            @Override
+            public void onChange() {
+                Calendar calendar = binding.calendarView.getCurrentPageDate();
+                Date date1 = calendar.getTime();
+                SimpleDateFormat simpleDateFormat1 =
+                        new SimpleDateFormat("dd-MM-yyyy");
+                String formatted_date = simpleDateFormat1.format(date1);
+                String[] current_date = formatted_date.split("-");
+                month = current_date[1];
+                year = current_date[2];
+                fetchDates(month, year);
+            }
+        });
 
         return binding.getRoot();
     }
 
 
-
     @Override
     public void coachingDetails(CoachingDetails coachingDetails) {
-        this.coachingDetails=coachingDetails;
-        if (coachingDetails.isDaily() == true){
+        this.coachingDetails = coachingDetails;
+        if (coachingDetails.isDaily() == true) {
 
         }
 
     }
+
 
     @Override
     public void onClick(View v) {
 
     }
 
-    public void fetchDates(){
+    public void fetchDates(String month, String year) {
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
             baseActivity.showLoadingIndicator();
 
-            dateViewModel.getDates(trainerID,month,year).observe(getViewLifecycleOwner(),dateResponse -> {
+            dateViewModel.getDates(trainerID, month, year).observe(getViewLifecycleOwner(), dateResponse -> {
                 baseActivity.hideLoadingIndicator();
-                if (dateResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
-                    dateList=dateResponse.getDates();
+                if (dateResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)) {
+                    dateList = dateResponse.getDates();
                     binding.calendarView.setSelectedDates(getSelectedDays());
-
-
-                }
-                else {
-
+                } else {
+                    Toast.makeText(getContext(), dateResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -156,26 +172,16 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
         for (int i = 0; i < dateList.size(); i++) {
             Calendar calendar = Calendar.getInstance();
 
-           // Objects[] objects= (Objects[]) dateList.toArray();
-
-            String [] arr=new String[dateList.size()];
-            String [] str;
-            String [] dates;
-            arr=dateList.toArray(arr);
-            for (String selected : arr){
-                System.out.print(selected + " ");
-              dates=selected.split("-");
-              selected_day=Integer.parseInt(dates[2]);
-              selected_month=Integer.parseInt(dates[1]);
-              selected_year=Integer.parseInt(dates[0]);
-              calendar.add(Calendar.YEAR,selected_year);
-              calendar.add(Calendar.MONTH,selected_month);
-                calendar.add(Calendar.DAY_OF_MONTH,selected_day);
-                calendars.add(calendar);
-
-            }
-            //int selected_dates= Integer.parseInt(dateList.get(i));
-
+            String[] dates;
+            System.out.print(dateList.get(i) + " ");
+            dates = dateList.get(i).split("-");
+            selected_day = Integer.parseInt(dates[2]);
+            selected_month = Integer.parseInt(dates[1]);
+            selected_year = Integer.parseInt(dates[0]);
+            calendar.set(Calendar.YEAR, selected_year);
+            calendar.set(Calendar.MONTH, selected_month-1);
+            calendar.set(Calendar.DAY_OF_MONTH, selected_day);
+            calendars.add(calendar);
         }
 
         return calendars;
