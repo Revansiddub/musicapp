@@ -78,17 +78,9 @@ public class AttendanceActivity extends BaseActivity {
         setContentView(R.layout.activity_attendance);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_attendance);
 
-
-
-
          selected_date = getIntent().getStringExtra("date");
          binding.textDate.setText(selected_date);
          //LocalDate localDate=LocalDate.parse(selected_date);
-
-
-
-
-
 
         binding.layoutBase.toolbar.setTitle(getString(R.string.students_details));
         setSupportActionBar(binding.layoutBase.toolbar);
@@ -111,7 +103,6 @@ public class AttendanceActivity extends BaseActivity {
         SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
         userType = sharedpreferences.getString(Constants.TrainerType, null);
         trainerID = String.valueOf(sharedpreferences.getInt(Constants.TrainerId, 0));
-        String selected_date=sharedpreferences.getString(SELECTED_DATE,null);
         getTimeLots();
         getStudents();
 
@@ -137,13 +128,11 @@ public class AttendanceActivity extends BaseActivity {
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
                     String star_time=getStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
                     String end_time=getStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
-                    attendanceAdapter=new StudentsAttendanceAdapter(getStudentsResponse.getResult().getTime_slots().get(position).getStudent_list(),this,star_time,end_time);
+                    attendanceAdapter = new StudentsAttendanceAdapter(getStudentsResponse.getResult().getTime_slots()
+                            .get(position).getStudent_list(),this, star_time, end_time, selected_date);
                     recyclerView_studnts.setAdapter(attendanceAdapter);
                 }
             });
-
-
-
         }
     }
 

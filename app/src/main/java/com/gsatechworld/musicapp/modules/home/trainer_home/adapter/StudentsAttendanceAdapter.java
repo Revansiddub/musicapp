@@ -18,9 +18,11 @@ import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
 import com.gsatechworld.musicapp.modules.select_time_slot.adapter.StudentTimeSlotAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.gsatechworld.musicapp.utilities.Constants.ENROLLMENT_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.SELECTED_DATE;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
 
 public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAttendanceAdapter.StudentViewHolder> implements AddAttendanceActivity.onStatusListener {
@@ -34,33 +36,22 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     public Context context;
     BaseActivity baseActivity;
     public boolean stat=false;
+    private String selected_date;
 
-    public StudentsAttendanceAdapter(List<GetStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList, Context context,String startTime,String endTime) {
+    public StudentsAttendanceAdapter(List<GetStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList,
+                                     Context context, String startTime, String endTime, String selected_date) {
         this.attendanceList = attendanceList;
         this.context = context;
         this.start_time=startTime;
         this.end_time=endTime;
+        this.selected_date = selected_date;
     }
-
-    public StudentsAttendanceAdapter(Context context,String attendance_status) {
-        this.context=context;
-        this.statusString=attendance_status;
-
-        if (statusString.equals("present")){
-            this.statusString="present";
-            }
-            else {
-            this.statusString="absent";
-            }
-
-
-    }
-
 
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutAttendanceBinding binding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.layout_attendance,parent,false);
+        LayoutAttendanceBinding binding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.layout_attendance,parent,false);
         return new StudentViewHolder(binding);
     }
 
@@ -89,7 +80,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
              intent.putExtra(Intent.EXTRA_TEXT,student_list.getStudent_image());
              intent.putExtra(ENROLLMENT_ID,student_list.getEnrollment_id());
              intent.putExtra(STUDENT_ID,student_list.getStudent_id());
-             //intent.putExtra("timing",attendance.getTiming());
+             intent.putExtra(SELECTED_DATE, selected_date);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.getApplicationContext().startActivity(intent);
 

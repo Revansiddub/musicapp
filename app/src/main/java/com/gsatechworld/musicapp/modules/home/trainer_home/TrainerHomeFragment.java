@@ -91,11 +91,6 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
                     new SimpleDateFormat("dd-MM-yyyy");
             String timestamp = simpleDateFormat.format(date);
 
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(Constants.SELECTED_DATE, timestamp);
-            editor.commit();
-
             Intent intent = new Intent(getActivity(), AttendanceActivity.class);
             intent.putExtra("trainerID", trainerID);
             intent.putExtra("date", timestamp);

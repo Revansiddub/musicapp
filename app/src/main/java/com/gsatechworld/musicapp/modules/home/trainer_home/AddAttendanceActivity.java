@@ -59,6 +59,8 @@ public class AddAttendanceActivity extends BaseActivity {
         phone=getIntent().getStringExtra("mobile");
         startTime=getIntent().getStringExtra("startTime");
         endTime=getIntent().getStringExtra("endTime");
+        selected_date = getIntent().getStringExtra(SELECTED_DATE);
+
         Intent intent=getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)){
             student_image=getIntent().getExtras().getString(Intent.EXTRA_TEXT);
@@ -69,7 +71,6 @@ public class AddAttendanceActivity extends BaseActivity {
         enrollment_id=String.valueOf(getIntent().getIntExtra(ENROLLMENT_ID,0));
         student_id=getIntent().getStringExtra(STUDENT_ID);
         SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
-        selected_date=sharedPreferences.getString(SELECTED_DATE,null);
         trainerID=String.valueOf(sharedPreferences.getInt(TrainerId, 0));
 
 
