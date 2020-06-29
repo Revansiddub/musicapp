@@ -56,6 +56,10 @@ public class EarningsFragment extends Fragment  {
 
         /*Setting Screen title*/
         binding.layoutBase.toolbar.setTitle("Earnings");
+        binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
 
         baseActivity = (BaseActivity) getActivity();
 

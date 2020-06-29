@@ -32,12 +32,13 @@
 
                 <TextView
                     android:id="@+id/entrollment_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/size_200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/size_10dp"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:layout_toRightOf="@id/imageStatus"
                     android:maxLines="2"
+                    android:singleLine="false"
                     android:text="@{studentpayment.enrollment_name}"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/size_15dp"
@@ -48,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/entrollment_name"
                     android:layout_marginLeft="@dimen/size_10dp"
-                    android:layout_marginTop="@dimen/size_5dp"
+                    android:layout_marginTop="@dimen/size_2dp"
                     android:layout_toRightOf="@id/imageStatus"
                     android:text="@{`Rs. ` +studentpayment.amount}"
                     android:textColor="@color/colorPrimaryDark"

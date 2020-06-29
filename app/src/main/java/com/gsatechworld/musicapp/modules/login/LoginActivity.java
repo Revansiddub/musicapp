@@ -194,7 +194,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                     editor.putBoolean(Constants.IsStudentLogin,true);
                     editor.commit();
 
+
                     startActivity(new Intent(this, StudentOTPVerificationActivity.class));
+                    finish();
                 } else
                     showSnackBar(this, studentResponse.getMessage());
             });

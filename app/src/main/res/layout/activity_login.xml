@@ -144,6 +144,7 @@
             app:met_textColorHint="@color/black"
             tools:ignore="UnusedAttribute"/>
 
+
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPassword"
             android:layout_width="match_parent"
@@ -156,6 +157,7 @@
             android:focusable="true"
             android:hint="@string/password"
             android:inputType="textPassword"
+            app:passwordToggleEnabled="true"
             android:textSize="@dimen/size_15sp"
             app:met_errorColor="@android:color/holo_red_light"
             app:met_floatingLabel="highlight"
@@ -177,6 +179,8 @@
             android:layout_marginTop="@dimen/size_15dp"
             android:hint="@string/mobile_number"
             android:inputType="number"
+            android:drawableStart="@drawable/ic_baseline_phone_android_24"
+            android:drawablePadding="@dimen/size_10dp"
             android:textSize="@dimen/size_15sp"
             app:met_errorColor="@android:color/holo_red_light"
             app:met_floatingLabel="highlight"

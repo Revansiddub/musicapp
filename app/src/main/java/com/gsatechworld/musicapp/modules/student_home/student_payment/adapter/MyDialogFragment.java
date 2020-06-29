@@ -51,6 +51,7 @@ public class MyDialogFragment extends DialogFragment {
         button_submit.setOnClickListener(v -> {
             amount=editText.getText().toString();
             listener.onActionListener(amount);
+            builder.dismiss();
         });
         builder.setContentView(view);
         return builder;

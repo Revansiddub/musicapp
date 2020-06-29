@@ -68,7 +68,7 @@ public class Approval {
         return age;
     }
 
-    public List<Slot_Details> getSlot_detailsList() {
+    public ArrayList<Slot_Details> getSlot_detailsList() {
         return slot_detailsList;
     }
 

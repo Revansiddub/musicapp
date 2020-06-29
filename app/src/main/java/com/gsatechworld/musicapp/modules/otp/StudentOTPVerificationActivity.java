@@ -164,6 +164,7 @@ public String otp;
                     editor.putString(STUDENT_PINCODE_ID,pincode_id);
                     editor.commit();
                     startActivity(new Intent(this, StudentHomeActivity.class));
+                    finish();
                 }
             });
         }

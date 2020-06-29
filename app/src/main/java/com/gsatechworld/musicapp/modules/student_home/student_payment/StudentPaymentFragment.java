@@ -116,6 +116,10 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
         binding=inflate(inflater, R.layout.fragment_student_payment, container, false);
 
         binding.layoutBase.toolbar.setTitle("Payments");
+        binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
 
 
         SharedPreferences preferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
@@ -222,6 +226,7 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
             requestViewModel.sendPaymentRequest(new StudentPaymentRequest(student_id,entrollment_id,paymentamount)).observe(getViewLifecycleOwner(),commonResponse -> {
                 if (commonResponse.getStatus().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                     baseActivity.openSuccessDialog("Payment Request Send Successfully");
+                    fetchingPaymentDetals();
                 }
             });
 
