@@ -52,6 +52,11 @@ public class SettingsFragment extends Fragment {
 
         binding.layoutBase.toolbar.setTitle("Settings");
 
+        binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
+
         /*Binding layout file with JAVA class*/
         viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 

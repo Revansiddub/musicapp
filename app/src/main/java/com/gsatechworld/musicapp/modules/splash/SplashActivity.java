@@ -51,6 +51,7 @@ public class SplashActivity extends BaseActivity {
             startActivity(new Intent(this, HomeActivity.class));
             finish();
         }
+
        else if (isLogdinStudent){
             startActivity(new Intent(this, StudentHomeActivity.class));
             finish();
@@ -59,6 +60,7 @@ public class SplashActivity extends BaseActivity {
             startActivity(new Intent(this, WelcomeActivity.class));
             finish();
         }
+
 
     }
 }

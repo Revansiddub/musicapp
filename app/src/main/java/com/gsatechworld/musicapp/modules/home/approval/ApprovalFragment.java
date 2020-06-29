@@ -65,7 +65,7 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
         binding.layoutBase.toolbar.setTitle("Approval");
         binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
-           getFragmentManager().beginTransaction();
+           getActivity().onBackPressed();
         });
 
         baseActivity = (BaseActivity) getActivity();
@@ -143,6 +143,7 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
 
                         if (approvalResponse.getResponse().equals("success")) {
                             adapter = new ApproveStudentAdapter(getActivity(), approvalResponse.getApprovalList());
+
 
                             adapter.setActionListener(this);
                             binding.recyclerRequest.setLayoutManager(new

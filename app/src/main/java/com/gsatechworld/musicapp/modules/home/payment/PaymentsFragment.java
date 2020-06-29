@@ -96,6 +96,10 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
         paymentsBinding=inflate(inflater, R.layout.fragment_payments, container, false);
 
         paymentsBinding.layoutBase.toolbar.setTitle("Payments");
+        paymentsBinding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        paymentsBinding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
 
         viewModel=new ViewModelProvider(this).get(PaymentRequestViewModel.class);
 

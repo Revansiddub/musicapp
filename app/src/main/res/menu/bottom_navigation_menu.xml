@@ -16,7 +16,7 @@
         android:title="@string/earnings" />
 
     <item android:id="@+id/navigationPayments"
-        android:icon="@drawable/ic_monetization_on_black_24dp"
+        android:icon="@drawable/ic_baseline_payment_24"
          android:title="@string/payment"/>
     <item
         android:id="@+id/navigationSettings"
