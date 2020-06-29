@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -53,11 +54,6 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
     public int selected_day;
     public int selected_month;
     public int selected_year;
-
-
-    /* ------------------------------------------------------------- *
-     * Overriding Fragment Method
-     * ------------------------------------------------------------- */
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -168,7 +164,7 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
                     dateList = dateResponse.getDates();
                     binding.calendarView.setSelectedDates(getSelectedDays());
                 } else {
-
+                    Toast.makeText(getContext(), dateResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

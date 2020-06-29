@@ -8,9 +8,15 @@ public class DateResponse {
     @SerializedName("status")
     private String response;
 
+    @SerializedName("message")
+    private String message;
 
     @SerializedName("dates")
     private ArrayList<String> dates;
+
+    public String getMessage() {
+        return message;
+    }
 
     public String getResponse() {
         return response;
