@@ -92,6 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (dialog != null && dialog.isShowing()) {
             dialog.cancel();
             dialog = null;
+
         }
     }
 
@@ -125,16 +126,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         TextView textMessage = dialog.findViewById(R.id.textMessage);
         Button buttonOk = dialog.findViewById(R.id.buttonOk);
 
+        buttonOk.setOnClickListener(v -> dialog.dismiss());
         textMessage.setText(message);
 
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                //startActivity(new Intent(getApplicationContext(), TrainerOtpVerification.class));
-            }
-        });
-        dialog.show();
+
+       dialog.show();
     }
 
     /**

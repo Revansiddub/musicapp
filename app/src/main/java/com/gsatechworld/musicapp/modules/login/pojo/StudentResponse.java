@@ -8,7 +8,7 @@ public class StudentResponse {
      * Private Members
      * ------------------------------------------------------------- */
     @SerializedName("status")
-    private String response;
+    private String status;
     @SerializedName("message")
     private String message;
     private String studentID;
@@ -18,7 +18,7 @@ public class StudentResponse {
      * ------------------------------------------------------------- */
 
     public StudentResponse(String response, String message, String studentID) {
-        this.response = response;
+        this.status = response;
         this.message = message;
         this.studentID = studentID;
     }
@@ -27,8 +27,8 @@ public class StudentResponse {
      * Getters
      * ------------------------------------------------------------- */
 
-    public String getResponse() {
-        return response;
+    public String getStatus() {
+        return status;
     }
 
     public String getMessage() {

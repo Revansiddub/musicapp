@@ -147,6 +147,7 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
                 if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     baseActivity.showSnackBar(requireNonNull(getActivity()),
                             commonResponse.getMessage());
+                    fetchPaymentRequests();
                 } else {
                     baseActivity.showSnackBar(requireNonNull(getActivity()),
                             "Failed");

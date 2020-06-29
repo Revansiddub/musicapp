@@ -146,14 +146,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
      */
     private void authenticateTrainer() {
         if (getNetworkInstance(this).isConnectedToInternet()) {
-            showLoadingIndicator();
+          showLoadingIndicator();
 
             viewModel.authenticateTrainer(new TrainerLoginInfo(userName, password, sessionManager.getFcmToken()))
                     .observe(this, trainerResponse -> {
                         hideLoadingIndicator();
 
-
-                        if (trainerResponse.getResponse().equals("success")) {
+                        if (trainerResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
                             trainerId = trainerResponse.getTrainerID();
                             SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -163,8 +162,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
 
-                        } else
+                        }
+
+                        else
                             showSnackBar(this, trainerResponse.getMessage());
+
                     });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));
@@ -180,14 +182,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
             viewModel.authenticateStudent(mobileNumber).observe(this, studentResponse -> {
                 hideLoadingIndicator();
 
-                if (studentResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (studentResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                     SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString(MOBILE_NUMBER, mobileNumber);
                     editor.putBoolean(Constants.IsStudentLogin,true);
                     editor.commit();
-
-
                     startActivity(new Intent(this, StudentOTPVerificationActivity.class));
                     finish();
                 } else

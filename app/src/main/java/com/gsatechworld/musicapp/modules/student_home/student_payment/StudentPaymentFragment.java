@@ -115,11 +115,14 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
         // Inflate the layout for this fragment
         binding=inflate(inflater, R.layout.fragment_student_payment, container, false);
 
+
         binding.layoutBase.toolbar.setTitle("Payments");
         binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
             getActivity().onBackPressed();
         });
+
+        baseActivity = (BaseActivity) getActivity();
 
 
         SharedPreferences preferences=getContext().getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
@@ -129,10 +132,15 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
 
         requestViewModel=new ViewModelProvider(this).get(PaymentRequestViewModel.class);
 
+
+
+
+
         if (listener != null){
             SharedPreferences sharedPreferences=context.getSharedPreferences(Constants.MyPREFERENCES,Context.MODE_PRIVATE);
             entrollment_id=sharedPreferences.getString(Constants.ENTROLLMENT_ID,null);
         }
+
 
 
 

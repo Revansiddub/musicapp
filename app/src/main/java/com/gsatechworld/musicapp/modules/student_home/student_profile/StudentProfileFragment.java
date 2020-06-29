@@ -94,7 +94,8 @@ public class StudentProfileFragment extends Fragment {
 
         fetchStudentProfile();
 
-        profileBinding.backToHome.setOnClickListener(v -> {
+
+        profileBinding.linearLayout.setOnClickListener(v -> {
             getActivity().onBackPressed();
         });
 
