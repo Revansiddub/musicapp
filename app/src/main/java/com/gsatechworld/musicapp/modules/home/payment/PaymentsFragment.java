@@ -44,6 +44,7 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
     public FragmentPaymentsBinding paymentsBinding;
     public PaymentRequestViewModel viewModel;
     public AcceptPaymentViewModel paymentViewModel;
+    public PaymentRequestAdapter adapter;
 
     public String trainerId;
     public  int position;
@@ -169,28 +170,25 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
     }
     public void fetchPaymentRequests(){
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
-            //baseActivity.showLoadingIndicator();
-
-            //trainerId="1";
+            baseActivity.showLoadingIndicator();
             SharedPreferences sharedpreferences = getContext().getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
             trainerId = String.valueOf(sharedpreferences.getInt(TrainerId, 0));
             viewModel.getPaymentRequests(trainerId).observe(getViewLifecycleOwner(),paymentRequestResponse -> {
-
+                baseActivity.hideLoadingIndicator();
                 if (paymentRequestResponse.getPayment_requests() != null){
                     //baseActivity.hideLoadingIndicator();
                     paymentsBinding.recyclerPaymentRequest.setLayoutManager(new LinearLayoutManager(getActivity()));
                     paymentsBinding.recyclerPaymentRequest.setHasFixedSize(true);
-                    PaymentRequestAdapter adapter = new PaymentRequestAdapter(getActivity()
+                     adapter = new PaymentRequestAdapter(getActivity()
                             ,paymentRequestResponse.getPayment_requests(),trainerId);
                     adapter.setClickListner(this);
                     paymentsBinding.recyclerPaymentRequest.setAdapter(adapter);
 
-                }else {
+                }
+                if (adapter.getItemCount() == 0){
                     baseActivity.showSnackBar(requireNonNull(getActivity()),
                             "No Payment Requests");
                 }
-
-
             });
 
 

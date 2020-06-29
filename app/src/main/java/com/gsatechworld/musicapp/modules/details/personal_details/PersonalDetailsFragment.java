@@ -512,7 +512,7 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
         }
 
         if (profileImageBitmap == null){
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Upload Highest Degree Image");
+            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Upload Profile Image");
             return false;
         }
 

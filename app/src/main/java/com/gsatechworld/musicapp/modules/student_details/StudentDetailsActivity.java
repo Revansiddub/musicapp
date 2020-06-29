@@ -226,6 +226,11 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         mobileNumber = requireNonNull(binding.editMobileNumber.getText()).toString();
         address = requireNonNull(binding.editAddress.getText()).toString();
 
+        if(profileImageBitmap == null){
+            showSnackBar(this,"Please Upload Your Profile Picture");
+            return false;
+        }
+
         if (isEmpty(fullName)) {
             binding.editFullName.requestFocus();
             binding.editFullName.setError("Please enter your full name");

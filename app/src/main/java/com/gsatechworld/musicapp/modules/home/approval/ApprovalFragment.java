@@ -63,6 +63,10 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
 
         /*Setting Screen title*/
         binding.layoutBase.toolbar.setTitle("Approval");
+        binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
+           getFragmentManager().beginTransaction();
+        });
 
         baseActivity = (BaseActivity) getActivity();
 
@@ -130,12 +134,12 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
      */
     private void fetchApprovalList() {
         if (getNetworkInstance(getActivity()).isConnectedToInternet()) {
-          //  baseActivity.showLoadingIndicator();
+           baseActivity.showLoadingIndicator();
             SharedPreferences sharedpreferences = getContext().getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
             trainerId = String.valueOf(sharedpreferences.getInt(TrainerId, 0));
             viewModel.fetchApprovalList(trainerId).observe(getViewLifecycleOwner(),
                     approvalResponse -> {
-                     //   baseActivity.hideLoadingIndicator();
+                     baseActivity.hideLoadingIndicator();
 
                         if (approvalResponse.getResponse().equals("success")) {
                             adapter = new ApproveStudentAdapter(getActivity(), approvalResponse.getApprovalList());

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class DateResponse {
-    @SerializedName("response")
+    @SerializedName("status")
     private String response;
 
 

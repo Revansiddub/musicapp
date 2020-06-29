@@ -117,6 +117,7 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.layoutFragment, fragment, tag);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

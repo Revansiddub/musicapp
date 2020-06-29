@@ -133,7 +133,7 @@ public class AttendanceActivity extends BaseActivity {
             int id=Integer.parseInt(trainerID);
             studentsViewModel.getStudents(id).observe(this, getStudentsResponse -> {
                 hideLoadingIndicator();
-                if (getStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (getStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS) && getStudentsResponse.getResult().getTime_slots().get(position).getStudent_list() != null) {
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
                     String star_time=getStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
                     String end_time=getStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
@@ -141,6 +141,7 @@ public class AttendanceActivity extends BaseActivity {
                     recyclerView_studnts.setAdapter(attendanceAdapter);
                 }
             });
+
 
 
         }

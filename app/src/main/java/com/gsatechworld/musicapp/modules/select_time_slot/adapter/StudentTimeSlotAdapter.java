@@ -68,6 +68,7 @@ public class StudentTimeSlotAdapter extends RecyclerView.Adapter<StudentTimeSlot
             holder.binding.textTime.setTextColor(Color.parseColor("#000000"));
         }
 
+
     }
 
     @Override

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static androidx.databinding.DataBindingUtil.inflate;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
@@ -48,6 +49,9 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
     public String  month,year;
     public String trainerID;
     public ArrayList<String> dateList;
+    public int selected_day;
+    public int selected_month;
+    public int selected_year;
 
 
     /* ------------------------------------------------------------- *
@@ -70,9 +74,9 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
 
 
         Bundle bundle=this.getArguments();
-        type = bundle.getString("coaching_type");
-        trainerId=bundle.getInt("trainerID");
-        binding.calendarView.setSelectedDates(getSelectedDays());
+       // type = bundle.getString("coaching_type");
+       // trainerId=bundle.getInt("trainerID");
+//        binding.calendarView.setSelectedDates(getSelectedDays());
         Calendar calendar=binding.calendarView.getCurrentPageDate();
         Date date1=calendar.getTime();
         SimpleDateFormat simpleDateFormat1 =
@@ -96,7 +100,7 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
             editor.commit();
 
             Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-            intent.putExtra("trainerID",trainerId);
+            intent.putExtra("trainerID",trainerID);
             intent.putExtra("date",timestamp);
                 startActivity(intent);
         });
@@ -107,34 +111,10 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
 
 
 
-
         return binding.getRoot();
     }
 
-    private List<Calendar> getSelectedDays() {
-        List<Calendar> calendars = new ArrayList<>();
-        if(type.equals("Daily")){
-            for (int i = 0; i < 30; i++) {
-                Calendar calendar = DateUtils.getCalendar();
-                //calendar.add(Calendar.DAY_OF_MONTH,i);
-                calendar.add(Calendar.DAY_OF_MONTH,i);
-                calendars.add(calendar);
-            }
 
-            }
-        else {
-            for (int i=0;i<30;i++){
-                Calendar calendar = DateUtils.getCalendar();
-                i=i+7;
-
-            }
-        }
-
-
-
-
-        return calendars;
-    }
 
     @Override
     public void coachingDetails(CoachingDetails coachingDetails) {
@@ -158,6 +138,8 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
                 baseActivity.hideLoadingIndicator();
                 if (dateResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                     dateList=dateResponse.getDates();
+                    binding.calendarView.setSelectedDates(getSelectedDays());
+
 
                 }
                 else {
@@ -166,5 +148,36 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
             });
         }
 
+    }
+
+    private List<Calendar> getSelectedDays() {
+        List<Calendar> calendars = new ArrayList<>();
+
+        for (int i = 0; i < dateList.size(); i++) {
+            Calendar calendar = Calendar.getInstance();
+
+           // Objects[] objects= (Objects[]) dateList.toArray();
+
+            String [] arr=new String[dateList.size()];
+            String [] str;
+            String [] dates;
+            arr=dateList.toArray(arr);
+            for (String selected : arr){
+                System.out.print(selected + " ");
+              dates=selected.split("-");
+              selected_day=Integer.parseInt(dates[2]);
+              selected_month=Integer.parseInt(dates[1]);
+              selected_year=Integer.parseInt(dates[0]);
+              calendar.add(Calendar.YEAR,selected_year);
+              calendar.add(Calendar.MONTH,selected_month);
+                calendar.add(Calendar.DAY_OF_MONTH,selected_day);
+                calendars.add(calendar);
+
+            }
+            //int selected_dates= Integer.parseInt(dateList.get(i));
+
+        }
+
+        return calendars;
     }
 }
