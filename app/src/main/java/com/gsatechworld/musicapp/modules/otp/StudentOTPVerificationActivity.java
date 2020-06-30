@@ -136,6 +136,7 @@ public String otp;
 
             verifyStudentOTP(otp);
 
+
         });
 
 
@@ -164,8 +165,10 @@ public String otp;
                     editor.putString(STUDENT_PINCODE,pincode);
                     editor.putString(STUDENT_PINCODE_ID,pincode_id);
                     editor.commit();
-                    startActivity(new Intent(this, StudentHomeActivity.class));
-                    finish();
+                    Intent intent=new Intent(this,StudentHomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
                 }
             });
         }
