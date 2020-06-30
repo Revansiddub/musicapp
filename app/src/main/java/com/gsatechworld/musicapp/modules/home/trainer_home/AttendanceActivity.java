@@ -75,6 +75,9 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
         binding.layoutBase.toolbar.setTitle(getString(R.string.students_details));
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
 
         recyclerView_slot = binding.recyclerTimeSlots;
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView_slot.getContext(),

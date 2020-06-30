@@ -84,6 +84,13 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
         month = current_date[1];
         year = current_date[2];
 
+        Calendar toDayCalendar = Calendar.getInstance();
+        Date today_date = toDayCalendar.getTime();
+
+
+
+
+
         fetchDates(month, year);
 
         binding.calendarView.setOnDayClickListener(new OnDayClickListener() {
@@ -94,10 +101,17 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
                 SimpleDateFormat simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd");
                 String timestamp = simpleDateFormat.format(date);
 
-                Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-                intent.putExtra("trainerID", trainerID);
-                intent.putExtra("date", timestamp);
-                startActivity(intent);
+                if (date.after(today_date)){
+                    baseActivity.showSnackBar(getActivity(),"Cant add attendance before the selected date");
+                }
+                else {
+                    Intent intent = new Intent(getActivity(), AttendanceActivity.class);
+                    intent.putExtra("trainerID", trainerID);
+                    intent.putExtra("date", timestamp);
+                    startActivity(intent);
+                }
+
+
 
 
             }

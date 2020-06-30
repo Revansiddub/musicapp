@@ -91,6 +91,13 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
             listner.onActionPerformed(entrollmet_id,student_id, "2");
         });
 
+        holder.binding.textIgnore.setOnClickListener(v -> {
+            entrollmet_id=approval.getEnrollment_id();
+            student_id=approval.getStudentID();
+            listner.onActionPerformed(entrollmet_id,student_id, "0");
+        });
+
+
 
 
 

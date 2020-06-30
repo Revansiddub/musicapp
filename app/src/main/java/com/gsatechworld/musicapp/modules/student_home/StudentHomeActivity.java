@@ -73,6 +73,7 @@ public class StudentHomeActivity extends BaseActivity  {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.layoutStudentFragment, fragment, tag);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

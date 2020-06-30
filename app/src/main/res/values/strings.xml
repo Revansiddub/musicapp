@@ -35,7 +35,7 @@
     <string name="select_trainer">Select Trainer</string>
     <string name="search_here">Search here</string>
     <string name="category_not_found_message">Not in the list? Add here</string>
-    <string name="add_new_entrollmet">Add New Entrollment</string>
+    <string name="add_new_entrollmet">Add New Enrollment</string>
 
 
     <!--Add SubCategory Fragment-->

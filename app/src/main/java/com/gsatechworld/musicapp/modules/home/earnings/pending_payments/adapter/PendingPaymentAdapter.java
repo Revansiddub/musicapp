@@ -104,7 +104,7 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
 
             /*Setting listeners to the views*/
             binding.textPaid.setOnClickListener(this);
-            binding.textNotPaid.setOnClickListener(this);
+
         }
 
         @Override
@@ -115,9 +115,9 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
                 case R.id.textPaid:
                     onActionPerformed.onActionPerformed(String.valueOf(payment.getStudent_id()), PAID);
                     break;
-                case R.id.textNotPaid:
-                    onActionPerformed.onActionPerformed(String.valueOf(payment.getStudent_id()), NOT_PAID);
-                    break;
+//                case R.id.textNotPaid:
+//                    onActionPerformed.onActionPerformed(String.valueOf(payment.getStudent_id()), NOT_PAID);
+//                    break;
             }
         }
     }
