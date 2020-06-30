@@ -89,6 +89,8 @@ public final class Constants {
     public static String ABSENT="absent";
     public static String ENROLLMENT_ID="enrollmentid";
     public static String SELECTED_DATE="selectedDate";
+    public static String StudentRequest = "Student request";
+    public static String PaymentRequest = "Payment request";
 
     /* ------------------------------------------------------------- *
      * Network Call Keys
