@@ -54,6 +54,8 @@ public class StudentHomeFragment extends Fragment {
 
     public String student_id,pincode_id,pincode;
 
+    public EntrollmentAdapter adapter;
+
     public Context context;
 
     public int id;
@@ -136,14 +138,18 @@ public class StudentHomeFragment extends Fragment {
              baseActivity.hideLoadingIndicator();
              if (entrollmentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                  studentHomeBinding.recyclerEntrollments.setLayoutManager(new GridLayoutManager(getActivity(),2));
-                 studentHomeBinding.recyclerEntrollments.setAdapter(new EntrollmentAdapter(getActivity(),entrollmentResponse.getEnrollment_details()));
+                 adapter=new EntrollmentAdapter(getActivity(),entrollmentResponse.getEnrollment_details());
+                 studentHomeBinding.recyclerEntrollments.setAdapter(adapter);
              }
-             else {
-                 baseActivity.showSnackBar(requireNonNull(getActivity()),
-                         getString(R.string.no_internet_message));
-             }
+                if (adapter.getItemCount() == 0) {
+                    baseActivity.showSnackBar(getActivity(),"No Enrollments Avalable");
+                }
             });
 
+        }
+        else {
+            baseActivity.showSnackBar(requireNonNull(getActivity()),
+                    getString(R.string.no_internet_message));
         }
 
     }

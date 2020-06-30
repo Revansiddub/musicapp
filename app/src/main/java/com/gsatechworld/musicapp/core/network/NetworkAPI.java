@@ -139,6 +139,9 @@ public interface NetworkAPI {
     @GET("getTrainersDates")
     Call<DateResponse> getDates(@Query("trainer_id")String trainer_id,@Query("month") String month,@Query("year") String year);
 
+    @POST("cancellationClass")
+    Call<CommonResponse> cancel_class(@Query("enrollment_id") String enrollment_id,@Query("cancellation") String cancellation);
+
 
 
 

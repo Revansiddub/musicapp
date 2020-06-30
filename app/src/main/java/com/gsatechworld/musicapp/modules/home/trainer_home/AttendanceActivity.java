@@ -107,9 +107,9 @@ public class AttendanceActivity extends BaseActivity {
 
             studentsViewModel.getStudents(trainerID,selected_date).observe(this, fetchStudentsResponse -> {
                 hideLoadingIndicator();
-                if (fetchStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
+                if (fetchStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS) &&
+                    fetchStudentsResponse.getResult().getTime_slots().get(position).getStudent_list() != null)
                       {
-
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
                     String star_time=fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
                     String end_time=fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();

@@ -27,7 +27,7 @@ public class Approval {
 
 
     @SerializedName("slot_details")
-    public ArrayList<Slot_Details> slot_detailsList;
+    public TimeSlot_Details slot_detailsList;
 
 
 
@@ -39,7 +39,7 @@ public class Approval {
      * ------------------------------------------------------------- */
 
     public Approval(String enrollment_id,String studentID, String studentName, String gender, String age,
-                    ArrayList<Slot_Details> slot_details) {
+                    TimeSlot_Details slot_details) {
         this.enrollment_id=enrollment_id;
         this.studentID = studentID;
         this.studentName = studentName;
@@ -68,7 +68,7 @@ public class Approval {
         return age;
     }
 
-    public ArrayList<Slot_Details> getSlot_detailsList() {
+    public TimeSlot_Details getSlot_detailsList() {
         return slot_detailsList;
     }
 
@@ -77,4 +77,20 @@ public class Approval {
     }
 
 
+    public class TimeSlot_Details {
+        @SerializedName("start_time")
+        private String start_time;
+
+        @SerializedName("end_time")
+        private String end_time;
+
+        public String getStart_time() {
+            return start_time;
+        }
+
+        public String getEnd_time() {
+            return end_time;
+        }
+
+    }
 }

@@ -46,11 +46,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/size_20dp"
-            android:text=""
+            android:textSize="@dimen/size_13dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@{approval.slot_detailsList.start_time + `- ` + approval.slot_detailsList.end_time}"
             app:layout_constraintTop_toBottomOf="@id/textStudentName"
             app:layout_constraintStart_toEndOf="@id/imageStudent"
             android:layout_marginStart="@dimen/size_5dp"/>
+
 
 
 

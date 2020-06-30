@@ -80,11 +80,11 @@ public class SettingsFragment extends Fragment {
         settings2Binding = inflate(inflater, R.layout.fragment_settings2, container, false);
 
         settings2Binding.layoutBase.toolbar.setTitle("Settings");
-        settings2Binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
-        settings2Binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
-                    getActivity().onBackPressed();
-
-        });
+//        settings2Binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+//        settings2Binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
+//                    getActivity().onBackPressed();
+//
+//        });
         settings2Binding.logout.setOnClickListener(v -> {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
