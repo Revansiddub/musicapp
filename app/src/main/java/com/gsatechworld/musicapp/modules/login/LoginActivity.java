@@ -167,7 +167,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
 
                         else
                             showSnackBar(this, trainerResponse.getMessage());
-
                     });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

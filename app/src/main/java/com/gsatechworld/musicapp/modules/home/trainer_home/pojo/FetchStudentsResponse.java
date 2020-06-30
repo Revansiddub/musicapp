@@ -11,7 +11,7 @@ import com.gsatechworld.musicapp.R;
 
 import java.util.ArrayList;
 
-public class GetStudentsResponse {
+public class FetchStudentsResponse {
 
 
     @SerializedName("result")
@@ -19,17 +19,6 @@ public class GetStudentsResponse {
 
     @SerializedName("status")
     private String status;
-
-    public String stat;
-
-    public String getStat() {
-        return stat;
-    }
-
-    public void setStat(String stat) {
-        this.stat = stat;
-    }
-
 
 
     public GetStudentsResult getResult() {
@@ -98,6 +87,10 @@ public class GetStudentsResponse {
                 private int enrollment_id;
 
 
+                @SerializedName("attendance")
+                public String attendance;
+
+
                 public int getEnrollment_id() {
                     return enrollment_id;
                 }
@@ -124,6 +117,10 @@ public class GetStudentsResponse {
 
                 public String getStudent_image() {
                     return student_image;
+                }
+
+                public String getAttendance() {
+                    return attendance;
                 }
 
 

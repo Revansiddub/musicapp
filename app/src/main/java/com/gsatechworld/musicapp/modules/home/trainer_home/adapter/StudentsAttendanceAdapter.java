@@ -15,10 +15,8 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.LayoutAttendanceBinding;
 import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity;
-import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
-import com.gsatechworld.musicapp.modules.select_time_slot.adapter.StudentTimeSlotAdapter;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.FetchStudentsResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.gsatechworld.musicapp.utilities.Constants.ENROLLMENT_ID;
@@ -26,9 +24,9 @@ import static com.gsatechworld.musicapp.utilities.Constants.SELECTED_DATE;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
 
 public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAttendanceAdapter.StudentViewHolder> implements AddAttendanceActivity.onStatusListener {
-    public List<GetStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList;
-    public List<GetStudentsResponse.GetStudentsResult>  studentsResults;
-    public List<GetStudentsResponse.GetStudentsResult.Time_slots> time_slotsList;
+    public List<FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList;
+    public List<FetchStudentsResponse.GetStudentsResult>  studentsResults;
+    public List<FetchStudentsResponse.GetStudentsResult.Time_slots> time_slotsList;
     public String start_time,end_time;
     public String statusString;
     public int position;
@@ -38,7 +36,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     public boolean stat=false;
     private String selected_date;
 
-    public StudentsAttendanceAdapter(List<GetStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList,
+    public StudentsAttendanceAdapter(List<FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList,
                                      Context context, String startTime, String endTime, String selected_date) {
         this.attendanceList = attendanceList;
         this.context = context;
@@ -59,7 +57,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
      //   GetStudentsResponse.GetStudentsResult.Dates.Time_slots.Studentslist attendance=attendanceList.get(position);
-        GetStudentsResponse.GetStudentsResult.Time_slots.Student_list student_list=attendanceList.get(position);
+        FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list student_list=attendanceList.get(position);
 
         holder.binding.setAttendance(student_list);
         holder.binding.startTime.setText(start_time);

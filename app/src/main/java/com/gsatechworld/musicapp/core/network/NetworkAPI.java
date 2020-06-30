@@ -12,7 +12,7 @@ import com.gsatechworld.musicapp.modules.home.settings.pojo.ChangePasswordReques
 import com.gsatechworld.musicapp.modules.home.trainer_home.AttendanceRequest;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.DateResponse;
-import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.FetchStudentsResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.StudentResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerResponse;
@@ -25,7 +25,6 @@ import com.gsatechworld.musicapp.modules.select_time_slot.pojo.AvailableTimesSlo
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainerInfo;
 import com.gsatechworld.musicapp.modules.select_trainer.pojo.TrainersResponse;
 import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingRequest;
-import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingStudentResponse;
 import com.gsatechworld.musicapp.modules.student_home.pojo.AddEntrollmentRequest;
 import com.gsatechworld.musicapp.modules.student_home.pojo.EntrollmentResponse;
 import com.gsatechworld.musicapp.modules.student_home.pojo.UpcomingResponse;
@@ -105,7 +104,7 @@ public interface NetworkAPI {
     Call<CommonResponse> acceptPamentRequest(@Body AcceptPayment acceptPayment);
 
     @GET("studentsByMonth")
-     Call<GetStudentsResponse> getStudentBydate(@Query("trainer_id") int trainer_ID);
+     Call<FetchStudentsResponse> getStudentBydate(@Query("trainer_id") String trainer_ID, @Query("date") String date);
 
    @POST("addAttendance")
    Call<CommonResponse> addAttendance(@Body AttendanceRequest request);

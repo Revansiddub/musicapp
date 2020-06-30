@@ -1,9 +1,7 @@
 package com.gsatechworld.musicapp.modules.home.trainer_home;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,10 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,34 +20,23 @@ import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityAttendanceBinding;
-import com.gsatechworld.musicapp.modules.home.HomeActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.StudentsAttendanceAdapter;
 import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.TimesAdapter;
-import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
-import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
-import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.StudentsResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.AttendanceViewModel;
 import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.GetStudentsViewModel;
 import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.TimeSlotViewModel;
 import com.gsatechworld.musicapp.modules.select_time_slot.SelectTimeSlotViewModel;
 import com.gsatechworld.musicapp.modules.select_time_slot.adapter.TimeSlotAdapter;
-import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlotResponse;
 import com.gsatechworld.musicapp.utilities.Constants;
 import com.gsatechworld.musicapp.utilities.NetworkUtilities;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
 
 import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 import static com.google.android.material.snackbar.Snackbar.make;
-import static com.gsatechworld.musicapp.utilities.Constants.SELECTED_DATE;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
-import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
 import static java.util.Objects.requireNonNull;
 
 public class AttendanceActivity extends BaseActivity {
@@ -120,18 +104,27 @@ public class AttendanceActivity extends BaseActivity {
     private void getStudents() {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()){
             showLoadingIndicator();
-            int id=Integer.parseInt(trainerID);
-            studentsViewModel.getStudents(id).observe(this, getStudentsResponse -> {
+
+            studentsViewModel.getStudents(trainerID,selected_date).observe(this, fetchStudentsResponse -> {
                 hideLoadingIndicator();
-                if (getStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS) && getStudentsResponse.getResult()
-                        .getTime_slots().get(position).getStudent_list() != null) {
+                if (fetchStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
+                      {
+
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
-                    String star_time=getStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
-                    String end_time=getStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
-                    attendanceAdapter = new StudentsAttendanceAdapter(getStudentsResponse.getResult().getTime_slots()
+                    String star_time=fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
+                    String end_time=fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
+                    attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
                             .get(position).getStudent_list(),this, star_time, end_time, selected_date);
                     recyclerView_studnts.setAdapter(attendanceAdapter);
                 }
+                if (attendanceAdapter.getItemCount() == 0){
+                    showSnackBar(this,"You have no class scheduled in this date");
+                }
+              else {
+                  hideLoadingIndicator();
+
+                }
+
             });
         }
     }

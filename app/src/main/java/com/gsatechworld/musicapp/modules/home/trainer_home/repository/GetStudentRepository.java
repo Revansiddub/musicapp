@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.gsatechworld.musicapp.core.network.NetworkAPI;
 import com.gsatechworld.musicapp.core.network.NetworkService;
-import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.FetchStudentsResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,25 +18,25 @@ public class GetStudentRepository {
     public GetStudentRepository() {
     }
 
-    public LiveData<GetStudentsResponse> getStudents(int trainer_ID) {
+    public LiveData<FetchStudentsResponse> getStudents(String trainer_ID, String date) {
 
-        MutableLiveData<GetStudentsResponse> mutableLiveData = new MutableLiveData<>();
+        MutableLiveData<FetchStudentsResponse> mutableLiveData = new MutableLiveData<>();
 
         networkAPI = NetworkService.getRetrofitInstance().create(NetworkAPI.class);
 
-        Call<GetStudentsResponse> responseCall = networkAPI.getStudentBydate(trainer_ID);
-        responseCall.enqueue(new Callback<GetStudentsResponse>() {
+        Call<FetchStudentsResponse> responseCall = networkAPI.getStudentBydate(trainer_ID,date);
+        responseCall.enqueue(new Callback<FetchStudentsResponse>() {
             @Override
-            public void onResponse(Call<GetStudentsResponse> call, Response<GetStudentsResponse> response) {
-                GetStudentsResponse getStudentsResponse = response.body();
-                if (getStudentsResponse != null) {
-                    mutableLiveData.setValue(getStudentsResponse);
+            public void onResponse(Call<FetchStudentsResponse> call, Response<FetchStudentsResponse> response) {
+                FetchStudentsResponse fetchStudentsResponse = response.body();
+                if (fetchStudentsResponse != null) {
+                    mutableLiveData.setValue(fetchStudentsResponse);
                 }
 
             }
 
             @Override
-            public void onFailure(Call<GetStudentsResponse> call, Throwable t) {
+            public void onFailure(Call<FetchStudentsResponse> call, Throwable t) {
                 mutableLiveData.setValue(null);
             }
         });
