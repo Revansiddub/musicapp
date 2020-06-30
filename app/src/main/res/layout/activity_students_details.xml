@@ -2,7 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     tools:context=".modules.home.approval.StudentsDetails">
+
+    <data>
+
+        <variable
+            name="studentprofile"
+            type="com.gsatechworld.musicapp.modules.student_home.student_profile.pojo.StudentProfileResponse" />
+
+
+    </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -41,23 +51,19 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/profile_round" />
+                        android:layout_width="@dimen/size_100dp"
+                        android:layout_height="@dimen/size_100dp"
+                        android:layout_marginTop="@dimen/size_20dp"
+                        bind:profile_image="@{studentprofile.profile_image}"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Student Name"
+                        android:text="@{studentprofile.name}"
                         android:textSize="28dp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="developer@appsnipp.com"
-                        android:textSize="12dp"
-                        android:textStyle="bold" />
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -73,9 +79,7 @@
                             android:layout_alignParentTop="true"
                             android:background="#6495ED" />
 
-                        <TextView
-                            style="@style/profileStyledBackButton"
-                            android:text="Back to\nHome" />
+
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -91,7 +95,11 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <include layout="@layout/content_profile" />
+        <include
+            android:id="@+id/profile_contents"
+            layout="@layout/content_profile"
+            bind:studentprofile="@{studentprofile}"
+             />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

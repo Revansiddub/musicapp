@@ -1,5 +1,7 @@
 package com.gsatechworld.musicapp.modules.home.trainer_home.adapter;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.LayoutAttendanceBinding;
+import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAdapter;
 import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.FetchStudentsResponse;
 
@@ -21,7 +24,9 @@ import java.util.List;
 
 import static com.gsatechworld.musicapp.utilities.Constants.ENROLLMENT_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.SELECTED_DATE;
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
+import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 
 public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAttendanceAdapter.StudentViewHolder> implements AddAttendanceActivity.onStatusListener {
     public List<FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList;
@@ -30,19 +35,23 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     public String start_time,end_time;
     public String statusString;
     public int position;
-
+    public cancelPerformedLister performedLister;
     public Context context;
     BaseActivity baseActivity;
     public boolean stat=false;
     private String selected_date;
+    private Activity activity;
+    public String enorllment_id;
 
     public StudentsAttendanceAdapter(List<FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList,
-                                     Context context, String startTime, String endTime, String selected_date) {
+                                     Context context, String startTime, String endTime, String selected_date,
+                                     Activity activity) {
         this.attendanceList = attendanceList;
         this.context = context;
         this.start_time=startTime;
         this.end_time=endTime;
         this.selected_date = selected_date;
+        this.activity = activity;
     }
 
     @NonNull
@@ -67,23 +76,36 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
 
         holder.binding.attendanceStatus.setText(statusString);
 
-
+        enorllment_id=String.valueOf(student_list.getEnrollment_id());
         holder.binding.layoutApprove.setOnClickListener(v -> {
             Intent intent=new Intent(context.getApplicationContext(), AddAttendanceActivity.class);
-            intent.putExtra("name",student_list.getStudent_name());
-             intent.putExtra("age",student_list.getStudent_age());
-             intent.putExtra("mobile",student_list.getMobile_number());
-             intent.putExtra("startTime",start_time);
-             intent.putExtra("endTime",end_time);
-             intent.putExtra(Intent.EXTRA_TEXT,student_list.getStudent_image());
-             intent.putExtra(ENROLLMENT_ID,student_list.getEnrollment_id());
-             intent.putExtra(STUDENT_ID,student_list.getStudent_id());
-             intent.putExtra(SELECTED_DATE, selected_date);
+            intent.putExtra("name", student_list.getStudent_name());
+            intent.putExtra("age", student_list.getStudent_age());
+            intent.putExtra("mobile",student_list.getMobile_number());
+            intent.putExtra("startTime",start_time);
+            intent.putExtra("endTime",end_time);
+            intent.putExtra(Intent.EXTRA_TEXT,student_list.getStudent_image());
+            intent.putExtra(ENROLLMENT_ID,student_list.getEnrollment_id());
+            intent.putExtra(STUDENT_ID,student_list.getStudent_id());
+            intent.putExtra(SELECTED_DATE, selected_date);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.getApplicationContext().startActivity(intent);
-
         });
 
+        holder.binding.cancelClass.setOnClickListener(v -> {
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+            alertDialog.setTitle("Cancel Class");
+            alertDialog.setMessage("Are you sure want to cancel this class?");
+
+            alertDialog.setPositiveButton("Yes",(dialog, which) -> {
+                performedLister.onActionCancel(enorllment_id,"4");
+            });
+            alertDialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());
+
+            alertDialog.show();
+        });
 
     }
 
@@ -103,6 +125,14 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
             super(binding.getRoot());
             this.binding=binding;
         }
+    }
+
+    public interface cancelPerformedLister{
+        void onActionCancel(String enrollment_id,String cancellation);
+    }
+
+    public void setActionListener(cancelPerformedLister listener){
+        this.performedLister=listener;
     }
 
 

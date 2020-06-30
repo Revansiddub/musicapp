@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.select_subcategory.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -156,6 +157,8 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder>  {
                 editor.putInt(PINCODE_ID,pincode_Id);
                 editor.commit();
                 mCtx.startActivity(intent);
+                ((Activity)mCtx).finish();
+
 
 
             }

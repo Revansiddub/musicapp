@@ -144,6 +144,7 @@ public class TrainerOtpVerification extends BaseActivity {
             if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                 openSuccessDialog("OTP Verification successfully Completed.");
                 startActivity(new Intent(TrainerOtpVerification.this, LoginActivity.class));
+                finish();
             }
 
         });

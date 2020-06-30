@@ -353,7 +353,6 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
                     encodeDocuments();
                 openSuccessDialog("Your details have been submitted successfully.");
                 startActivity(new Intent(this, WelcomeActivity.class));
-                finish();
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

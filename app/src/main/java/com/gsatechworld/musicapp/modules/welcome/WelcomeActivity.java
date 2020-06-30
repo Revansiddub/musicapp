@@ -117,6 +117,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
     public void onClick(View view) {
         if (view.getId() == R.id.textLogin) {
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
     }
 

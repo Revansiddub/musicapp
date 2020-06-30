@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
-                android:text="Attendance :"
+                android:text="Add Attendance :"
                 android:textSize="@dimen/size_15dp"
                 android:layout_toRightOf="@id/image_student"
                 android:layout_below="@id/text_category"
@@ -76,6 +76,16 @@
                 android:layout_marginLeft="@dimen/size_10dp"
                 android:layout_toRightOf="@id/text_status"
                 android:layout_below="@id/text_category"/>
+
+            <ImageView
+                android:id="@+id/cancel_class"
+                android:layout_width="@dimen/size_30dp"
+                android:layout_height="@dimen/size_30dp"
+                android:src="@drawable/icon_close"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:padding="@dimen/size_5dp"/>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"

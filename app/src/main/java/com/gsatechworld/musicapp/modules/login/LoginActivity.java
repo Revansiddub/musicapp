@@ -152,7 +152,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                     .observe(this, trainerResponse -> {
                         hideLoadingIndicator();
 
-                        if (trainerResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
+                        if (trainerResponse != null && trainerResponse.getResponse().equals(SERVER_RESPONSE_SUCCESS)) {
                             trainerId = trainerResponse.getTrainerID();
                             SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -164,7 +164,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                             startActivity(intent);
                             finish();
                         }
-
                         else
                             showSnackBar(this, trainerResponse.getMessage());
                     });

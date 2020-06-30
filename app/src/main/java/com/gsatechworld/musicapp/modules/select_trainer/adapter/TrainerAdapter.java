@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.select_trainer.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -156,6 +157,7 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
                 intent.putExtra(TRAINER_ID, trainer.getTrainer_id());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mCtx.getApplicationContext().startActivity(intent);
+                ((Activity)mCtx).finish();
             }
         }
     }

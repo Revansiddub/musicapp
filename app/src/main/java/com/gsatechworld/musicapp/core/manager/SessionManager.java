@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.gsatechworld.musicapp.utilities.Constants.FCM_TOKEN;
+import static com.gsatechworld.musicapp.utilities.Constants.MyPREFERENCES;
 
 public class SessionManager {
 
@@ -32,7 +33,7 @@ public class SessionManager {
 
     @SuppressLint("CommitPrefEdits")
     public SessionManager(Context mCtx) {
-        sharedPreference = mCtx.getSharedPreferences(mCtx.getPackageName(), MODE_PRIVATE);
+        sharedPreference = mCtx.getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         editor = sharedPreference.edit();
     }
 

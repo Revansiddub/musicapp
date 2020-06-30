@@ -60,7 +60,7 @@ public class SettingsFragment extends Fragment {
         /*Binding layout file with JAVA class*/
         viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
-        trainerID=getArguments().getString(TRAINER_ID);
+        trainerID = getArguments().getString(TRAINER_ID);
 
 
         binding.logout.setOnClickListener(v -> {

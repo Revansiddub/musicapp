@@ -35,6 +35,7 @@ import static com.google.android.material.snackbar.Snackbar.make;
 import static com.gsatechworld.musicapp.utilities.Constants.ACCEPTED;
 import static com.gsatechworld.musicapp.utilities.Constants.IGNORED;
 import static com.gsatechworld.musicapp.utilities.Constants.MALE;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
 import static java.util.Locale.getDefault;
 import static java.util.Objects.requireNonNull;
 
@@ -98,6 +99,7 @@ public class ApproveStudentAdapter extends Adapter<ApproveStudentAdapter.Approve
             intent.putExtra("name",approval.getStudentName());
             intent.putExtra("age",approval.getAge());
             intent.putExtra("gender",approval.getGender());
+            intent.putExtra(STUDENT_ID,approval.getStudentID());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mCtx.getApplicationContext().startActivity(intent);
         });

@@ -116,11 +116,12 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
         binding=inflate(inflater, R.layout.fragment_student_payment, container, false);
 
 
+        //back button
         binding.layoutBase.toolbar.setTitle("Payments");
-//        binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
-//        binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
-//            getActivity().onBackPressed();
-//        });
+        binding.layoutBase.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        binding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
 
         baseActivity = (BaseActivity) getActivity();
 
