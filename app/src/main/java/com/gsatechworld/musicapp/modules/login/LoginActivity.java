@@ -161,12 +161,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                             editor.commit();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
-
+                            finish();
                         }
 
                         else
                             showSnackBar(this, trainerResponse.getMessage());
-
                     });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

@@ -137,6 +137,9 @@ public class AddAttendanceActivity extends BaseActivity {
                 startActivity(new Intent(AddAttendanceActivity.this,AttendanceActivity.class));
                 finish();
               }
+              else {
+                  showSnackBar(this,"Please Add Attendance");
+              }
 
             });
 

@@ -7,7 +7,7 @@
 
         <variable
             name="attendance"
-            type="com.gsatechworld.musicapp.modules.home.trainer_home.pojo.GetStudentsResponse.GetStudentsResult.Time_slots.Student_list" />
+            type="com.gsatechworld.musicapp.modules.home.trainer_home.pojo.FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list" />
 
     </data>
 
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
-                android:text="Status :"
+                android:text="Attendance :"
                 android:textSize="@dimen/size_15dp"
                 android:layout_toRightOf="@id/image_student"
                 android:layout_below="@id/text_category"
@@ -70,7 +70,7 @@
                 android:id="@+id/attendance_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="@{attendance.attendance}"
                 android:textSize="@dimen/size_15dp"
                 android:textColor="@color/black"
                 android:layout_marginLeft="@dimen/size_10dp"

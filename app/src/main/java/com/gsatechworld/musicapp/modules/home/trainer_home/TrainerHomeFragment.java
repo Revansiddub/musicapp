@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
@@ -85,18 +86,35 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
 
         fetchDates(month, year);
 
-        binding.calendarView.setOnDayClickListener(eventDay -> {
-            Calendar selectedDate = binding.calendarView.getSelectedDate();
-            Date date = selectedDate.getTime();
-            SimpleDateFormat simpleDateFormat =
-                    new SimpleDateFormat("dd-MM-yyyy");
-            String timestamp = simpleDateFormat.format(date);
+        binding.calendarView.setOnDayClickListener(new OnDayClickListener() {
+            @Override
+            public void onDayClick(EventDay eventDay) {
+                Calendar clickedDayCalendar = eventDay.getCalendar();
+                Date date=clickedDayCalendar.getTime();
+                SimpleDateFormat simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd");
+                String timestamp = simpleDateFormat.format(date);
 
-            Intent intent = new Intent(getActivity(), AttendanceActivity.class);
-            intent.putExtra("trainerID", trainerID);
-            intent.putExtra("date", timestamp);
-            startActivity(intent);
+                Intent intent = new Intent(getActivity(), AttendanceActivity.class);
+                intent.putExtra("trainerID", trainerID);
+                intent.putExtra("date", timestamp);
+                startActivity(intent);
+
+
+            }
         });
+
+//        binding.calendarView.setOnDayClickListener(eventDay -> {
+//            Calendar selectedDate = binding.calendarView.getSelectedDate();
+//            Date date = selectedDate.getTime();
+//            SimpleDateFormat simpleDateFormat =
+//                    new SimpleDateFormat("dd-MM-yyyy");
+//            String timestamp = simpleDateFormat.format(date);
+//
+//            Intent intent = new Intent(getActivity(), AttendanceActivity.class);
+//            intent.putExtra("trainerID", trainerID);
+//            intent.putExtra("date", timestamp);
+//            startActivity(intent);
+//        });
 
         /*Binding layout file with JAVA class*/
         viewModel = new ViewModelProvider(this).get(TrainerHomeViewModel.class);
