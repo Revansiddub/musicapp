@@ -43,7 +43,7 @@ class LoginRepository {
         MutableLiveData<TrainerResponse> trainerMutableLiveData = new MutableLiveData<>();
 
         networkAPI= NetworkService.getRetrofitInstance().create(NetworkAPI.class);
-        Call<TrainerResponse>responseCall=networkAPI.checkLogin(info);
+        Call<TrainerResponse>responseCall = networkAPI.checkLogin(info);
         responseCall.enqueue(new Callback<TrainerResponse>() {
             @Override
             public void onResponse(Call<TrainerResponse> call, Response<TrainerResponse> response) {
@@ -56,6 +56,7 @@ class LoginRepository {
             @Override
             public void onFailure(Call<TrainerResponse> call, Throwable t) {
                 Log.d(TAG, t.getMessage().toString());
+                trainerMutableLiveData.postValue(null);
             }
         });
 

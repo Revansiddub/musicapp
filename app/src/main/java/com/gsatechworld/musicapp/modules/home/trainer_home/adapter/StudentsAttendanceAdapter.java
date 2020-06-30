@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.home.trainer_home.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -35,14 +36,17 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     BaseActivity baseActivity;
     public boolean stat=false;
     private String selected_date;
+    private Activity activity;
 
     public StudentsAttendanceAdapter(List<FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList,
-                                     Context context, String startTime, String endTime, String selected_date) {
+                                     Context context, String startTime, String endTime, String selected_date,
+                                     Activity activity) {
         this.attendanceList = attendanceList;
         this.context = context;
         this.start_time=startTime;
         this.end_time=endTime;
         this.selected_date = selected_date;
+        this.activity = activity;
     }
 
     @NonNull
@@ -70,21 +74,18 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
 
         holder.binding.layoutApprove.setOnClickListener(v -> {
             Intent intent=new Intent(context.getApplicationContext(), AddAttendanceActivity.class);
-            intent.putExtra("name",student_list.getStudent_name());
-             intent.putExtra("age",student_list.getStudent_age());
-             intent.putExtra("mobile",student_list.getMobile_number());
-             intent.putExtra("startTime",start_time);
-             intent.putExtra("endTime",end_time);
-             intent.putExtra(Intent.EXTRA_TEXT,student_list.getStudent_image());
-             intent.putExtra(ENROLLMENT_ID,student_list.getEnrollment_id());
-             intent.putExtra(STUDENT_ID,student_list.getStudent_id());
-             intent.putExtra(SELECTED_DATE, selected_date);
+            intent.putExtra("name", student_list.getStudent_name());
+            intent.putExtra("age", student_list.getStudent_age());
+            intent.putExtra("mobile",student_list.getMobile_number());
+            intent.putExtra("startTime",start_time);
+            intent.putExtra("endTime",end_time);
+            intent.putExtra(Intent.EXTRA_TEXT,student_list.getStudent_image());
+            intent.putExtra(ENROLLMENT_ID,student_list.getEnrollment_id());
+            intent.putExtra(STUDENT_ID,student_list.getStudent_id());
+            intent.putExtra(SELECTED_DATE, selected_date);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.getApplicationContext().startActivity(intent);
-
         });
-
-
     }
 
     @Override

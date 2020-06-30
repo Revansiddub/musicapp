@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -87,9 +88,15 @@ public class AttendanceActivity extends BaseActivity {
         userType = sharedpreferences.getString(Constants.TrainerType, null);
         trainerID = String.valueOf(sharedpreferences.getInt(Constants.TrainerId, 0));
         getTimeLots();
-        getStudents();
 
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        getStudents();
+    }
+
 
     public void showSnackBar(Activity context, String message) {
         Snackbar snackbar = make(context.findViewById(android.R.id.content), message, LENGTH_LONG);
@@ -101,11 +108,12 @@ public class AttendanceActivity extends BaseActivity {
         snackbar.show();
     }
 
+
     private void getStudents() {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()){
             showLoadingIndicator();
 
-            studentsViewModel.getStudents(trainerID,selected_date).observe(this, fetchStudentsResponse -> {
+            studentsViewModel.getStudents(trainerID, selected_date).observe(this, fetchStudentsResponse -> {
                 hideLoadingIndicator();
                 if (fetchStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
                       {
@@ -114,7 +122,7 @@ public class AttendanceActivity extends BaseActivity {
                     String star_time=fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
                     String end_time=fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
                     attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
-                            .get(position).getStudent_list(),this, star_time, end_time, selected_date);
+                            .get(position).getStudent_list(),this, star_time, end_time, selected_date, this);
                     recyclerView_studnts.setAdapter(attendanceAdapter);
                 }
                 if (attendanceAdapter.getItemCount() == 0){

@@ -39,39 +39,40 @@ import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkIns
 import static java.util.Objects.requireNonNull;
 
 public class AddAttendanceActivity extends BaseActivity {
-    public String name,phone,timing,age,startTime,endTime,enrollment_id,student_id;
+    public String name, phone, timing, age, startTime, endTime, enrollment_id, student_id;
     ActivityAddAttendanceBinding binding;
     AttendanceViewModel attendanceViewModel;
-    public String selected_date,student_image;
+    public String selected_date, student_image;
     private String trainerID;
     public int status;
     public onStatusListener listener;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_attendance);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_add_attendance);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_attendance);
 
         attendanceViewModel = new ViewModelProvider(this).get(AttendanceViewModel.class);
-        name=getIntent().getStringExtra("name");
-        age=getIntent().getStringExtra("age");
-        phone=getIntent().getStringExtra("mobile");
-        startTime=getIntent().getStringExtra("startTime");
-        endTime=getIntent().getStringExtra("endTime");
+        name = getIntent().getStringExtra("name");
+        age = getIntent().getStringExtra("age");
+        phone = getIntent().getStringExtra("mobile");
+        startTime = getIntent().getStringExtra("startTime");
+        endTime = getIntent().getStringExtra("endTime");
         selected_date = getIntent().getStringExtra(SELECTED_DATE);
 
-        Intent intent=getIntent();
-        if (intent.hasExtra(Intent.EXTRA_TEXT)){
-            student_image=getIntent().getExtras().getString(Intent.EXTRA_TEXT);
+        Intent intent = getIntent();
+        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+            student_image = getIntent().getExtras().getString(Intent.EXTRA_TEXT);
             Glide.with(this).load(student_image).into(binding.imageIcon);
 
         }
 
-        enrollment_id=String.valueOf(getIntent().getIntExtra(ENROLLMENT_ID,0));
-        student_id=getIntent().getStringExtra(STUDENT_ID);
-        SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
-        trainerID=String.valueOf(sharedPreferences.getInt(TrainerId, 0));
+        enrollment_id = String.valueOf(getIntent().getIntExtra(ENROLLMENT_ID, 0));
+        student_id = getIntent().getStringExtra(STUDENT_ID);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
+        trainerID = String.valueOf(sharedPreferences.getInt(TrainerId, 0));
 
 
         binding.textviewName.setText(name);
@@ -79,10 +80,9 @@ public class AddAttendanceActivity extends BaseActivity {
         binding.textviewMobile.setText(phone);
         binding.textviewStart.setText(startTime);
         binding.endTime.setText(endTime);
-      //  binding.textviewTiming.setText(timing);
+        //  binding.textviewTiming.setText(timing);
 
-        status=1;
-
+        status = 1;
 
 
         binding.buttonSubmit.setOnClickListener(v -> {
@@ -124,34 +124,31 @@ public class AddAttendanceActivity extends BaseActivity {
 
     }
 
-    public void addStudenceAttendance(){
+    public void addStudenceAttendance() {
 
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
             attendanceViewModel.addAttendance(new AttendanceRequest(student_id, enrollment_id, selected_date,
-                    startTime, endTime,status)).observe(this, commonResponse -> {
+                    startTime, endTime, status)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
-              if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-                openSuccessDialog(commonResponse.getMessage());
-                startActivity(new Intent(AddAttendanceActivity.this,AttendanceActivity.class));
-                finish();
-              }
-              else {
-                  showSnackBar(this,"Please Add Attendance");
-              }
-
+                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+                    openSuccessDialog(commonResponse.getMessage());
+                    finish();
+                } else {
+                    showSnackBar(this, "Please Add Attendance");
+                }
             });
 
         }
 
     }
 
-    public interface onStatusListener{
+    public interface onStatusListener {
         void onStatusPerformed(String status);
     }
 
-    public void setActionListener(onStatusListener listener){
-        this.listener=listener;
+    public void setActionListener(onStatusListener listener) {
+        this.listener = listener;
     }
 }
