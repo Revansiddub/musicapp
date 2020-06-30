@@ -161,17 +161,18 @@ public String otp;
                     String pincode = studentOTPResponse.getPincode();
                     SharedPreferences preferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(STUDENT_ID,student_id);
+                    editor.putString(STUDENT_ID, student_id);
                     editor.putString(STUDENT_PINCODE,pincode);
                     editor.putString(STUDENT_PINCODE_ID,pincode_id);
+                    editor.putBoolean(Constants.IsStudentLogin, true);
+                    editor.putBoolean(Constants.IsTrainerLogin, false);
                     editor.commit();
-                    Intent intent=new Intent(this,StudentHomeActivity.class);
+                    Intent intent = new Intent(this, StudentHomeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-
+                    finish();
                 }
             });
         }
-
     }
 }

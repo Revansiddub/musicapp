@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.modules.home.HomeActivity;
+import com.gsatechworld.musicapp.utilities.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -146,15 +147,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 // check for image attachment
             Intent intent = null;
-//                if(identifier.equalsIgnoreCase(Constant.Article)){
-//                    Log.e("MyFirebaseMessagingService", "inside data: showNotificationForFollow");
-//                    // image is present, show notification with image
-//                    intent = new Intent(getApplicationContext(), ArticleDetailsActivity.class);
+                if(identifier.equalsIgnoreCase(Constants.StudentRequest)) {
+                    Log.e("MyFirebaseMessagingService", "inside data: showNotificationForFollow");
+                    // image is present, show notification with image
+                    intent = new Intent(getApplicationContext(), HomeActivity.class);
 //                    intent.putExtra(Constant.ArticleId, article_id);
 //                    intent.putExtra(Constant.ArticleTitle, title);
 //                    intent.putExtra(Constant.ArticleImage, article_img);
 //                    intent.putExtra(Constant.Article_desc, article_desc);
-//                }
+                } else if(identifier.equalsIgnoreCase(Constants.PaymentRequest)) {
+                    intent = new Intent(getApplicationContext(), HomeActivity.class);
+                }
 
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 

@@ -158,6 +158,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putInt(Constants.TrainerId, trainerId);
                             editor.putBoolean(Constants.IsTrainerLogin, true);
+                            editor.putBoolean(Constants.IsStudentLogin, false);
                             editor.commit();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
@@ -185,7 +186,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                     SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString(MOBILE_NUMBER, mobileNumber);
-                    editor.putBoolean(Constants.IsStudentLogin,true);
                     editor.commit();
                     startActivity(new Intent(this, StudentOTPVerificationActivity.class));
                     finish();

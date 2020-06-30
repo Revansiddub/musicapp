@@ -62,8 +62,15 @@ public class HomeActivity extends BaseActivity implements OnNavigationItemSelect
         }
 
         SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
-        userType= sharedpreferences.getString(Constants.TrainerType, null);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        userType = sharedpreferences.getString(Constants.TrainerType, null);
         trainerId = String.valueOf(sharedpreferences.getInt(TrainerId, 0));
+
+        if(sharedpreferences.getBoolean(Constants.IsTrainerLogin, false)){
+            editor.putBoolean(Constants.IsStudentLogin, false);
+        } else if (sharedpreferences.getBoolean(Constants.IsStudentLogin, false)){
+            editor.putBoolean(Constants.IsTrainerLogin, false);
+        }
         /*Opening trainer's home fragment by default*/
 
 

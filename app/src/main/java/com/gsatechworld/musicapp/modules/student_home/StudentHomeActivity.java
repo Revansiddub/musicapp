@@ -32,8 +32,14 @@ public class StudentHomeActivity extends BaseActivity  {
 
         ActivityStudentHomeBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_student_home);
 
-        SharedPreferences preferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
-        student_id=preferences.getString(Constants.STUDENT_ID,null);
+        SharedPreferences preferences = getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        if(preferences.getBoolean(Constants.IsTrainerLogin, false)){
+            editor.putBoolean(Constants.IsStudentLogin, false);
+        } else if (preferences.getBoolean(Constants.IsStudentLogin, false)){
+            editor.putBoolean(Constants.IsTrainerLogin, false);
+        }
+        student_id = preferences.getString(Constants.STUDENT_ID,null);
 
         openFragment(new StudentHomeFragment(), Constants.STUDENT_HOME_FRAGMENT_TAG);
 

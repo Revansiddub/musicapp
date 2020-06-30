@@ -154,9 +154,7 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
     public void coachingDetails(CoachingDetails coachingDetails) {
         this.coachingDetails = coachingDetails;
         if (coachingDetails.isDaily() == true) {
-
         }
-
     }
 
 
