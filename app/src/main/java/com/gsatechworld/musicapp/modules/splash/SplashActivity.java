@@ -46,7 +46,7 @@ public class SplashActivity extends BaseActivity {
     private void openScreens() {
         SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
         boolean isLogdin = sharedpreferences.getBoolean(Constants.IsTrainerLogin, false);
-        boolean isLogdinStudent=sharedpreferences.getBoolean(Constants.IsStudentLogin,false);
+        boolean isLogdinStudent = sharedpreferences.getBoolean(Constants.IsStudentLogin,false);
         if(isLogdin){
             startActivity(new Intent(this, HomeActivity.class));
             finish();
