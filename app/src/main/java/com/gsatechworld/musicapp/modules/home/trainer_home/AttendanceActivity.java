@@ -42,7 +42,7 @@ import static java.util.Objects.requireNonNull;
 
 public class AttendanceActivity extends BaseActivity {
     ActivityAttendanceBinding binding;
-    RecyclerView recyclerView_slot,recyclerView_studnts;
+    RecyclerView recyclerView_slot, recyclerView_studnts;
     TimeSlotAdapter adapter;
     public String trainerID;
 
@@ -53,7 +53,7 @@ public class AttendanceActivity extends BaseActivity {
     public GetStudentsViewModel studentsViewModel;
     public TimesAdapter timesAdapter;
     public int position;
-    public String selected_date,string_date ;
+    public String selected_date, string_date;
     private String userType;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -61,28 +61,28 @@ public class AttendanceActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_attendance);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_attendance);
 
-         selected_date = getIntent().getStringExtra("date");
-         binding.textDate.setText(selected_date);
-         //LocalDate localDate=LocalDate.parse(selected_date);
+        selected_date = getIntent().getStringExtra("date");
+        binding.textDate.setText(selected_date);
+        //LocalDate localDate=LocalDate.parse(selected_date);
 
         binding.layoutBase.toolbar.setTitle(getString(R.string.students_details));
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        recyclerView_slot=binding.recyclerTimeSlots;
+        recyclerView_slot = binding.recyclerTimeSlots;
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView_slot.getContext(),
                 DividerItemDecoration.VERTICAL);
         recyclerView_slot.addItemDecoration(dividerItemDecoration);
         recyclerView_slot.setHasFixedSize(true);
-        recyclerView_studnts=binding.recyclerStudents;
+        recyclerView_studnts = binding.recyclerStudents;
         recyclerView_studnts.setHasFixedSize(true);
 
-        viewModel=new ViewModelProvider(this).get(TimeSlotViewModel.class);
-        timeSlotViewModel=new ViewModelProvider(this).get(SelectTimeSlotViewModel.class);
-        attendanceViewModel=new ViewModelProvider(this).get(AttendanceViewModel.class);
-        studentsViewModel=new ViewModelProvider(this).get(GetStudentsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(TimeSlotViewModel.class);
+        timeSlotViewModel = new ViewModelProvider(this).get(SelectTimeSlotViewModel.class);
+        attendanceViewModel = new ViewModelProvider(this).get(AttendanceViewModel.class);
+        studentsViewModel = new ViewModelProvider(this).get(GetStudentsViewModel.class);
 
         SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
         userType = sharedpreferences.getString(Constants.TrainerType, null);
@@ -92,7 +92,7 @@ public class AttendanceActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         getStudents();
     }
@@ -110,29 +110,21 @@ public class AttendanceActivity extends BaseActivity {
 
 
     private void getStudents() {
-        if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()){
+        if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
             studentsViewModel.getStudents(trainerID, selected_date).observe(this, fetchStudentsResponse -> {
                 hideLoadingIndicator();
-                if (fetchStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
-                      {
-
+                if (fetchStudentsResponse != null && fetchStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
-                    String star_time=fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
-                    String end_time=fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
+                    String star_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
+                    String end_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
                     attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
-                            .get(position).getStudent_list(),this, star_time, end_time, selected_date, this);
+                            .get(position).getStudent_list(), this, star_time, end_time, selected_date, this);
                     recyclerView_studnts.setAdapter(attendanceAdapter);
+                } else {
+                    showSnackBar(this, "You have no class scheduled in this date");
                 }
-                if (attendanceAdapter.getItemCount() == 0){
-                    showSnackBar(this,"You have no class scheduled in this date");
-                }
-              else {
-                  hideLoadingIndicator();
-
-                }
-
             });
         }
     }
@@ -146,7 +138,7 @@ public class AttendanceActivity extends BaseActivity {
             e.printStackTrace();
         }
         SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("Output date is = "+outputDateFormat.format(tempDate));
+        System.out.println("Output date is = " + outputDateFormat.format(tempDate));
 
         return "fdgdf";
     }
@@ -154,9 +146,9 @@ public class AttendanceActivity extends BaseActivity {
     private void getTimeLots() {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
             timeSlotViewModel.fetchTimeSlots(trainerID).observe(this, availableTimeSlotResponse -> {
-                if (availableTimeSlotResponse.getStatus().equals("success")){
-                    timesAdapter=new TimesAdapter(this,availableTimeSlotResponse.getAvailable_slots());
-                    binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this,2));
+                if (availableTimeSlotResponse.getStatus().equals("success")) {
+                    timesAdapter = new TimesAdapter(this, availableTimeSlotResponse.getAvailable_slots());
+                    binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this, 2));
                     binding.recyclerTimeSlots.setAdapter(timesAdapter);
                 }
             });
