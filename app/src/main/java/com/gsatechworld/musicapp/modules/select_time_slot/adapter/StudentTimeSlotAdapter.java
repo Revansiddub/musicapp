@@ -62,10 +62,12 @@ public class StudentTimeSlotAdapter extends RecyclerView.Adapter<StudentTimeSlot
 
         if(index==position){
             holder.binding.layoutTimeSlot.setBackgroundColor(Color.parseColor("#FF4081"));
-            holder.binding.textTime.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.binding.startTime.setTextColor(Color.parseColor("#000000"));
+            holder.binding.endtime.setTextColor(Color.parseColor("#000000"));
         }else{
             holder.binding.layoutTimeSlot.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            holder.binding.textTime.setTextColor(Color.parseColor("#000000"));
+            holder.binding.startTime.setTextColor(Color.parseColor("#000000"));
+            holder.binding.endtime.setTextColor(Color.parseColor("#000000"));
         }
 
 

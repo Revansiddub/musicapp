@@ -147,7 +147,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         switch (view.getId()) {
 
             case R.id.image_profiles:
-                Toast.makeText(getApplicationContext(),"hai",Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(),"hai",Toast.LENGTH_SHORT).show();
                 withActivity(this).withPermissions(WRITE_EXTERNAL_STORAGE,CAMERA).withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
@@ -226,8 +226,9 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         mobileNumber = requireNonNull(binding.editMobileNumber.getText()).toString();
         address = requireNonNull(binding.editAddress.getText()).toString();
 
+
         if(profileImageBitmap == null){
-            showSnackBar(this,"Please Upload Your Profile Picture");
+            showErrorSnackBar(this,"Please Upload Your Profile Picture");
             return false;
         }
 
@@ -325,14 +326,14 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
             public void run() {
                 Message msg = Message.obtain();
                 msg.what = STEP_ONE_COMPLETE;
-                handler.sendMessage(msg);
+              //  handler.sendMessage(msg);
 
                 profileImage
                         =encodeToBase64(profileImageBitmap);
 
                 Message msg2 = Message.obtain();
                 msg2.what = STEP_TWO_COMPLETE;
-                handler.sendMessage(msg2);
+               // handler.sendMessage(msg2);
 
 
             }
@@ -341,36 +342,36 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
     }
 
     private void onBoardStudent() {
+        profileImage
+                =encodeToBase64(profileImageBitmap);
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
-            profileImage
-                    =encodeToBase64(profileImageBitmap);
-            viewModel.onBoardStudent(new OnboardingRequest(pincode_id,category_id,sub_category_id,timeSlotes,fullName, age, standard,
+            viewModel.onBoardStudent(new OnboardingRequest(pincode_id,category_id,sub_category_id,timeSlotes,fullName, age, gender, standard,
                     schoolName,address, mobileNumber,trainerID,profileImage)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
+                if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+                    openSuccessDialog("Your details have been submitted successfully.");
+                    startActivity(new Intent(this, WelcomeActivity.class));
+                }
 
-                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS))
-                    encodeDocuments();
-                openSuccessDialog("Your details have been submitted successfully.");
-                startActivity(new Intent(this, WelcomeActivity.class));
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));
     }
 
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case STEP_ONE_COMPLETE:
-                    showLoadingIndicator();
-                    break;
-                case STEP_TWO_COMPLETE:
-                    hideLoadingIndicator();
-                    break;
-            }
-        }
-    };
+//    @SuppressLint("HandlerLeak")
+//    private Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case STEP_ONE_COMPLETE:
+//                    showLoadingIndicator();
+//                    break;
+//                case STEP_TWO_COMPLETE:
+//                    hideLoadingIndicator();
+//                    break;
+//            }
+//        }
+//    };
 
 }

@@ -507,37 +507,37 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
         }
 
         if (gender == null) {
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please select gender");
+            baseActivity.showErrorSnackBar(requireNonNull(getActivity()), "Please select gender");
             return false;
         }
 
         if (profileImageBitmap == null){
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Upload Profile Image");
+            baseActivity.showErrorSnackBar(requireNonNull(getActivity()), "Please Upload Profile Image");
             return false;
         }
 
         if (highestDegreeBitmap == null) {
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Upload Highest Degree Image");
+            baseActivity.showErrorSnackBar(requireNonNull(getActivity()), "Please Upload Highest Degree Image");
             return false;
         }
 
         if (govtIDFrontBitmap == null) {
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Government ID Front Image");
+            baseActivity.showErrorSnackBar(requireNonNull(getActivity()), "Please Government ID Front Image");
             return false;
         }
 
         if (govtIDBackBitmap == null) {
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Upload Government ID Back Image");
+            baseActivity.showErrorSnackBar(requireNonNull(getActivity()), "Please Upload Government ID Back Image");
             return false;
         }
 
         if (addressProofFrontBitmap == null) {
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Address Proof Front Image");
+            baseActivity.showErrorSnackBar(requireNonNull(getActivity()), "Please Address Proof Front Image");
             return false;
         }
 
         if (expertiseDocumentBitmap == null) {
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please Upload Your Relevant SubCategory Expertise Document Image");
+            baseActivity.showErrorSnackBar(requireNonNull(getActivity()), "Please Upload Your Relevant SubCategory Expertise Document Image");
             return false;
         }
 

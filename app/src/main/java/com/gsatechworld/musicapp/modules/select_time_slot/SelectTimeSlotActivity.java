@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsatechworld.musicapp.R;
@@ -171,7 +172,7 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
                 }
 
             } else
-                showSnackBar(this, "Please select time slot first");
+                showErrorSnackBar(this, "Please select time slot first");
         }
     }
 
@@ -190,17 +191,16 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
                 hideLoadingIndicator();
 
                 if (availableTimesSlotResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
-                    binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this,
-                            2));
+                    binding.recyclerTimeSlots.setLayoutManager(new LinearLayoutManager(this));
                     slotAdapter=new StudentTimeSlotAdapter(this,availableTimesSlotResponse.getAvailable_slots());
                     slotAdapter.setClickListner(this);
                    binding.recyclerTimeSlots.setAdapter(slotAdapter);
 
                 } else
-                    showSnackBar(this, availableTimesSlotResponse.getMessage());
+                    showErrorSnackBar(this, availableTimesSlotResponse.getMessage());
             });
         } else
-            showSnackBar(this, getString(R.string.no_internet_message));
+            showErrorSnackBar(this, getString(R.string.no_internet_message));
     }
 
     public void checkAlreadyRegistered(){

@@ -37,15 +37,15 @@
             android:orientation="vertical">
 
 
-          <ImageView
+          <de.hdodenhof.circleimageview.CircleImageView
               android:id="@+id/appLogo"
               android:layout_width="@dimen/size_50dp"
               android:layout_height="@dimen/size_50dp"
               android:layout_centerHorizontal="true"
               android:layout_centerVertical="true"
-              android:padding="@dimen/size_10dp"
+              android:padding="@dimen/size_2dp"
               android:layout_marginTop="@dimen/size_20dp"
-              android:src="@drawable/icon_music" />
+              android:src="@drawable/musicapp_icon" />
 
           <TextView
               android:layout_width="wrap_content"

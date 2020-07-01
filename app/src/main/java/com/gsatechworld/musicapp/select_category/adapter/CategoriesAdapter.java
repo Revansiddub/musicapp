@@ -72,7 +72,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Su
                  intent.putExtra("position",String.valueOf(postion));
                  intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                  mCtx.getApplicationContext().startActivity(intent);
-                 ((Activity)mCtx).finish();
              }
          });
 

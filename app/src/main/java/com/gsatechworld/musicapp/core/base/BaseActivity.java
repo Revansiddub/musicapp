@@ -107,6 +107,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         View view = snackbar.getView();
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) view.getLayoutParams();
         view.setLayoutParams(layoutParams);
+        view.setBackgroundColor(context.getResources().getColor(R.color.colorcornflowerblue));
+
+        snackbar.show();
+    }
+
+    public void showErrorSnackBar(Activity context, String message) {
+        Snackbar snackbar = make(context.findViewById(android.R.id.content), message, LENGTH_LONG);
+        View view = snackbar.getView();
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) view.getLayoutParams();
+        view.setLayoutParams(layoutParams);
         view.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
 
         snackbar.show();

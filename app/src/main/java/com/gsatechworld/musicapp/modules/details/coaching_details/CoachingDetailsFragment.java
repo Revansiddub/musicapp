@@ -402,7 +402,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         address = requireNonNull(binding.editAddress.getText()).toString().trim();
 
         if (!isHomeSelected && !isInstituteSelected) {
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please select Coaching Type");
+            baseActivity.showErrorSnackBar(requireNonNull(getActivity()), "Please select Coaching Type");
             return false;
         }
 
@@ -417,7 +417,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         }
 
         if (!isDailySelected && !isBiweeklySelected && !isWeeklySelected) {
-            baseActivity.showSnackBar(requireNonNull(getActivity()), "Please select Recurrence Type");
+            baseActivity.showErrorSnackBar(requireNonNull(getActivity()), "Please select Recurrence Type");
             return false;
         }
 

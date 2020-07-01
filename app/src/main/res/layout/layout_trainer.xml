@@ -139,23 +139,24 @@
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_3dp"
                     android:textColor="@color/md_grey_600"
-                    android:text="@{trainer.coaching_days[1]}"
                     android:textSize="@dimen/size_17sp"
+                    android:capitalize="characters"
                     android:layout_toRightOf="@id/imageTrainer"
                     android:layout_below="@id/textDaysType"
+                    android:paddingBottom="@dimen/size_3dp"
                      />
 
-                <TextView
-                    android:id="@+id/textAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/size_10dp"
-                    android:layout_marginTop="@dimen/size_5dp"
-                    android:text="@{trainer.address}"
-                    android:textColor="@color/md_grey_800"
-                    android:textSize="@dimen/size_17sp"
-                    android:layout_below="@id/textDaysTypeValue"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/textAddress"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="@dimen/size_10dp"-->
+<!--                    android:layout_marginTop="@dimen/size_5dp"-->
+<!--                    android:text="@{trainer.address}"-->
+<!--                    android:textColor="@color/md_grey_800"-->
+<!--                    android:textSize="@dimen/size_17sp"-->
+<!--                    android:layout_below="@id/textDaysTypeValue"-->
+<!--                    />-->
 
             </RelativeLayout>
 

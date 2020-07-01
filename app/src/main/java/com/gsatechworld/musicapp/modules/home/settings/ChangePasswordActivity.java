@@ -56,6 +56,7 @@ public class ChangePasswordActivity extends BaseActivity {
 
               if (commonResponse.getStatus().equals("success")){
                openSuccessDialog(commonResponse.getMessage());
+               finish();
               }
               else
                   showSnackBar(this, commonResponse.getMessage());
@@ -82,12 +83,14 @@ public class ChangePasswordActivity extends BaseActivity {
             changePasswordBinding.edittextConfirmPassword.setError("Please confirm your new password");
             return false;
         }
-        if (new_Password.equals(confirm_password)){
+        if (!new_Password.equals(confirm_password)){
             changePasswordBinding.edittextConfirmPassword.setError("Password is not matching");
+            return false;
         }
 
         if (new_Password.length() < 6){
             changePasswordBinding.edittextNewPassword.setError("Password too short");
+            return false;
         }
         return true;
     }

@@ -43,7 +43,7 @@
                     android:orientation="vertical">
 
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/appLogo"
                         android:layout_width="@dimen/size_75dp"
                         android:layout_height="@dimen/size_75dp"

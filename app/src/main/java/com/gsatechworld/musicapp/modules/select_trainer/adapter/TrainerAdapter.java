@@ -66,11 +66,18 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
 
         StringBuilder coachingType = new StringBuilder();
         StringBuilder recurrenceType = new StringBuilder();
+        StringBuilder coachingDays=new StringBuilder();
         StringBuilder days = new StringBuilder();
         for (String type : trainer.getCoaching_types()) {
             coachingType.append(type);
             coachingType.append(", ");
         }
+
+        for (String coaching_days : trainer.getCoaching_days()){
+            coachingDays.append(coaching_days);
+            coachingDays.append(", ");
+        }
+
 
 //        for (String type : trainer.getRecurrenceType()) {
 //            recurrenceType.append(type);
@@ -84,7 +91,7 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
 
         holder.binding.textCoachingTypeValue.setText(coachingType);
         holder.binding.textRecurrenceTypeValue.setText(recurrenceType);
-        holder.binding.textDaysTypeValue.setText(days);
+        holder.binding.textDaysTypeValue.setText(coachingDays);
     }
 
     @Override
@@ -157,7 +164,7 @@ public class TrainerAdapter extends Adapter<TrainerAdapter.TrainerHolder> {
                 intent.putExtra(TRAINER_ID, trainer.getTrainer_id());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mCtx.getApplicationContext().startActivity(intent);
-                ((Activity)mCtx).finish();
+                //((Activity)mCtx).finish();
             }
         }
     }

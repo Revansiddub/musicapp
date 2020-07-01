@@ -34,6 +34,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER;
 import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER_LENGTH;
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_FAILED;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER;
@@ -164,11 +165,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                             startActivity(intent);
                             finish();
                         }
-                        else
-                            showSnackBar(this, trainerResponse.getMessage());
+                        if (trainerResponse == null){
+                            showErrorSnackBar(this,"Login Failed Check Username and Password");
+                        }
+//                        else
+//                            showSnackBar(this, trainerResponse.getMessage());
                     });
         } else
-            showSnackBar(this, getString(R.string.no_internet_message));
+            showErrorSnackBar(this, getString(R.string.no_internet_message));
     }
 
     /**
@@ -189,7 +193,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                     startActivity(new Intent(this, StudentOTPVerificationActivity.class));
                     finish();
                 } else
-                    showSnackBar(this, studentResponse.getMessage());
+                    showErrorSnackBar(this, studentResponse.getMessage());
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

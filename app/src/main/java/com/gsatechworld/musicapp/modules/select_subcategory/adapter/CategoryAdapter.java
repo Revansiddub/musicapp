@@ -157,9 +157,6 @@ public class CategoryAdapter extends Adapter<CategoryAdapter.CategoryHolder>  {
                 editor.putInt(PINCODE_ID,pincode_Id);
                 editor.commit();
                 mCtx.startActivity(intent);
-                ((Activity)mCtx).finish();
-
-
 
             }
         }
