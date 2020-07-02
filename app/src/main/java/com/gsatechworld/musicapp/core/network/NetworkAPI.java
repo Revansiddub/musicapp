@@ -140,7 +140,7 @@ public interface NetworkAPI {
     Call<DateResponse> getDates(@Query("trainer_id")String trainer_id,@Query("month") String month,@Query("year") String year);
 
     @POST("cancellationClass")
-    Call<CommonResponse> cancel_class(@Query("enrollment_id") String enrollment_id,@Query("cancellation") String cancellation);
+    Call<CommonResponse> cancel_class(@Query("enrollment_id") String enrollment_id,@Query("date") String date,@Query("start_time") String start_time,@Query("end_time")String endtime);
 
 
 

@@ -47,6 +47,10 @@ public class EntrollmentDetailsActivity extends BaseActivity {
         binding.textEntrollment.setText(entrollment_name);
 
         binding.buttonCancel.setOnClickListener(v -> {
+
+         String date=binding.date.getText().toString();
+         String start_time=binding.time.getText().toString();
+         String end_time=binding.time.getText().toString();
          cancellation="3";
 
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -58,7 +62,7 @@ public class EntrollmentDetailsActivity extends BaseActivity {
 
                 if (getNetworkInstance(this).isConnectedToInternet()){
 
-                    cancelViewModel.cancelClass(enrollment_id,cancellation).observe(this,commonResponse -> {
+                    cancelViewModel.cancelClass(enrollment_id,date,start_time,end_time).observe(this,commonResponse -> {
                         if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                             openSuccessDialog(commonResponse.getMessage());
                             finish();
@@ -91,6 +95,8 @@ public class EntrollmentDetailsActivity extends BaseActivity {
                     String time=upcomingResponse.getTime();
                     binding.date.setText(upcoming_class);
                     binding.time.setText(time);
+                    String [] start_time=time.split(" - ");
+
                 }
 
                 else {

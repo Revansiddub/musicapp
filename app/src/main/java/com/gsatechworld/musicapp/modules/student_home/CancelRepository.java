@@ -20,13 +20,13 @@ public class CancelRepository {
     public CancelRepository() {
     }
 
-    public LiveData<CommonResponse> cancelClass(String enrollment_id,String cancellation){
+    public LiveData<CommonResponse> cancelClass(String enrollment_id,String date,String start_time,String end_time){
         MutableLiveData<CommonResponse> mutableLiveData=new MutableLiveData<>();
 
 
         networkAPI= NetworkService.getRetrofitInstance().create(NetworkAPI.class);
 
-        Call<CommonResponse> responseCall=networkAPI.cancel_class(enrollment_id,cancellation);
+        Call<CommonResponse> responseCall=networkAPI.cancel_class(enrollment_id,date,start_time,end_time);
         responseCall.enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {

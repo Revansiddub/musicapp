@@ -58,6 +58,7 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
     public String selected_date, string_date;
     private String userType;
     public CancelViewModel cancelViewModel;
+    public String star_time,end_time;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -125,8 +126,8 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
                 hideLoadingIndicator();
                 if (fetchStudentsResponse != null && fetchStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
-                    String star_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
-                    String end_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
+                    star_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
+                    end_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
                     attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
                             .get(position).getStudent_list(), this, star_time, end_time, selected_date, this);
 
@@ -167,11 +168,11 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
     }
 
     @Override
-    public void onActionCancel(String enrollment_id, String cancellation) {
+    public void onActionCancel(String enrollment_id, String date,String star_time,String end_time) {
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            cancelViewModel.cancelClass(enrollment_id,cancellation).observe(this,commonResponse -> {
+            cancelViewModel.cancelClass(enrollment_id,selected_date,star_time,end_time).observe(this,commonResponse -> {
                 if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                    openSuccessDialog("Successfully canceled this class");
                 }

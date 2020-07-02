@@ -33,7 +33,10 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
      * ------------------------------------------------------------- */
 
     private Context mCtx;
-    private ArrayList<PendingPaymentsResp.PendingPayments> pendingPaymentList;
+    public static ArrayList<PendingPaymentsResp.PendingPayments> pendingPaymentList;
+    public static int total;
+    public static int position;
+    public PendingPaymentsResp.PendingPayments pendingPayments;
   //  private List<Payment> searchablePaymentList;
 
     public PendingPaymentAdapter(Context mCtx, ArrayList<PendingPaymentsResp.PendingPayments> pendingPaymentList) {
@@ -53,12 +56,20 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
     @Override
     public void onBindViewHolder(@NonNull PendingPaymentHolder holder, int position) {
         holder.binding.setStudentlist(pendingPaymentList.get(position));
+        total+=pendingPaymentList.get(position).getAmount();
+
         holder.binding.textPaid.setOnClickListener(v -> {
             pendingPaymentList.remove(position);
             notifyDataSetChanged();
             showSnackBar((Activity) mCtx,"Request Accepted");
         });
     }
+
+     public static int grandTotal() {
+
+        return total;
+    }
+
 
     @Override
     public int getItemCount() {

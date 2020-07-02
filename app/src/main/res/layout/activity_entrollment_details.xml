@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/text_date"
-                    android:text="17-06-2020"
+                    android:text=""
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/size_15sp"

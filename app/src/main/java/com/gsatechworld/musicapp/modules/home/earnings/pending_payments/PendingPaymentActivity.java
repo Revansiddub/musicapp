@@ -20,6 +20,7 @@ import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.Pay
 import com.gsatechworld.musicapp.utilities.Constants;
 
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
+import static com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter.grandTotal;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
@@ -37,6 +38,7 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
     private PendingPaymentViewModel viewModel;
     private PendingPaymentAdapter adapter;
     public String trainerId;
+    public  int total;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -49,13 +51,19 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pending_payment);
 
+
+
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(PendingPaymentViewModel.class);
+
+        total= grandTotal() ;
+        binding.textTotal.setText(String.valueOf(total));
 
         /*Setting Screen title*/
         binding.layoutBase.toolbar.setTitle(getString(R.string.pending_payments));
         setSupportActionBar(binding.layoutBase.toolbar);
         requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
 
         SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
         trainerId = String.valueOf(sharedpreferences.getInt(TrainerId, 0));

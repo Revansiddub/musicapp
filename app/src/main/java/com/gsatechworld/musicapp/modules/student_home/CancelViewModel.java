@@ -14,7 +14,7 @@ public class CancelViewModel extends ViewModel {
         this.cancelRepository=new CancelRepository();
     }
 
-    public LiveData<CommonResponse> cancelClass(String enrollment_id,String cancellation){
-     return cancelRepository.cancelClass(enrollment_id,cancellation);
+    public LiveData<CommonResponse> cancelClass(String enrollment_id,String date,String star_time,String end_time){
+     return cancelRepository.cancelClass(enrollment_id,date,star_time,end_time);
     }
 }

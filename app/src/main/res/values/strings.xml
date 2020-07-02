@@ -100,6 +100,8 @@
 
     <!--Earning Fragment-->
     <string name="pending_payments">Pending Payments</string>
+    <string name="total_pending_payments">Total Pending Payments</string>
+
 
     <!--Settings Fragment-->
     <string name="logout">Logout</string>
@@ -109,6 +111,7 @@
     <!--Validation Strings-->
     <string name="category_validation">Please write SubCategory name</string>
     <string name="paid">Paid</string>
+    <string name="pending">Pending</string>
     <string name="not_paid">Not Paid</string>
     <string name="days">Days</string>
 

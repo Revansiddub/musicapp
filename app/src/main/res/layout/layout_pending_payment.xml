@@ -62,7 +62,7 @@
             android:gravity="center"
             android:paddingStart="@dimen/size_20dp"
             android:paddingEnd="@dimen/size_20dp"
-            android:text="@string/paid"
+            android:text="@string/pending"
             android:textColor="@color/white"
             android:textSize="@dimen/size_15sp"
             app:layout_constraintEnd_toEndOf="parent"

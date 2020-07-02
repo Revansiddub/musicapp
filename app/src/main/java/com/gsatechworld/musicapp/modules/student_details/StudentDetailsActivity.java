@@ -1,10 +1,12 @@
 package com.gsatechworld.musicapp.modules.student_details;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +14,8 @@ import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -42,10 +46,12 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.Intent.ACTION_GET_CONTENT;
 import static android.content.Intent.createChooser;
+import static android.graphics.Color.TRANSPARENT;
 import static android.os.Build.VERSION_CODES.M;
 import static android.provider.MediaStore.Images.Media.getBitmap;
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.VISIBLE;
+import static android.view.Window.FEATURE_NO_TITLE;
 import static com.bumptech.glide.Glide.with;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.END_TIME;
@@ -119,8 +125,15 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         /*Setting listeners to the views*/
         binding.textMale.setOnClickListener(this);
         binding.textFemale.setOnClickListener(this);
-        binding.buttonSubmit.setOnClickListener(this);
+//        binding.buttonSubmit.setOnClickListener(this);
         binding.imageProfiles.setOnClickListener(this);
+        binding.buttonSubmit.setOnClickListener(v -> {
+            if (validateFields()){
+                onBoardStudent();
+            }
+        });
+
+
     }
 
     /* ------------------------------------------------------------- *
@@ -190,11 +203,11 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
 
                 gender = FEMALE;
                 break;
-            case R.id.buttonSubmit:
-                if (validateFields()){
-                    onBoardStudent();
-                }
-                break;
+//            case R.id.buttonSubmit:
+//                if (validateFields()){
+//                    onBoardStudent();
+//                }
+//                break;
         }
     }
 
@@ -343,7 +356,6 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
     }
 
     private void onBoardStudent() {
-
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
             profileImage
@@ -352,8 +364,9 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
                     schoolName,address, mobileNumber,trainerID,profileImage)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
                 if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-                    openSuccessDialog("Your details have been submitted successfully.");
-                    startActivity(new Intent(this, WelcomeActivity.class));
+                    Toast.makeText(getApplicationContext(),"Registration completed Successfully",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(this,WelcomeActivity.class));
+
                 }
 
             });

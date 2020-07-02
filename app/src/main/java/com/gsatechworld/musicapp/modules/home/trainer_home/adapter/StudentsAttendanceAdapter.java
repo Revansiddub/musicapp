@@ -100,7 +100,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
             alertDialog.setMessage("Are you sure want to cancel this class?");
 
             alertDialog.setPositiveButton("Yes",(dialog, which) -> {
-                performedLister.onActionCancel(enorllment_id,"4");
+                performedLister.onActionCancel(enorllment_id,selected_date,start_time,end_time);
             });
             alertDialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());
 
@@ -128,7 +128,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     }
 
     public interface cancelPerformedLister{
-        void onActionCancel(String enrollment_id,String cancellation);
+        void onActionCancel(String enrollment_id,String date,String start_time,String end_time);
     }
 
     public void setActionListener(cancelPerformedLister listener){
