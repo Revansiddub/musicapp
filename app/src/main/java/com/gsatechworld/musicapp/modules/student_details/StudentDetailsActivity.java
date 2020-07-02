@@ -154,9 +154,8 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
                         if (report.areAllPermissionsGranted()){
                             uploadType=PROFILE_IMAGE;
                             openGallery();
-
                         }
-                    }
+                                               }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
@@ -192,8 +191,9 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
                 gender = FEMALE;
                 break;
             case R.id.buttonSubmit:
-                if (validateFields())
+                if (validateFields()){
                     onBoardStudent();
+                }
                 break;
         }
     }
@@ -343,10 +343,11 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
     }
 
     private void onBoardStudent() {
+
         if (getNetworkInstance(this).isConnectedToInternet()) {
+            showLoadingIndicator();
             profileImage
                     =encodeToBase64(profileImageBitmap);
-            showLoadingIndicator();
             viewModel.onBoardStudent(new OnboardingRequest(pincode_id,category_id,sub_category_id,timeSlotes,fullName, age, gender, standard,
                     schoolName,address, mobileNumber,trainerID,profileImage)).observe(this, commonResponse -> {
                 hideLoadingIndicator();

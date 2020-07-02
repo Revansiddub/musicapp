@@ -45,7 +45,7 @@
               android:layout_centerVertical="true"
               android:padding="@dimen/size_2dp"
               android:layout_marginTop="@dimen/size_20dp"
-              android:src="@drawable/musicapp_icon" />
+              android:src="@drawable/skillzone" />
 
           <TextView
               android:layout_width="wrap_content"
