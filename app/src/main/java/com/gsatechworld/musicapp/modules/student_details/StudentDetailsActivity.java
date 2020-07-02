@@ -154,6 +154,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
                         if (report.areAllPermissionsGranted()){
                             uploadType=PROFILE_IMAGE;
                             openGallery();
+
                         }
                     }
 
@@ -342,9 +343,9 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
     }
 
     private void onBoardStudent() {
-        profileImage
-                =encodeToBase64(profileImageBitmap);
         if (getNetworkInstance(this).isConnectedToInternet()) {
+            profileImage
+                    =encodeToBase64(profileImageBitmap);
             showLoadingIndicator();
             viewModel.onBoardStudent(new OnboardingRequest(pincode_id,category_id,sub_category_id,timeSlotes,fullName, age, gender, standard,
                     schoolName,address, mobileNumber,trainerID,profileImage)).observe(this, commonResponse -> {

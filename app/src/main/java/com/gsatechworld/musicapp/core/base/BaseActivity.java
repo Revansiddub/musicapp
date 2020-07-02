@@ -80,8 +80,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog.requestWindowFeature(FEATURE_NO_TITLE);
         requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
         dialog.setContentView(R.layout.layout_loading_indicator);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
 
