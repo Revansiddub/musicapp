@@ -56,13 +56,13 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
     @Override
     public void onBindViewHolder(@NonNull PendingPaymentHolder holder, int position) {
         holder.binding.setStudentlist(pendingPaymentList.get(position));
-        total+=pendingPaymentList.get(position).getAmount();
+        //total+=pendingPaymentList.get(position).getAmount();
 
-        holder.binding.textPaid.setOnClickListener(v -> {
-            pendingPaymentList.remove(position);
-            notifyDataSetChanged();
-            showSnackBar((Activity) mCtx,"Request Accepted");
-        });
+//        holder.binding.textPaid.setOnClickListener(v -> {
+//            pendingPaymentList.remove(position);
+//            notifyDataSetChanged();
+//            showSnackBar((Activity) mCtx,"Request Accepted");
+//        });
     }
 
      public static int grandTotal() {
@@ -114,7 +114,7 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
             this.binding = binding;
 
             /*Setting listeners to the views*/
-            binding.textPaid.setOnClickListener(this);
+           // binding.textPaid.setOnClickListener(this);
 
         }
 
@@ -123,9 +123,9 @@ public class PendingPaymentAdapter extends Adapter<PendingPaymentAdapter.Pending
             PendingPaymentsResp.PendingPayments payment = pendingPaymentList.get(getAdapterPosition());
             OnActionPerformedListener onActionPerformed = (OnActionPerformedListener) mCtx;
             switch (view.getId()) {
-                case R.id.textPaid:
-                    onActionPerformed.onActionPerformed(String.valueOf(payment.getStudent_id()), PAID);
-                    break;
+//                case R.id.textPaid:
+//                    onActionPerformed.onActionPerformed(String.valueOf(payment.getStudent_id()), PAID);
+//                    break;
 //                case R.id.textNotPaid:
 //                    onActionPerformed.onActionPerformed(String.valueOf(payment.getStudent_id()), NOT_PAID);
 //                    break;

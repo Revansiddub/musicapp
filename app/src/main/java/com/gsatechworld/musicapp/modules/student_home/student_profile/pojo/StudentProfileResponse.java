@@ -32,6 +32,8 @@ public class StudentProfileResponse {
     public String profile_image;
 
 
+
+
     public void setProfile_image(String profile_image) {
         this.profile_image = profile_image;
     }

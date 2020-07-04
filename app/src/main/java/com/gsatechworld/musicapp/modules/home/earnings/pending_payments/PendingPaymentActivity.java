@@ -17,10 +17,15 @@ import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAda
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter.OnActionPerformedListener;
 import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PaymentActionInfo;
+import com.gsatechworld.musicapp.modules.home.earnings.pending_payments.pojo.PendingPaymentsResp;
 import com.gsatechworld.musicapp.utilities.Constants;
+
+import java.util.ArrayList;
 
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter.grandTotal;
+import static com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter.pendingPaymentList;
+import static com.gsatechworld.musicapp.modules.home.earnings.pending_payments.adapter.PendingPaymentAdapter.position;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.TrainerId;
@@ -38,7 +43,10 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
     private PendingPaymentViewModel viewModel;
     private PendingPaymentAdapter adapter;
     public String trainerId;
-    public  int total;
+    public int pendingPayments;
+    public ArrayList<PendingPaymentsResp.PendingPayments> pendingPaymentsArrayList;
+
+    public  int total=0;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -56,8 +64,6 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(PendingPaymentViewModel.class);
 
-        total= grandTotal() ;
-        binding.textTotal.setText(String.valueOf(total));
 
         /*Setting Screen title*/
         binding.layoutBase.toolbar.setTitle(getString(R.string.pending_payments));
@@ -70,6 +76,8 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
         //trainerId=getIntent().getStringExtra(TRAINER_ID);
 
         fetchPendingPaymentList();
+
+       //calculate_total();
 
         /*Setting listeners to the views*/
        // binding.searchStudent.setOnQueryTextListener(this);
@@ -146,6 +154,14 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
 
                 if (paymentResponse.getPending_payments() != null) {
 
+                  //  pendingPayments= paymentResponse.getPending_payments().get(position).getAmount();
+                    pendingPaymentsArrayList=paymentResponse.getPending_payments();
+                    for (int i =0;i<pendingPaymentsArrayList.size();i++){
+                        total=total+paymentResponse.getPending_payments().get(i).getAmount();
+                    }
+
+                    binding.textTotal.setText(String.valueOf(total));
+
                     adapter = new PendingPaymentAdapter(this,
                             paymentResponse.getPending_payments());
 
@@ -163,6 +179,8 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
         } else
             showSnackBar(this, getString(R.string.no_internet_message));
     }
+
+
 
              @Override
              public void onActionPerformed(String entrollmentID, String studentID, String action) {

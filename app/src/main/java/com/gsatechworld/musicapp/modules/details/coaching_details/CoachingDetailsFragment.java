@@ -49,6 +49,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -78,6 +79,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
     private Dialog dialog;
     private SelectTimeSlotViewModel slotViewModel;
     private TimeSlotsAdapter adapter;
+    private DaysAdapter daysAdapter;
     public String trainerID;
     public TimePicker simpleTimePicker;
     public String starttime,endtime;
@@ -89,6 +91,10 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
     public ArrayList<RecyclerData> modelData;
     public TimesListAdapter timesListAdapter;
     public TimeSlotsAdapter slotsAdapter;
+    public String days;
+    public ArrayList<String> coaching_days;
+    public List<String> recurramnce_days;
+    public ArrayList<String> rec_days;
 
     /* ------------------------------------------------------------- *
      * Overriding Fragment Methods
@@ -290,6 +296,15 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
             isBiweeklySelected = true;
             isDailySelected = false;
 
+            days=selectedDay;
+            String[] split_days=days.split("," + "");
+            recurramnce_days= Arrays.asList(split_days);
+            rec_days = new ArrayList<String>(recurramnce_days);
+
+
+
+
+
             binding.textBiweekly.setTextColor(getResources().getColor(R.color.colorAccent));
             binding.textBiweekly.setBackground(requireNonNull(getActivity())
                     .getDrawable(R.drawable.button_rectangle_selected));
@@ -300,6 +315,9 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         } else {
             isWeeklySelected = true;
             isDailySelected = false;
+
+            days=selectedDay;
+            rec_days = new ArrayList<String>(Arrays.asList(days));
 
             binding.textWeekly.setTextColor(getResources().getColor(R.color.colorAccent));
             binding.textWeekly.setBackground(requireNonNull(getActivity())
@@ -318,19 +336,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
     /**
      * This method is invoked to return user's coaching details to the details activity.
      */
-    private void returnCoachingDetails() {
-        CoachingDetailsListener coachingDetailsListener = (CoachingDetailsListener) getActivity();
-        ArrayList<Slot_details> timeSlotes = new ArrayList<>();
-        for(int i = 0; i < modelData.size(); i++){
-            String [] times = modelData.get(i).starttime.split("-");
-            String startTime = getFormatedTime(times[0].replaceAll("\\s+",""));
-            String endTime = getFormatedTime(times[1].replaceAll("\\s+",""));
-            timeSlotes.add(new Slot_details(startTime, endTime));
-        }
-        requireNonNull(coachingDetailsListener).coachingDetails(new CoachingDetails(isHomeSelected,
-                isInstituteSelected, address, charges, isDailySelected, isBiweeklySelected,
-                isWeeklySelected, timeSlotes));
-    }
+
 
     private String getFormatedTime(String time) {
         DateFormat readFormat = new SimpleDateFormat("hh:mm:a", Locale.getDefault());
@@ -368,28 +374,43 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         /*Setting listeners to the views*/
         imageClose.setOnClickListener(v -> dialog.cancel());
 
-        List<String> daysList = new ArrayList<>();
+        coaching_days = new ArrayList<>();
 
         if (recurrenceType.equals(BIWEEKLY)) {
-            daysList.add("Monday, Thursday");
-            daysList.add("Tuesday, Friday");
-            daysList.add("Wednesday, Saturday");
+            coaching_days.add("Monday,Thursday");
+            coaching_days.add("Tuesday,Friday");
+            coaching_days.add("Wednesday,Saturday");
         } else {
-            daysList.add("Monday");
-            daysList.add("Tuesday");
-            daysList.add("Wednesday");
-            daysList.add("Thursday");
-            daysList.add("Friday");
-            daysList.add("Saturday");
-            daysList.add("Sunday");
+            coaching_days.add("Monday");
+            coaching_days.add("Tuesday");
+            coaching_days.add("Wednesday");
+            coaching_days.add("Thursday");
+            coaching_days.add("Friday");
+            coaching_days.add("Saturday");
+            coaching_days.add("Sunday");
         }
 
         recyclerDays.setLayoutManager(new LinearLayoutManager(getActivity(), VERTICAL,
                 false));
-        recyclerDays.setAdapter(new DaysAdapter(getActivity(), daysList, recurrenceType,
+        recyclerDays.setAdapter(new DaysAdapter(getActivity(), coaching_days, recurrenceType,
                 this));
 
         dialog.show();
+    }
+
+
+    private void returnCoachingDetails() {
+        CoachingDetailsListener coachingDetailsListener = (CoachingDetailsListener) getActivity();
+
+        ArrayList<Slot_details> timeSlotes = new ArrayList<>();
+        for(int i = 0; i < modelData.size(); i++){
+            String [] times = modelData.get(i).starttime.split("-");
+            String startTime = getFormatedTime(times[0].replaceAll("\\s+",""));
+            String endTime = getFormatedTime(times[1].replaceAll("\\s+",""));
+            timeSlotes.add(new Slot_details(startTime, endTime));
+        }
+        requireNonNull(coachingDetailsListener).coachingDetails(new CoachingDetails(isHomeSelected,
+                isInstituteSelected, address, charges, isDailySelected,isBiweeklySelected,isWeeklySelected,rec_days, timeSlotes));
     }
 
     /**

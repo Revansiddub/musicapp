@@ -43,7 +43,6 @@ public class StudentsDetails extends AppCompatActivity {
             profileViewModel.fetchStudentProfile(student_id).observe(this,studentProfileResponse -> {
                 if (studentProfileResponse.getStatus().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                     binding.setStudentprofile(studentProfileResponse);
-
                 }
             });
         }

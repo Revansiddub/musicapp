@@ -90,8 +90,8 @@ public class AddCategoryFragment extends BottomSheetDialogFragment implements On
                 baseActivity.hideLoadingIndicator();
 
                 if (commonResponse.getStatus().equals("success")) {
-                    baseActivity.openSuccessDialog("SubCategory has been sent successfully." +
-                            " It will be added soon");
+                    baseActivity.openSuccessDialog("Your skill is Updated." +
+                            " Please wait for Admin Approval");
                     dismiss();
                 } else
                     baseActivity.showSnackBar(requireNonNull(getActivity()),

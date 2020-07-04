@@ -8,12 +8,17 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityEntrollmentDetailsBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
 import com.gsatechworld.musicapp.utilities.Constants;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -27,6 +32,8 @@ public class EntrollmentDetailsActivity extends BaseActivity {
     public UpcomingClassViewModel classViewModel;
     public String student_id;
     public CancelViewModel cancelViewModel;
+    public Date selected_date;
+    public String formattedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +56,21 @@ public class EntrollmentDetailsActivity extends BaseActivity {
         binding.buttonCancel.setOnClickListener(v -> {
 
          String date=binding.date.getText().toString();
-         String start_time=binding.time.getText().toString();
-         String end_time=binding.time.getText().toString();
+
+            try {
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                selected_date = new Date(sdf.parse(date).getTime());
+
+                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+                formattedDate=simpleDateFormat.format(selected_date);
+
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+         String start_time=binding.startTime.getText().toString();
+         String end_time=binding.endTime.getText().toString();
          cancellation="3";
 
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -62,9 +82,10 @@ public class EntrollmentDetailsActivity extends BaseActivity {
 
                 if (getNetworkInstance(this).isConnectedToInternet()){
 
-                    cancelViewModel.cancelClass(enrollment_id,date,start_time,end_time).observe(this,commonResponse -> {
+                    cancelViewModel.cancelClass(enrollment_id,formattedDate,start_time,end_time).observe(this,commonResponse -> {
                         if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                             openSuccessDialog(commonResponse.getMessage());
+                            binding.buttonCancel.setVisibility(View.GONE);
                             finish();
                         }
                     });
@@ -91,11 +112,13 @@ public class EntrollmentDetailsActivity extends BaseActivity {
             classViewModel.getUpcoming_class(student_id).observe(this,upcomingResponse -> {
                 hideLoadingIndicator();
                 if (upcomingResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-                    String upcoming_class=upcomingResponse.getUpcoming_class();
-                    String time=upcomingResponse.getTime();
-                    binding.date.setText(upcoming_class);
-                    binding.time.setText(time);
-                    String [] start_time=time.split(" - ");
+                    String date=upcomingResponse.getDate();
+                    String start_time=upcomingResponse.getStart_time();
+                    String end_time=upcomingResponse.getEnd_time();
+                    binding.date.setText(date);
+                    binding.startTime.setText(start_time);
+                    binding.endTime.setText(end_time);
+
 
                 }
 

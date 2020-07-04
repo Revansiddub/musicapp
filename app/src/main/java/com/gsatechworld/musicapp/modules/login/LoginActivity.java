@@ -104,6 +104,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                 binding.editUserName.setVisibility(VISIBLE);
                 binding.editPassword.setVisibility(VISIBLE);
                 binding.editMobileNumber.setVisibility(GONE);
+                binding.forgotPassword.setVisibility(VISIBLE);
 
                 loginType = TRAINER;
                 break;
@@ -123,7 +124,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                 binding.editUserName.setVisibility(GONE);
                 binding.editPassword.setVisibility(GONE);
                 binding.editMobileNumber.setVisibility(VISIBLE);
-
+                binding.forgotPassword.setVisibility(GONE);
                 loginType = STUDENT;
                 break;
             case R.id.buttonLogin:
@@ -135,6 +136,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                         authenticateStudent();
 
                 break;
+            case R.id.text_forgot:
+                startActivity(new Intent(this,ForgotPassword.class));
         }
     }
 

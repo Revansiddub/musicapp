@@ -165,7 +165,7 @@ public class WelcomeActivity extends BaseActivity implements OnItemSelectedListe
                             intent.putExtra(PINCODE_ID,pincode_id);
                             startActivity(intent);
                         } else
-                            showSnackBar(this, commonResponse.getMessage());
+                            showSnackBar(this, "Service is not available in this Pin code");
                     });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

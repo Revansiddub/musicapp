@@ -19,7 +19,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_450dp"
+            android:layout_height="@dimen/size_490dp"
             android:layout_marginLeft="@dimen/size_15dp"
             android:layout_marginRight="@dimen/size_15dp"
             android:layout_centerInParent="true"
@@ -45,11 +45,11 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/appLogo"
-                        android:layout_width="@dimen/size_75dp"
-                        android:layout_height="@dimen/size_75dp"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:padding="@dimen/size_10dp"
+                        android:padding="@dimen/size_5dp"
                         android:layout_marginTop="@dimen/size_20dp"
                         android:src="@drawable/skillzone" />
 
@@ -161,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="@dimen/size_10dp"
                     android:fontFamily="georgia"
                     android:text="@string/login_message"
                     android:textColor="@color/colorPrimaryDark"

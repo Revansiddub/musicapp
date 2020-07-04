@@ -16,12 +16,68 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <TextView
+            android:id="@+id/text_students"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:drawableLeft="@drawable/ic_baselock_24"
+            android:drawablePadding="@dimen/size_10dp"
+            android:text="Enrolled Students"
+            android:padding="@dimen/size_10dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutBase"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/view_students"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp"
+            android:layout_below="@id/text_students"
+            app:layout_constraintTop_toBottomOf="@id/text_students"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_20dp"
+            android:background="@color/md_grey_400" />
+
+        <TextView
+            android:id="@+id/text_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
+            android:drawablePadding="@dimen/size_10dp"
+            android:text="My Profile"
+            android:padding="@dimen/size_10dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_students"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/view_profile"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp"
+            android:layout_below="@id/text_students"
+            app:layout_constraintTop_toBottomOf="@id/text_profile"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_20dp"
+            android:background="@color/md_grey_400" />
+
+
         <TextView
             android:id="@+id/text_change_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/size_16dp"
             android:drawableLeft="@drawable/ic_baselock_24"
             android:drawablePadding="@dimen/size_10dp"
             android:text="Change Password"
@@ -29,7 +85,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/size_15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutBase"
+            app:layout_constraintTop_toBottomOf="@id/view_profile"
             tools:ignore="MissingConstraints" />
 
         <View

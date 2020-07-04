@@ -192,7 +192,7 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
                         personalDetails.getFullName(),
                         personalDetails.getGovtIDBackBase(), personalDetails.getMobileNumber()
                         , personalDetails.getEmailAddress(), coachingDetails.getCharge(), coachingDetails.getSlot_details(),
-                        recurrence_days))
+                        coachingDetails.getDays()))
                         .observe(this, commonResponse -> {
                             hideLoadingIndicator();
 

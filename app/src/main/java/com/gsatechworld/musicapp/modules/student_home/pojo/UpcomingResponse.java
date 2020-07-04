@@ -6,25 +6,34 @@ public class UpcomingResponse {
     @SerializedName("status")
     public String status;
 
-    @SerializedName("upcoming_class")
-    public String upcoming_class;
+    @SerializedName("date")
+    public String date;
 
-    @SerializedName("time")
-    public String time;
+    @SerializedName("start_time")
+    public String start_time;
 
+    @SerializedName("end_time")
+    public String end_time;
+
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
 
 
     public String getStatus() {
         return status;
     }
 
-    public String getUpcoming_class() {
-        return upcoming_class;
-    }
 
-    public String getTime() {
-        return time;
-    }
 
 
 

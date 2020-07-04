@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import static com.gsatechworld.musicapp.utilities.Constants.ALREADY_REGISTERED;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.END_TIME;
+import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_FAILED;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.START_TIME;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
@@ -222,6 +223,9 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
               if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                   openSuccessDialog(commonResponse.getMessage());
                   startActivity(new Intent(this, StudentHomeActivity.class));
+              }
+              if (commonResponse.getStatus().equals(SERVER_RESPONSE_FAILED)){
+                  showSnackBar(this,commonResponse.getMessage());
               }
 
             });

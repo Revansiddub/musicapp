@@ -1,6 +1,7 @@
 package com.gsatechworld.musicapp.modules.details.coaching_details.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class DaysAdapter extends Adapter<DaysAdapter.DaysHolder> {
     private List<String> daysList;
     private String recurrenceType;
     private OnDaySelectedListener selectedListener;
+    private int index=-1;
 
     /* ------------------------------------------------------------- *
      * Constructor
@@ -55,6 +57,30 @@ public class DaysAdapter extends Adapter<DaysAdapter.DaysHolder> {
     @Override
     public void onBindViewHolder(@NonNull DaysHolder holder, int position) {
         holder.binding.setDay(daysList.get(position));
+
+        holder.binding.layoutDay.setOnClickListener(v -> {
+            String selectedDay = daysList.get(position);
+            index = position;
+            notifyDataSetChanged();
+
+            if(index==position){
+                holder.binding.layoutDay.setBackgroundColor(Color.parseColor("#FF4081"));
+            }else{
+                holder.binding.layoutDay.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+
+
+            if (selectedListener != null)
+                selectedListener.onDaySelected(selectedDay, recurrenceType);
+
+
+
+        });
+
+
+
+
+
     }
 
     @Override
@@ -74,7 +100,7 @@ public class DaysAdapter extends Adapter<DaysAdapter.DaysHolder> {
      * Days Holder Class
      * ------------------------------------------------------------- */
 
-    class DaysHolder extends ViewHolder implements OnClickListener {
+    class DaysHolder extends ViewHolder{
 
         /* ------------------------------------------------------------- *
          * Private Members
@@ -92,21 +118,12 @@ public class DaysAdapter extends Adapter<DaysAdapter.DaysHolder> {
             this.binding = binding;
 
             /*Setting listeners to the view*/
-            binding.layoutDay.setOnClickListener(this);
         }
 
         /* ------------------------------------------------------------- *
          * Overriding OnClickListener Method
          * ------------------------------------------------------------- */
 
-        @Override
-        public void onClick(View view) {
-            if (view.getId() == R.id.layoutDay) {
-                String selectedDay = daysList.get(getAdapterPosition());
 
-                if (selectedListener != null)
-                    selectedListener.onDaySelected(selectedDay, recurrenceType);
-            }
-        }
     }
 }

@@ -22,6 +22,14 @@ public class CoachingDetails {
     private boolean isBiweekly;
     private boolean isWeekly;
 
+
+
+    public ArrayList<String> days;
+
+    public ArrayList<String> getDays() {
+        return days;
+    }
+
     private ArrayList<Slot_details> slot_details;
 
     public ArrayList<Slot_details> getSlot_details() {
@@ -32,15 +40,17 @@ public class CoachingDetails {
      * Constructor
      * ------------------------------------------------------------- */
 
-    public CoachingDetails(boolean isHome, boolean isInstitute, String address, String charge,
-                           boolean isDaily, boolean isBiweekly, boolean isWeekly, ArrayList<Slot_details> slot_details) {
+    public CoachingDetails(boolean isHome, boolean isInstitute, String address, String charge,boolean isDaily,
+                           boolean isBiweekly, boolean isWeekly,
+                           ArrayList<String> coaching_days, ArrayList<Slot_details> slot_details) {
         this.isHome = isHome;
         this.isInstitute = isInstitute;
         this.address = address;
-        this.charge = charge;
         this.isDaily = isDaily;
         this.isBiweekly = isBiweekly;
         this.isWeekly = isWeekly;
+        this.charge = charge;
+         this.days=coaching_days;
         this.slot_details = slot_details;
     }
 

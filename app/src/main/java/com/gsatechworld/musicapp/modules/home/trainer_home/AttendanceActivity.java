@@ -59,6 +59,9 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
     private String userType;
     public CancelViewModel cancelViewModel;
     public String star_time,end_time;
+    public Date date;
+    public String formattedDate;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -70,7 +73,23 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
         cancelViewModel=new ViewModelProvider(this).get(CancelViewModel.class);
 
         selected_date = getIntent().getStringExtra("date");
-        binding.textDate.setText(selected_date);
+        string_date=selected_date;
+
+
+
+        try {
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+            date = new Date(simpleDateFormat.parse(string_date).getTime());
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            formattedDate=sdf.format(date);
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        binding.textDate.setText(formattedDate);
         //LocalDate localDate=LocalDate.parse(selected_date);
 
         binding.layoutBase.toolbar.setTitle(getString(R.string.students_details));

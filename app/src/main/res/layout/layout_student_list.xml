@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_10dp"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image"
+                    android:layout_width="@dimen/size_60dp"
+                    android:layout_height="@dimen/size_60dp"
+                    android:src="@drawable/student_icon"
+                    android:layout_marginTop="@dimen/size_20dp"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:layout_toRightOf="@id/image"
+                    android:layout_marginLeft="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:textSize="@dimen/size_15dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/text_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile"
+                    android:layout_toRightOf="@id/image"
+                    android:layout_marginLeft="@dimen/size_15dp"
+                    android:layout_below="@id/text_name"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:textSize="@dimen/size_15dp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/text_standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Standard"
+                    android:layout_toRightOf="@id/image"
+                    android:layout_marginLeft="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:textSize="@dimen/size_15dp"
+                    android:layout_below="@id/text_mobile"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/text_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount"
+                    android:layout_toRightOf="@id/image"
+                    android:layout_marginLeft="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:textSize="@dimen/size_15dp"
+                    android:layout_below="@id/text_standard"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Date"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="@dimen/size_20dp"/>
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+
+</layout>
