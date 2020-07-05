@@ -131,7 +131,6 @@ public class TrainerOtpVerification extends BaseActivity {
             otp = binding.etOtp1.getText().toString() + binding.etOtp2.getText().toString() + binding.etOtp3.getText().toString()
                     + binding.etOtp4.getText().toString();
             verifyTrainerOTP(otp);
-            finish();
         });
 
 
@@ -144,6 +143,7 @@ public class TrainerOtpVerification extends BaseActivity {
             if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                 openSuccessDialog("OTP Verification successfully Completed.");
                 startActivity(new Intent(TrainerOtpVerification.this, LoginActivity.class));
+                finish();
 
             }
 

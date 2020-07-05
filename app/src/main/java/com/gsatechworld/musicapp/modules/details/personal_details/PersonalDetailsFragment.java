@@ -86,6 +86,7 @@ public class PersonalDetailsFragment extends Fragment implements OnClickListener
                 case STEP_TWO_COMPLETE:
                     baseActivity.hideLoadingIndicator();
                     returnCoachingDetails();
+
                     break;
             }
         }

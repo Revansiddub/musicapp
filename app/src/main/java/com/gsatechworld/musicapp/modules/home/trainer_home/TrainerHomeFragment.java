@@ -183,7 +183,7 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
 
             dateViewModel.getDates(trainerID, month, year).observe(getViewLifecycleOwner(), dateResponse -> {
                 baseActivity.hideLoadingIndicator();
-                if (dateResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)) {
+                if (dateResponse != null && dateResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)) {
                     dateList = dateResponse.getDates();
                     binding.calendarView.setSelectedDates(getSelectedDays());
                 } else {

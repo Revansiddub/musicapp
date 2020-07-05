@@ -60,6 +60,7 @@ import static android.view.View.VISIBLE;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.gsatechworld.musicapp.utilities.Constants.BIWEEKLY;
+import static com.gsatechworld.musicapp.utilities.Constants.DAILY;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.WEEKLY;
 import static java.util.Objects.requireNonNull;
@@ -237,6 +238,15 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                     isDailySelected = true;
                     isBiweeklySelected = false;
                     isWeeklySelected = false;
+                        rec_days=new ArrayList<String>();
+                        rec_days.add("Monday");
+                        rec_days.add("Tuesday");
+                        rec_days.add("Wednesday");
+                        rec_days.add("Thursday");
+                        rec_days.add("Friday");
+                        rec_days.add("Saturday");
+                        rec_days.add("Sunday");
+
 
 
                     binding.textDaily.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -291,6 +301,8 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
 
         if (dialog.isShowing())
             dialog.cancel();
+
+
 
         if (recurrenceType.equals(BIWEEKLY)) {
             isBiweeklySelected = true;

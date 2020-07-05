@@ -136,7 +136,8 @@ public class AddAttendanceActivity extends BaseActivity {
                     openSuccessDialog(commonResponse.getMessage());
                     finish();
                 } else {
-                    showSnackBar(this, "Please Add Attendance");
+                    showSnackBar(this, "Already Add Attendance");
+                    finish();
                 }
             });
 

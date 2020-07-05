@@ -12,7 +12,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_500dp"
+        android:layout_height="@dimen/size_550dp"
         android:layout_marginLeft="@dimen/size_15dp"
         android:layout_marginRight="@dimen/size_15dp"
         app:cardCornerRadius="@dimen/size_5dp"
@@ -121,53 +121,50 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/editUserName"
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:id="@+id/UserName"
+            android:focusable="true"
             android:layout_below="@id/layoutUserType"
-            android:layout_marginTop="@dimen/size_15dp"
             android:layout_marginLeft="@dimen/size_20dp"
             android:layout_marginRight="@dimen/size_20dp"
-            android:cursorVisible="true"
-            android:focusable="true"
-            android:hint="@string/username"
-            android:drawablePadding="@dimen/size_10dp"
-            android:drawableLeft="@drawable/ic_person_black_24dp"
-            android:inputType="textCapWords"
-            android:textSize="@dimen/size_15sp"
-            app:met_errorColor="@android:color/holo_red_light"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelTextColor="@color/black"
-            app:met_primaryColor="@color/black"
-            app:met_textColor="@color/black"
-            app:met_textColorHint="@color/black"
-            tools:ignore="UnusedAttribute"/>
+            app:counterMaxLength="1"
+            android:hint="Username">
 
+          <com.google.android.material.textfield.TextInputEditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textCapWords"
+              android:id="@+id/editUserName"
+              />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/editPassword"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_15dp"
             android:layout_marginLeft="@dimen/size_20dp"
             android:layout_marginRight="@dimen/size_20dp"
-            android:layout_below="@+id/editUserName"
-            android:cursorVisible="true"
-            android:focusable="true"
-            android:hint="@string/password"
-            android:inputType="textPassword"
             app:passwordToggleEnabled="true"
-            android:textSize="@dimen/size_15sp"
-            app:met_errorColor="@android:color/holo_red_light"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelTextColor="@color/black"
-            android:drawableLeft="@drawable/ic_lock_black_24dp"
-            app:met_primaryColor="@color/black"
-            android:drawablePadding="@dimen/size_10dp"
-            app:met_textColor="@color/black"
-            app:met_textColorHint="@color/black"
-            tools:ignore="UnusedAttribute"/>
+            android:id="@+id/Password"
+            android:focusable="true"
+            android:layout_marginTop="@dimen/size_5dp"
+            app:counterMaxLength="1"
+            app:errorTextColor="@color/colorAccent"
+            android:layout_below="@id/UserName"
+            android:hint="Password">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="textPassword"
+              android:id="@+id/editPassword"
+              />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editMobileNumber"
             android:layout_width="match_parent"
@@ -177,6 +174,7 @@
             android:visibility="gone"
             android:focusable="true"
             android:layout_marginTop="@dimen/size_15dp"
+            android:maxLength="10"
             android:hint="@string/mobile_number"
             android:inputType="number"
             android:drawableStart="@drawable/ic_baseline_phone_android_24"
@@ -189,7 +187,7 @@
             app:met_textColor="@color/black"
             app:met_textColorHint="@color/black"
             tools:ignore="UnusedAttribute"
-            android:layout_below="@id/editPassword"
+            android:layout_below="@id/Password"
             />
 
         <Button

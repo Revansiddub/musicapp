@@ -201,6 +201,7 @@ public class DetailsActivity extends BaseActivity implements OnClickListener,
                                 Intent intent = new Intent(this, TrainerOtpVerification.class);
                                 intent.putExtra("mobile_number", personalDetails.getMobileNumber());
                                 startActivity(intent);
+                                finish();
 
                             } else
                                 showSnackBar(this, commonResponse.getMessage());

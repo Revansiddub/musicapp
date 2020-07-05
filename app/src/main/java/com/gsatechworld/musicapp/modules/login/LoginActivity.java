@@ -101,8 +101,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                         (getResources().getColorStateList(R.color.colorPrimaryDark));
                 binding.textStudent.setBackground(null);
 
-                binding.editUserName.setVisibility(VISIBLE);
-                binding.editPassword.setVisibility(VISIBLE);
+                binding.UserName.setVisibility(VISIBLE);
+                binding.Password.setVisibility(VISIBLE);
                 binding.editMobileNumber.setVisibility(GONE);
                 binding.forgotPassword.setVisibility(VISIBLE);
 
@@ -121,8 +121,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                         (getResources().getColorStateList(R.color.colorPrimaryDark));
                 binding.textTrainer.setBackground(null);
 
-                binding.editUserName.setVisibility(GONE);
-                binding.editPassword.setVisibility(GONE);
+                binding.UserName.setVisibility(GONE);
+                binding.Password.setVisibility(GONE);
                 binding.editMobileNumber.setVisibility(VISIBLE);
                 binding.forgotPassword.setVisibility(GONE);
                 loginType = STUDENT;

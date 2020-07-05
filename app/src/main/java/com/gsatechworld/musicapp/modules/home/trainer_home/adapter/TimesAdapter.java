@@ -48,6 +48,9 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     @Override
     public void onBindViewHolder(@NonNull TimesAdapter.TimeslotViewHolder holder, int position) {
         holder.binding.setTimeSlot(timeSlotList.get(position));
+        holder.binding.layoutTimeSlot.setOnClickListener(v -> {
+            String start_time=timeSlotList.get(position).getStart_time();
+        });
 
     }
 

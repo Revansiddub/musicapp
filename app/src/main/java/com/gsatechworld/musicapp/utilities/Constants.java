@@ -72,6 +72,7 @@ public final class Constants {
     public static final int STEP_TWO_COMPLETE = 2;
     public static final String BIWEEKLY = "biweekly";
     public static final String WEEKLY = "weekly";
+    public static final String DAILY="daily";
     public static final String ACCEPTED = "accepted";
     public static final String IGNORED = "ignored";
     public static final String PAID = "paid";
