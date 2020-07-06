@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 import androidx.databinding.DataBindingUtil;
@@ -172,6 +173,8 @@ public class PendingPaymentActivity extends BaseActivity implements ApproveStude
                 }
                 if (adapter.getItemCount() == 0) {
                     showSnackBar(this,"No Pending Payments");
+                    binding.textNodata.setVisibility(View.VISIBLE);
+                    binding.recyclerPending.setVisibility(View.GONE);
                 }
 
 

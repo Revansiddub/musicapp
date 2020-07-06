@@ -100,7 +100,7 @@
 
     <!--Earning Fragment-->
     <string name="pending_payments">Pending Payments</string>
-    <string name="total_pending_payments">Total Pending Payments</string>
+    <string name="total_pending_payments">Total Pending Amount : Rs </string>
 
 
     <!--Settings Fragment-->

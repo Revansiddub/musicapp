@@ -216,6 +216,7 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
 
                 if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     openSuccessDialog(commonResponse.getMessage());
+                    getStudents();
                 }
 
             });

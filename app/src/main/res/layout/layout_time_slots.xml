@@ -34,6 +34,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
        <RelativeLayout
+           android:id="@+id/relative_close"
            android:layout_width="@dimen/size_30dp"
            android:layout_height="match_parent"
            android:layout_alignParentRight="true"

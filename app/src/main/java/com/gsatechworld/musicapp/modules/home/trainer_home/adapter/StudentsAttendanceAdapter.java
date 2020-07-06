@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -21,6 +22,7 @@ import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.FetchStudentsResponse;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +48,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     public String today_date;
     private Activity activity;
     public String enorllment_id;
+    public Date date1;
 
     public StudentsAttendanceAdapter(List<FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList,
                                      Context context, String startTime, String endTime, String selected_date,
@@ -97,9 +100,21 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
             today_date=dateFormat.format(date);
+            try {
+                 date1=new SimpleDateFormat("yyyy-MM-dd").parse(selected_date);
+                 if (date1.after(date)){
+                     Toast.makeText(v.getContext(),"Can't Add Attendance before the selected date",Toast.LENGTH_LONG).show();
+                 }
+                 else {
+                     context.getApplicationContext().startActivity(intent);
+                 }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
 
-            context.getApplicationContext().startActivity(intent);
+
         });
 
 //        holder.binding.cancelClass.setOnClickListener(v -> {

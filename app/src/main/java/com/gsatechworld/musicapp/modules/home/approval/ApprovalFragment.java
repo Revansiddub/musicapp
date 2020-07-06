@@ -151,7 +151,8 @@ public class ApprovalFragment extends Fragment implements OnQueryTextListener,
                             binding.recyclerRequest.setAdapter(adapter);
                         }
                         if (adapter.getItemCount() == 0){
-                            baseActivity.showSnackBar(getActivity(),"No Approval Requests");
+                            binding.textNodata.setVisibility(View.VISIBLE);
+                            binding.recyclerRequest.setVisibility(View.GONE);
                         }
                     });
         } else
