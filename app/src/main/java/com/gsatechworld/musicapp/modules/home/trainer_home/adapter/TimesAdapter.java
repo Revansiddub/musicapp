@@ -3,6 +3,8 @@ package com.gsatechworld.musicapp.modules.home.trainer_home.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -30,6 +32,8 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     private ArrayList<Available_slots> timeSlotList;
     private ConstraintLayout seletedTimeSlot;
     private TextView selectedTime;
+    private int index=-1;
+    public cancelClassListener listener;
 
     public TimesAdapter(Context mCtx, ArrayList<Available_slots> timeSlotList) {
         this.mCtx = mCtx;
@@ -49,8 +53,23 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     public void onBindViewHolder(@NonNull TimesAdapter.TimeslotViewHolder holder, int position) {
         holder.binding.setTimeSlot(timeSlotList.get(position));
         holder.binding.layoutTimeSlot.setOnClickListener(v -> {
-            String start_time=timeSlotList.get(position).getStart_time();
+            index = position;
+            notifyDataSetChanged();
         });
+
+        holder.binding.imageClose.setOnClickListener(v -> {
+            String start_time=timeSlotList.get(position).getStart_time();
+            String end_time=timeSlotList.get(position).getEnd_time();
+            listener.onClassCancel(start_time,end_time);
+        });
+
+        if(index==position){
+            holder.binding.layoutTimeSlot.setBackgroundColor(Color.parseColor("#FF4081"));
+            holder.binding.textTime.setTextColor(Color.parseColor("#000000"));
+        }else{
+            holder.binding.layoutTimeSlot.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            holder.binding.textTime.setTextColor(Color.parseColor("#000000"));
+        }
 
     }
 
@@ -65,10 +84,17 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
             super(binding.getRoot());
             this.binding = binding;
 
-
-
         }
 
 
     }
+
+    public interface cancelClassListener{
+        void onClassCancel(String start_time,String end_time);
+    }
+
+    public void setActionListener(cancelClassListener listener){
+        this.listener=listener;
+    }
+
 }

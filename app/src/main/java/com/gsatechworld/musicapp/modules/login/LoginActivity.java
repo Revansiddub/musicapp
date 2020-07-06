@@ -78,6 +78,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
         binding.textTrainer.setOnClickListener(this);
         binding.textStudent.setOnClickListener(this);
         binding.buttonLogin.setOnClickListener(this);
+        binding.forgotPassword.setOnClickListener(v -> {
+            startActivity(new Intent(this,ForgotPassword.class));
+        });
     }
 
     /* ------------------------------------------------------------- *
@@ -136,8 +139,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                         authenticateStudent();
 
                 break;
-            case R.id.text_forgot:
-                startActivity(new Intent(this,ForgotPassword.class));
         }
     }
 

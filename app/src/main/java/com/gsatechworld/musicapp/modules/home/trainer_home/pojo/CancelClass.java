@@ -1,0 +1,35 @@
+package com.gsatechworld.musicapp.modules.home.trainer_home.pojo;
+
+public class CancelClass {
+    public String trainer_id;
+    public String date;
+    public String start_time;
+
+    public CancelClass(String trainer_id, String date, String start_time, String end_time) {
+        this.trainer_id = trainer_id;
+        this.date = date;
+        this.start_time = start_time;
+        this.end_time = end_time;
+    }
+
+    public String end_time;
+
+    public String getTrainer_id() {
+        return trainer_id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+
+
+}

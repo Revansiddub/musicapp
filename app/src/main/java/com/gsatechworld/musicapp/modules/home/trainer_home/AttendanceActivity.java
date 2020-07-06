@@ -23,7 +23,9 @@ import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityAttendanceBinding;
 import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.StudentsAttendanceAdapter;
 import com.gsatechworld.musicapp.modules.home.trainer_home.adapter.TimesAdapter;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.CancelClass;
 import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.AttendanceViewModel;
+import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.CancelClassViewModel;
 import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.GetStudentsViewModel;
 import com.gsatechworld.musicapp.modules.home.trainer_home.viewmodel.TimeSlotViewModel;
 import com.gsatechworld.musicapp.modules.select_time_slot.SelectTimeSlotViewModel;
@@ -42,7 +44,7 @@ import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCC
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
-public class AttendanceActivity extends BaseActivity implements StudentsAttendanceAdapter.cancelPerformedLister {
+public class AttendanceActivity extends BaseActivity implements TimesAdapter.cancelClassListener {
     ActivityAttendanceBinding binding;
     RecyclerView recyclerView_slot, recyclerView_studnts;
     TimeSlotAdapter adapter;
@@ -61,6 +63,7 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
     public String star_time,end_time;
     public Date date;
     public String formattedDate;
+    public CancelClassViewModel classViewModel;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -71,6 +74,7 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
         binding = DataBindingUtil.setContentView(this, R.layout.activity_attendance);
 
         cancelViewModel=new ViewModelProvider(this).get(CancelViewModel.class);
+        classViewModel=new ViewModelProvider(this).get(CancelClassViewModel.class);
 
         selected_date = getIntent().getStringExtra("date");
         string_date=selected_date;
@@ -150,7 +154,7 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
                     attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
                             .get(position).getStudent_list(), this, star_time, end_time, selected_date, this);
 
-                    attendanceAdapter.setActionListener(this);
+
                     recyclerView_studnts.setAdapter(attendanceAdapter);
                 } else {
                     showSnackBar(this, "You have no class scheduled in this date");
@@ -179,6 +183,7 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
                 if (availableTimeSlotResponse.getStatus().equals("success")) {
                     timesAdapter = new TimesAdapter(this, availableTimeSlotResponse.getAvailable_slots());
                     binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this, 2));
+                    timesAdapter.setActionListener(this);
                     binding.recyclerTimeSlots.setAdapter(timesAdapter);
                 }
             });
@@ -186,20 +191,40 @@ public class AttendanceActivity extends BaseActivity implements StudentsAttendan
 
     }
 
+//    @Override
+//    public void onActionCancel(String enrollment_id, String date,String star_time,String end_time) {
+//        if (getNetworkInstance(this).isConnectedToInternet()) {
+//            showLoadingIndicator();
+//
+//            cancelViewModel.cancelClass(enrollment_id,selected_date,star_time,end_time).observe(this,commonResponse -> {
+//                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+//                   openSuccessDialog("Successfully canceled this class");
+//                }
+//            });
+//
+//
+//        }
+//    }
+
     @Override
-    public void onActionCancel(String enrollment_id, String date,String star_time,String end_time) {
+    public void onClassCancel(String startTime, String endTime) {
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            cancelViewModel.cancelClass(enrollment_id,selected_date,star_time,end_time).observe(this,commonResponse -> {
-                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-                   openSuccessDialog("Successfully canceled this class");
+            classViewModel.cancel_Class(new CancelClass(trainerID,selected_date,startTime,endTime)).observe(this,commonResponse -> {
+                hideLoadingIndicator();
+
+                if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+                    openSuccessDialog(commonResponse.getMessage());
                 }
+
             });
-
-
         }
     }
+
+//    public void cancelClass(){
+//        cancelViewModel.cancelClass(new CancelClass(trainerID,))
+//    }
 }
 
 

@@ -20,6 +20,9 @@ import com.gsatechworld.musicapp.modules.home.approval.adapter.ApproveStudentAda
 import com.gsatechworld.musicapp.modules.home.trainer_home.AddAttendanceActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.FetchStudentsResponse;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static com.gsatechworld.musicapp.utilities.Constants.ENROLLMENT_ID;
@@ -40,6 +43,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     BaseActivity baseActivity;
     public boolean stat=false;
     private String selected_date;
+    public String today_date;
     private Activity activity;
     public String enorllment_id;
 
@@ -89,23 +93,29 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
             intent.putExtra(STUDENT_ID,student_list.getStudent_id());
             intent.putExtra(SELECTED_DATE, selected_date);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            today_date=dateFormat.format(date);
+
+
             context.getApplicationContext().startActivity(intent);
         });
 
-        holder.binding.cancelClass.setOnClickListener(v -> {
-
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-
-            alertDialog.setTitle("Cancel Class");
-            alertDialog.setMessage("Are you sure want to cancel this class?");
-
-            alertDialog.setPositiveButton("Yes",(dialog, which) -> {
-                performedLister.onActionCancel(enorllment_id,selected_date,start_time,end_time);
-            });
-            alertDialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());
-
-            alertDialog.show();
-        });
+//        holder.binding.cancelClass.setOnClickListener(v -> {
+//
+//            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+//
+//            alertDialog.setTitle("Cancel Class");
+//            alertDialog.setMessage("Are you sure want to cancel this class?");
+//
+//            alertDialog.setPositiveButton("Yes",(dialog, which) -> {
+//                performedLister.onActionCancel(enorllment_id,selected_date,start_time,end_time);
+//            });
+//            alertDialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());
+//
+//            alertDialog.show();
+//        });
 
     }
 

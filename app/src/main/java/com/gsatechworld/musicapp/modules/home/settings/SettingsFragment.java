@@ -88,6 +88,10 @@ public class SettingsFragment extends Fragment {
             startActivity(intent);
         });
 
+        binding.textStudents.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(),EnrollStudentsActivity.class));
+        });
+
         //setAdapter();
 
         return binding.getRoot();

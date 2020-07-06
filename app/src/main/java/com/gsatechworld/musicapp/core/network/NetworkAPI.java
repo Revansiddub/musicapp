@@ -9,8 +9,10 @@ import com.gsatechworld.musicapp.modules.home.earnings.pojo.EarningResponse;
 import com.gsatechworld.musicapp.modules.home.payment.adapter.AcceptPayment;
 import com.gsatechworld.musicapp.modules.home.payment.pojo.PaymentRequestResponse;
 import com.gsatechworld.musicapp.modules.home.settings.pojo.ChangePasswordRequest;
+import com.gsatechworld.musicapp.modules.home.settings.pojo.EnrollStudentsResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.AttendanceRequest;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
+import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.CancelClass;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.DateResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.FetchStudentsResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.StudentResponse;
@@ -141,6 +143,15 @@ public interface NetworkAPI {
 
     @POST("cancellationClass")
     Call<CommonResponse> cancel_class(@Query("enrollment_id") String enrollment_id,@Query("date") String date,@Query("start_time") String start_time,@Query("end_time")String endtime);
+
+    @GET("forgotPassword")
+    Call<CommonResponse> forgotPassword(@Query("email") String email);
+
+    @GET("approvedStudents")
+    Call<EnrollStudentsResponse> getEntrolledStudents(@Query("trainer_id") String trainer_id);
+
+    @POST("trainerCancellationClass")
+    Call<CommonResponse> cancelClass_trainer(@Body CancelClass cancelClass);
 
 
 

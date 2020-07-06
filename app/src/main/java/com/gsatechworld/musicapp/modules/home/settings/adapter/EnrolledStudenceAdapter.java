@@ -2,18 +2,14 @@ package com.gsatechworld.musicapp.modules.home.settings.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsatechworld.musicapp.R;
-import com.gsatechworld.musicapp.databinding.LayoutEntrollmentsBinding;
-import com.gsatechworld.musicapp.databinding.LayoutSettingsItemsBinding;
 import com.gsatechworld.musicapp.databinding.LayoutStudentListBinding;
-import com.gsatechworld.musicapp.modules.home.settings.pojo.EnrollStudents;
-import com.gsatechworld.musicapp.modules.home.settings.pojo.SettingItem;
+import com.gsatechworld.musicapp.modules.home.settings.pojo.EnrollStudentsResponse;
 
 import java.util.List;
 
@@ -22,9 +18,9 @@ import static androidx.databinding.DataBindingUtil.inflate;
 public class EnrolledStudenceAdapter extends RecyclerView.Adapter<EnrolledStudenceAdapter.EnrollViewHolder> {
 
     private Context mCtx;
-    private List<EnrollStudents> studentsList;
+    private List<EnrollStudentsResponse.EnrollStudents> studentsList;
 
-    public EnrolledStudenceAdapter(Context mCtx, List<EnrollStudents> studentsList) {
+    public EnrolledStudenceAdapter(Context mCtx, List<EnrollStudentsResponse.EnrollStudents> studentsList) {
         this.mCtx = mCtx;
         this.studentsList = studentsList;
     }
@@ -39,8 +35,9 @@ public class EnrolledStudenceAdapter extends RecyclerView.Adapter<EnrolledStuden
 
     @Override
     public void onBindViewHolder(@NonNull EnrollViewHolder holder, int position) {
-        EnrollStudents enrollStudents = studentsList.get(position);
 
+        EnrollStudentsResponse.EnrollStudents enrollStudents=studentsList.get(position);
+        holder.studentListBinding.setEnrolledstudent(enrollStudents);
 
 
     }

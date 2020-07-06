@@ -5,7 +5,7 @@
 
         <variable
             name="enrolledstudent"
-            type="com.gsatechworld.musicapp.modules.home.settings.pojo.EnrollStudents" />
+            type="com.gsatechworld.musicapp.modules.home.settings.pojo.EnrollStudentsResponse.EnrollStudents" />
 
     </data>
 
@@ -14,13 +14,20 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/size_10dp"
+        android:layout_marginBottom="@dimen/size_1dp"
+        android:layout_marginLeft="@dimen/size_10dp"
+        android:layout_marginRight="@dimen/size_10dp"
+        android:background="#FAF9F9"
         >
+
+
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/white"
+            app:cardElevation="@dimen/size_5dp"
             app:cardUseCompatPadding="true">
 
             <RelativeLayout
@@ -40,55 +47,57 @@
                     android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="@{`Name : ` + enrolledstudent.student_name}"
                     android:layout_toRightOf="@id/image"
                     android:layout_marginLeft="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_5dp"
                     android:textSize="@dimen/size_15dp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/colorPrimaryDark"/>
                 <TextView
                     android:id="@+id/text_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mobile"
+                    android:text="@{ `Mobile : ` + enrolledstudent.student_mobile}"
                     android:layout_toRightOf="@id/image"
                     android:layout_marginLeft="@dimen/size_15dp"
                     android:layout_below="@id/text_name"
-                    android:layout_marginTop="@dimen/size_5dp"
+                    android:layout_marginTop="@dimen/size_2dp"
                     android:textSize="@dimen/size_15dp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/colorPrimaryDark"/>
                 <TextView
                     android:id="@+id/text_standard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Standard"
+                    android:text="@{`Standard : ` + enrolledstudent.standard}"
                     android:layout_toRightOf="@id/image"
                     android:layout_marginLeft="@dimen/size_15dp"
-                    android:layout_marginTop="@dimen/size_5dp"
+                    android:layout_marginTop="@dimen/size_2dp"
                     android:textSize="@dimen/size_15dp"
                     android:layout_below="@id/text_mobile"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/colorPrimaryDark"/>
 
                 <TextView
                     android:id="@+id/text_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amount"
+                    android:text="@{`Amount : ` + enrolledstudent.amount}"
                     android:layout_toRightOf="@id/image"
                     android:layout_marginLeft="@dimen/size_15dp"
-                    android:layout_marginTop="@dimen/size_5dp"
+                    android:layout_marginTop="@dimen/size_2dp"
                     android:textSize="@dimen/size_15dp"
                     android:layout_below="@id/text_standard"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/colorPrimaryDark"/>
                 <TextView
+                    android:id="@+id/text_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="Date"
+                    android:text="@{enrolledstudent.date}"
                     android:textColor="@color/colorPrimaryDark"
+                    android:layout_alignBottom="@id/text_amount"
                     android:textSize="@dimen/size_15dp"
                     android:textStyle="bold"
-                    android:layout_marginRight="@dimen/size_20dp"/>
+                    android:layout_marginRight="@dimen/size_10dp"/>
 
             </RelativeLayout>
 

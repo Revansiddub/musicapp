@@ -15,6 +15,7 @@ import com.gsatechworld.musicapp.utilities.Constants;
 
 import static android.text.TextUtils.isEmpty;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
+import static java.util.Objects.requireNonNull;
 
 public class ChangePasswordActivity extends BaseActivity {
     ActivityChangePasswordBinding changePasswordBinding;
@@ -34,6 +35,13 @@ public class ChangePasswordActivity extends BaseActivity {
 
 
         passwordViewModel = new ViewModelProvider(this).get(ChangePasswordViewModel.class);
+
+        changePasswordBinding.layoutBase.toolbar.setTitle("Change Password");
+        setSupportActionBar(changePasswordBinding.layoutBase.toolbar);
+        requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        changePasswordBinding.layoutBase.toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
 
         changePasswordBinding.buttonSubmit.setOnClickListener(v -> {
             if (validateField()){

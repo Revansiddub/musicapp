@@ -31,7 +31,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,HardcodedDebugMode,UnusedAttribute">
-        <activity android:name=".modules.login.ForgotPassword"></activity>
+        <activity android:name=".modules.home.settings.EnrollStudentsActivity"></activity>
+        <activity android:name=".modules.login.ForgotPassword" />
         <activity android:name=".modules.otp.StudentOTPVerificationActivity" />
         <activity android:name=".modules.student_home.EntrollmentDetailsActivity" />
         <activity android:name=".modules.home.trainer_home.AttendanceAdd" />
