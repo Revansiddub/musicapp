@@ -24,7 +24,11 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_280dp"
+            android:layout_height="@dimen/size_450dp"
+            app:cardUseCompatPadding="true"
+            android:layout_marginLeft="@dimen/size_10dp"
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="@dimen/size_10dp"
             app:layout_constraintTop_toBottomOf="@id/text_entrollment">
 
             <RelativeLayout
@@ -43,13 +47,22 @@
                     android:textSize="@dimen/size_20dp"
                     android:textStyle="bold" />
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_icon"
+                    android:layout_width="@dimen/size_100dp"
+                    android:layout_height="@dimen/size_100dp"
+                    android:src="@drawable/skillzone"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/text_upcoming_class"/>
+
                 <TextView
                     android:id="@+id/text_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Date :"
-                    android:layout_below="@id/text_upcoming_class"
-                    android:textSize="@dimen/size_15sp"
+                    android:layout_below="@id/image_icon"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_20sp"
                     android:layout_marginTop="@dimen/size_20dp"
                     android:layout_marginLeft="@dimen/size_20dp"
                     android:padding="@dimen/size_10dp"
@@ -62,12 +75,12 @@
                     android:layout_toRightOf="@id/text_date"
                     android:text=""
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_15sp"
-                    android:layout_below="@id/text_upcoming_class"
+                    android:textSize="@dimen/size_20sp"
+                    android:layout_below="@id/image_icon"
                     android:padding="@dimen/size_10dp"
                     android:layout_marginTop="@dimen/size_20dp"
-                    android:layout_marginLeft="@dimen/size_10dp"/>
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="@dimen/size_55dp"/>
 
                 <TextView
                     android:id="@+id/text_starttime"
@@ -75,7 +88,8 @@
                     android:layout_height="wrap_content"
                     android:text="Start Time :"
                     android:layout_below="@id/text_date"
-                    android:textSize="@dimen/size_15sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_20sp"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:layout_marginLeft="@dimen/size_20dp"
                     android:padding="@dimen/size_10dp"
@@ -87,9 +101,9 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_below="@id/date"
-                    android:textSize="@dimen/size_15sp"
+                    android:textSize="@dimen/size_20sp"
                     android:layout_marginTop="@dimen/size_10dp"
-                    android:layout_marginLeft="@dimen/size_6dp"
+                    android:layout_marginLeft="@dimen/size_4dp"
                     android:padding="@dimen/size_10dp"
                     android:textColor="@color/colorPrimary"
                     android:layout_toRightOf="@id/text_starttime"
@@ -99,9 +113,10 @@
                     android:id="@+id/text_endtime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="End Time :"
                     android:layout_below="@id/text_starttime"
-                    android:textSize="@dimen/size_15sp"
+                    android:textSize="@dimen/size_20sp"
                     android:layout_marginTop="@dimen/size_10dp"
                     android:layout_marginLeft="@dimen/size_20dp"
                     android:padding="@dimen/size_10dp"
@@ -113,9 +128,9 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_below="@id/text_starttime"
-                    android:textSize="@dimen/size_15sp"
+                    android:textSize="@dimen/size_20sp"
                     android:layout_marginTop="@dimen/size_10dp"
-                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:layout_marginLeft="@dimen/size_15dp"
                     android:padding="@dimen/size_10dp"
                     android:textColor="@color/colorPrimary"
                     android:layout_toRightOf="@id/text_endtime"
@@ -127,11 +142,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Cancel Class"
+                    android:textColor="@color/white"
                     android:layout_below="@id/text_endtime"
                     android:layout_marginLeft="@dimen/size_20dp"
                     android:layout_marginRight="@dimen/size_20dp"
-                    android:layout_marginTop="@dimen/size_15dp"
-                    android:background="@drawable/button_rectangle_unselected"/>
+                    android:layout_marginTop="@dimen/size_50dp"
+                    android:background="@drawable/button_bg"/>
 
             </RelativeLayout>
 

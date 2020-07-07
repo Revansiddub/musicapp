@@ -32,10 +32,10 @@
 
                 <TextView
                     android:id="@+id/entrollment_name"
-                    android:layout_width="@dimen/size_200dp"
+                    android:layout_width="@dimen/size_180dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/size_10dp"
-                    android:layout_marginTop="@dimen/size_10dp"
+                    android:layout_marginTop="@dimen/size_7dp"
                     android:layout_toRightOf="@id/imageStatus"
                     android:maxLines="2"
                     android:singleLine="false"
