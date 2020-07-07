@@ -1,10 +1,12 @@
 package com.gsatechworld.musicapp.modules.home.trainer_home.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -24,6 +26,8 @@ import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.FetchStudentsRes
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +36,8 @@ import static com.gsatechworld.musicapp.utilities.Constants.SELECTED_DATE;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
+import static java.time.LocalTime.now;
+import static java.time.LocalTime.parse;
 
 public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAttendanceAdapter.StudentViewHolder> implements AddAttendanceActivity.onStatusListener {
     public List<FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList;
@@ -48,16 +54,22 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
     public String today_date;
     private Activity activity;
     public String enorllment_id;
-    public Date date1;
+    public Date date1,date2,date3;
+    public String starTime;
+    public Time startingTime;
+    public String cstartTime,cendTime;
 
     public StudentsAttendanceAdapter(List<FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list> attendanceList,
-                                     Context context, String startTime, String endTime, String selected_date,
+                                     Context context, String startTime, String endTime, String selected_date,String cstartTime,
+                                     String cendTime,
                                      Activity activity) {
         this.attendanceList = attendanceList;
         this.context = context;
         this.start_time=startTime;
         this.end_time=endTime;
         this.selected_date = selected_date;
+        this.cstartTime=cstartTime;
+        this.cendTime=cendTime;
         this.activity = activity;
     }
 
@@ -76,8 +88,8 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
         FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list student_list=attendanceList.get(position);
 
         holder.binding.setAttendance(student_list);
-        holder.binding.startTime.setText(start_time);
-        holder.binding.endtime.setText(end_time);
+        holder.binding.startTime.setText(cstartTime);
+        holder.binding.endtime.setText(cendTime);
 
 
 
@@ -97,9 +109,30 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
             intent.putExtra(SELECTED_DATE, selected_date);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+
+
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
             today_date=dateFormat.format(date);
+
+
+
+            try {
+                starTime=start_time;
+                startingTime = new Time (starTime);
+                DateFormat format=new SimpleDateFormat("HH:mm:ss");
+                date2= format.parse(starTime);
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+                date3=cal.getTime();
+                if (date2.before(date3)){
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+
             try {
                  date1=new SimpleDateFormat("yyyy-MM-dd").parse(selected_date);
                  if (date1.after(date)){
@@ -112,6 +145,8 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
+
 
 
 

@@ -34,6 +34,7 @@ import com.gsatechworld.musicapp.modules.student_home.CancelViewModel;
 import com.gsatechworld.musicapp.utilities.Constants;
 import com.gsatechworld.musicapp.utilities.NetworkUtilities;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -61,9 +62,13 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
     private String userType;
     public CancelViewModel cancelViewModel;
     public String star_time,end_time;
+    public String startTime,endTime;
     public Date date;
+    public Date date1,date2;
     public String formattedDate;
     public CancelClassViewModel classViewModel;
+    public SimpleDateFormat simpleDateFormat;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -151,8 +156,20 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
                     star_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
                     end_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
+
+                    try {
+                        simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                        date1 = simpleDateFormat.parse(star_time);
+                        DateFormat outputformat = new SimpleDateFormat("hh:mm a");
+                        startTime=outputformat.format(date1);
+                        date2=simpleDateFormat.parse(end_time);
+                        endTime=outputformat.format(date2);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
-                            .get(position).getStudent_list(), this, star_time, end_time, selected_date, this);
+                            .get(position).getStudent_list(), this, star_time, end_time, selected_date,startTime,endTime, this);
 
 
                     recyclerView_studnts.setAdapter(attendanceAdapter);
@@ -181,7 +198,7 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
             timeSlotViewModel.fetchTimeSlots(trainerID).observe(this, availableTimeSlotResponse -> {
                 if (availableTimeSlotResponse.getStatus().equals("success")) {
-                    timesAdapter = new TimesAdapter(this, availableTimeSlotResponse.getAvailable_slots());
+                    timesAdapter = new TimesAdapter(this, availableTimeSlotResponse.getAvailable_slots(),startTime,endTime);
                     binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this, 2));
                     timesAdapter.setActionListener(this);
                     binding.recyclerTimeSlots.setAdapter(timesAdapter);

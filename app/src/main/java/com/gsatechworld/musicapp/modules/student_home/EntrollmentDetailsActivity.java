@@ -16,6 +16,7 @@ import com.gsatechworld.musicapp.databinding.ActivityEntrollmentDetailsBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
 import com.gsatechworld.musicapp.utilities.Constants;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +34,13 @@ public class EntrollmentDetailsActivity extends BaseActivity {
     public String student_id;
     public CancelViewModel cancelViewModel;
     public Date selected_date;
+    public Date date1,date2,date3;
     public String formattedDate;
+    public SimpleDateFormat simpleDateFormat;
+    public String cstartTime,cendTime;
+    public String starting_time,ending_time;
+    public DateFormat dateFormat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +93,7 @@ public class EntrollmentDetailsActivity extends BaseActivity {
                         if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                             openSuccessDialog(commonResponse.getMessage());
                             binding.buttonCancel.setVisibility(View.GONE);
-                            finish();
+//                            finish();
                         }
                     });
 
@@ -113,11 +120,21 @@ public class EntrollmentDetailsActivity extends BaseActivity {
                 hideLoadingIndicator();
                 if (upcomingResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     String date=upcomingResponse.getDate();
-                    String start_time=upcomingResponse.getStart_time();
-                    String end_time=upcomingResponse.getEnd_time();
+                    starting_time=upcomingResponse.getStart_time();
+                    ending_time=upcomingResponse.getEnd_time();
+                    try {
+                        simpleDateFormat=new SimpleDateFormat("HH:mm");
+                        date1 = simpleDateFormat.parse(starting_time);
+                        dateFormat = new SimpleDateFormat("hh:mm a");
+                        cstartTime=dateFormat.format(date1);
+                        date2=simpleDateFormat.parse(ending_time);
+                        cendTime=dateFormat.format(date2);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     binding.date.setText(date);
-                    binding.startTime.setText(start_time);
-                    binding.endTime.setText(end_time);
+                    binding.startTime.setText(cstartTime);
+                    binding.endTime.setText(cendTime);
 
 
                 }

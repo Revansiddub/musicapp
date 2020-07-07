@@ -32,10 +32,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Data"
+            android:text="No Pending Approvals"
             android:id="@+id/text_nodata"
             android:visibility="gone"
-            android:textSize="@dimen/size_30dp"
+            android:textSize="@dimen/size_25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

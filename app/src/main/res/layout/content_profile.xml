@@ -93,26 +93,6 @@
 
             <View style="@style/proifleDetailsView" />
 
-            <RelativeLayout style="@style/profileDetailsLayout">
-                <ImageView
-                    android:id="@+id/image_gender"
-                    android:src="@drawable/ic_name"
-                    style="@style/profileDetailsImage" />
-
-                <TextView
-                    android:text="Gender"
-                    android:layout_toRightOf="@id/image_gender"
-                    style="@style/profileDetailsTextMain" />
-
-                <TextView
-                    android:text="@{studentprofile.age}"
-                    android:layout_toRightOf="@id/image_gender"
-                    style="@style/profileDetailsMiniText" />
-
-            </RelativeLayout>
-
-            <View style="@style/proifleDetailsView" />
-
 
             <RelativeLayout style="@style/profileDetailsLayout">
                 <ImageView

@@ -20,7 +20,11 @@ import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Available_slots;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Slot_details;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.TimeSlot;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.view.LayoutInflater.from;
@@ -34,10 +38,19 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     private TextView selectedTime;
     private int index=-1;
     public cancelClassListener listener;
+    public String startTime,endTime;
+    public String cstartTime,cendTime;
+    public String start_time,end_time;
+    public Date date1,date2;
+    public SimpleDateFormat simpleDateFormat;
+    public DateFormat dateFormat;
 
-    public TimesAdapter(Context mCtx, ArrayList<Available_slots> timeSlotList) {
+
+    public TimesAdapter(Context mCtx, ArrayList<Available_slots> timeSlotList,String startTime,String endTime) {
         this.mCtx = mCtx;
         this.timeSlotList = timeSlotList;
+        this.startTime=startTime;
+        this.endTime=endTime;
     }
 
     @NonNull
@@ -52,16 +65,40 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     @Override
     public void onBindViewHolder(@NonNull TimesAdapter.TimeslotViewHolder holder, int position) {
         holder.binding.setTimeSlot(timeSlotList.get(position));
+        start_time=timeSlotList.get(position).getStart_time();
+        end_time=timeSlotList.get(position).getEnd_time();
         holder.binding.layoutTimeSlot.setOnClickListener(v -> {
             index = position;
             notifyDataSetChanged();
         });
 
         holder.binding.imageClose.setOnClickListener(v -> {
-            String start_time=timeSlotList.get(position).getStart_time();
-            String end_time=timeSlotList.get(position).getEnd_time();
-            listener.onClassCancel(start_time,end_time);
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(mCtx);
+            alertDialog.setTitle("Cancel Class");
+           alertDialog.setMessage("Are you sure want to cancel this class?");
+
+           alertDialog.setPositiveButton("Yes",(dialog, which) -> {
+               listener.onClassCancel(start_time,end_time);
+           });
+
+           alertDialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());
+
+           alertDialog.show();
+
+
         });
+
+        try {
+            simpleDateFormat=new SimpleDateFormat("HH:mm:ss");
+            date1 = simpleDateFormat.parse(start_time);
+            dateFormat = new SimpleDateFormat("hh:mm a");
+            cstartTime=dateFormat.format(date1);
+            date2=simpleDateFormat.parse(end_time);
+            cendTime=dateFormat.format(date2);
+            holder.binding.textTime.setText(cstartTime + "-" + cendTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         if(index==position){
             holder.binding.layoutTimeSlot.setBackgroundColor(Color.parseColor("#FF4081"));

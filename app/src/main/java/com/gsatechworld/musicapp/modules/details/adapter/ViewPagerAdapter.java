@@ -10,47 +10,47 @@ import java.util.List;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    /* ------------------------------------------------------------- *
-     * Private Members
-     * ------------------------------------------------------------- */
+  /* ------------------------------------------------------------- *
+   * Private Members
+   * ------------------------------------------------------------- */
 
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
+  private final List<Fragment> mFragmentList = new ArrayList<>();
+  private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    /* ------------------------------------------------------------- *
-     * Constructor
-     * ------------------------------------------------------------- */
+  /* ------------------------------------------------------------- *
+   * Constructor
+   * ------------------------------------------------------------- */
 
-    public ViewPagerAdapter(FragmentManager manager) {
-        super(manager);
-    }
+  public ViewPagerAdapter(FragmentManager manager) {
+    super(manager);
+  }
 
-    /* ------------------------------------------------------------- *
-     * Overriding FragmentPagerAdapter Methods
-     * ------------------------------------------------------------- */
+  /* ------------------------------------------------------------- *
+   * Overriding FragmentPagerAdapter Methods
+   * ------------------------------------------------------------- */
 
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return mFragmentList.get(position);
-    }
+  @NonNull
+  @Override
+  public Fragment getItem(int position) {
+    return mFragmentList.get(position);
+  }
 
-    @Override
-    public int getCount() {
-        return mFragmentList.size();
-    }
+  @Override
+  public int getCount() {
+    return mFragmentList.size();
+  }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mFragmentTitleList.get(position);
-    }
+  @Override
+  public CharSequence getPageTitle(int position) {
+    return mFragmentTitleList.get(position);
+  }
 
-    /* ------------------------------------------------------------- *
-     * Public Methods
-     * ------------------------------------------------------------- */
+  /* ------------------------------------------------------------- *
+   * Public Methods
+   * ------------------------------------------------------------- */
 
-    public void addFrag(Fragment fragment, String title) {
-        mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
-    }
+  public void addFrag(Fragment fragment, String title) {
+    mFragmentList.add(fragment);
+    mFragmentTitleList.add(title);
+  }
 }

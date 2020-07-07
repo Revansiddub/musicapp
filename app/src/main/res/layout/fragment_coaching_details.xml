@@ -10,314 +10,314 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layoutCoachingDetails"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/textCoachingType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_marginTop="@dimen/size_20dp"
-            android:text="@string/coaching_type"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-
-        <TextView
-            android:id="@+id/textHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_15dp"
-            android:background="@drawable/button_rectangle_unselected"
-            android:drawableStart="@drawable/icon_home"
-            android:drawablePadding="@dimen/size_10dp"
-            android:drawableTint="@color/colorPrimary"
-            android:padding="@dimen/size_10dp"
-            android:text="@string/home"
-            android:textColor="@color/md_grey_500"
-            android:textSize="@dimen/size_17sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/textInstitute"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textCoachingType"
-            tools:ignore="UnusedAttribute" />
-
-        <TextView
-            android:id="@+id/textInstitute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_15dp"
-            android:background="@drawable/button_rectangle_unselected"
-            android:drawableStart="@drawable/icon_institute"
-            android:drawablePadding="@dimen/size_10dp"
-            android:drawableTint="@color/colorPrimary"
-            android:padding="@dimen/size_10dp"
-            android:text="@string/institute"
-            android:textColor="@color/md_grey_500"
-            android:textSize="@dimen/size_17sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textHome"
-            app:layout_constraintTop_toBottomOf="@id/textCoachingType"
-            tools:ignore="UnusedAttribute" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/editCharges"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutCoachingDetails"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_30dp"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:layout_marginEnd="@dimen/size_30dp"
-            android:cursorVisible="true"
-            android:focusable="true"
-            android:hint="@string/charges"
-            android:inputType="number"
-            android:maxLength="5"
-            android:textSize="@dimen/size_15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textHome"
-            app:met_errorColor="@android:color/holo_red_light"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelTextColor="@color/black"
-            app:met_primaryColor="@color/colorPrimary"
-            app:met_textColor="@color/colorPrimary"
-            app:met_textColorHint="@color/md_grey_500"
-            tools:ignore="UnusedAttribute" />
+            android:layout_height="match_parent">
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/editAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_30dp"
-            android:layout_marginEnd="@dimen/size_30dp"
-            android:cursorVisible="true"
-            app:met_baseColor="@android:color/primary_text_dark"
-            android:focusable="true"
-            android:hint="@string/address"
-            android:inputType="textCapWords"
-            android:textSize="@dimen/size_15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editCharges"
-            app:met_errorColor="@android:color/holo_red_light"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelTextColor="@color/black"
-            app:met_primaryColor="@color/colorPrimary"
-            app:met_textColor="@color/colorPrimary"
-            app:met_textColorHint="@color/md_grey_500"
-            tools:ignore="UnusedAttribute" />
-
-        <TextView
-            android:id="@+id/textRecurrenceType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_marginTop="@dimen/size_20dp"
-            android:text="@string/recurrence_type"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editAddress" />
-
-        <TextView
-            android:id="@+id/textDaily"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_15dp"
-            android:background="@drawable/button_rectangle_unselected"
-            android:padding="@dimen/size_10dp"
-            android:text="@string/daily"
-            android:textColor="@color/md_grey_500"
-            android:textSize="@dimen/size_17sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/textBiweekly"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textRecurrenceType"
-            tools:ignore="UnusedAttribute" />
-
-        <TextView
-            android:id="@+id/textBiweekly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_15dp"
-            android:background="@drawable/button_rectangle_unselected"
-            android:padding="@dimen/size_10dp"
-            android:text="@string/biweekly"
-            android:textColor="@color/md_grey_500"
-            android:textSize="@dimen/size_17sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/textWeekly"
-            app:layout_constraintStart_toEndOf="@id/textDaily"
-            app:layout_constraintTop_toBottomOf="@id/textRecurrenceType"
-            tools:ignore="UnusedAttribute" />
-
-        <TextView
-            android:id="@+id/textWeekly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_15dp"
-            android:background="@drawable/button_rectangle_unselected"
-            android:padding="@dimen/size_10dp"
-            android:text="@string/weekly"
-            android:textColor="@color/md_grey_500"
-            android:textSize="@dimen/size_17sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textBiweekly"
-            app:layout_constraintTop_toBottomOf="@id/textRecurrenceType"
-            tools:ignore="UnusedAttribute" />
-
-
-        <TextView
-            android:id="@+id/text_availabe_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/size_20dp"
-            android:layout_marginTop="20dp"
-            android:text="Add Time Slot"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_20dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textDaily"
-            tools:ignore="MissingConstraints" />
-
-
-        <EditText
-            android:id="@+id/edt_startTime"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:ems="5"
-            android:textColor="@color/black"
-            android:textSize="@dimen/size_20dp"
-            android:textStyle="bold"
-            android:fontFamily="georgia"
-            android:gravity="center"
-            android:background="@drawable/edit_text_rounded_corner"
-            android:editable="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_availabe_time"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/text_starttime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" + Add Start Time"
-            app:layout_constraintLeft_toRightOf="@id/edt_startTime"
-            app:layout_constraintTop_toBottomOf="@+id/text_availabe_time"
-            android:layout_marginTop="19dp"
-            android:padding="@dimen/size_10dp"
-            android:layout_marginLeft="4dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_15dp"
-            android:textStyle="bold"
-            />
-
-
-        <EditText
-            android:id="@+id/edt_endtime"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:editable="false"
-            android:textColor="@color/black"
-            android:fontFamily="georgia"
-            android:ems="5"
-            android:gravity="center"
-            android:textSize="@dimen/size_20dp"
-            android:background="@drawable/edit_text_rounded_corner"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edt_startTime"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/text_endtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/size_10dp"
-            android:text="+ Add End Time"
-            android:textStyle="bold"
-            android:textSize="@dimen/size_15dp"
-            android:layout_marginLeft="@dimen/size_5dp"
-            android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintLeft_toRightOf="@+id/edt_endtime"
-            app:layout_constraintTop_toBottomOf="@id/edt_startTime"
-            android:layout_marginTop="@dimen/size_22dp"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/button_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_bg"
-            android:ems="5"
-            android:text="Add"
-            android:textColor="@color/white"
-            android:theme="@style/my_time_picker_style"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_endtime"
-            tools:ignore="MissingConstraints" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_selected_times"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_200dp"
-            android:padding="@dimen/size_15sp"
-            app:layout_constraintTop_toBottomOf="@id/button_add"
-            android:layout_marginTop="@dimen/size_15sp"
-            android:layout_marginBottom="@dimen/size_20dp"
-            tools:ignore="MissingConstraints" />
-
-
-        <TextView
-            android:id="@+id/text_selected_Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:text="Timing"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/size_15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_selected_times"
-            tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/textCoachingType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:text="@string/coaching_type"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
 
-        <Button
-            android:id="@+id/buttonNext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:text="@string/next"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size_20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/textHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:background="@drawable/button_rectangle_unselected"
+                android:drawableStart="@drawable/icon_home"
+                android:drawablePadding="@dimen/size_10dp"
+                android:drawableTint="@color/colorPrimary"
+                android:padding="@dimen/size_10dp"
+                android:text="@string/home"
+                android:textColor="@color/md_grey_500"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/textInstitute"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textCoachingType"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textInstitute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:background="@drawable/button_rectangle_unselected"
+                android:drawableStart="@drawable/icon_institute"
+                android:drawablePadding="@dimen/size_10dp"
+                android:drawableTint="@color/colorPrimary"
+                android:padding="@dimen/size_10dp"
+                android:text="@string/institute"
+                android:textColor="@color/md_grey_500"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textHome"
+                app:layout_constraintTop_toBottomOf="@id/textCoachingType"
+                tools:ignore="UnusedAttribute" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/editCharges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_30dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:layout_marginEnd="@dimen/size_30dp"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:hint="@string/charges"
+                android:inputType="number"
+                android:maxLength="5"
+                android:textSize="@dimen/size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textHome"
+                app:met_errorColor="@android:color/holo_red_light"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelTextColor="@color/black"
+                app:met_primaryColor="@color/colorPrimary"
+                app:met_textColor="@color/colorPrimary"
+                app:met_textColorHint="@color/md_grey_500"
+                tools:ignore="UnusedAttribute" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/editAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_30dp"
+                android:layout_marginEnd="@dimen/size_30dp"
+                android:cursorVisible="true"
+                app:met_baseColor="@android:color/primary_text_dark"
+                android:focusable="true"
+                android:hint="@string/address"
+                android:inputType="textCapWords"
+                android:textSize="@dimen/size_15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editCharges"
+                app:met_errorColor="@android:color/holo_red_light"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelTextColor="@color/black"
+                app:met_primaryColor="@color/colorPrimary"
+                app:met_textColor="@color/colorPrimary"
+                app:met_textColorHint="@color/md_grey_500"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textRecurrenceType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:text="@string/recurrence_type"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editAddress" />
+
+            <TextView
+                android:id="@+id/textDaily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:background="@drawable/button_rectangle_unselected"
+                android:padding="@dimen/size_10dp"
+                android:text="@string/daily"
+                android:textColor="@color/md_grey_500"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/textBiweekly"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textRecurrenceType"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textBiweekly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:background="@drawable/button_rectangle_unselected"
+                android:padding="@dimen/size_10dp"
+                android:text="@string/biweekly"
+                android:textColor="@color/md_grey_500"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textWeekly"
+                app:layout_constraintStart_toEndOf="@id/textDaily"
+                app:layout_constraintTop_toBottomOf="@id/textRecurrenceType"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/textWeekly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:background="@drawable/button_rectangle_unselected"
+                android:padding="@dimen/size_10dp"
+                android:text="@string/weekly"
+                android:textColor="@color/md_grey_500"
+                android:textSize="@dimen/size_17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textBiweekly"
+                app:layout_constraintTop_toBottomOf="@id/textRecurrenceType"
+                tools:ignore="UnusedAttribute" />
+
+
+            <TextView
+                android:id="@+id/text_availabe_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="20dp"
+                android:text="Add Time Slot"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textDaily"
+                tools:ignore="MissingConstraints" />
+
+
+            <EditText
+                android:id="@+id/edt_startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:ems="5"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_20dp"
+                android:textStyle="bold"
+                android:fontFamily="georgia"
+                android:gravity="center"
+                android:background="@drawable/edit_text_rounded_corner"
+                android:editable="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_availabe_time"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/text_starttime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" + Add Start Time"
+                app:layout_constraintLeft_toRightOf="@id/edt_startTime"
+                app:layout_constraintTop_toBottomOf="@+id/text_availabe_time"
+                android:layout_marginTop="19dp"
+                android:padding="@dimen/size_10dp"
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_15dp"
+                android:textStyle="bold"
+                />
+
+
+            <EditText
+                android:id="@+id/edt_endtime"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:editable="false"
+                android:textColor="@color/black"
+                android:fontFamily="georgia"
+                android:ems="5"
+                android:gravity="center"
+                android:textSize="@dimen/size_20dp"
+                android:background="@drawable/edit_text_rounded_corner"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_startTime"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/text_endtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size_10dp"
+                android:text="+ Add End Time"
+                android:textStyle="bold"
+                android:textSize="@dimen/size_15dp"
+                android:layout_marginLeft="@dimen/size_5dp"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintLeft_toRightOf="@+id/edt_endtime"
+                app:layout_constraintTop_toBottomOf="@id/edt_startTime"
+                android:layout_marginTop="@dimen/size_22dp"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/button_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_bg"
+                android:ems="5"
+                android:text="Add"
+                android:textColor="@color/white"
+                android:theme="@style/my_time_picker_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_endtime"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_selected_times"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_200dp"
+                android:padding="@dimen/size_15sp"
+                app:layout_constraintTop_toBottomOf="@id/button_add"
+                android:layout_marginTop="@dimen/size_15sp"
+                android:layout_marginBottom="@dimen/size_20dp"
+                tools:ignore="MissingConstraints" />
+
+
+            <TextView
+                android:id="@+id/text_selected_Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:text="Timing"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_selected_times"
+                tools:ignore="MissingConstraints" />
+
+
+
+            <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 

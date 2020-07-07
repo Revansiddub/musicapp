@@ -380,7 +380,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         dialog.setContentView(R.layout.layout_selected_days);
 
         /*Initialising Views*/
-        ImageView imageClose = dialog.findViewById(R.id.imageClose);
+        ImageView imageClose = dialog.findViewById(R.id.image_close);
         RecyclerView recyclerDays = dialog.findViewById(R.id.recyclerDays);
 
         /*Setting listeners to the views*/

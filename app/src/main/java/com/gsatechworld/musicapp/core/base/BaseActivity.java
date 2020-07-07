@@ -140,7 +140,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         textMessage.setText(message);
 
 
-       dialog.show();
+        dialog.show();
     }
 
     /**

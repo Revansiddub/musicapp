@@ -15,6 +15,7 @@ import android.view.WindowManager;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.core.manager.SessionManager;
 import com.gsatechworld.musicapp.databinding.ActivityTrainerOtpVerificationBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
 import com.gsatechworld.musicapp.modules.otp.pojo.TrainerOTPVerification;
@@ -28,6 +29,7 @@ public class TrainerOtpVerification extends BaseActivity {
     ActivityTrainerOtpVerificationBinding binding;
     public TrainerOTPViewModel otpViewModel;
     public String phone;
+    public SessionManager sessionManager;
     String otp;
 
     @Override
@@ -38,6 +40,7 @@ public class TrainerOtpVerification extends BaseActivity {
 
         setContentView(R.layout.activity_trainer_otp_verification);
 
+        sessionManager = SessionManager.getSessionInstance(this);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_trainer_otp_verification);
 
         otpViewModel=new ViewModelProvider(this).get(TrainerOTPViewModel.class);
@@ -139,7 +142,7 @@ public class TrainerOtpVerification extends BaseActivity {
 
     public void verifyTrainerOTP(String otp){
 
-        otpViewModel.verifyTrainerOTP(new TrainerOTPVerification(phone,otp)).observe(this,commonResponse -> {
+        otpViewModel.verifyTrainerOTP(new TrainerOTPVerification(phone,otp,sessionManager.getFcmToken())).observe(this,commonResponse -> {
             if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                 openSuccessDialog("OTP Verification successfully Completed.");
                 startActivity(new Intent(TrainerOtpVerification.this, LoginActivity.class));

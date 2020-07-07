@@ -15,7 +15,11 @@ import com.gsatechworld.musicapp.databinding.LayoutAvilableSlotsBinding;
 import com.gsatechworld.musicapp.modules.home.payment.adapter.PaymentRequestAdapter;
 import com.gsatechworld.musicapp.modules.select_time_slot.pojo.AvailableTimesSlotResponse;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.view.LayoutInflater.from;
 import static androidx.databinding.DataBindingUtil.inflate;
@@ -28,6 +32,10 @@ public class StudentTimeSlotAdapter extends RecyclerView.Adapter<StudentTimeSlot
     public String start_time,end_time;
     public OnTimeSelectedListener selectedListener;
     private int index=-1;
+    public String startTiming,endTiming;
+    public SimpleDateFormat simpleDateFormat;
+    public DateFormat dateFormat;
+    public Date date1,date2;
 
     public StudentTimeSlotAdapter(Context mCtx, ArrayList<AvailableTimesSlotResponse.AvailablesSlotes> timeSlotList) {
         this.mCtx = mCtx;
@@ -49,12 +57,26 @@ public class StudentTimeSlotAdapter extends RecyclerView.Adapter<StudentTimeSlot
     public void onBindViewHolder(@NonNull TimeSlotHolder holder, int position) {
         AvailableTimesSlotResponse.AvailablesSlotes availablesSlotes=timeSlotList.get(position);
         holder.binding.setAvailableSlot(availablesSlotes);
+        start_time=availablesSlotes.getStart_time();
+        end_time=availablesSlotes.getEnd_time();
+        try {
+            simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+            date1 = simpleDateFormat.parse(start_time);
+            DateFormat outputformat = new SimpleDateFormat("hh:mm a");
+            startTiming=outputformat.format(date1);
+            date2=simpleDateFormat.parse(end_time);
+            endTiming=outputformat.format(date2);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        holder.binding.startTime.setText(startTiming);
+        holder.binding.endtime.setText(endTiming);
         holder.binding.layoutTimeSlot.setOnClickListener(v -> {
             index = position;
             notifyDataSetChanged();
           String selected=availablesSlotes.getStart_time() + "-" +availablesSlotes.getEnd_time();
-          start_time=availablesSlotes.getStart_time();
-          end_time=availablesSlotes.getEnd_time();
           selectedListener.onTimeAction(start_time,end_time);
 
 

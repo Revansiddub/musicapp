@@ -191,8 +191,8 @@ public class PaymentsFragment extends Fragment implements PaymentRequestAdapter.
 
                 }
                 if (adapter.getItemCount() == 0){
-                    baseActivity.showSnackBar(requireNonNull(getActivity()),
-                            "No Payment Requests");
+                    paymentsBinding.textNodata.setVisibility(View.VISIBLE);
+                    paymentsBinding.recyclerPaymentRequest.setVisibility(View.GONE);
                 }
             });
 

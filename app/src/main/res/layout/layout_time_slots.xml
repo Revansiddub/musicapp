@@ -21,7 +21,6 @@
             android:id="@+id/textTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{timeSlot.start_time + ` - ` + timeSlot.end_time}"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_15sp"
             app:layout_constraintBottom_toBottomOf="parent"
