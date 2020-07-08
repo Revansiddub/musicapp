@@ -65,6 +65,7 @@ public class TrainerOtpVerification extends BaseActivity {
                     binding.etOtp2.requestFocus();
                 }
             }
+
         });
 
         binding.etOtp2.addTextChangedListener(new TextWatcher() {

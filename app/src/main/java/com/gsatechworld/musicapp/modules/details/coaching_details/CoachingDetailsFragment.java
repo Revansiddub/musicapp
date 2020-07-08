@@ -379,12 +379,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_selected_days);
 
-        /*Initialising Views*/
-        ImageView imageClose = dialog.findViewById(R.id.image_close);
-        RecyclerView recyclerDays = dialog.findViewById(R.id.recyclerDays);
 
-        /*Setting listeners to the views*/
-        imageClose.setOnClickListener(v -> dialog.cancel());
 
         coaching_days = new ArrayList<>();
 
@@ -401,6 +396,13 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
             coaching_days.add("Saturday");
             coaching_days.add("Sunday");
         }
+
+        /*Initialising Views*/
+        //ImageView imageClose = dialog.findViewById(R.id.image_close);
+        RecyclerView recyclerDays = dialog.findViewById(R.id.recyclerDays);
+
+        /*Setting listeners to the views*/
+        //imageClose.setOnClickListener(v -> dialog.cancel());
 
         recyclerDays.setLayoutManager(new LinearLayoutManager(getActivity(), VERTICAL,
                 false));
