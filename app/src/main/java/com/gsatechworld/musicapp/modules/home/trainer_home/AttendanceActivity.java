@@ -147,6 +147,7 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
 
     @Override
     public void onRecyclerClick(int position) {
+        timesAdapter.setRecyclerItemListener(this);
         this.position=position;
     }
 

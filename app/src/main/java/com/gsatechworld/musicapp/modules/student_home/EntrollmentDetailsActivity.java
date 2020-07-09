@@ -3,6 +3,7 @@ package com.gsatechworld.musicapp.modules.student_home;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.databinding.ActivityEntrollmentDetailsBinding;
 import com.gsatechworld.musicapp.modules.login.LoginActivity;
+import com.gsatechworld.musicapp.modules.student_home.adapter.UpcomingAdapter;
 import com.gsatechworld.musicapp.utilities.Constants;
 
 import java.text.DateFormat;
@@ -40,6 +42,7 @@ public class EntrollmentDetailsActivity extends BaseActivity {
     public String cstartTime,cendTime;
     public String starting_time,ending_time;
     public DateFormat dateFormat;
+    public UpcomingAdapter upcomingAdapter;
 
 
     @Override
@@ -59,6 +62,8 @@ public class EntrollmentDetailsActivity extends BaseActivity {
         entrollment_name=getIntent().getStringExtra("entroll_name");
         enrollment_id=getIntent().getStringExtra("entrillment_id");
         binding.textEntrollment.setText(entrollment_name);
+
+        fetchClass();
 
 //        binding.buttonCancel.setOnClickListener(v -> {
 //
@@ -108,9 +113,7 @@ public class EntrollmentDetailsActivity extends BaseActivity {
 //
 //
 //        fetchUpcomingClass();
-//
-//
-//
+
 //    }
 //    public void fetchUpcomingClass(){
 //        if (getNetworkInstance(this).isConnectedToInternet()) {
@@ -151,5 +154,22 @@ public class EntrollmentDetailsActivity extends BaseActivity {
     public void cancel_Class(){
 
 
+    }
+
+    public void fetchClass(){
+        if (getNetworkInstance(this).isConnectedToInternet()) {
+            showLoadingIndicator();
+
+            classViewModel.getUpcoming_class(student_id).observe(this,upcomingResponse -> {
+                hideLoadingIndicator();
+                if (upcomingResponse != null && upcomingResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+                    binding.recyclerUpcomingClass.setLayoutManager(new LinearLayoutManager(this));
+                    binding.recyclerUpcomingClass.setHasFixedSize(true);
+                    upcomingAdapter=new UpcomingAdapter(this,upcomingResponse.getUpcoming_class());
+                    binding.recyclerUpcomingClass.setAdapter(upcomingAdapter);
+                }
+
+            });
+        }
     }
 }
