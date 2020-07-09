@@ -136,7 +136,7 @@ public class StudentHomeFragment extends Fragment {
             //String student_Id="1";
             entrollmentsViewModel.fetchStudentEntrollments(student_id).observe(getViewLifecycleOwner(),entrollmentResponse -> {
              baseActivity.hideLoadingIndicator();
-             if (entrollmentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
+             if (entrollmentResponse != null && entrollmentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
                  studentHomeBinding.recyclerEntrollments.setLayoutManager(new GridLayoutManager(getActivity(),2));
                  adapter=new EntrollmentAdapter(getActivity(),entrollmentResponse.getEnrollment_details());
                  studentHomeBinding.recyclerEntrollments.setAdapter(adapter);

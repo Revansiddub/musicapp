@@ -189,7 +189,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
             viewModel.authenticateStudent(mobileNumber).observe(this, studentResponse -> {
                 hideLoadingIndicator();
 
-                if (studentResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (studentResponse.getStatus() != null && studentResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                     SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString(MOBILE_NUMBER, mobileNumber);
