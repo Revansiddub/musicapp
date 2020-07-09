@@ -131,7 +131,6 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
     @Override
     protected void onResume() {
         super.onResume();
-        getStudents();
     }
 
 
@@ -151,7 +150,7 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
     }
 
 
-    private void getStudents() {
+    private void getStudents(int clickedPosition) {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
@@ -161,7 +160,8 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
                     star_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
                     end_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
-                    attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots().get(position)
+                    attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
+                            .get(clickedPosition)
                             .getStudent_list(), this, star_time, end_time, selected_date,startTime,endTime, this);
 
                     recyclerView_studnts.setAdapter(attendanceAdapter);
@@ -176,10 +176,6 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-
-
-
-
                 } else {
                     showSnackBar(this, "You have no class scheduled in this date");
                 }
@@ -209,10 +205,13 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
                     binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this, 2));
                     timesAdapter.setActionListener(this);
                     binding.recyclerTimeSlots.setAdapter(timesAdapter);
+                    timesAdapter.setItemClickListener((view, position) -> {
+                        // set students
+                        getStudents(position);
+                    });
                 }
             });
         }
-
     }
 
 //    @Override
@@ -240,7 +239,7 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
 
                 if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     openSuccessDialog(commonResponse.getMessage());
-                    getStudents();
+                    getStudents(0);
                 }
 
             });
