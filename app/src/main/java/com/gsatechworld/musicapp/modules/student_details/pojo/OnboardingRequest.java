@@ -9,6 +9,9 @@ public class OnboardingRequest {
     @SerializedName("pincode_id")
     public String pincode_id;
 
+    @SerializedName("firebase_token")
+    public String firebase_token;
+
     @SerializedName("category_id")
     public String category_id;
 
@@ -49,8 +52,9 @@ public class OnboardingRequest {
 
 
 
-    public OnboardingRequest(String pincode_id, String category_id, String sub_category_id, ArrayList<Slots_Details> slot_details, String name, String age,String gender, String standard, String school_name, String address, String mobile_number, String trainer_id, String profile_image) {
+    public OnboardingRequest(String pincode_id, String firebase_token,String category_id, String sub_category_id, ArrayList<Slots_Details> slot_details, String name, String age,String gender, String standard, String school_name, String address, String mobile_number, String trainer_id, String profile_image) {
         this.pincode_id = pincode_id;
+        this.firebase_token=firebase_token;
         this.category_id = category_id;
         this.sub_category_id = sub_category_id;
         this.slot_details = slot_details;

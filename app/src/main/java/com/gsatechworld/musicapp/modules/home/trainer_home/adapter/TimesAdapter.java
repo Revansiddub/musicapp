@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutTimeSlotsBinding;
+import com.gsatechworld.musicapp.modules.home.trainer_home.AttendanceActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Available_slots;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Slot_details;
@@ -36,13 +37,14 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     private ArrayList<Available_slots> timeSlotList;
     private ConstraintLayout seletedTimeSlot;
     private TextView selectedTime;
-    private int index=-1;
+    private int index=0;
     public cancelClassListener listener;
     public String startTime,endTime;
     public String cstartTime,cendTime;
     public String start_time,end_time;
     public Date date1,date2;
     public SimpleDateFormat simpleDateFormat;
+    public onRecyclerItemListener recyclerItemListener;
     public DateFormat dateFormat;
 
 
@@ -69,6 +71,7 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
         end_time=timeSlotList.get(position).getEnd_time();
         holder.binding.layoutTimeSlot.setOnClickListener(v -> {
             index = position;
+            recyclerItemListener.onRecyclerClick(index);
             notifyDataSetChanged();
         });
 
@@ -132,6 +135,14 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
 
     public void setActionListener(cancelClassListener listener){
         this.listener=listener;
+    }
+
+    public interface onRecyclerItemListener{
+        void onRecyclerClick(int position);
+    }
+
+    public  void  setRecyclerItemListener(onRecyclerItemListener recyclerItemListener){
+        this.recyclerItemListener=recyclerItemListener;
     }
 
 }

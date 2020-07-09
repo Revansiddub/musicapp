@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".modules.home.settings.EnrollStudentsActivity">
@@ -29,10 +29,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_students"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toBottomOf="@id/text_students"
+            android:layout_below="@id/text_students"
             android:layout_marginTop="@dimen/size_10dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </layout>

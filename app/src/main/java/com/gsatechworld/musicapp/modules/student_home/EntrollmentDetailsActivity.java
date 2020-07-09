@@ -60,91 +60,91 @@ public class EntrollmentDetailsActivity extends BaseActivity {
         enrollment_id=getIntent().getStringExtra("entrillment_id");
         binding.textEntrollment.setText(entrollment_name);
 
-        binding.buttonCancel.setOnClickListener(v -> {
+//        binding.buttonCancel.setOnClickListener(v -> {
+//
+//         String date=binding.date.getText().toString();
+//
+//            try {
+//
+//                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//                selected_date = new Date(sdf.parse(date).getTime());
+//
+//                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+//                formattedDate=simpleDateFormat.format(selected_date);
+//
+//
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//         String start_time=binding.startTime.getText().toString();
+//         String end_time=binding.endTime.getText().toString();
+//         cancellation="3";
+//
+//            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+//
+//            alertDialog.setTitle("Cancel Class");
+//            alertDialog.setMessage("Are you sure want to cancel this class?");
+//
+//            alertDialog.setPositiveButton(this.getString(R.string.yes), (dialog, which) -> {
+//
+//                if (getNetworkInstance(this).isConnectedToInternet()){
+//
+//                    cancelViewModel.cancelClass(enrollment_id,formattedDate,start_time,end_time).observe(this,commonResponse -> {
+//                        if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+//                            openSuccessDialog(commonResponse.getMessage());
+//                            binding.buttonCancel.setVisibility(View.GONE);
+////                            finish();
+//                        }
+//                    });
+//
+//                }
+//
+//            });
+//            alertDialog.setNegativeButton(this.getString(R.string.no), (dialog, which) -> dialog.cancel());
+//
+//            alertDialog.show();
+//        });
+//
+//
+//
+//        fetchUpcomingClass();
+//
+//
+//
+//    }
+//    public void fetchUpcomingClass(){
+//        if (getNetworkInstance(this).isConnectedToInternet()) {
+//            showLoadingIndicator();
+//
+//            classViewModel.getUpcoming_class(student_id).observe(this,upcomingResponse -> {
+//                hideLoadingIndicator();
+//                if (upcomingResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
+//                    String date=upcomingResponse.getDate();
+//                    starting_time=upcomingResponse.getStart_time();
+//                    ending_time=upcomingResponse.getEnd_time();
+//                    try {
+//                        simpleDateFormat=new SimpleDateFormat("HH:mm");
+//                        date1 = simpleDateFormat.parse(starting_time);
+//                        dateFormat = new SimpleDateFormat("hh:mm a");
+//                        cstartTime=dateFormat.format(date1);
+//                        date2=simpleDateFormat.parse(ending_time);
+//                        cendTime=dateFormat.format(date2);
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+//                    binding.date.setText(date);
+//                    binding.startTime.setText(cstartTime);
+//                    binding.endTime.setText(cendTime);
+//
+//
+//                }
+//
+//                else {
+//                    showSnackBar(this,upcomingResponse.getStatus());
+//                }
+//            });
 
-         String date=binding.date.getText().toString();
-
-            try {
-
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                selected_date = new Date(sdf.parse(date).getTime());
-
-                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-                formattedDate=simpleDateFormat.format(selected_date);
-
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-         String start_time=binding.startTime.getText().toString();
-         String end_time=binding.endTime.getText().toString();
-         cancellation="3";
-
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-
-            alertDialog.setTitle("Cancel Class");
-            alertDialog.setMessage("Are you sure want to cancel this class?");
-
-            alertDialog.setPositiveButton(this.getString(R.string.yes), (dialog, which) -> {
-
-                if (getNetworkInstance(this).isConnectedToInternet()){
-
-                    cancelViewModel.cancelClass(enrollment_id,formattedDate,start_time,end_time).observe(this,commonResponse -> {
-                        if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
-                            openSuccessDialog(commonResponse.getMessage());
-                            binding.buttonCancel.setVisibility(View.GONE);
-//                            finish();
-                        }
-                    });
-
-                }
-
-            });
-            alertDialog.setNegativeButton(this.getString(R.string.no), (dialog, which) -> dialog.cancel());
-
-            alertDialog.show();
-        });
-
-
-
-        fetchUpcomingClass();
-
-
-
-    }
-    public void fetchUpcomingClass(){
-        if (getNetworkInstance(this).isConnectedToInternet()) {
-            showLoadingIndicator();
-
-            classViewModel.getUpcoming_class(student_id).observe(this,upcomingResponse -> {
-                hideLoadingIndicator();
-                if (upcomingResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-                    String date=upcomingResponse.getDate();
-                    starting_time=upcomingResponse.getStart_time();
-                    ending_time=upcomingResponse.getEnd_time();
-                    try {
-                        simpleDateFormat=new SimpleDateFormat("HH:mm");
-                        date1 = simpleDateFormat.parse(starting_time);
-                        dateFormat = new SimpleDateFormat("hh:mm a");
-                        cstartTime=dateFormat.format(date1);
-                        date2=simpleDateFormat.parse(ending_time);
-                        cendTime=dateFormat.format(date2);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    binding.date.setText(date);
-                    binding.startTime.setText(cstartTime);
-                    binding.endTime.setText(cendTime);
-
-
-                }
-
-                else {
-                    showSnackBar(this,upcomingResponse.getStatus());
-                }
-            });
-
-        }
+   //     }
 
     }
 

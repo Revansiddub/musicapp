@@ -202,6 +202,11 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                             (getResources().getColorStateList(R.color.colorAccent));
                     binding.textHome.setBackground(requireNonNull(getActivity())
                             .getDrawable(R.drawable.button_rectangle_selected));
+                    binding.textInstitute.setTextColor(getResources().getColor(R.color.md_grey_500));
+                    binding.textInstitute.setCompoundDrawableTintList
+                            (getResources().getColorStateList(R.color.md_grey_500));
+                    binding.textInstitute.setBackground(requireNonNull(getActivity())
+                            .getDrawable(R.drawable.button_rectangle_unselected));
                 }
                 break;
             case R.id.textInstitute:
@@ -222,6 +227,11 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                             (getResources().getColorStateList(R.color.colorAccent));
                     binding.textInstitute.setBackground(requireNonNull(getActivity())
                             .getDrawable(R.drawable.button_rectangle_selected));
+                    binding.textHome.setTextColor(getResources().getColor(R.color.md_grey_500));
+                    binding.textHome.setCompoundDrawableTintList
+                            (getResources().getColorStateList(R.color.md_grey_500));
+                    binding.textHome.setBackground(requireNonNull(getActivity())
+                            .getDrawable(R.drawable.button_rectangle_unselected));
 
                 }
                 break;

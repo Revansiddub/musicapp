@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
+import com.gsatechworld.musicapp.core.manager.SessionManager;
 import com.gsatechworld.musicapp.databinding.ActivityStudentDetailsBinding;
 import com.gsatechworld.musicapp.modules.details.pojo.Slot_details;
 import com.gsatechworld.musicapp.modules.otp.StudentOTPVerificationActivity;
@@ -87,6 +88,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
     public String start_time,end_time;
     public String pincode_id,category_id,sub_category_id,trainerID;
     public ArrayList<OnboardingRequest.Slots_Details> timeSlotes;
+    private SessionManager sessionManager;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -98,6 +100,8 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_student_details);
+
+        sessionManager = new SessionManager(this);
 
         trainerID=getIntent().getStringExtra(TRAINER_ID);
         start_time=getIntent().getStringExtra(START_TIME);
@@ -360,7 +364,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
             showLoadingIndicator();
             profileImage
                     =encodeToBase64(profileImageBitmap);
-            viewModel.onBoardStudent(new OnboardingRequest(pincode_id,category_id,sub_category_id,timeSlotes,fullName, age, gender, standard,
+            viewModel.onBoardStudent(new OnboardingRequest(pincode_id,sessionManager.getFcmToken(),category_id,sub_category_id,timeSlotes,fullName, age, gender, standard,
                     schoolName,address, mobileNumber,trainerID,profileImage)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
                 if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
