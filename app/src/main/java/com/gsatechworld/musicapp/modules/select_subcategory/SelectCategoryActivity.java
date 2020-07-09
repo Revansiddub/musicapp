@@ -164,8 +164,7 @@ public class SelectCategoryActivity extends BaseActivity implements OnQueryTextL
                 } else
                     showSnackBar(this, categoryResponse.getStatus());
 
-                binding.textResult.setText(format("%s categories found in '%s' area",
-                        categoryResponse.getCategoriesList().size(), pinCode));
+
             });
         } else
             showSnackBar(this, getString(R.string.no_internet_message));

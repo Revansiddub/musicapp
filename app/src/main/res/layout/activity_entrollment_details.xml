@@ -1,161 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".modules.student_home.EntrollmentDetailsActivity">
 
         <TextView
             android:id="@+id/text_entrollment"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/amarante"
+            android:layout_marginTop="12dp"
+            android:fontFamily="georgia"
             android:text="Guitar"
             android:textAlignment="center"
+            android:layout_marginStart="@dimen/size_15dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_25dp"
-            android:layout_marginTop="@dimen/size_15sp"
             android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
-        <androidx.cardview.widget.CardView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_upcomingClass"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_450dp"
-            app:cardUseCompatPadding="true"
-            android:layout_marginLeft="@dimen/size_10dp"
-            android:layout_marginRight="10dp"
-            app:cardCornerRadius="@dimen/size_10dp"
-            app:layout_constraintTop_toBottomOf="@id/text_entrollment">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/text_upcoming_class"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/artifika"
-                    android:text="Upcoming Class"
-                    android:textAlignment="center"
-                    android:layout_marginTop="@dimen/size_15sp"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/size_20dp"
-                    android:textStyle="bold" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_icon"
-                    android:layout_width="@dimen/size_100dp"
-                    android:layout_height="@dimen/size_100dp"
-                    android:src="@drawable/skillzone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/text_upcoming_class"/>
-
-                <TextView
-                    android:id="@+id/text_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date :"
-                    android:layout_below="@id/image_icon"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/size_20sp"
-                    android:layout_marginTop="@dimen/size_20dp"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:padding="@dimen/size_10dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/text_date"
-                    android:text=""
-                    android:textStyle="bold"
-                    android:textSize="@dimen/size_20sp"
-                    android:layout_below="@id/image_icon"
-                    android:padding="@dimen/size_10dp"
-                    android:layout_marginTop="@dimen/size_20dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:layout_marginLeft="@dimen/size_55dp"/>
-
-                <TextView
-                    android:id="@+id/text_starttime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Start Time :"
-                    android:layout_below="@id/text_date"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/size_20sp"
-                    android:layout_marginTop="@dimen/size_10dp"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:padding="@dimen/size_10dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/start_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:layout_below="@id/date"
-                    android:textSize="@dimen/size_20sp"
-                    android:layout_marginTop="@dimen/size_10dp"
-                    android:layout_marginLeft="@dimen/size_4dp"
-                    android:padding="@dimen/size_10dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_toRightOf="@id/text_starttime"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/text_endtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:text="End Time :"
-                    android:layout_below="@id/text_starttime"
-                    android:textSize="@dimen/size_20sp"
-                    android:layout_marginTop="@dimen/size_10dp"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:padding="@dimen/size_10dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/end_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:layout_below="@id/text_starttime"
-                    android:textSize="@dimen/size_20sp"
-                    android:layout_marginTop="@dimen/size_10dp"
-                    android:layout_marginLeft="@dimen/size_15dp"
-                    android:padding="@dimen/size_10dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_toRightOf="@id/text_endtime"
-                    android:textStyle="bold"/>
-
-
-                <Button
-                    android:id="@+id/button_cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cancel Class"
-                    android:textColor="@color/white"
-                    android:layout_below="@id/text_endtime"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_marginRight="@dimen/size_20dp"
-                    android:layout_marginTop="@dimen/size_50dp"
-                    android:background="@drawable/button_bg"/>
-
-            </RelativeLayout>
-
-
-
-
-        </androidx.cardview.widget.CardView>
-
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_entrollment"
+            android:layout_marginTop="@dimen/size_10dp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

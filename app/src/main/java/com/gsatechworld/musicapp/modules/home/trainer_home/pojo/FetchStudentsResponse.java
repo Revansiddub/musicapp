@@ -71,7 +71,7 @@ public class FetchStudentsResponse {
                 private String student_age;
 
                 @SerializedName("student_id")
-                private String student_id;
+                private int student_id;
 
                 @SerializedName("enrollment_name")
                 private String enrollment_name;
@@ -103,7 +103,7 @@ public class FetchStudentsResponse {
                     return student_age;
                 }
 
-                public String getStudent_id() {
+                public int getStudent_id() {
                     return student_id;
                 }
 

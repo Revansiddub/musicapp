@@ -189,7 +189,6 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                 if (isHomeSelected) {
                     isHomeSelected = false;
 
-
                     binding.textHome.setTextColor(getResources().getColor(R.color.md_grey_500));
                     binding.textHome.setCompoundDrawableTintList
                             (getResources().getColorStateList(R.color.md_grey_500));
@@ -197,12 +196,17 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                             .getDrawable(R.drawable.button_rectangle_unselected));
                 } else {
                     isHomeSelected = true;
-
+                    isInstituteSelected=false;
                     binding.textHome.setTextColor(getResources().getColor(R.color.colorAccent));
                     binding.textHome.setCompoundDrawableTintList
                             (getResources().getColorStateList(R.color.colorAccent));
                     binding.textHome.setBackground(requireNonNull(getActivity())
                             .getDrawable(R.drawable.button_rectangle_selected));
+                    binding.textInstitute.setTextColor(getResources().getColor(R.color.md_grey_500));
+                    binding.textInstitute.setCompoundDrawableTintList
+                            (getResources().getColorStateList(R.color.md_grey_500));
+                    binding.textInstitute.setBackground(requireNonNull(getActivity())
+                            .getDrawable(R.drawable.button_rectangle_unselected));
                 }
                 break;
             case R.id.textInstitute:
@@ -215,17 +219,20 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                     binding.textInstitute.setBackground(requireNonNull(getActivity())
                             .getDrawable(R.drawable.button_rectangle_unselected));
 
-                    binding.editAddress.setVisibility(GONE);
                 } else {
                     isInstituteSelected = true;
-
+                    isHomeSelected=false;
                     binding.textInstitute.setTextColor(getResources().getColor(R.color.colorAccent));
                     binding.textInstitute.setCompoundDrawableTintList
                             (getResources().getColorStateList(R.color.colorAccent));
                     binding.textInstitute.setBackground(requireNonNull(getActivity())
                             .getDrawable(R.drawable.button_rectangle_selected));
+                    binding.textHome.setTextColor(getResources().getColor(R.color.md_grey_500));
+                    binding.textHome.setCompoundDrawableTintList
+                            (getResources().getColorStateList(R.color.md_grey_500));
+                    binding.textHome.setBackground(requireNonNull(getActivity())
+                            .getDrawable(R.drawable.button_rectangle_unselected));
 
-                    binding.editAddress.setVisibility(VISIBLE);
                 }
                 break;
             case R.id.textDaily:
@@ -379,12 +386,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_selected_days);
 
-        /*Initialising Views*/
-        ImageView imageClose = dialog.findViewById(R.id.image_close);
-        RecyclerView recyclerDays = dialog.findViewById(R.id.recyclerDays);
 
-        /*Setting listeners to the views*/
-        imageClose.setOnClickListener(v -> dialog.cancel());
 
         coaching_days = new ArrayList<>();
 
@@ -401,6 +403,13 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
             coaching_days.add("Saturday");
             coaching_days.add("Sunday");
         }
+
+        /*Initialising Views*/
+        //ImageView imageClose = dialog.findViewById(R.id.image_close);
+        RecyclerView recyclerDays = dialog.findViewById(R.id.recyclerDays);
+
+        /*Setting listeners to the views*/
+        //imageClose.setOnClickListener(v -> dialog.cancel());
 
         recyclerDays.setLayoutManager(new LinearLayoutManager(getActivity(), VERTICAL,
                 false));

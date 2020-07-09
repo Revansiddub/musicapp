@@ -45,7 +45,7 @@ import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCC
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
 
-public class AttendanceActivity extends BaseActivity implements TimesAdapter.cancelClassListener {
+public class AttendanceActivity extends BaseActivity implements TimesAdapter.cancelClassListener, TimesAdapter.onRecyclerItemListener {
     ActivityAttendanceBinding binding;
     RecyclerView recyclerView_slot, recyclerView_studnts;
     TimeSlotAdapter adapter;
@@ -131,7 +131,6 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
     @Override
     protected void onResume() {
         super.onResume();
-        getStudents();
     }
 
 
@@ -145,8 +144,14 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
         snackbar.show();
     }
 
+    @Override
+    public void onRecyclerClick(int position) {
+        timesAdapter.setRecyclerItemListener(this);
+        this.position=position;
+    }
 
-    private void getStudents() {
+
+    private void getStudents(int clickedPosition) {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
@@ -156,7 +161,11 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
                     star_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
                     end_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
+                    attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
+                            .get(clickedPosition)
+                            .getStudent_list(), this, star_time, end_time, selected_date,startTime,endTime, this);
 
+                    recyclerView_studnts.setAdapter(attendanceAdapter);
                     try {
                         simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
                         date1 = simpleDateFormat.parse(star_time);
@@ -168,11 +177,6 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
-                            .get(position).getStudent_list(), this, star_time, end_time, selected_date,startTime,endTime, this);
-
-
-                    recyclerView_studnts.setAdapter(attendanceAdapter);
                 } else {
                     showSnackBar(this, "You have no class scheduled in this date");
                 }
@@ -202,10 +206,13 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
                     binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this, 2));
                     timesAdapter.setActionListener(this);
                     binding.recyclerTimeSlots.setAdapter(timesAdapter);
+                    timesAdapter.setItemClickListener((view, position) -> {
+                        // set students
+                        getStudents(position);
+                    });
                 }
             });
         }
-
     }
 
 //    @Override
@@ -233,12 +240,13 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
 
                 if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     openSuccessDialog(commonResponse.getMessage());
-                    getStudents();
+                    getStudents(0);
                 }
 
             });
         }
     }
+
 
 //    public void cancelClass(){
 //        cancelViewModel.cancelClass(new CancelClass(trainerID,))

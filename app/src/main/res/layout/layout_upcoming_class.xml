@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="upcomingclass"
+            type="com.gsatechworld.musicapp.modules.student_home.pojo.UpcomingResponse.Upcoming_class" />
+
+
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_100dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/white"
+            android:layout_marginBottom="@dimen/size_3dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{upcomingclass.date}"
+                    android:padding="@dimen/size_3dp"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_15dp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/text_starttime"
+                    android:text="Start Time   :"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_date"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"/>
+
+                <TextView
+                    android:id="@+id/text_start_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_date"
+                    android:textSize="@dimen/size_15dp"
+                    android:layout_toRightOf="@id/text_starttime"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:text="@{upcomingclass.start_time}"/>
+
+                <TextView
+                    android:id="@+id/text_endtime"
+                    android:text="End Time   :"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_start_value"
+                    android:layout_marginLeft="@dimen/size_10dp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_10dp"/>
+
+                <TextView
+                    android:id="@+id/text_end_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_start_value"
+                    android:textSize="@dimen/size_15dp"
+                    android:layout_toRightOf="@id/text_endtime"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:text="@{upcomingclass.end_time}"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/button_rectangle_unselected"
+                    android:layout_marginRight="@dimen/size_10dp"
+                    />
+            </RelativeLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</layout>

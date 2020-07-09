@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.LayoutTimeSlotsBinding;
+import com.gsatechworld.musicapp.modules.home.trainer_home.AttendanceActivity;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.AvailableTimeSlotResponse;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Available_slots;
 import com.gsatechworld.musicapp.modules.home.trainer_home.pojo.Slot_details;
@@ -32,19 +34,22 @@ import static androidx.databinding.DataBindingUtil.inflate;
 
 public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotViewHolder> {
 
+    private int row_index = 0;
     private Context mCtx;
     private ArrayList<Available_slots> timeSlotList;
     private ConstraintLayout seletedTimeSlot;
     private TextView selectedTime;
-    private int index=-1;
+    private int index=0;
     public cancelClassListener listener;
     public String startTime,endTime;
     public String cstartTime,cendTime;
     public String start_time,end_time;
     public Date date1,date2;
     public SimpleDateFormat simpleDateFormat;
+    public onRecyclerItemListener recyclerItemListener;
     public DateFormat dateFormat;
 
+    private ItemClickListener clickListener;
 
     public TimesAdapter(Context mCtx, ArrayList<Available_slots> timeSlotList,String startTime,String endTime) {
         this.mCtx = mCtx;
@@ -67,10 +72,6 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
         holder.binding.setTimeSlot(timeSlotList.get(position));
         start_time=timeSlotList.get(position).getStart_time();
         end_time=timeSlotList.get(position).getEnd_time();
-        holder.binding.layoutTimeSlot.setOnClickListener(v -> {
-            index = position;
-            notifyDataSetChanged();
-        });
 
         holder.binding.imageClose.setOnClickListener(v -> {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(mCtx);
@@ -84,7 +85,6 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
            alertDialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());
 
            alertDialog.show();
-
 
         });
 
@@ -100,7 +100,7 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
             e.printStackTrace();
         }
 
-        if(index==position){
+        if(row_index == position){
             holder.binding.layoutTimeSlot.setBackgroundColor(Color.parseColor("#FF4081"));
             holder.binding.textTime.setTextColor(Color.parseColor("#000000"));
         }else{
@@ -115,23 +115,45 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
         return timeSlotList.size();
     }
 
-    public class TimeslotViewHolder extends RecyclerView.ViewHolder {
+    public class TimeslotViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final LayoutTimeSlotsBinding binding;
         public TimeslotViewHolder(final LayoutTimeSlotsBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-
+            itemView.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View view) {
+            row_index = getAdapterPosition();
+            if (clickListener != null) clickListener.onClick(view, getPosition());
+            notifyDataSetChanged();
+        }
     }
 
     public interface cancelClassListener{
         void onClassCancel(String start_time,String end_time);
     }
 
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.clickListener = itemClickListener;
+    }
+
     public void setActionListener(cancelClassListener listener){
         this.listener=listener;
+    }
+
+    public interface ItemClickListener {
+        void onClick(View view, int position);
+    }
+
+    public interface onRecyclerItemListener{
+        void onRecyclerClick(int position);
+    }
+
+    public  void  setRecyclerItemListener(onRecyclerItemListener recyclerItemListener){
+        this.recyclerItemListener=recyclerItemListener;
     }
 
 }
