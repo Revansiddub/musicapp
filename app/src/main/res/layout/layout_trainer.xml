@@ -57,7 +57,7 @@
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginEnd="@dimen/size_10dp"
                     android:text="@{trainer.trainer_name}"
-                    android:textColor="@color/md_grey_600"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/size_20sp"
                     android:layout_toRightOf="@id/imageTrainer"
                     android:fontFamily="georgia"
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_3dp"
-                    android:textColor="@color/md_grey_600"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/size_17sp"
                     android:layout_toRightOf="@id/imageTrainer"
                     android:layout_below="@id/textCoachingType"
@@ -97,7 +97,7 @@
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_3dp"
                     android:text="@string/recurrence_type"
-                    android:textColor="@color/md_grey_900"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/size_15sp"
                     android:textStyle="bold"
                     android:layout_toRightOf="@id/imageTrainer"
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_3dp"
-                    android:textColor="@color/md_grey_600"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="@{trainer.recurrence_types}"
                     android:textSize="@dimen/size_17sp"
                     android:layout_below="@id/textRecurrenceType"
@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/size_15dp"
                     android:layout_marginTop="@dimen/size_3dp"
-                    android:textColor="@color/md_grey_600"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/size_17sp"
                     android:capitalize="characters"
                     android:layout_toRightOf="@id/imageTrainer"
@@ -146,17 +146,33 @@
                     android:paddingBottom="@dimen/size_3dp"
                      />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/textAddress"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="@dimen/size_10dp"-->
-<!--                    android:layout_marginTop="@dimen/size_5dp"-->
-<!--                    android:text="@{trainer.address}"-->
-<!--                    android:textColor="@color/md_grey_800"-->
-<!--                    android:textSize="@dimen/size_17sp"-->
-<!--                    android:layout_below="@id/textDaysTypeValue"-->
-<!--                    />-->
+                <TextView
+                    android:id="@+id/text_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textSize="@dimen/size_15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/size_3dp"
+                    android:layout_below="@id/textDaysTypeValue"
+                    android:layout_toRightOf="@id/imageTrainer"
+                    android:layout_marginStart="@dimen/size_15dp"/>
+
+
+                <TextView
+                    android:id="@+id/textAddressValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_15dp"
+                    android:layout_marginTop="@dimen/size_3dp"
+                    android:text="@{trainer.address}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_17sp"
+                    android:layout_toRightOf="@id/imageTrainer"
+                    android:layout_below="@id/text_address"
+
+                    />
 
             </RelativeLayout>
 

@@ -189,7 +189,6 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                 if (isHomeSelected) {
                     isHomeSelected = false;
 
-
                     binding.textHome.setTextColor(getResources().getColor(R.color.md_grey_500));
                     binding.textHome.setCompoundDrawableTintList
                             (getResources().getColorStateList(R.color.md_grey_500));
@@ -197,7 +196,7 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                             .getDrawable(R.drawable.button_rectangle_unselected));
                 } else {
                     isHomeSelected = true;
-
+                    isInstituteSelected=false;
                     binding.textHome.setTextColor(getResources().getColor(R.color.colorAccent));
                     binding.textHome.setCompoundDrawableTintList
                             (getResources().getColorStateList(R.color.colorAccent));
@@ -215,17 +214,15 @@ public class CoachingDetailsFragment extends Fragment implements OnClickListener
                     binding.textInstitute.setBackground(requireNonNull(getActivity())
                             .getDrawable(R.drawable.button_rectangle_unselected));
 
-                    binding.editAddress.setVisibility(GONE);
                 } else {
                     isInstituteSelected = true;
-
+                    isHomeSelected=false;
                     binding.textInstitute.setTextColor(getResources().getColor(R.color.colorAccent));
                     binding.textInstitute.setCompoundDrawableTintList
                             (getResources().getColorStateList(R.color.colorAccent));
                     binding.textInstitute.setBackground(requireNonNull(getActivity())
                             .getDrawable(R.drawable.button_rectangle_selected));
 
-                    binding.editAddress.setVisibility(VISIBLE);
                 }
                 break;
             case R.id.textDaily:
