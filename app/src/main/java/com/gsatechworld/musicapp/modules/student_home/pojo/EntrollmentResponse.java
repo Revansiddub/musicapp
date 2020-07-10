@@ -28,6 +28,14 @@ public class EntrollmentResponse {
         @SerializedName("entrollment_id")
         private String entrollment_id;
 
+
+
+        @SerializedName("trainer_name")
+        private String trainer_name;
+
+        public String getTrainer_name() {
+            return trainer_name;
+        }
         public String getEntrollment_name() {
             return entrollment_name;
         }

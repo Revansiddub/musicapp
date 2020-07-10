@@ -29,7 +29,7 @@ import static com.gsatechworld.musicapp.core.manager.SessionManager.getSessionIn
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 
-public class EntrollmentDetailsActivity extends BaseActivity {
+public class EntrollmentDetailsActivity extends BaseActivity implements UpcomingAdapter.studentCancelListener {
     public String entrollment_name,enrollment_id,cancellation;
     ActivityEntrollmentDetailsBinding binding;
     public UpcomingClassViewModel classViewModel;
@@ -61,7 +61,7 @@ public class EntrollmentDetailsActivity extends BaseActivity {
 
         entrollment_name=getIntent().getStringExtra("entroll_name");
         enrollment_id=getIntent().getStringExtra("entrillment_id");
-        binding.textEntrollment.setText(entrollment_name);
+        //binding.textEntrollment.setText(entrollment_name);
 
         fetchClass();
 
@@ -160,16 +160,37 @@ public class EntrollmentDetailsActivity extends BaseActivity {
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            classViewModel.getUpcoming_class(student_id).observe(this,upcomingResponse -> {
+            classViewModel.getUpcoming_class(student_id,enrollment_id).observe(this,upcomingResponse -> {
                 hideLoadingIndicator();
                 if (upcomingResponse != null && upcomingResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
                     binding.recyclerUpcomingClass.setLayoutManager(new LinearLayoutManager(this));
                     binding.recyclerUpcomingClass.setHasFixedSize(true);
-                    upcomingAdapter=new UpcomingAdapter(this,upcomingResponse.getUpcoming_class());
+                    upcomingAdapter=new UpcomingAdapter(this,upcomingResponse.getUpcoming_class(),enrollment_id);
+                    upcomingAdapter.setCancelListener(this);
+
                     binding.recyclerUpcomingClass.setAdapter(upcomingAdapter);
                 }
 
             });
+        }
+    }
+
+
+    @Override
+    public void onClasscancel(String enrollment_id, String date, String startTime, String endTime) {
+        if (getNetworkInstance(this).isConnectedToInternet()) {
+            showLoadingIndicator();
+            cancelViewModel.cancelClass(enrollment_id,date,startTime,endTime).observe(this,commonResponse -> {
+                hideLoadingIndicator();
+                        if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+                            openSuccessDialog(commonResponse.getMessage());
+                            fetchClass();
+                            //finish();
+                       }
+                        else {
+                            openSuccessDialog(commonResponse.getMessage());
+                        }
+                  });
         }
     }
 }

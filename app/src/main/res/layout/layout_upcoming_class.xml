@@ -86,15 +86,16 @@
                     android:textStyle="bold"
                     android:text="@{upcomingclass.end_time}"/>
 
-                <Button
+                <TextView
                     android:id="@+id/button_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cancel"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:padding="@dimen/size_8dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/button_rectangle_unselected"
                     android:layout_marginRight="@dimen/size_10dp"
                     />
             </RelativeLayout>

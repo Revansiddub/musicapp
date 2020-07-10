@@ -1,5 +1,6 @@
 package com.gsatechworld.musicapp.modules.student_home.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +31,14 @@ public DateFormat dateFormat;
 public SimpleDateFormat simpleDateFormat;
 public  static long MILLIS_PER_DAY;
 public boolean greater;
+public studentCancelListener listener;
+public String enrollment_id,start_time,end_time,status;
 
-    public UpcomingAdapter(Context context, ArrayList<UpcomingResponse.Upcoming_class> upcomingClasses) {
+
+    public UpcomingAdapter(Context context, ArrayList<UpcomingResponse.Upcoming_class> upcomingClasses,String enrollment_id) {
         this.context = context;
         this.upcomingClasses = upcomingClasses;
+        this.enrollment_id=enrollment_id;
     }
 
     @NonNull
@@ -50,11 +55,14 @@ public boolean greater;
         UpcomingResponse.Upcoming_class upcoming_class=upcomingClasses.get(position);
         holder.binding.setUpcomingclass(upcoming_class);
         dates=upcoming_class.getDate();
+        status=upcoming_class.getCancel_status();
         try {
             MILLIS_PER_DAY=48*60*60*1000L;
+
              simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
             date1 = new Date(simpleDateFormat.parse(dates).getTime());
             dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
             date = new Date();
             greater=Math.abs(date1.getTime() - date.getTime()) < MILLIS_PER_DAY;
             if (greater){
@@ -62,7 +70,25 @@ public boolean greater;
             }
             else {
                 holder.binding.buttonCancel.setVisibility(View.VISIBLE);
+                holder.binding.buttonCancel.setText(status);
             }
+            holder.binding.buttonCancel.setOnClickListener(v -> {
+                start_time=upcoming_class.getStart_time();
+                end_time=upcoming_class.getEnd_time();
+
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                alertDialog.setTitle("Cancel Class");
+                alertDialog.setMessage("Are you sure want to cancel this class?");
+
+                alertDialog.setPositiveButton("Yes",(dialog, which) -> {
+                  listener.onClasscancel(enrollment_id,dates,start_time,end_time);
+                });
+
+                alertDialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());
+
+                alertDialog.show();
+            });
 
 
 
@@ -88,5 +114,12 @@ public boolean greater;
 
             this.binding=binding;
         }
+    }
+
+    public interface studentCancelListener{
+        void onClasscancel(String enrollment_id,String date,String startTime,String endTime);
+    }
+    public void setCancelListener(studentCancelListener listener){
+        this.listener=listener;
     }
 }

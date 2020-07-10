@@ -133,7 +133,7 @@ public interface NetworkAPI {
     Call<CommonResponse> addnewEntrollment(@Body AddEntrollmentRequest entrollmentRequest);
 
     @GET("upcomingClass")
-    Call<UpcomingResponse> upcomingResponse(@Query("student_id") String student_id);
+    Call<UpcomingResponse> upcomingResponse(@Query("student_id") String student_id,@Query("enrollment_id") String enrollment_id);
 
     @POST("loginStudents/verifyOtp")
     Call<StudentOTPResponse> verfyStudentOTP(@Body StudentOTPRequest otpRequest);

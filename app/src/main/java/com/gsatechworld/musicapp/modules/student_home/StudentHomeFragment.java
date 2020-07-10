@@ -60,6 +60,8 @@ public class StudentHomeFragment extends Fragment {
 
     public int id;
 
+    public String trainer_name;
+
     public boolean isRegisteredStudent;
 
     public StudentHomeFragment() {
@@ -137,6 +139,7 @@ public class StudentHomeFragment extends Fragment {
             entrollmentsViewModel.fetchStudentEntrollments(student_id).observe(getViewLifecycleOwner(),entrollmentResponse -> {
              baseActivity.hideLoadingIndicator();
              if (entrollmentResponse != null && entrollmentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)){
+
                  studentHomeBinding.recyclerEntrollments.setLayoutManager(new GridLayoutManager(getActivity(),2));
                  adapter=new EntrollmentAdapter(getActivity(),entrollmentResponse.getEnrollment_details());
                  studentHomeBinding.recyclerEntrollments.setAdapter(adapter);

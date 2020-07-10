@@ -13,7 +13,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="@dimen/size_170dp"
-        android:layout_height="@dimen/size_200dp">
+        android:layout_height="@dimen/size_220dp">
 
 
 
@@ -38,12 +38,24 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/entrollment"/>
 
+                <TextView
+                    android:id="@+id/text_trainer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="georgia"
+                    android:text="@{entrollments.trainer_name}"
+                    android:textSize="@dimen/size_15dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_below="@id/image_entrollment"
+                    android:layout_centerHorizontal="true"/>
+
 
                 <TextView
                     android:id="@+id/entrollement_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/image_entrollment"
+                    android:layout_below="@id/text_trainer_name"
                     android:layout_centerInParent="true"
                     android:fontFamily="georgia"
                     android:singleLine="false"

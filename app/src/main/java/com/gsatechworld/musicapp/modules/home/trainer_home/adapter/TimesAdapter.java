@@ -44,18 +44,23 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     public String startTime,endTime;
     public String cstartTime,cendTime;
     public String start_time,end_time;
-    public Date date1,date2;
-    public SimpleDateFormat simpleDateFormat;
+    public Date date1,date2,date3,today_date;
+    public SimpleDateFormat simpleDateFormat,simpleDateFormat1;
     public onRecyclerItemListener recyclerItemListener;
-    public DateFormat dateFormat;
+    public DateFormat dateFormat,dateFormat1;
+    public String selectedDate;
+    public  static long MILLIS_PER_DAY;
+    public boolean greater;
+
 
     private ItemClickListener clickListener;
 
-    public TimesAdapter(Context mCtx, ArrayList<Available_slots> timeSlotList,String startTime,String endTime) {
+    public TimesAdapter(Context mCtx, ArrayList<Available_slots> timeSlotList,String startTime,String endTime,String selectedDate) {
         this.mCtx = mCtx;
         this.timeSlotList = timeSlotList;
         this.startTime=startTime;
         this.endTime=endTime;
+        this.selectedDate=selectedDate;
     }
 
     @NonNull
@@ -72,6 +77,23 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
         holder.binding.setTimeSlot(timeSlotList.get(position));
         start_time=timeSlotList.get(position).getStart_time();
         end_time=timeSlotList.get(position).getEnd_time();
+
+
+        try {
+            MILLIS_PER_DAY=24*60*60*1000L;
+            simpleDateFormat1=new SimpleDateFormat("yyyy-MM-dd");
+            date3=simpleDateFormat1.parse(selectedDate);
+            dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+            today_date=new Date();
+            greater=Math.abs(date3.getTime() - today_date.getTime()) < MILLIS_PER_DAY;
+            if (greater){
+                holder.binding.imageClose.setVisibility(View.GONE);
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         holder.binding.imageClose.setOnClickListener(v -> {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(mCtx);

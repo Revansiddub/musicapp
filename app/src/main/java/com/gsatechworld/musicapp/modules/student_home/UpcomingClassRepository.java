@@ -19,12 +19,12 @@ public class UpcomingClassRepository {
 
     }
 
-    public LiveData<UpcomingResponse> fetchUpcoming_class(String student_id){
+    public LiveData<UpcomingResponse> fetchUpcoming_class(String student_id,String enrollment_id){
         MutableLiveData<UpcomingResponse> mutableLiveData=new MutableLiveData<>();
 
         networkAPI= NetworkService.getRetrofitInstance().create(NetworkAPI.class);
 
-        Call<UpcomingResponse> responseCall=networkAPI.upcomingResponse(student_id);
+        Call<UpcomingResponse> responseCall=networkAPI.upcomingResponse(student_id,enrollment_id);
         responseCall.enqueue(new Callback<UpcomingResponse>() {
             @Override
             public void onResponse(Call<UpcomingResponse> call, Response<UpcomingResponse> response) {

@@ -12,7 +12,7 @@ public class UpcomingClassViewModel extends ViewModel {
         repository=new UpcomingClassRepository();
     }
 
-    public LiveData<UpcomingResponse> getUpcoming_class(String student_ID){
-        return repository.fetchUpcoming_class(student_ID);
+    public LiveData<UpcomingResponse> getUpcoming_class(String student_ID,String enrollment_id){
+        return repository.fetchUpcoming_class(student_ID,enrollment_id);
     }
 }

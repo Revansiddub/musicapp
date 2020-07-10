@@ -202,7 +202,7 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
             timeSlotViewModel.fetchTimeSlots(trainerID).observe(this, availableTimeSlotResponse -> {
                 if (availableTimeSlotResponse.getStatus().equals("success")) {
-                    timesAdapter = new TimesAdapter(this, availableTimeSlotResponse.getAvailable_slots(),startTime,endTime);
+                    timesAdapter = new TimesAdapter(this, availableTimeSlotResponse.getAvailable_slots(),startTime,endTime,string_date);
                     binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this, 2));
                     timesAdapter.setActionListener(this);
                     binding.recyclerTimeSlots.setAdapter(timesAdapter);
