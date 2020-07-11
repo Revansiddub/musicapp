@@ -183,8 +183,6 @@ public class TrainerHomeFragment extends Fragment implements View.OnClickListene
                 if (dateResponse != null && dateResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)) {
                     dateList = dateResponse.getDates();
                     binding.calendarView.setSelectedDates(getSelectedDays());
-                } else {
-                    Toast.makeText(getContext(), dateResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

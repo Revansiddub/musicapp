@@ -51,16 +51,19 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     public String selectedDate;
     public  static long MILLIS_PER_DAY;
     public boolean greater;
+    public String trainerID;
+    public String selectedStart,selectedEnd;
 
 
     private ItemClickListener clickListener;
 
-    public TimesAdapter(Context mCtx, ArrayList<Available_slots> timeSlotList,String startTime,String endTime,String selectedDate) {
+    public TimesAdapter(Context mCtx, ArrayList<Available_slots> timeSlotList,String startTime,String endTime,String selectedDate,String trainerID) {
         this.mCtx = mCtx;
         this.timeSlotList = timeSlotList;
         this.startTime=startTime;
         this.endTime=endTime;
         this.selectedDate=selectedDate;
+        this.trainerID=trainerID;
     }
 
     @NonNull
@@ -96,12 +99,14 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
 
 
         holder.binding.imageClose.setOnClickListener(v -> {
+            selectedStart=timeSlotList.get(position).getStart_time();
+            selectedEnd=timeSlotList.get(position).getEnd_time();
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(mCtx);
             alertDialog.setTitle("Cancel Class");
            alertDialog.setMessage("Are you sure want to cancel this class?");
 
            alertDialog.setPositiveButton("Yes",(dialog, which) -> {
-               listener.onClassCancel(start_time,end_time);
+               listener.onClassCancel(trainerID,selectedDate,selectedStart,selectedEnd);
            });
 
            alertDialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());
@@ -155,7 +160,7 @@ public class TimesAdapter extends RecyclerView.Adapter<TimesAdapter.TimeslotView
     }
 
     public interface cancelClassListener{
-        void onClassCancel(String start_time,String end_time);
+        void onClassCancel(String trainerID,String date,String start_time,String end_time);
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener) {

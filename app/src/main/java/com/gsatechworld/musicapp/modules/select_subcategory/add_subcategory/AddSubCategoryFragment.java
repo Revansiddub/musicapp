@@ -129,6 +129,11 @@ public class AddSubCategoryFragment extends BottomSheetDialogFragment implements
                 else
                     addSubCategories();
                 break;
+            case R.id.image_close:
+                dismiss();
+                break;
+
+
         }
     }
 

@@ -70,7 +70,7 @@ public class AddAttendanceActivity extends BaseActivity {
         }
 
         enrollment_id = String.valueOf(getIntent().getIntExtra(ENROLLMENT_ID, 0));
-        student_id = getIntent().getStringExtra(STUDENT_ID);
+        student_id = String.valueOf(getIntent().getIntExtra(STUDENT_ID,0));
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
         trainerID = String.valueOf(sharedPreferences.getInt(TrainerId, 0));
 
@@ -132,12 +132,11 @@ public class AddAttendanceActivity extends BaseActivity {
             attendanceViewModel.addAttendance(new AttendanceRequest(student_id, enrollment_id, selected_date,
                     startTime, endTime, status)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
-                if (commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+                if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
                     openSuccessDialog(commonResponse.getMessage());
-                    finish();
                 } else {
-                    showSnackBar(this, "Already Add Attendance");
-                    finish();
+                    showSnackBar(this, commonResponse.getMessage());
+                   // finish();
                 }
             });
 

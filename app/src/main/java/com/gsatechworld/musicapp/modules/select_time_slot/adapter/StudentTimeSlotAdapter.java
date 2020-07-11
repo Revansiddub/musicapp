@@ -36,6 +36,7 @@ public class StudentTimeSlotAdapter extends RecyclerView.Adapter<StudentTimeSlot
     public SimpleDateFormat simpleDateFormat;
     public DateFormat dateFormat;
     public Date date1,date2;
+    public  String start,end;
 
     public StudentTimeSlotAdapter(Context mCtx, ArrayList<AvailableTimesSlotResponse.AvailablesSlotes> timeSlotList) {
         this.mCtx = mCtx;
@@ -77,7 +78,10 @@ public class StudentTimeSlotAdapter extends RecyclerView.Adapter<StudentTimeSlot
             index = position;
             notifyDataSetChanged();
           String selected=availablesSlotes.getStart_time() + "-" +availablesSlotes.getEnd_time();
-          selectedListener.onTimeAction(start_time,end_time);
+
+          start=availablesSlotes.getStart_time();
+          end=availablesSlotes.getEnd_time();
+          selectedListener.onTimeAction(start,end);
 
 
         });

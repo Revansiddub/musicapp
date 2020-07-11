@@ -143,6 +143,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void openErrorDialog(String message) {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(FEATURE_NO_TITLE);
+        requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
+        dialog.setContentView(R.layout.layout_success_dialog);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        TextView textMessage = dialog.findViewById(R.id.textMessage);
+        Button buttonOk = dialog.findViewById(R.id.buttonOk);
+
+        buttonOk.setOnClickListener(v -> dialog.dismiss());
+        textMessage.setText(message);
+
+
+        dialog.show();
+    }
+
+
+
+
     /**
      * This method is invoked to convert a Bitmap Image into Base64 format.
      *

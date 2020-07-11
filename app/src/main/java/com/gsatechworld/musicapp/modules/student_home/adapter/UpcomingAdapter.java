@@ -25,14 +25,16 @@ public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.Upcomi
 public Context context;
 public ArrayList<UpcomingResponse.Upcoming_class> upcomingClasses;
 public LayoutUpcomingClassBinding binding;
-public String dates;
-public  Date date1,date;
-public DateFormat dateFormat;
-public SimpleDateFormat simpleDateFormat;
+public String dates,selected_date;
+public  Date date1,date,startdate,enddate;
+public DateFormat dateFormat,starting,ending;
+public SimpleDateFormat simpleDateFormat,startFormat,endFormat;
 public  static long MILLIS_PER_DAY;
+public String start,end;
 public boolean greater;
 public studentCancelListener listener;
 public String enrollment_id,start_time,end_time,status;
+public String starting_Time,ending_Time;
 
 
     public UpcomingAdapter(Context context, ArrayList<UpcomingResponse.Upcoming_class> upcomingClasses,String enrollment_id) {
@@ -56,6 +58,32 @@ public String enrollment_id,start_time,end_time,status;
         holder.binding.setUpcomingclass(upcoming_class);
         dates=upcoming_class.getDate();
         status=upcoming_class.getCancel_status();
+        start=upcoming_class.getStart_time();
+        end=upcoming_class.getEnd_time();
+
+
+
+
+        try {
+            startFormat=new SimpleDateFormat("HH:mm:ss");
+            startdate=startFormat.parse(start);
+            starting=new SimpleDateFormat("hh:mm a");
+            starting_Time=starting.format(startdate);
+            holder.binding.textStartValue.setText(starting_Time);
+            endFormat=new SimpleDateFormat("HH:mm:ss");
+            enddate=endFormat.parse(end);
+            ending=new SimpleDateFormat("hh:mm a");
+            ending_Time=ending.format(enddate);
+            holder.binding.textEndValue.setText(ending_Time);
+
+
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
         try {
             MILLIS_PER_DAY=48*60*60*1000L;
 
@@ -72,9 +100,17 @@ public String enrollment_id,start_time,end_time,status;
                 holder.binding.buttonCancel.setVisibility(View.VISIBLE);
                 holder.binding.buttonCancel.setText(status);
             }
+
+
             holder.binding.buttonCancel.setOnClickListener(v -> {
+                selected_date=upcoming_class.getDate();
                 start_time=upcoming_class.getStart_time();
                 end_time=upcoming_class.getEnd_time();
+
+
+                if (status.equals("Cancelled")){
+                    holder.binding.buttonCancel.setClickable(false);
+                }
 
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
@@ -82,7 +118,7 @@ public String enrollment_id,start_time,end_time,status;
                 alertDialog.setMessage("Are you sure want to cancel this class?");
 
                 alertDialog.setPositiveButton("Yes",(dialog, which) -> {
-                  listener.onClasscancel(enrollment_id,dates,start_time,end_time);
+                  listener.onClasscancel(enrollment_id,selected_date,start_time,end_time);
                 });
 
                 alertDialog.setNegativeButton("No", (dialog, which) -> dialog.cancel());

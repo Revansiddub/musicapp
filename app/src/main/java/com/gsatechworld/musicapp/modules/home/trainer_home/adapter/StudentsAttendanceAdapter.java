@@ -88,8 +88,9 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
         FetchStudentsResponse.GetStudentsResult.Time_slots.Student_list student_list=attendanceList.get(position);
 
         holder.binding.setAttendance(student_list);
-        holder.binding.startTime.setText(cstartTime);
-        holder.binding.endtime.setText(cendTime);
+
+//        holder.binding.startTime.setText(cstartTime);
+//        holder.binding.endtime.setText(cendTime);
 
 
 
@@ -108,6 +109,7 @@ public class StudentsAttendanceAdapter extends RecyclerView.Adapter<StudentsAtte
             intent.putExtra(STUDENT_ID,student_list.getStudent_id());
             intent.putExtra(SELECTED_DATE, selected_date);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 
 
 

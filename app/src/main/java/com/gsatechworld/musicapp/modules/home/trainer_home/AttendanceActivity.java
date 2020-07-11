@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.gsatechworld.musicapp.R;
@@ -68,6 +69,7 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
     public String formattedDate;
     public CancelClassViewModel classViewModel;
     public SimpleDateFormat simpleDateFormat;
+    public int selected_position;
 
 
 
@@ -124,6 +126,7 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
         SharedPreferences sharedpreferences = getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE);
         userType = sharedpreferences.getString(Constants.TrainerType, null);
         trainerID = String.valueOf(sharedpreferences.getInt(Constants.TrainerId, 0));
+
         getTimeLots();
 
     }
@@ -131,6 +134,7 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
     @Override
     protected void onResume() {
         super.onResume();
+        getStudents(0);
     }
 
 
@@ -153,32 +157,39 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
 
     private void getStudents(int clickedPosition) {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
-            showLoadingIndicator();
+           // showLoadingIndicator();
 
-            studentsViewModel.getStudents(trainerID, selected_date).observe(this, fetchStudentsResponse -> {
-                hideLoadingIndicator();
+            studentsViewModel.getStudents(trainerID, string_date).observe(this, fetchStudentsResponse -> {
+              //  hideLoadingIndicator();
                 if (fetchStudentsResponse != null && fetchStudentsResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+                    //   hideLoadingIndicator();
                     recyclerView_studnts.setLayoutManager(new LinearLayoutManager(this));
                     star_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getStart_time();
                     end_time = fetchStudentsResponse.getResult().getTime_slots().get(position).getEnd_time();
                     attendanceAdapter = new StudentsAttendanceAdapter(fetchStudentsResponse.getResult().getTime_slots()
                             .get(clickedPosition)
-                            .getStudent_list(), this, star_time, end_time, selected_date,startTime,endTime, this);
+                            .getStudent_list(), this, star_time, end_time, selected_date, startTime, endTime, this);
 
                     recyclerView_studnts.setAdapter(attendanceAdapter);
                     try {
                         simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
                         date1 = simpleDateFormat.parse(star_time);
                         DateFormat outputformat = new SimpleDateFormat("hh:mm a");
-                        startTime=outputformat.format(date1);
-                        date2=simpleDateFormat.parse(end_time);
-                        endTime=outputformat.format(date2);
+                        startTime = outputformat.format(date1);
+                        date2 = simpleDateFormat.parse(end_time);
+                        endTime = outputformat.format(date2);
 
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    showSnackBar(this, "You have no class scheduled in this date");
+                }
+//                } else {
+//                    showSnackBar(this, "You have no class scheduled in this date");
+//                }
+
+                if (fetchStudentsResponse == null){
+                   // hideLoadingIndicator();
+                    Toast.makeText(getApplicationContext(),"No Enrolled students Available",Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -201,11 +212,12 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
     private void getTimeLots() {
         if (NetworkUtilities.getNetworkInstance(this).isConnectedToInternet()) {
             timeSlotViewModel.fetchTimeSlots(trainerID).observe(this, availableTimeSlotResponse -> {
-                if (availableTimeSlotResponse.getStatus().equals("success")) {
-                    timesAdapter = new TimesAdapter(this, availableTimeSlotResponse.getAvailable_slots(),startTime,endTime,string_date);
+                if (availableTimeSlotResponse != null && availableTimeSlotResponse.getStatus().equals("success")) {
+                    timesAdapter = new TimesAdapter(this, availableTimeSlotResponse.getAvailable_slots(),startTime,endTime,string_date,trainerID);
                     binding.recyclerTimeSlots.setLayoutManager(new GridLayoutManager(this, 2));
                     timesAdapter.setActionListener(this);
                     binding.recyclerTimeSlots.setAdapter(timesAdapter);
+                    getStudents(0);
                     timesAdapter.setItemClickListener((view, position) -> {
                         // set students
                         getStudents(position);
@@ -231,11 +243,11 @@ public class AttendanceActivity extends BaseActivity implements TimesAdapter.can
 //    }
 
     @Override
-    public void onClassCancel(String startTime, String endTime) {
+    public void onClassCancel(String trainer_Id,String date,String startTime, String endTime) {
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            classViewModel.cancel_Class(new CancelClass(trainerID,selected_date,startTime,endTime)).observe(this,commonResponse -> {
+            classViewModel.cancel_Class(new CancelClass(trainer_Id,date,startTime,endTime)).observe(this,commonResponse -> {
                 hideLoadingIndicator();
 
                 if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){

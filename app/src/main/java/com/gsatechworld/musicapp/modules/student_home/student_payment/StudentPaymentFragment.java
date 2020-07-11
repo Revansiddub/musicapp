@@ -214,13 +214,20 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
             paymentViewModel.fetchStudentPayment(student_id).observe(getViewLifecycleOwner(), studentPaymentResponse -> {
                 baseActivity.hideLoadingIndicator();
                 if (studentPaymentResponse.getResponse().equals(Constants.SERVER_RESPONSE_SUCCESS)) {
+
                     binding.recyclerPayments.setLayoutManager(new LinearLayoutManager(getActivity()));
                     binding.recyclerPayments.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
                     paymentAdapter=new StudentPaymentAdapter(getActivity(),studentPaymentResponse.getPending_payments(),this);
                     paymentAdapter.setActionListener(this);
                     binding.recyclerPayments.setAdapter(paymentAdapter);
 
-                } else {
+                }
+                if (paymentAdapter.getItemCount() == 0 ){
+                    binding.textNodata.setVisibility(View.VISIBLE);
+                    binding.recyclerPayments.setVisibility(View.GONE);
+                }
+
+                else {
                     baseActivity.showSnackBar(requireNonNull(getActivity()),
                             getString(R.string.no_internet_message));
                 }

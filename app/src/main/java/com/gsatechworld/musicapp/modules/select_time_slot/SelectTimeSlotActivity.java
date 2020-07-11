@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import static com.gsatechworld.musicapp.utilities.Constants.ALREADY_REGISTERED;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.END_TIME;
+import static com.gsatechworld.musicapp.utilities.Constants.IsStudentLogin;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_FAILED;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.START_TIME;
@@ -115,6 +116,7 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
 
     @Override
     public void onTimeAction(String startTime, String endTime) {
+
         start_time= startTime;
         end_time= endTime;
     }
@@ -155,7 +157,7 @@ public class SelectTimeSlotActivity extends BaseActivity implements OnClickListe
             if (start_time != null && end_time !=null) {
                 SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
                 //sharedPreferences.getBoolean(ALREADY_REGISTERED,false);
-                isLogedIn=sharedPreferences.getBoolean(ALREADY_REGISTERED,false);
+                isLogedIn=sharedPreferences.getBoolean(IsStudentLogin,false);
                 if (isLogedIn == true){
                     timeSlotes=new ArrayList<>();
                     timeSlotes.add(new AddEntrollmentRequest.Time_slot_Details(start_time,end_time));
