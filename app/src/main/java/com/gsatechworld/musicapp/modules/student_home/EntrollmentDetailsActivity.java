@@ -3,6 +3,7 @@ package com.gsatechworld.musicapp.modules.student_home;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.AlertDialog;
@@ -163,7 +164,7 @@ public class EntrollmentDetailsActivity extends BaseActivity implements Upcoming
             classViewModel.getUpcoming_class(student_id,enrollment_id).observe(this,upcomingResponse -> {
                 hideLoadingIndicator();
                 if (upcomingResponse != null && upcomingResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-                    binding.recyclerUpcomingClass.setLayoutManager(new LinearLayoutManager(this));
+                    binding.recyclerUpcomingClass.setLayoutManager(new GridLayoutManager(this,2));
                     binding.recyclerUpcomingClass.setHasFixedSize(true);
                     upcomingAdapter=new UpcomingAdapter(this,upcomingResponse.getUpcoming_class(),enrollment_id);
                     upcomingAdapter.setCancelListener(this);

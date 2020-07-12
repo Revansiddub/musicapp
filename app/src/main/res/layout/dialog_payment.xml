@@ -39,6 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/edt_amount"
             android:layout_marginTop="@dimen/size_20dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginRight="@dimen/size_20dp"
             android:orientation="horizontal">
 
 
@@ -46,20 +48,22 @@
                 android:id="@+id/button_submit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/edit_text_rounded_corner"
                 android:layout_marginLeft="@dimen/size_5dp"
-                android:text="Submit"/>
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/button_bg"
+                android:text="Submit" />
 
             <Button
                 android:id="@+id/button_cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/size_5dp"
-                android:background="@drawable/edit_text_rounded_corner"
                 android:layout_marginRight="@dimen/size_10dp"
-                android:text="Cancel"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:background="@drawable/button_bg"
+                android:text="Cancel" />
         </LinearLayout>
     </RelativeLayout>
 

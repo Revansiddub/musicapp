@@ -1,6 +1,8 @@
 package com.gsatechworld.musicapp.modules.student_home.student_profile;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,11 +18,15 @@ import android.view.WindowManager;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.databinding.FragmentStudentProfileBinding;
 import com.gsatechworld.musicapp.modules.home.approval.ApprovalViewModel;
+import com.gsatechworld.musicapp.modules.login.LoginActivity;
 import com.gsatechworld.musicapp.utilities.Constants;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static androidx.databinding.DataBindingUtil.inflate;
 import static androidx.databinding.DataBindingUtil.setDefaultComponent;
+import static com.gsatechworld.musicapp.core.manager.SessionManager.getSessionInstance;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 
 /**
@@ -97,6 +103,26 @@ public class StudentProfileFragment extends Fragment {
 
         profileBinding.backToHome.setOnClickListener(v -> {
             getActivity().onBackPressed();
+        });
+
+        profileBinding.profileContents.buttonLogout.setOnClickListener(v -> {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+
+            alertDialog.setTitle(getActivity().getString(R.string.logout_title));
+            alertDialog.setMessage(getActivity().getString(R.string.logout_message));
+
+            alertDialog.setPositiveButton(getActivity().getString(R.string.yes), (dialog, which) -> {
+                getSessionInstance(getActivity()).clearUserCredentials();
+                Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                loginIntent.setFlags((FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK));
+                dialog.cancel();
+                startActivity(loginIntent);
+            });
+            alertDialog.setNegativeButton(getActivity().getString(R.string.no), (dialog, which) -> dialog.cancel());
+
+            alertDialog.show();
+
+
         });
 
 

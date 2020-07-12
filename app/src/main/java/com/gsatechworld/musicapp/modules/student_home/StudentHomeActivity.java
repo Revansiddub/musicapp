@@ -56,9 +56,9 @@ public class StudentHomeActivity extends BaseActivity  {
                     case R.id.navigationProfile:
                         openFragment(new StudentProfileFragment(), Constants.STUDENT_PROFILE_FRAGMENT_TAG);
                         break;
-                    case R.id.navigationSettings:
-                        openFragment(new SettingsFragment(),Constants.STUDENT_PROFILE_SETTINGS_TAG);
-                        break;
+//                    case R.id.navigationSettings:
+//                        openFragment(new SettingsFragment(),Constants.STUDENT_PROFILE_SETTINGS_TAG);
+//                        break;
                 }
                 return false;
             }

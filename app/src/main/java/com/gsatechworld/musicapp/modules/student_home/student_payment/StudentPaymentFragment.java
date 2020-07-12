@@ -227,11 +227,12 @@ public class StudentPaymentFragment extends Fragment implements StudentPaymentAd
                     binding.recyclerPayments.setVisibility(View.GONE);
                 }
 
-                else {
-                    baseActivity.showSnackBar(requireNonNull(getActivity()),
-                            getString(R.string.no_internet_message));
-                }
+
             });
+        }
+        else {
+            baseActivity.showSnackBar(requireNonNull(getActivity()),
+                    getString(R.string.no_internet_message));
         }
     }
 
