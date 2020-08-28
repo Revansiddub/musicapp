@@ -47,6 +47,34 @@ class StudentDetailsRepository {
         responseCall.enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                 CommonResponse commonResponse=response.body();
+                if (commonResponse != null){
+                    studentMutableLiveData.postValue(commonResponse);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommonResponse> call, Throwable t) {
+             studentMutableLiveData.postValue(null);
+            }
+        });
+
+
+
+        return studentMutableLiveData;
+    }
+
+
+    public LiveData<CommonResponse> onboard_no(String mobile) {
+        MutableLiveData<CommonResponse> studentMutableLiveData = new MutableLiveData<>();
+
+        networkAPI= NetworkService.getRetrofitInstance().create(NetworkAPI.class);
+
+        Call<CommonResponse> responseCall=networkAPI.verifyno(mobile);
+
+        responseCall.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                 CommonResponse commonResponse=response.body();
                 if (commonResponse != null){
                     studentMutableLiveData.postValue(commonResponse);

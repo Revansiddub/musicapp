@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.core.manager.SessionManager;
@@ -22,21 +25,24 @@ import com.gsatechworld.musicapp.databinding.ActivityLoginBinding;
 import com.gsatechworld.musicapp.modules.details.coaching_details.CoachingDetailsFragment;
 import com.gsatechworld.musicapp.modules.details.coaching_details.pojo.CoachingDetails;
 import com.gsatechworld.musicapp.modules.home.HomeActivity;
-import com.gsatechworld.musicapp.modules.home.trainer_home.TrainerHomeFragment;
 import com.gsatechworld.musicapp.modules.login.pojo.StudentResponse;
 import com.gsatechworld.musicapp.modules.login.pojo.TrainerLoginInfo;
-import com.gsatechworld.musicapp.modules.otp.StudentOTPVerificationActivity;
 import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
 import com.gsatechworld.musicapp.utilities.Constants;
+
+import java.util.List;
+
+import de.mrapp.android.dialog.MaterialDialog;
 
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER;
 import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER_LENGTH;
-import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_FAILED;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.STUDENT;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_ID;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_PINCODE;
+import static com.gsatechworld.musicapp.utilities.Constants.STUDENT_PINCODE_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.TRAINER;
 import static com.gsatechworld.musicapp.utilities.NetworkUtilities.getNetworkInstance;
 import static java.util.Objects.requireNonNull;
@@ -47,12 +53,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
      * Private Members
      * ------------------------------------------------------------- */
 
+    public String userType;
+    public int trainerId;
+    public SessionManager sessionManager;
     private ActivityLoginBinding binding;
     private LoginViewModel viewModel;
-    private String loginType, userName, password, mobileNumber;
-    public String userType;
-    public int  trainerId;
-    public SessionManager sessionManager;
+    private String loginType, userName, password, mobileNumber, studentpass;
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -61,7 +67,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         /*Binding layout file with JAVA class*/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
@@ -79,7 +85,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
         binding.textStudent.setOnClickListener(this);
         binding.buttonLogin.setOnClickListener(this);
         binding.forgotPassword.setOnClickListener(v -> {
-            startActivity(new Intent(this,ForgotPassword.class));
+            startActivity(new Intent(this, ForgotPassword.class));
         });
     }
 
@@ -107,6 +113,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                 binding.UserName.setVisibility(VISIBLE);
                 binding.Password.setVisibility(VISIBLE);
                 binding.editMobileNumber.setVisibility(GONE);
+                binding.studentPass.setVisibility(GONE);
                 binding.forgotPassword.setVisibility(VISIBLE);
 
                 loginType = TRAINER;
@@ -127,15 +134,15 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                 binding.UserName.setVisibility(GONE);
                 binding.Password.setVisibility(GONE);
                 binding.editMobileNumber.setVisibility(VISIBLE);
+                binding.studentPass.setVisibility(VISIBLE);
                 binding.forgotPassword.setVisibility(GONE);
                 loginType = STUDENT;
                 break;
             case R.id.buttonLogin:
                 if (validateFields())
-                    if (loginType.equals(TRAINER)){
+                    if (loginType.equals(TRAINER)) {
                         authenticateTrainer();
-                    }
-                    else
+                    } else
                         authenticateStudent();
 
                 break;
@@ -151,7 +158,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
      */
     private void authenticateTrainer() {
         if (getNetworkInstance(this).isConnectedToInternet()) {
-          showLoadingIndicator();
+            showLoadingIndicator();
 
             viewModel.authenticateTrainer(new TrainerLoginInfo(userName, password, sessionManager.getFcmToken()))
                     .observe(this, trainerResponse -> {
@@ -169,8 +176,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
                             startActivity(intent);
                             finish();
                         }
-                        if (trainerResponse == null){
-                            showErrorSnackBar(this,"Login Failed Check Username and Password");
+                        if (trainerResponse == null) {
+                            showErrorSnackBar(this, "Login Failed Check Username and Password");
                         }
 //                        else
 //                            showSnackBar(this, trainerResponse.getMessage());
@@ -186,17 +193,42 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
 
-            viewModel.authenticateStudent(mobileNumber).observe(this, studentResponse -> {
+            viewModel.authenticateStudent(mobileNumber, studentpass, FirebaseInstanceId.getInstance().getId()).observe(this, studentResponse -> {
                 hideLoadingIndicator();
 
                 if (studentResponse.getStatus() != null && studentResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
-                    SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
-                    SharedPreferences.Editor editor=sharedPreferences.edit();
 
-                    editor.putString(MOBILE_NUMBER, mobileNumber);
-                    editor.commit();
-                    startActivity(new Intent(this, StudentOTPVerificationActivity.class));
-                    finish();
+
+                    if (studentResponse.getUser().size() == 1) {
+
+                        if (studentResponse.getUser().get(0).getTrainerStatus().equals("2")) {
+                            String student_id = String.valueOf(studentResponse.getUser().get(0).getStudentId());
+                            String pincode_id = String.valueOf(studentResponse.getUser().get(0).getPincodeId());
+                            String pincode = studentResponse.getUser().get(0).getPincode();
+                            SharedPreferences preferences = getSharedPreferences(Constants.MyPREFERENCES, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(STUDENT_ID, student_id);
+                            editor.putString(STUDENT_PINCODE, pincode);
+                            editor.putString(STUDENT_PINCODE_ID, pincode_id);
+                            editor.putBoolean(Constants.IsStudentLogin, true);
+                            editor.putBoolean(Constants.IsTrainerLogin, false);
+                            editor.commit();
+                            Intent intent = new Intent(this, StudentHomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+
+                            Toast.makeText(this, "Please Wait Approval needed from trainer", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    } else {
+                        dailogUser(studentResponse.getUser());
+                    }
+
+
                 } else
                     showErrorSnackBar(this, studentResponse.getMessage());
             });
@@ -237,9 +269,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
             }
         } else {
             mobileNumber = requireNonNull(binding.editMobileNumber.getText()).toString();
+            studentpass = requireNonNull(binding.studentPass.getText()).toString();
 
             if (isEmpty(mobileNumber) || mobileNumber.length() != MOBILE_NUMBER_LENGTH) {
                 binding.editMobileNumber.setError("Please enter a valid 10 digit mobile number");
+                return false;
+            }
+            if (isEmpty(studentpass)) {
+                binding.studentPass.setError("Please enter password");
                 return false;
             }
         }
@@ -249,8 +286,56 @@ public class LoginActivity extends BaseActivity implements OnClickListener, Coac
 
     @Override
     public void coachingDetails(CoachingDetails coachingDetails) {
-        if (coachingDetails.isDaily() == true){
+        if (coachingDetails.isDaily() == true) {
 
         }
     }
+
+    private void dailogUser(List<StudentResponse.User> userList) {
+
+
+        MaterialDialog.Builder dialogBuilder1 = new MaterialDialog.Builder(this);
+        dialogBuilder1.setView(R.layout.dailog_select_user);
+        MaterialDialog dialog1 = dialogBuilder1.create();
+        dialog1.show();
+
+        //  TextView title = dialog1.findViewById(R.id.tv_title);
+        RecyclerView recyclerView = dialog1.findViewById(R.id.listRecycle);
+        Button btnProceed = dialog1.findViewById(R.id.btnProceed);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(dialog1.getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(dialog1.getContext()));
+        AdapterUserSelection adapterBrandList = new AdapterUserSelection(userList, this);
+        recyclerView.setAdapter(adapterBrandList);
+
+
+        adapterBrandList.setClickListener((view, position) -> {
+
+            if (userList.get(position).getTrainerStatus().equals("2")) {
+                String student_id = String.valueOf(userList.get(position).getStudentId());
+                String pincode_id = String.valueOf(userList.get(position).getPincodeId());
+                String pincode = userList.get(position).getPincode();
+                SharedPreferences preferences = getSharedPreferences(Constants.MyPREFERENCES, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(STUDENT_ID, student_id);
+                editor.putString(STUDENT_PINCODE, pincode);
+                editor.putString(STUDENT_PINCODE_ID, pincode_id);
+                editor.putBoolean(Constants.IsStudentLogin, true);
+                editor.putBoolean(Constants.IsTrainerLogin, false);
+                editor.commit();
+                Intent intent = new Intent(this, StudentHomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            } else {
+
+                Toast.makeText(this, "Please Wait Approval needed from trainer", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+
+
+    }
+
 }

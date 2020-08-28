@@ -6,6 +6,7 @@ import com.gsatechworld.musicapp.modules.home.approval.pojo.Slot_Details;
 import java.util.ArrayList;
 
 public class OnboardingRequest {
+
     @SerializedName("pincode_id")
     public String pincode_id;
 
@@ -27,13 +28,11 @@ public class OnboardingRequest {
     @SerializedName("age")
     public String age;
 
-
     @SerializedName("gender")
     public String gender;
 
     @SerializedName("standard")
     public String standard;
-
 
     @SerializedName("school_name")
     public String school_name;
@@ -50,9 +49,12 @@ public class OnboardingRequest {
     @SerializedName("profile_image")
     public String profile_image;
 
+    @SerializedName("password")
+    public String password;
 
 
-    public OnboardingRequest(String pincode_id, String firebase_token,String category_id, String sub_category_id, ArrayList<Slots_Details> slot_details, String name, String age,String gender, String standard, String school_name, String address, String mobile_number, String trainer_id, String profile_image) {
+
+    public OnboardingRequest(String pincode_id, String firebase_token,String category_id, String sub_category_id, ArrayList<Slots_Details> slot_details, String name, String age,String gender, String standard, String school_name, String address, String mobile_number, String trainer_id, String profile_image,String password) {
         this.pincode_id = pincode_id;
         this.firebase_token=firebase_token;
         this.category_id = category_id;
@@ -66,7 +68,8 @@ public class OnboardingRequest {
         this.mobile_number = mobile_number;
         this.trainer_id = trainer_id;
         this.profile_image = profile_image;
-        this.gender=gender;
+        this.gender=gender
+        ;this.password=password;
     }
 
 

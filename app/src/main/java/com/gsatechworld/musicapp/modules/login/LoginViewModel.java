@@ -31,7 +31,7 @@ public class LoginViewModel extends ViewModel {
         return repository.authenticateTrainer(info);
     }
 
-  public LiveData<StudentResponse> authenticateStudent(String mobileNumber) {
-        return repository.authenticateStudent(mobileNumber);
+  public LiveData<StudentResponse> authenticateStudent(String mobileNumber,String pass,String firebaseid) {
+        return repository.authenticateStudent(mobileNumber,pass,firebaseid);
     }
 }

@@ -50,6 +50,7 @@ public interface NetworkAPI {
     /* ------------------------------------------------------------- *
      * Interface Methods
      * ------------------------------------------------------------- */
+
     @Headers({"Content-Type: application/json"})
    @POST("checkPincode")
    Call<CommonResponse> checkAvailability(@Body PinCodeInfo result);
@@ -76,7 +77,7 @@ public interface NetworkAPI {
     Call<CommonResponse> approvalStatusUpdate(@Body ApproveStatus approveStatus);
 
     @POST("loginStudents")
-    Call<StudentResponse> loginStudents(@Query("mobile_number") String mobile);
+    Call<StudentResponse> loginStudents(@Query("mobile_number") String mobile, @Query("password") String password,@Query("firebase_token") String firebase_token);
 
     @POST("onBoardTrainers")
     Call<CommonResponse> addTrainerDetails(@Body OnBoadingTrainer trainerDetails);
@@ -153,16 +154,8 @@ public interface NetworkAPI {
     @POST("trainerCancellationClass")
     Call<CommonResponse> cancelClass_trainer(@Body CancelClass cancelClass);
 
-
-
-
-
-
-
-
-
-
-
+    @POST("students/verifyMobilenumber")
+    Call<CommonResponse> verifyno(@Query("mobile_number") String mobile);
 
 
 

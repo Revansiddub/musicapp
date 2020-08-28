@@ -1,21 +1,17 @@
 package com.gsatechworld.musicapp.modules.student_details;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -27,12 +23,9 @@ import com.gsatechworld.musicapp.R;
 import com.gsatechworld.musicapp.core.base.BaseActivity;
 import com.gsatechworld.musicapp.core.manager.SessionManager;
 import com.gsatechworld.musicapp.databinding.ActivityStudentDetailsBinding;
-import com.gsatechworld.musicapp.modules.details.pojo.Slot_details;
-import com.gsatechworld.musicapp.modules.otp.StudentOTPVerificationActivity;
 import com.gsatechworld.musicapp.modules.student_details.pojo.OnboardingRequest;
-import com.gsatechworld.musicapp.modules.student_details.pojo.StudentDetailsInfo;
-import com.gsatechworld.musicapp.modules.student_home.StudentHomeActivity;
 import com.gsatechworld.musicapp.modules.welcome.WelcomeActivity;
+import com.gsatechworld.musicapp.utilities.CommonUtils;
 import com.gsatechworld.musicapp.utilities.Constants;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -47,12 +40,10 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.Intent.ACTION_GET_CONTENT;
 import static android.content.Intent.createChooser;
-import static android.graphics.Color.TRANSPARENT;
 import static android.os.Build.VERSION_CODES.M;
 import static android.provider.MediaStore.Images.Media.getBitmap;
 import static android.text.TextUtils.isEmpty;
 import static android.view.View.VISIBLE;
-import static android.view.Window.FEATURE_NO_TITLE;
 import static com.bumptech.glide.Glide.with;
 import static com.gsatechworld.musicapp.utilities.Constants.CATEGORY_ID;
 import static com.gsatechworld.musicapp.utilities.Constants.END_TIME;
@@ -61,7 +52,6 @@ import static com.gsatechworld.musicapp.utilities.Constants.MALE;
 import static com.gsatechworld.musicapp.utilities.Constants.MOBILE_NUMBER_LENGTH;
 import static com.gsatechworld.musicapp.utilities.Constants.OPEN_GALLERY_REQUEST_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.PINCODE_ID;
-import static com.gsatechworld.musicapp.utilities.Constants.PIN_CODE;
 import static com.gsatechworld.musicapp.utilities.Constants.PROFILE_IMAGE;
 import static com.gsatechworld.musicapp.utilities.Constants.SERVER_RESPONSE_SUCCESS;
 import static com.gsatechworld.musicapp.utilities.Constants.START_TIME;
@@ -79,16 +69,18 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
      * Private Members
      * ------------------------------------------------------------- */
 
+    public String start_time, end_time;
+    public String pincode_id, category_id, sub_category_id, trainerID;
+    public ArrayList<OnboardingRequest.Slots_Details> timeSlotes;
     private ActivityStudentDetailsBinding binding;
     private StudentDetailsViewModel viewModel;
-    private String gender, fullName, age, standard, schoolName, mobileNumber, address;
+    private String gender, fullName, age, standard, schoolName, mobileNumber, address, password, confpassword;
     private Bitmap profileImageBitmap;
     private String uploadType;
     private String profileImage;
-    public String start_time,end_time;
-    public String pincode_id,category_id,sub_category_id,trainerID;
-    public ArrayList<OnboardingRequest.Slots_Details> timeSlotes;
     private SessionManager sessionManager;
+    private String new_user = "no";
+
 
     /* ------------------------------------------------------------- *
      * Overriding Base Activity Methods
@@ -103,18 +95,17 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
 
         sessionManager = new SessionManager(this);
 
-        trainerID=getIntent().getStringExtra(TRAINER_ID);
-        start_time=getIntent().getStringExtra(START_TIME);
-        end_time=getIntent().getStringExtra(END_TIME);
+        trainerID = getIntent().getStringExtra(TRAINER_ID);
+        start_time = getIntent().getStringExtra(START_TIME);
+        end_time = getIntent().getStringExtra(END_TIME);
         timeSlotes = new ArrayList<>();
-        timeSlotes.add(new OnboardingRequest.Slots_Details(start_time,end_time));
+        timeSlotes.add(new OnboardingRequest.Slots_Details(start_time, end_time));
 
 
-
-        SharedPreferences sharedPreferences=getSharedPreferences(Constants.MyPREFERENCES,MODE_PRIVATE);
-        pincode_id=String.valueOf(sharedPreferences.getInt(PINCODE_ID,0));
-        category_id=sharedPreferences.getString(CATEGORY_ID,null);
-        sub_category_id=sharedPreferences.getString(SUBCATEGORY_ID,null);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.MyPREFERENCES, MODE_PRIVATE);
+        pincode_id = String.valueOf(sharedPreferences.getInt(PINCODE_ID, 0));
+        category_id = sharedPreferences.getString(CATEGORY_ID, null);
+        sub_category_id = sharedPreferences.getString(SUBCATEGORY_ID, null);
 
         /*Initialising View model*/
         viewModel = new ViewModelProvider(this).get(StudentDetailsViewModel.class);
@@ -132,8 +123,33 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
 //        binding.buttonSubmit.setOnClickListener(this);
         binding.imageProfiles.setOnClickListener(this);
         binding.buttonSubmit.setOnClickListener(v -> {
-            if (validateFields()){
+            if (validateFields()) {
                 onBoardStudent();
+            }
+        });
+
+
+        binding.editMobileNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (s.length() > 9) {
+
+                    verifyno(s.toString());
+                } else {
+
+                }
             }
         });
 
@@ -164,15 +180,15 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         switch (view.getId()) {
 
             case R.id.image_profiles:
-              //  Toast.makeText(getApplicationContext(),"hai",Toast.LENGTH_SHORT).show();
-                withActivity(this).withPermissions(WRITE_EXTERNAL_STORAGE,CAMERA).withListener(new MultiplePermissionsListener() {
+                //  Toast.makeText(getApplicationContext(),"hai",Toast.LENGTH_SHORT).show();
+                withActivity(this).withPermissions(WRITE_EXTERNAL_STORAGE, CAMERA).withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        if (report.areAllPermissionsGranted()){
-                            uploadType=PROFILE_IMAGE;
+                        if (report.areAllPermissionsGranted()) {
+                            uploadType = PROFILE_IMAGE;
                             openGallery();
                         }
-                                               }
+                    }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
@@ -207,6 +223,7 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
 
                 gender = FEMALE;
                 break;
+
 //            case R.id.buttonSubmit:
 //                if (validateFields()){
 //                    onBoardStudent();
@@ -243,10 +260,12 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         schoolName = requireNonNull(binding.editSchoolName.getText()).toString();
         mobileNumber = requireNonNull(binding.editMobileNumber.getText()).toString();
         address = requireNonNull(binding.editAddress.getText()).toString();
+        password = requireNonNull(binding.editPassword.getText()).toString();
+        confpassword = requireNonNull(binding.confEditPassword.getText()).toString();
 
 
-        if(profileImageBitmap == null){
-            showErrorSnackBar(this,"Please Upload Your Profile Picture");
+        if (profileImageBitmap == null) {
+            showErrorSnackBar(this, "Please Upload Your Profile Picture");
             return false;
         }
 
@@ -291,13 +310,28 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
             return false;
         }
 
+        if (new_user.equals("yes")) {
+
+            if (CommonUtils.validatePassword(password) != null) {
+                binding.editPassword.requestFocus();
+                binding.editPassword.setError(CommonUtils.validatePassword(password));
+                return false;
+            }
+            if (!password.equals(confpassword)) {
+                binding.confEditPassword.requestFocus();
+                binding.confEditPassword.setError("Confirm Pass Not Matched");
+
+                return false;
+            }
+        }
+
         return true;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             if (requestCode == OPEN_GALLERY_REQUEST_CODE) {
                 if (requireNonNull(data).getClipData() != null) {
                     ClipData mClipData = data.getClipData();
@@ -344,14 +378,14 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
             public void run() {
                 Message msg = Message.obtain();
                 msg.what = STEP_ONE_COMPLETE;
-              //  handler.sendMessage(msg);
+                //  handler.sendMessage(msg);
 
                 profileImage
-                        =encodeToBase64(profileImageBitmap);
+                        = encodeToBase64(profileImageBitmap);
 
                 Message msg2 = Message.obtain();
                 msg2.what = STEP_TWO_COMPLETE;
-               // handler.sendMessage(msg2);
+                // handler.sendMessage(msg2);
 
 
             }
@@ -363,13 +397,41 @@ public class StudentDetailsActivity extends BaseActivity implements OnClickListe
         if (getNetworkInstance(this).isConnectedToInternet()) {
             showLoadingIndicator();
             profileImage
-                    =encodeToBase64(profileImageBitmap);
-            viewModel.onBoardStudent(new OnboardingRequest(pincode_id,sessionManager.getFcmToken(),category_id,sub_category_id,timeSlotes,fullName, age, gender, standard,
-                    schoolName,address, mobileNumber,trainerID,profileImage)).observe(this, commonResponse -> {
+                    = encodeToBase64(profileImageBitmap);
+            viewModel.onBoardStudent(new OnboardingRequest(pincode_id, sessionManager.getFcmToken(), category_id, sub_category_id, timeSlotes, fullName, age, gender, standard,
+                    schoolName, address, mobileNumber, trainerID, profileImage, password)).observe(this, commonResponse -> {
                 hideLoadingIndicator();
-                if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)){
-                    Toast.makeText(getApplicationContext(),"Registration completed Successfully",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(this,WelcomeActivity.class));
+                if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+                    Toast.makeText(getApplicationContext(), "Registration completed Successfully", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(this, WelcomeActivity.class));
+
+                }
+
+            });
+        } else
+            showSnackBar(this, getString(R.string.no_internet_message));
+    }
+
+
+    private void verifyno(String mobileNumber) {
+        if (getNetworkInstance(this).isConnectedToInternet()) {
+            showLoadingIndicator();
+            viewModel.onboard_no(mobileNumber).observe(this, commonResponse -> {
+                hideLoadingIndicator();
+                if (commonResponse != null && commonResponse.getStatus().equals(SERVER_RESPONSE_SUCCESS)) {
+
+
+                    binding.editPassword.setVisibility(VISIBLE);
+                    binding.confEditPassword.setVisibility(VISIBLE);
+                    new_user = "yes";
+
+
+                } else if (commonResponse != null && commonResponse.getStatus().equals("fail")) {
+
+
+                    binding.editPassword.setVisibility(View.GONE);
+                    binding.confEditPassword.setVisibility(View.GONE);
+                    new_user = "no";
 
                 }
 

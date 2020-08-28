@@ -140,12 +140,6 @@ public String otp;
         });
 
 
-
-
-
-
-
-
     }
 
     public void verifyStudentOTP(String OTP){

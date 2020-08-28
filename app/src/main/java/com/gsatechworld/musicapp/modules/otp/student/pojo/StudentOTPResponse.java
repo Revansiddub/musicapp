@@ -22,8 +22,6 @@ public class StudentOTPResponse {
         return pincode;
     }
 
-
-
     public String getStatus() {
         return status;
     }
