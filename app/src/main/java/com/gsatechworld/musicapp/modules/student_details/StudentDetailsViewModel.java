@@ -31,4 +31,8 @@ public class StudentDetailsViewModel extends ViewModel {
     LiveData<CommonResponse> onBoardStudent(OnboardingRequest info) {
         return repository.onBoardStudent(info);
     }
+
+    LiveData<CommonResponse> onboard_no(String mobile) {
+        return repository.onboard_no(mobile);
+    }
 }

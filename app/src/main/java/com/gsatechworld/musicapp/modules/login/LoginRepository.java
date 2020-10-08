@@ -65,11 +65,11 @@ class LoginRepository {
         return trainerMutableLiveData;
     }
 
-    public LiveData<StudentResponse> authenticateStudent(String mobileNumber) {
+    public LiveData<StudentResponse> authenticateStudent(String mobileNumber,String pass,String firebaseid) {
         MutableLiveData<StudentResponse> studentMutableLiveData = new MutableLiveData<>();
 
         networkAPI=NetworkService.getRetrofitInstance().create(NetworkAPI.class);
-        Call<StudentResponse> call=networkAPI.loginStudents(mobileNumber);
+        Call<StudentResponse> call=networkAPI.loginStudents(mobileNumber,pass,firebaseid);
         call.enqueue(new Callback<StudentResponse>() {
             @Override
             public void onResponse(Call<StudentResponse> call, Response<StudentResponse> response) {

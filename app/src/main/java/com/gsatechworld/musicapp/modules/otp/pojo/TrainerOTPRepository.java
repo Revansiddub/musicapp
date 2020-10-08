@@ -46,8 +46,8 @@ public class TrainerOTPRepository {
     LiveData<StudentResponse> authenticateStudent(String mobileNumber) {
         MutableLiveData<StudentResponse> studentMutableLiveData = new MutableLiveData<>();
 
-        studentMutableLiveData.postValue(new StudentResponse(SERVER_RESPONSE_SUCCESS,
-                "Oops! something went wrong. Please try again later.", ""));
+       // studentMutableLiveData.postValue(new StudentResponse(SERVER_RESPONSE_SUCCESS,
+         //       "Oops! something went wrong. Please try again later.", ""));
 
         return studentMutableLiveData;
     }

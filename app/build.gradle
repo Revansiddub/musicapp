@@ -89,6 +89,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-messaging:20.2.0'
 
+    //dialog
+    implementation 'com.github.michael-rapp:android-material-dialog:5.1.6'
 
     /*Calendar View Library*/
     implementation project(path: ':library')
